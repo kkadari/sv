@@ -1,4 +1,3 @@
-cert-ce-ui-tests
-================
+## Setup / Install
 
-A browser-driven UI test suite for the Collaboration Environment
+Please see http://wiki.sure.vine/index.php/CISP_Automated_Tests

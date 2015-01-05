@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="1" name="Admin deletes an incident report" skipped="0" tests="1" time="37.381656">
+<testcase classname="Admin deletes an incident report" name="An administrator deletes an incident report" time="37.381656">
+  <failure message="failed An administrator deletes an incident report" type="failed">
+    <![CDATA[Scenario: An administrator deletes an incident report
+
+Given a participant has raised an incident report
+Then an admin can delete the incident report
+
+Message:
+]]>
+    <![CDATA[Connection refused - connect(2) for "127.0.0.1" port 7055 (Errno::ECONNREFUSED)
+./features/support/pages/content_page.rb:72:in `navigate_to_ir_named'
+./features/step_definitions/admin_deletes_ir_steps.rb:15:in `/^an admin can delete the incident report$/'
+features/admin_deletes_ir.feature:6:in `Then an admin can delete the incident report']]>
+  </failure>
+  <system-out/>
+  <system-err/>
+</testcase>
+  <system-out>
+    <![CDATA[]]>
+  </system-out>
+  <system-err>
+    <![CDATA[]]>
+  </system-err>
+</testsuite>
