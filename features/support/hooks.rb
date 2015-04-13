@@ -10,16 +10,21 @@ Before do
       # export no_proxy="127.0.0.1, localhost"
       profile = Selenium::WebDriver::Firefox::Profile.new
       profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv,application/pdf"
-      @browser = Watir::Browser.new :firefox, :profile => profile
+      profile.native_events = false
       # ABC-108 profile config additions:
-      # profile.proxy = Selenium::WebDriver::Proxy.new :http => false, :ssl => false
-      # profile['proxy.no_proxies_for']='localhost, 127.0.0.1'
+      profile.proxy = Selenium::WebDriver::Proxy.new :http => false, :ssl => false
+      profile['proxy.no_proxies_for']='localhost, 127.0.0.1'
+      @browser = Watir::Browser.new :firefox, :profile => profile
       @browser.window.resize_to(1440, 900)
     when 'chrome'
       @browser = Watir::Browser.new :chrome
     else # Not specified? Use Firefox.
       profile = Selenium::WebDriver::Firefox::Profile.new
       profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv,application/pdf"
+      profile.native_events = false
+      # ABC-108 profile config additions:
+      profile.proxy = Selenium::WebDriver::Proxy.new :http => false, :ssl => false
+      profile['proxy.no_proxies_for']='localhost, 127.0.0.1'
       @browser = Watir::Browser.new :firefox, :profile => profile
       @browser.window.resize_to(1440, 900)
   end
