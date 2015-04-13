@@ -1,4 +1,4 @@
-base_url: http://dev188.sure.vine/
+base_url: http://10.66.2.188/
 
 # Users
 user1_irlname: Stephanie Keelson
@@ -22,12 +22,12 @@ user3_uname_en: normal2
 user3_pswd:  password
 user3_id:    2003
 
-adminuser_irlname: Admin
-adminuser_uname: admin
-adminuser_uname_en: admin
-adminuser_pswd:  admin
+adminuser_irlname: Barry Holmes
+adminuser_uname: barryh@surevine
+adminuser_uname_en: barryh@surevine
+adminuser_pswd:  "*3mQOCCXkGe!Gz7@Q2CN"
 
 # Groups
 custom_group: testing
-secret_group: user2-secret
+secret_group: secret-test-group
 custom_space: TEST-SPACE
