@@ -7,7 +7,7 @@ Before do
       # On ABC-108, bypass proxy with following script:
       # /etc/profile.d/proxy.sh
       # export http_proxy="http://proxy.com:8000"
-      export no_proxy="127.0.0.1, localhost"
+      # export no_proxy="127.0.0.1, localhost"
       profile = Selenium::WebDriver::Firefox::Profile.new
       profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv,application/pdf"
       @browser = Watir::Browser.new :firefox, :profile => profile
