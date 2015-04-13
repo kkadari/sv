@@ -1,19 +1,19 @@
-base_url: http://10.66.2.114:8080/
+base_url: http://10.66.2.188/
 
 # Users
-user1_irlname: Matt Willshire
-user1_surname: willshire
-user1_uname: willshiremd@surevine
-user1_uname_en: willshiremd@surevine
-user1_pswd: tashcup
-user1_id: willshiremd%40surevine
+user1_irlname: Stephanie Keelson
+user1_surname: keelson
+user1_uname: stephaniek@surevine
+user1_uname_en: stephaniek@surevine
+user1_pswd: %RI6dpNoU#hoyPh%6dBe
+user1_id: stephaniek%40surevine
 
-user2_irlname: Tim Durden
-user2_surname: durden
-user2_uname: durdentj@surevine
-user2_uname_en: durdentj@surevine
-user2_pswd:  Pa55word
-user2_id:    2005
+user2_irlname: Simon Whitson
+user2_surname: whitson
+user2_uname: simonwhi@surevine
+user2_uname_en: simonwhi@surevine
+user2_pswd:  CJ0b^7vDiz486EWrp%Ye
+user2_id:    simonwhi%40surevine
 
 user3_irlname: Normal User2
 user3_surname: user2
