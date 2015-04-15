@@ -10,6 +10,7 @@ class PollSummaryPage
   include IhmBar
 
   page_url("#{FigNewton.base_url}/polls/#{/.*/}")
+  
   link(:edit_poll_button, :text => /Edit/)
   link(:delete, :text => 'Delete')
   button(:confirm_delete, :id => 'poll-delete-submit-button')
@@ -45,7 +46,7 @@ class PollSummaryPage
     sleep 3
     testing_breadcrumb
   end
-  
+
   def archive_poll
     @browser.link(:text => /Archive/).when_present.click
     wait_until do
@@ -54,26 +55,26 @@ class PollSummaryPage
     @browser.button(:id => 'poll-archive-submit-button').when_present.click
     sleep 3
   end
-  
+
   def confirm_poll_archived
     fail "Poll not archived" unless @browser.html.to_s.include? 'This poll was archived on'
   end
-  
+
   def confirm_poll_remains_archived
     fail "Poll did not remain archived" unless @browser.html.to_s.include? 'This poll ended on'
   end
-  
+
   def vote_on_poll
     @browser.element(:xpath => '//*[@id="jive-poll-vote"]/ul[1]/li[1]/a[1]').when_present.click
     sleep 1
     @browser.button(:id => 'vote').when_present.click
   end
-  
+
   def confirm_vote
     wait_until { @browser.element(:xpath => '//*[@id="jive-poll-vote"]/ul[2]/li[1]/span[@class="j-vote-box j-ui-elem j-check"]') }
     sleep 2
   end
-  
+
   def verify_content_exists(title)
     wait_until { @browser.html.to_s.include? title[15] }
     #Ratings widget causes delay in logout link being accessible. Wait for it to fully load. ~TD

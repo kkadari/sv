@@ -11,6 +11,7 @@ class ViewIncidentReportPage
   include MentionModule
 
   page_url(/#{FigNewton.base_url}view\-incidentreport\.jspa\?incidentReportID\=\d+/)
+  
   link(:comment, :text => 'Add a comment')
   link(:edit, :id => 'wysiwyg_id_0_html')
   text_area(:comment_content, :class => 'usertext')
@@ -35,7 +36,7 @@ class ViewIncidentReportPage
     sleep 1
     @browser.button(:name => 'post').when_present.click
   end
-  
+
   def add_review(data={})
     @browser.div(:class => 'jive-content-avgrating').wait_until_present
     @browser.div(:class => 'jive-content-userrating-score').when_present.click
@@ -60,21 +61,21 @@ class ViewIncidentReportPage
     sleep 1
     @browser.button(:name => 'post').when_present.click
   end
-  
+
   def add_comment_mentioning_tim
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
     mention_tim
     @browser.button(:name => 'post').when_present.click
   end
-  
+
   def add_comment_mentioning_matt
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
     mention_matt
     @browser.button(:name => 'post').when_present.click
   end
-  
+
   def add_anon_comment_mentioning_tim
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
@@ -86,7 +87,7 @@ class ViewIncidentReportPage
     sleep 1
     @browser.button(:name => 'post').when_present.click
   end
-  
+
   def add_anon_comment_mentioning_matt
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click

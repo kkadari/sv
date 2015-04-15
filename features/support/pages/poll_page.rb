@@ -13,6 +13,7 @@ class PollPage
   include PublishBar
 
   page_url(/#{FigNewton.base_url}\/poll\/create\.jspa\?sr\=cmenu\&containerType\=\d+\&containerID\=\d+/)
+  
   text_field(:subject, :name => 'subject')
   text_area(:body, :class => 'usertext')
   text_field(:tags, :xpath => "//div[contains(@id,'jive-compose-tags-form')]//input[@type=\"text\"][1]")

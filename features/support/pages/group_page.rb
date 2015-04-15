@@ -4,6 +4,7 @@ class GroupPage
   include DataMagic
 
   page_url(/#{FigNewton.base_url}\/create-group!input.jspa?sr=cmenu/)
+  
   text_field(:name, :id => 'jive-socialgroup-name-input')
   text_area(:description, :id => 'jive-socialgroup-desc')
   text_field(:tags, :id => 'jive-tags')
@@ -34,7 +35,7 @@ class GroupPage
         fail "Incorrect type selection: #{type}"
     end
   end
-  
+
   def verify_cannot_create_group
     browser.goto "#{FigNewton.base_url}/edit-place.jspa?sr=cmenu&containerType=700"
     fail 'Not presented with Unauthorized page' unless @browser.div(:id => 'jive-body-intro-content').h1.text.include?('Unauthorized')

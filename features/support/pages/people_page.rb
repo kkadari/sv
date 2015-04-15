@@ -8,6 +8,7 @@ class PeoplePage
   include UserModal
 
   page_url("#{FigNewton.base_url}/people")
+  
   link(:user1_profile, :href => "/people/#{FigNewton.user1_uname_en.gsub(/\s+/, "")}")
   link(:user2_profile, :href => "/people/#{FigNewton.user2_uname_en.gsub(/\s+/, "")}")
   link(:user3_profile, :href => "/people/#{FigNewton.user3_uname_en.gsub(/\s+/, "")}")
@@ -25,12 +26,12 @@ class PeoplePage
         fail "Unknown user provided"
     end
   end
-  
+
   def search_for_user(name)
     @browser.text_field(:name => 'query').set name
-    @browser.send_keys :return    
+    @browser.send_keys :return
   end
-  
+
   def click_result(name)
     result = "people\/#{FigNewton.user1_id}"
     @browser.link(:href => /#{result}/).when_present.click

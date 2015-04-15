@@ -10,8 +10,9 @@ class BlogPostSummaryPage
   include DataMagic
   include PdfExport
   include IhmBar
-  
+
   page_url("#{FigNewton.base_url}/people/#{/.*/}")
+  
   link(:edit_blog_button, :text => /Edit/)
   link(:delete, :text => /Delete/)
   button(:confirm_delete, :id => 'blogpost-delete-submit-button')
@@ -46,7 +47,7 @@ class BlogPostSummaryPage
     @browser.button(:name => 'post').wait_until_present
     submit
   end
-  
+
   def verify_content_exists(title)
     wait_until { @browser.html.to_s.include? title[15] }
   end

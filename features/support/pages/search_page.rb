@@ -7,6 +7,7 @@ class SearchPage
   include UserModal
 
   page_url("#{FigNewton.base_url}/search")
+  
   text_field(:search, :id => 'j-search-input')
   link(:people, :title => 'Search for People')
   link(:incident_reports, :title => 'Show Incident Reports')

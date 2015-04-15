@@ -11,6 +11,7 @@ class ViewDiscussionPage
   include MentionModule
 
   page_url(/#{FigNewton.base_url}thread\/\d+/)
+  
   link(:reply, :title => "Reply to this message")
   link(:edit, :id => "wysiwygtext1_html")
   text_area(:comment_content, :class => 'usertext')

@@ -13,6 +13,7 @@ class IncidentReportSummaryPage
   include IhmBar
 
   page_url(/#{FigNewton.base_url}\/view\-incidentreport\.jspa\?incidentReportID\=\d+/)
+  
   link(:delete, :text => /Delete/)
   button(:confirm_delete, :id => 'deletebutton')
   link(:edit_ir_button, :text => /Edit/)
@@ -46,7 +47,7 @@ class IncidentReportSummaryPage
     fail 'Incident ID not captured' unless incident_id =~ /^\d+$/
     return incident_id
   end
-  
+
   def navigate_directly_to_ir_with_id(incident_id)
     browser.goto "#{FigNewton.base_url}/view-incidentreport.jspa?incidentReportID=#{incident_id}"
   end

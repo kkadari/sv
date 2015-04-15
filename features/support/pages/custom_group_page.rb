@@ -8,6 +8,7 @@ class CustomGroupPage
   include UserModal
 
   page_url("#{FigNewton.base_url}/#{FigNewton.custom_group}")
+  
   link(:content_page, :href => "/groups/#{FigNewton.custom_group}/content")
 
   def follow_in_connections_stream

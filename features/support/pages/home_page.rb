@@ -17,6 +17,7 @@ class HomePage
   include DataMagic
 
   page_url("#{FigNewton.base_url}/activity")
+  
   link(:connections_stream, :text => 'Connections Stream')
 
   def confirm_ir_present_with(subject)
@@ -36,7 +37,7 @@ class HomePage
   def navigate_to_content_named(subject)
     search = subject[6..50]
     sleep 3
-    @browser.link(:text, /#{search}/).click # Search for string in Recent Content widget? ~TD
+    @browser.link(:text, /#{search}/).click
   end
 
   def navigate_to_blog_post_named(subject)
@@ -62,7 +63,7 @@ class HomePage
     click_create
     click_to_create_type(type)
   end
-  
+
   def navigate_to_connections_stream
     connections_stream
   end
