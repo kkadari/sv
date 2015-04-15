@@ -34,23 +34,3 @@ adminuser_pswd:     ~ENV['adminuser_pswd']
 custom_group:       ~ENV['custom_group']
 secret_group:       ~ENV['secret_group']
 custom_space:       ~ENV['custom_space']
-
-export user2_irlname="Simon Whitson"
-export user2_surname="whitson"
-export user2_uname="simonwhi@surevine"
-export user2_uname_en="simonwhi@surevine"
-export user2_pswd="CJ0b^7vDiz486EWrp%Ye"
-export user2_id="simonwhi%40surevine"
-export user3_irlname="Normal User2"
-export user3_surname="user2"
-export user3_uname="normal2"
-export user3_uname_en="normal2"
-export user3_pswd="password"
-export user3_id="2003"
-export adminuser_irlname="Barry Holmes"
-export adminuser_uname="barryh@surevine"
-export adminuser_uname_en="barryh@surevine"
-export adminuser_pswd="*3mQOCCXkGe!Gz7@Q2CN"
-export custom_group="testing"
-export secret_group="secret-test-group"
-export custom_space="test-space"
