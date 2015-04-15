@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'cucumber'
 gem 'rspec'
-gem 'page-object'
+gem 'page-object', '1.0.3'
 gem 'data_magic'
 gem 'faker'
 gem 'fig_newton'
