@@ -8,7 +8,7 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
   user = "#{login}"
   case user
     when user = 'participant A'
-      visit(LoginPage).log_in username = FigNewton.user1_uname, password = FigNewton.user1_pswd
+      visit(LoginPage).log_in username = user1_uname, password = user1_pswd
     when user = 'participant B'
       visit(LoginPage).log_in username = FigNewton.user2_uname, password = FigNewton.user2_pswd
     when user = 'admin'

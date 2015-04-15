@@ -7,6 +7,7 @@ require 'faker'
 require 'active_support/time'
 require 'pdf-reader'
 require 'open-uri'
+require File.dirname(__FILE__) + '/test_config'
 
 if ENV['HEADLESS']
   require 'headless'
@@ -18,6 +19,9 @@ if ENV['HEADLESS']
 end
 
 World(PageObject::PageFactory)
+World do
+  TestConfig.new
+end
 
 require_all File.dirname(__FILE__) + '/pages'
 
