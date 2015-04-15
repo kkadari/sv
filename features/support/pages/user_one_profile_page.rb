@@ -7,7 +7,7 @@ class UserOneProfilePage
   include NavRibbon
   include UserModal
 
-  page_url("#{FigNewton.base_url}/people/#{user1_id}")
+  page_url("#{FigNewton.base_url}/people/#{FigNewton.user1_id}")
 
   def edit_profile
     @browser.link(:href => /edit-profile\!/).when_present.click

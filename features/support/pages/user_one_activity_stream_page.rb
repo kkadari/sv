@@ -6,7 +6,7 @@ class UserOneActivityStreamPage
   include NavRibbon
   include UserModal
 
-  page_url("#{FigNewton.base_url}/people/#{user1_id}/activity")
+  page_url("#{FigNewton.base_url}/people/#{FigNewton.user1_id}/activity")
 
   def confirm_no_anon_content
     !fail 'Anonymous content visible' unless @browser.html.to_s.include? 'Anonymous'

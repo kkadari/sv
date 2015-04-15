@@ -8,7 +8,7 @@ class UserOneProfileEditPage
   include NavRibbon
   include UserModal
 
-  page_url("#{FigNewton.base_url}/edit-profile!input.jspa?targetUser=#{user1_id}")
+  page_url("#{FigNewton.base_url}/edit-profile!input.jspa?targetUser=#{FigNewton.user1_id}")
 
   link(:privacy_settings, :text => 'Privacy Settings')
   text_field(:main_phone, :name => /profile\[\d+\]\.phoneNumbers\[\d+\]\.phoneNumber$/)
