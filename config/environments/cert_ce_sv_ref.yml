@@ -1,9 +1,9 @@
 base_url:           http://dev188.sure.vine/
 
 # Users
-user1_irlname:      <%= ENV['user1_irlname'] %>
+user1_irlname:      <%= ENV['USER1_IRLNAME'] %>
 user1_surname:      <%= ENV['user1_surname'] %>
-user1_uname:        <%= ENV['user1_uname'] %>
+user1_uname:        <%= ENV['USER1_UNAME'] %>
 user1_uname_en:     <%= ENV['user1_uname_en'] %>
 user1_pswd:         <%= ENV['user1_pswd'] %>
 user1_id:           <%= ENV['user1_id'] %>
