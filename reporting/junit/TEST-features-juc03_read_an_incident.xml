@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite errors="0" failures="1" name="JUC3 - Read an incident" skipped="0" tests="1" time="6.160658">
+<testcase classname="JUC3 - Read an incident" name="Participant views an anonymous incident report" time="6.160658">
+  <failure message="failed Participant views an anonymous incident report" type="failed">
+    <![CDATA[Scenario: Participant views an anonymous incident report
+
+Given I have logged in as "participant A"
+And I have raised a white incident report anonymously in a private group
+When I have logged in as "participant B"
+Then I can view the anonymous incident report
+
+Message:
+]]>
+    <![CDATA[Window not found. The browser window may have been closed. (Selenium::WebDriver::Error::NoSuchWindowError)
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/command-processor.js:11683:23:in `nsCommandProcessor.prototype.execute'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/driver-component.js:8430:5:in `Dispatcher.executeAs/<'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/driver-component.js:8577:219:in `Resource.prototype.handle'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/driver-component.js:8524:36:in `Dispatcher.prototype.dispatch'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/driver-component.js:11466:5:in `WebDriverServer/<.handle'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/httpd.js:1935:41:in `createHandlerFunc/<'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/httpd.js:2261:15:in `ServerHandler.prototype.handleResponse'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/httpd.js:1168:5:in `Connection.prototype.process'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/httpd.js:1616:5:in `RequestReader.prototype._handleResponse'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/httpd.js:1464:9:in `RequestReader.prototype._processBody'
+[remote server] file:///var/folders/1c/fh_gzhm90cb0mrzrldn8d34r0000gn/T/webdriver-profile20150415-10698-18ridqf/extensions/fxdriver@googlecode.com/components/httpd.js:1333:9:in `RequestReader.prototype.onInputStreamReady'
+./features/support/modules/nav_ribbon.rb:21:in `click_create'
+./features/support/pages/home_page.rb:63:in `create'
+./features/step_definitions/juc12_raise_an_incident_steps.rb:5:in `/^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/'
+features/juc03_read_an_incident.feature:7:in `And I have raised a white incident report anonymously in a private group']]>
+  </failure>
+  <system-out/>
+  <system-err/>
+</testcase>
+  <system-out>
+    <![CDATA[~ENV['user1_uname']
+~ENV['user1_pswd']
+]]>
+  </system-out>
+  <system-err>
+    <![CDATA[]]>
+  </system-err>
+</testsuite>
