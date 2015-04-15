@@ -30,4 +30,4 @@ adminuser_pswd:  "*3mQOCCXkGe!Gz7@Q2CN"
 # Groups
 custom_group: testing
 secret_group: secret-test-group
-custom_space: TEST-SPACE
+custom_space: test-space
