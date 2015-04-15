@@ -7,8 +7,8 @@ class CustomGroupContentPage
   include NavRibbon
   include UserModal
 
-  page_url("#{FigNewton.base_url}/groups/#{FigNewton.custom_group}/content")
-  
+  page_url("#{FigNewton.base_url}/groups/#{custom_group}/content")
+
   link(:incident_report, :href => /create\-incidentreport\!input\.jspa\?containerType\=14&containerID\=\d+/)
 
   def create_incident_report

@@ -13,7 +13,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   @marking = marking
   on(HomePage).create('blog')
   on(BlogPostPage).set_ihm_level(@marking)
-  on(BlogPostPage).publish_to(FigNewton.custom_group)
+  on(BlogPostPage).publish_to(custom_group)
   on(BlogPostPage).complete_blog_post :subject => @subject
   on(BlogPostSummaryPage).verify_content_exists(@subject)
   on(BlogPostSummaryPage).correct_ihm_displayed(@marking)

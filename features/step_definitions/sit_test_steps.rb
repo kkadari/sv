@@ -7,7 +7,7 @@ Given(/^I create all the content types$/) do
   visit(LoginPage).log_in
   on(HomePage).create('incident_report')
   on(IncidentReportPage).set_ihm_level('red')
-  on(IncidentReportPage).publish_to(FigNewton.custom_group)
+  on(IncidentReportPage).publish_to(custom_group)
   on(IncidentReportPage).complete_incident_report :subject => @ir_subject
   on(IncidentReportSummaryPage).click_home
   sleep 3
@@ -15,7 +15,7 @@ Given(/^I create all the content types$/) do
   title[:po] = @subject
   on(HomePage).create('poll')
   on(PollPage).set_ihm_level('amber')
-  on(PollPage).publish_to(FigNewton.custom_group)
+  on(PollPage).publish_to(custom_group)
   on(PollPage).complete_poll :subject => @subject
   sleep 1
   on(PollSummaryPage).click_home
@@ -27,18 +27,18 @@ Given(/^I create all the content types$/) do
   on(BlogPostPage).complete_blog_post :subject => @subject
   on(BlogPostSummaryPage).click_home
   sleep 3
-  @subject = on(HomePage).create_title_for('discussion') 
+  @subject = on(HomePage).create_title_for('discussion')
   title[:di] = @subject
   on(HomePage).create('discussion')
   on(DiscussionPage).set_ihm_level('white')
-  on(DiscussionPage).publish_to(FigNewton.custom_group)
+  on(DiscussionPage).publish_to(custom_group)
   on(DiscussionPage).complete_discussion :subject => @subject
   on(DiscussionSummaryPage).click_home
   on(DiscussionSummaryPage).log_out
 end
 
 Then(/^I can view all the created content types as another user$/) do
-  visit(LoginPage).log_in username = FigNewton.user2_uname, password = FigNewton.user2_pswd
+  visit(LoginPage).log_in username = user2_uname, password = user2_pswd
   on(HomePage).click_content
   on(ContentPage).click_polls
   on(ContentPage).verify_poll_exists_with title[:po]
@@ -56,7 +56,7 @@ Given(/^all the content types have been created$/) do
 end
 
 Then(/^I can search for all the content types as another user$/) do
-  visit(LoginPage).log_in username = FigNewton.user2_uname, password = FigNewton.user2_pswd
+  visit(LoginPage).log_in username = user2_uname, password = user2_pswd
   on(HomePage).search_for title[:bp]
   sleep 3
   on(SearchResultsPage).verify_content_exists title[:bp]
@@ -100,7 +100,7 @@ Then(/^I can delete all the content types as the author$/) do
 end
 
 When(/^as an admin I can delete incident reports$/) do
-  visit(LoginPage).log_in username = FigNewton.adminuser_uname, password = FigNewton.adminuser_pswd
+  visit(LoginPage).log_in username = adminuser_uname, password = adminuser_pswd
   on(HomePage).click_content
   on(ContentPage).navigate_to_ir_named title[:ir]
   on(IncidentReportSummaryPage).delete_incident_report

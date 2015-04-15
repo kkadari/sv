@@ -13,7 +13,7 @@ class IncidentReportSummaryPage
   include IhmBar
 
   page_url(/#{FigNewton.base_url}\/view\-incidentreport\.jspa\?incidentReportID\=\d+/)
-  
+
   link(:delete, :text => /Delete/)
   button(:confirm_delete, :id => 'deletebutton')
   link(:edit_ir_button, :text => /Edit/)
@@ -38,7 +38,7 @@ class IncidentReportSummaryPage
   def confirm_first_comment_is_anonymous
     sleep 3
     !fail 'Not marked as anonymous' unless browser.img(:class => "jive-avatar anonymous-avatar").exists?
-    !fail 'Username visible' if browser.divs(:class => "jive-comment-container").first.text.include? FigNewton.user1_uname
+    !fail 'Username visible' if browser.divs(:class => "jive-comment-container").first.text.include? user1_uname
   end
 
   def capture_incident_id

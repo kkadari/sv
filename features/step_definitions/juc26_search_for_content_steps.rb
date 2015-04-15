@@ -22,11 +22,11 @@ Then (/^I am not able to view their identity on the comment when I search for th
 end
 
 Given /^I have used spotlight search to search for a participant$/ do
-  on(HomePage).verify_spotlight_search_result_exists(FigNewton.user2_uname)
-  on(HomePage).search_for(FigNewton.user2_uname)
+  on(HomePage).verify_spotlight_search_result_exists(user2_uname)
+  on(HomePage).search_for(user2_uname)
   on(SearchResultsPage).click_people
 end
 
 Then /^details for that participant are returned by Jive search$/ do
-  on(SearchResultsPage).verify_results_present_for(FigNewton.user2_uname)
+  on(SearchResultsPage).verify_results_present_for(user2_uname)
 end

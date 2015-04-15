@@ -7,12 +7,12 @@ class UserOneProfilePage
   include NavRibbon
   include UserModal
 
-  page_url("#{FigNewton.base_url}/people/#{FigNewton.user1_id}")
+  page_url("#{FigNewton.base_url}/people/#{user1_id}")
 
   def edit_profile
     @browser.link(:href => /edit-profile\!/).when_present.click
   end
-  
+
   def click_activity
     @browser.link(:text => 'Activity').when_present.click
   end
@@ -35,11 +35,11 @@ class UserOneProfilePage
   end
 
   def confirm_restriction_visible
-    fail "Name not visible, and should be" unless @browser.html.include? FigNewton.user1_irlname
+    fail "Name not visible, and should be" unless @browser.html.include? user1_irlname
   end
 
   def confirm_restriction_invisible
-    fail "Name visible, and should not be" if @browser.html.to_s.include? FigNewton.user1_irlname
+    fail "Name visible, and should not be" if @browser.html.to_s.include? user1_irlname
   end
 
   def confirm_incident_report_invisible(subject)

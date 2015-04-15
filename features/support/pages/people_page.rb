@@ -8,10 +8,10 @@ class PeoplePage
   include UserModal
 
   page_url("#{FigNewton.base_url}/people")
-  
-  link(:user1_profile, :href => "/people/#{FigNewton.user1_uname_en.gsub(/\s+/, "")}")
-  link(:user2_profile, :href => "/people/#{FigNewton.user2_uname_en.gsub(/\s+/, "")}")
-  link(:user3_profile, :href => "/people/#{FigNewton.user3_uname_en.gsub(/\s+/, "")}")
+
+  link(:user1_profile, :href => "/people/#{user1_uname_en.gsub(/\s+/, "")}")
+  link(:user2_profile, :href => "/people/#{user2_uname_en.gsub(/\s+/, "")}")
+  link(:user3_profile, :href => "/people/#{user3_uname_en.gsub(/\s+/, "")}")
   text_area(:search, :name => 'query')
 
   def view_profile(user = 'user1')
@@ -33,7 +33,7 @@ class PeoplePage
   end
 
   def click_result(name)
-    result = "people\/#{FigNewton.user1_id}"
+    result = "people\/#{user1_id}"
     @browser.link(:href => /#{result}/).when_present.click
   end
 

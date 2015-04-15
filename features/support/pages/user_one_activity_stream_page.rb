@@ -5,8 +5,8 @@ class UserOneActivityStreamPage
   include PageObject
   include NavRibbon
   include UserModal
-  
-  page_url("#{FigNewton.base_url}/people/#{FigNewton.user1_id}/activity")
+
+  page_url("#{FigNewton.base_url}/people/#{user1_id}/activity")
 
   def confirm_no_anon_content
     !fail 'Anonymous content visible' unless @browser.html.to_s.include? 'Anonymous'
@@ -17,6 +17,6 @@ class UserOneActivityStreamPage
     browser.links(:class => "j-js-show-all j-expand").first.click
     sleep 4 # allow time for comment to display
     !fail 'Not marked as anonymous' unless browser.divs(:class => "j-act-comment").first.text.include? 'Anonymous'
-    !fail 'Username visible' if browser.divs(:class => "j-act-comment").first.text.include? FigNewton.user1_uname
+    !fail 'Username visible' if browser.divs(:class => "j-act-comment").first.text.include? user1_uname
   end
 end

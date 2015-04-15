@@ -7,7 +7,7 @@ class UserOnePrivacyEditPage
   include NavRibbon
   include UserModal
 
-  page_url("#{FigNewton.base_url}/edit-profile-security!input.jspa?targetUser=#{FigNewton.user1_id}")
+  page_url("#{FigNewton.base_url}/edit-profile-security!input.jspa?targetUser=#{user1_id}")
 
   def restrict_name
     @browser.select_list(:name => 'nameSecurityLevelID').select 'Connections'
