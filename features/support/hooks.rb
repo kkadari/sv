@@ -46,7 +46,7 @@ def embed_screenshot(scenarioTitle)
   # Open fails and emits an error
   # The workaround is to  create two images, one to satisfy the erroneous open and one
   # to embed in the HTML
-  @browser.driver.save_screenshot("./screenshots/#{scenarioTitle}_screenshot.png")
+  @browser.driver.save_screenshot("./reporting/screenshots/#{scenarioTitle}_screenshot.png")
 
   # HTML report is served from ./reporting so this will read ./reporting/screenshots from the HTML
   # but when this embed is called the file open command will read from ./screenshots
