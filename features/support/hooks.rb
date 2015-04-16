@@ -35,6 +35,9 @@ end
 private
 
 def embed_screenshot(scenarioTitle)
+  directory_name = "./reporting/screenshots"
+  Dir.mkdir(directory_name) unless File.exists?(directory_name)
+
   scenarioTitle = scenarioTitle.tr(' ', '_')
   @browser.driver.save_screenshot("./reporting/screenshots/#{scenarioTitle}_screenshot.png")
   # Workaround for bug whereby an attempt is made to open
