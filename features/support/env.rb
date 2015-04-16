@@ -8,6 +8,7 @@ require 'active_support/time'
 require 'pdf-reader'
 require 'open-uri'
 require File.dirname(__FILE__) + '/test_config'
+require File.dirname(__FILE__) + '/url_factory.rb'
 
 if ENV['HEADLESS']
   require 'headless'
