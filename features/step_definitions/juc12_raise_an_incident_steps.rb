@@ -2,17 +2,21 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   @subject = on(HomePage).create_title_for('incident')
   @marking = marking
   @location = location
-  on(HomePage).create('incident_report')
-  on(IncidentReportPage).set_ihm_level(@marking)
-  on(IncidentReportPage).set_publish_level(@location)
-  if (anonymous)
-    on(IncidentReportPage).raise_anonymously
-  end
-  on(IncidentReportPage).complete_incident_report :subject => @subject
-  on(IncidentReportSummaryPage).verify_content_exists(@subject)
-  on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
-  @incident_id = on(IncidentReportSummaryPage).capture_incident_id
-  @incident_url = on(IncidentReportSummaryPage).capture_url
+#  on(HomePage).create('incident_report')
+#  on(IncidentReportPage).set_ihm_level(@marking)
+#  on(IncidentReportPage).set_publish_level(@location)
+#  if (anonymous)
+#    on(IncidentReportPage).raise_anonymously
+#  end
+#  on(IncidentReportPage).complete_incident_report :subject => @subject
+#  on(IncidentReportSummaryPage).verify_content_exists(@subject)
+#  on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
+
+  Request.create_incident_report @browser.cookies.to_a, @subject, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", @anonymous
+
+  # I've probably broken something here by comment this out but I thought I should make a note to fix this when the time comes
+  #  @incident_id = on(IncidentReportSummaryPage).capture_incident_id
+  #  @incident_url = on(IncidentReportSummaryPage).capture_url
 end
 
 Given /^I have mentioned "([^\"]+)" in? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |user, marking, anonymous, location|
