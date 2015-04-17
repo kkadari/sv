@@ -1,5 +1,3 @@
-require 'net/http'
-
 module Request
   include FigNewton
 
@@ -53,8 +51,9 @@ module Request
       "jiveTokenName":"jive.token.content.incidentReport.create"
     }'
 
-    resp, data = http.post(uri.path, payload, headers)
-    return resp.code
+    resp = http.post(uri.path, payload, headers)
+
+    return JSON.parse(resp.body)
   end
 
   private

@@ -35,6 +35,7 @@ Then /^I as an admin can view the anonymous incident report$/ do
 end
 
 Then (/^I can search for the incident report by ID and view the incident report$/) do
+  sleep 2
   navigate_to(HomePage)
   on(HomePage).search_for(@incident_id)
   on(IncidentReportSummaryPage).verify_content_exists @subject
