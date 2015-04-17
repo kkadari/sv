@@ -24,6 +24,7 @@ World do
 end
 
 require_all File.dirname(__FILE__) + '/pages'
+require_all File.dirname(__FILE__) + '/api'
 
 PageObject::PageFactory.routes = {
   :default => [[WelcomePage, :click_home],
