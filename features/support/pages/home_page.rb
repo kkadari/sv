@@ -26,11 +26,10 @@ class HomePage
   end
 
   def navigate_to_ir_named(subject)
-    search = subject[6..50]
     wait_until do
-      @browser.html.include? search
+      @browser.form(:class,"status-morecontent-form").exists?
     end
-    @browser.link(:text, /#{search}/).click
+    @browser.link(:text, subject).click
     sleep 2
   end
 

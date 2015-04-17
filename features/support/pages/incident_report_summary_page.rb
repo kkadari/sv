@@ -57,7 +57,7 @@ class IncidentReportSummaryPage
   end
 
   def verify_content_exists(title)
-    wait_until { @browser.html.to_s.include? title[15] }
+    wait_until { @browser.html.to_s.include? title }
     #Ratings widget causes delay in logout link being accessible. Wait for it to fully load. ~TD
     @browser.div(:class => 'jive-content-avgrating-score').wait_until_present
   end

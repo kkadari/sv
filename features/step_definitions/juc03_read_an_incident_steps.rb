@@ -24,13 +24,11 @@ Then /^I can see the incident in my activity stream$/ do
 end
 
 Then /^I can view the anonymous incident report$/ do
-  on(HomePage).click_content
   on(HomePage).navigate_to_ir_named(@subject)
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
 end
 
 Then /^I as an admin can view the anonymous incident report$/ do
-  on(HomePage).click_content
   on(HomePage).navigate_to_ir_named(@subject)
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
   on(IncidentReportSummaryPage).verify_anonymous
