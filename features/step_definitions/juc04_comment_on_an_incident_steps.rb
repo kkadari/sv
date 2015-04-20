@@ -1,5 +1,4 @@
 Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
-  on(HomePage).click_content
   on(HomePage).navigate_to_ir_named(@subject)
   if (anonymous)
     on(ViewIncidentReportPage).add_comment_anonymously
@@ -9,7 +8,6 @@ Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymousl
 end
 
 Then /^I? (?:can|have)? (?:review|reviewed) the incident report( anonymously)?$/ do |anonymous|
-  on(HomePage).click_content
   on(HomePage).navigate_to_ir_named(@subject)
   if (anonymous)
     on(ViewIncidentReportPage).add_review_anonymously
@@ -19,8 +17,7 @@ Then /^I? (?:can|have)? (?:review|reviewed) the incident report( anonymously)?$/
 end
 
 Given /^I have mentioned "([^\"]+)" in an anonymous comment$/ do |user|
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named(@subject)
+  on(HomePage).navigate_to_ir_named(@subject)
   user_to_mention = "#{user}"
     case user_to_mention
       when user_to_mention = 'participant A'

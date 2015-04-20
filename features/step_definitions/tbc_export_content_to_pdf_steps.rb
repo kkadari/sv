@@ -60,8 +60,7 @@ Then /^I can export the ir to PDF with the correct timestamp$/ do
   utc_offset = -5
   zone = ActiveSupport::TimeZone[utc_offset].name
   text = DateTime.now.in_time_zone(zone).strftime("%b %d, %Y %H")
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named @subject
+  on(HomePage).navigate_to_ir_named @subject
   on(IncidentReportSummaryPage).export_to_pdf
   sleep 3
   on(IncidentReportPdfPage).pdf_includes text

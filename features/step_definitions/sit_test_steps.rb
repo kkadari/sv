@@ -101,8 +101,7 @@ end
 
 When(/^as an admin I can delete incident reports$/) do
   visit(LoginPage).log_in username = adminuser_uname, password = adminuser_pswd
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named title[:ir]
+  on(HomePage).navigate_to_ir_named title[:ir]
   on(IncidentReportSummaryPage).delete_incident_report
   on(IncidentReportPage).log_out
 end

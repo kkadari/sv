@@ -1,13 +1,11 @@
 Then /^I am able to view the marking$/ do
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named(@subject)
+  on(HomePage).navigate_to_ir_named(@subject)
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
 end
 
 Then /^I can verify the anonymous identifiers have been added$/ do
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named(@subject)
+  on(HomePage).navigate_to_ir_named(@subject)
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
   on(IncidentReportSummaryPage).verify_anonymous

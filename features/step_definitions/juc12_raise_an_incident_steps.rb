@@ -74,7 +74,6 @@ Given /^I have raised a white incident report in a private group containing an i
 end
 
 Then /^I can view the internal link$/ do
-  on(HomePage).click_content
   on(HomePage).navigate_to_ir_named(@subject)
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
   fail "Link not present" unless @browser.html.include? @incident_url
