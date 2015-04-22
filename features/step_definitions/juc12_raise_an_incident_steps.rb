@@ -27,7 +27,7 @@ Given /^I have mentioned "([^\"]+)" in? (?:a|an) (red|amber|green|white) inciden
     on(IncidentReportPage).raise_anonymously
   end
   # Insert some mention method from the mention_module here.
-  on(IncidentReportPage).complete_incident_report :subject => @subject, :body => 'Some sample text <body><p><a class="jive_macro jive_macro_user" href="javascript:;" jivemacro="user" ___default_attr="2002" data-objecttype="3" data-orig-content="durdentj@surevine">durdentj@surevine</a></p></body>'
+  on(IncidentReportPage).complete_incident_report :subject => @subject, :body => 'Some sample text <body><p><a class="jive_macro jive_macro_user" href="javascript:;" jivemacro="user" ___default_attr="2013" data-objecttype="3" data-orig-content="simonwhi@surevine">simonwhi@surevine</a></p></body>'
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
   @incident_id = on(IncidentReportSummaryPage).capture_incident_id
