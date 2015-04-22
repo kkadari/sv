@@ -23,7 +23,7 @@ module IhmBar
   
   def edit_handling_level
     options ||= []
-    @browser.radios(:name => 'handlingLevel').when_present.each do | radio |
+    @browser.radios(:name => 'handlingLevel').each do | radio |
       unless radio.checked?
         options << radio.id
       end
