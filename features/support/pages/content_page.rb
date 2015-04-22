@@ -94,7 +94,7 @@ class ContentPage
     search = subject[6..50]
     discussions
     sleep 3
-    @browser.link(:text, /#{search}/).when_present.click
+    @browser.link(:title, /#{search}/).when_present.click
   end
 
   def navigate_to_poll_named(subject)
