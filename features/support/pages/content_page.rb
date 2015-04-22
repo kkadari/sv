@@ -107,7 +107,7 @@ class ContentPage
   def navigate_to_ir_named(subject)
     incident_reports
     sleep 3
-    @browser.link(:text, subject).when_present.click
+    @browser.link(:title, /#{subject}/).when_present.click
     sleep 2
   end
 end
