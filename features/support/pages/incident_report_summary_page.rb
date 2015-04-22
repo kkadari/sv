@@ -35,10 +35,10 @@ class IncidentReportSummaryPage
     fail 'Incident report not anonymous' unless @browser.html.to_s.include? 'This content was posted anonymously by its author'
   end
 
-  def confirm_first_comment_is_anonymous
+  def confirm_first_comment_is_anonymous user_name
     sleep 3
     !fail 'Not marked as anonymous' unless browser.img(:class => "jive-avatar anonymous-avatar").exists?
-    !fail 'Username visible' if browser.divs(:class => "jive-comment-container").first.text.include? user1_uname
+    !fail 'Username visible' if browser.divs(:class => "jive-comment-container").first.text.include? user_name
   end
 
   def capture_incident_id
