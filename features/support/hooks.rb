@@ -12,7 +12,8 @@ After do |scenario|
     embed_screenshot(scenario.title)
   end
 
-  @browser.goto(FigNewton.base_url + '/login.jspa?logout')
+  @browser.cookies.clear
+  @browser.goto(FigNewton.base_url + '/login.jspa')
 end
 
 at_exit do
