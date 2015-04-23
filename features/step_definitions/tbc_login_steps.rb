@@ -16,4 +16,9 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
     else
       fail 'Supplied user not recognised.'
   end
+
+  #A quick hack to force the tests to use one node until the load balancer has been fixed
+  @browser.cookies.delete('JSESSIONID')
+  @browser.cookies.add 'JSESSIONID', 'dev141~24DBD919EEF5F05E808A148B27231227'
+  @browser.refresh
 end

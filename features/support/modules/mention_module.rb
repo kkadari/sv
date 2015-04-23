@@ -15,5 +15,9 @@ module MentionModule
   
   def mention_matt
     @browser.textarea(:class => 'usertext').set "This is a comment mentioning " + '<body><p><a class="jive_macro jive_macro_user" href="javascript:;" jivemacro="user" ___default_attr="2001" data-objecttype="3" data-orig-content="willshiremd@surevine">willshiremd@surevine</a></p></body>'
-  end  
+  end
+
+  def mention_simonwi
+    @browser.textarea(:class => 'usertext').set "This is a comment mentioning " + '<body><p><a class="jive_macro jive_macro_user" href="javascript:;" jivemacro="user" ___default_attr="2013" data-objecttype="3" data-orig-content="simonwhi@surevine">simonwhi@surevine</a></p></body>'
+  end
 end

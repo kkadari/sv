@@ -23,11 +23,11 @@ module PublishBar
       when 'community'
         select_community
       when 'private group'
-        publish_to(custom_group)
+        publish_to(FigNewton.custom_group)
       when 'secret group'
-        publish_to(secret_group)
+        publish_to(FigNewton.secret_group)
       when 'space'
-        publish_to(custom_space)
+        publish_to(FigNewton.custom_space)
       else
         fail 'Something went wrong. Sorry about that.'
     end
