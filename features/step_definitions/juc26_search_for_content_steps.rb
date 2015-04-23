@@ -18,7 +18,7 @@ Then (/^I am not able to view their identity on the comment when I search for th
   on(SearchResultsPage).sort_last_modified_newest_first
   on(SearchResultsPage).verify_content_exists @subject
   on(SearchResultsPage).click_top_result
-  on(IncidentReportSummaryPage).confirm_first_comment_is_anonymous
+  on(IncidentReportSummaryPage).confirm_first_comment_is_anonymous user1_uname
 end
 
 Given /^I have used spotlight search to search for a participant$/ do
