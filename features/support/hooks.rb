@@ -1,35 +1,22 @@
 require 'watir-webdriver'
 require 'syntax'
 
+driver = BrowserFactory.create
+
 Before do
-  case ENV['browser']
-    when 'firefox'
-      # On ABC-108, bypass proxy with following script:
-      # /etc/profile.d/proxy.sh
-      # export http_proxy="http://proxy.com:8000"
-      # export no_proxy="127.0.0.1, localhost"
-      profile = Selenium::WebDriver::Firefox::Profile.new
-      profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv,application/pdf"
-      @browser = Watir::Browser.new :firefox, :profile => profile
-      # ABC-108 profile config additions:
-      # profile.proxy = Selenium::WebDriver::Proxy.new :http => false, :ssl => false
-      # profile['proxy.no_proxies_for']='localhost, 127.0.0.1'
-      @browser.window.resize_to(1440, 900)
-    when 'chrome'
-      @browser = Watir::Browser.new :chrome
-    else # Not specified? Use Firefox.
-      profile = Selenium::WebDriver::Firefox::Profile.new
-      profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv,application/pdf"
-      @browser = Watir::Browser.new :firefox, :profile => profile
-      @browser.window.resize_to(1440, 900)
-  end
+  @browser = driver
 end
 
 After do |scenario|
   if scenario.failed?
     embed_screenshot(scenario.title)
   end
-  @browser.close
+
+  @browser.goto(FigNewton.base_url + '/login.jspa?logout')
+end
+
+at_exit do
+  driver.close
 end
 
 private
