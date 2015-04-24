@@ -44,3 +44,9 @@ Then (/^I can not find the incident report in search if I am not in that group$/
   on(HomePage).search_for(@incident_id)
   on(SearchResultsPage).verify_content_not_exists @subject
 end
+
+Then(/^I will be able to view my recently created report$/) do
+  @browser.goto @incident_url
+  on(IncidentReportSummaryPage).verify_content_exists(@subject)
+  on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
+end
