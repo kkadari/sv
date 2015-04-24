@@ -1,11 +1,13 @@
 Then /^I am able to view the marking$/ do
-  on(HomePage).navigate_to_ir_named(@subject)
+  on(HomePage).click_content
+  on(ContentPage).navigate_to_ir_named(@subject)
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
 end
 
 Then /^I can verify the anonymous identifiers have been added$/ do
-  on(HomePage).navigate_to_ir_named(@subject)
+  on(HomePage).click_content
+  on(ContentPage).navigate_to_ir_named(@subject)
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
   on(IncidentReportSummaryPage).verify_anonymous
@@ -33,7 +35,6 @@ Then /^I as an admin can view the anonymous incident report$/ do
 end
 
 Then (/^I can search for the incident report by ID and view the incident report$/) do
-  sleep 2
   navigate_to(HomePage)
   on(HomePage).search_for(@incident_id)
   on(IncidentReportSummaryPage).verify_content_exists @subject

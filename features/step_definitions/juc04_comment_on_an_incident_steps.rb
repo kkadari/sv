@@ -19,7 +19,8 @@ Then /^I? (?:can|have)? (?:review|reviewed) the incident report( anonymously)?$/
 end
 
 Given /^I have mentioned "([^\"]+)" in an anonymous comment$/ do |user|
-  on(HomePage).navigate_to_ir_named(@subject)
+  on(HomePage).click_content
+  on(ContentPage).navigate_to_ir_named(@subject)
   user_to_mention = "#{user}"
     case user_to_mention
       when user_to_mention = 'participant A'
