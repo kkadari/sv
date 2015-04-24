@@ -23,6 +23,11 @@ module IhmBar
   
   def edit_handling_level
     options ||= []
+
+    wait_until(5, 'Couldn\'t find the radio buttons') do
+      @browser.radio(:name => 'handlingLevel').exists?
+    end
+
     @browser.radios(:name => 'handlingLevel').each do | radio |
       unless radio.checked?
         options << radio.id
