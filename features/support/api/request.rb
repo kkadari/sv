@@ -130,7 +130,7 @@ module Request
       when 'community'
         return '{"visibility":"all"}'
       when 'space'
-        return '{"visibility":"people","users":"' + publication[:users] + '"}'
+        return '{"visibility":"place","container":{"objectType":"14","objectID":"2009"}}'
       when 'private group'
         return '{"visibility":"place","container":{"objectType":"700","objectID":"1004"}}'
       when 'secret group'
