@@ -7,7 +7,11 @@ require 'faker'
 require 'active_support/time'
 require 'pdf-reader'
 require 'open-uri'
+require 'net/http'
+require 'json'
 require File.dirname(__FILE__) + '/test_config'
+require_all File.dirname(__FILE__) + '/pages'
+require_all File.dirname(__FILE__) + '/api'
 
 if ENV['HEADLESS']
   require 'headless'
@@ -22,8 +26,6 @@ World(PageObject::PageFactory)
 World do
   TestConfig.new
 end
-
-require_all File.dirname(__FILE__) + '/pages'
 
 PageObject::PageFactory.routes = {
   :default => [[WelcomePage, :click_home],
