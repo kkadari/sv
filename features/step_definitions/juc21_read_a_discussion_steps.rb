@@ -1,12 +1,3 @@
-Then /^I can view the( anonymous)? discussion$/ do |anonymous|
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_discussion_named(@subject)
-  on(DiscussionSummaryPage).verify_content_exists(@subject)
-  if (anonymous)
-    on(DiscussionSummaryPage).verify_anonymous_as_participant
-  end
-end
-
 Then /^as an admin I can view the anonymous discussion$/ do
   on(HomePage).click_content
   on(ContentPage).navigate_to_discussion_named(@subject)
