@@ -1,13 +1,3 @@
-Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named(@subject)
-  if (anonymous)
-    on(ViewIncidentReportPage).add_comment_anonymously
-  else
-    on(ViewIncidentReportPage).add_comment
-  end
-end
-
 Then /^I? (?:can|have)? (?:review|reviewed) the incident report( anonymously)?$/ do |anonymous|
   on(HomePage).click_content
   on(ContentPage).navigate_to_ir_named(@subject)
