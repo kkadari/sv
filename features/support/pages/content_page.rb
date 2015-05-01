@@ -71,34 +71,34 @@ class ContentPage
   end
 
   def navigate_to_content_named(subject)
-    search = subject[6..50]
+    search = subject[0..25]
     sleep 3
     @browser.link(:text, /#{search}/).when_present.click
   end
 
   def navigate_to_blog_post_named(subject)
-    search = subject[6..50]
+    search = subject[0..25]
     blogs
     sleep 3
     @browser.link(:text, /#{search}/).when_present.click
   end
 
   def navigate_to_document_named(subject)
-    search = subject[6..50]
+    search = subject[0..25]
     documents
     sleep 3
     @browser.link(:text, /#{search}/).when_present.click
   end
 
   def navigate_to_discussion_named(subject)
-    search = subject[6..50]
+    search = subject[0..25]
     discussions
     sleep 3
     @browser.link(:text, /#{search}/).when_present.click
   end
 
   def navigate_to_poll_named(subject)
-    search = subject[6..50]
+    search = subject[0..25]
     polls
     sleep 3
     @browser.link(:text, /#{search}/).when_present.click

@@ -1,6 +1,8 @@
 module BrowserFactory
 
   def self.create
+    Watir.default_timeout = 5
+
     case ENV['browser']
       when 'firefox'
         # On ABC-108, bypass proxy with following script:

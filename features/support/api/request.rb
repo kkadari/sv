@@ -83,7 +83,7 @@ module Request
 
     resp = http.post(uri.path, payload, headers)
 
-    raise 'Could not create discussion' if resp.body.include? 'You are not allowed to create or update this content'
+    raise 'Could not create discussion' if resp.body.include? 'You are not allowed to create or update this content' || resp.code != 200
 
     return JSON.parse(resp.body)
   end
