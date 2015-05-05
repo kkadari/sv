@@ -131,8 +131,8 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   on(BlogPostSummaryPage).correct_ihm_displayed(@marking)
 end
 
-Then (/^I can edit the anonymous incident report$/) do
-  on(IncidentReportSummaryPage).click_edit
+Then /^I can edit the anonymous incident report$/ do
+  visit IncidentReportEditPage, :using_params => {:id => @incident_id}
   on(IncidentReportEditPage).verify_page_title
   @new_subject = on(IncidentReportEditPage).change_subject
   on(IncidentReportSummaryPage).verify_content_exists(@new_subject)

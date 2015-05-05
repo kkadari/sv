@@ -13,7 +13,7 @@ class IncidentReportEditPage
   include SearchBox
   include IhmBar
 
-  page_url("#{FigNewton.base_url}/incidentreports/#{/.*/}/edit")
+  page_url("#{FigNewton.base_url}/incidentreports/<%=params[:id]%>/edit")
 
   text_field(:subject, :id => 'subject')
   
