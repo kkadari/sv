@@ -1,5 +1,5 @@
 Then (/^I can change incident report marking$/) do
-  on(IncidentReportSummaryPage).click_edit
+  visit IncidentReportEditPage, :using_params => {:id => @incident_id}
   on(IncidentReportEditPage).verify_page_title
   @new_color = on(IncidentReportEditPage).change_handling_level
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
