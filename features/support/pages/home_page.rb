@@ -40,7 +40,7 @@ class HomePage
   end
 
   def navigate_to_blog_post_named(subject)
-    search = subject[6..50]
+    search = subject[0..20]
     click_content
     wait_until do
       @browser.html.include? search
