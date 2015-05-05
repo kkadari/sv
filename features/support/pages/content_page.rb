@@ -98,16 +98,17 @@ class ContentPage
   end
 
   def navigate_to_poll_named(subject)
-    search = subject[0..25]
+    search = subject[0..23]
     polls
     sleep 3
     @browser.link(:text, /#{search}/).when_present.click
   end
 
   def navigate_to_ir_named(subject)
+    search = subject[0..25]
     incident_reports
     sleep 3
-    @browser.link(:text, /#{subject}/).when_present.click
+    @browser.link(:text, /#{search}/).when_present.click
     sleep 2
   end
 end
