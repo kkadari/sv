@@ -43,6 +43,10 @@ class PollSummaryPage
   end
 
   def follow_breadcrumb
+    wait_until do
+      @browser.ul(:id,"jive-action-sidebar-tab-list_poll-actions-tab").present?
+    end
+    
     testing_breadcrumb
   end
 
@@ -56,6 +60,10 @@ class PollSummaryPage
 
 
   def confirm_poll_archived
+    wait_until do
+      @browser.div(:id,"j-poll-ended").present?
+    end
+
     fail "Poll not archived" unless @browser.html.to_s.include? 'This poll was archived on'
   end
 
