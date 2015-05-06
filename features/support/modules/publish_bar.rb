@@ -34,21 +34,17 @@ module PublishBar
   end
 
   def publish_to(name)
-    sleep 5
     @browser.radio(:id => 'js-place').when_present.click
     # If a place is already selected, change to the required location.
     if @browser.link(:id => 'js-publishbar-changePlace').present?
       @browser.link(:id => 'js-publishbar-changePlace').click
     end
     @browser.text_field(:id => 'js-publishbar-place-input').when_present.click
-    list = []
-    name.each_char do |i|
-      list.push "#{i}"
-    end
-    @browser.send_keys list
+    @browser.send_keys name
+
     # Wait for place search results popover
     @browser.div(:class => 'j-pop js-pop j-autocomplete j-placePicker popover').wait_until_present
-    @browser.text_field(:id => 'js-publishbar-place-input').send_keys [:down, :return]
-    sleep 2
+    group = name.sub("-"," ").split.map(&:capitalize).join(' ')
+    @browser.link(:text,/#{group}/).click
   end
 end
