@@ -36,7 +36,8 @@ end
 
 Then (/^I can search for the incident report by ID and view the incident report$/) do
   navigate_to(HomePage)
-  on(HomePage).search_for(@incident_id)
+  on(HomePage).verify_spotlight_search_result_exists_for_incident_id @incident_id, @subject
+  on(HomePage).click_search_result(@subject)
   on(IncidentReportSummaryPage).verify_content_exists @subject
 end
 

@@ -6,6 +6,10 @@ module SearchBox
     @browser.send_keys :return
   end
 
+  def click_search_result(term)
+    @browser.link(:text, /#{term}/).when_present.click
+  end
+
   def verify_spotlight_search_result_exists(term)
     attempt = 0
     begin

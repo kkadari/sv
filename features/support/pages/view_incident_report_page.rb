@@ -39,7 +39,7 @@ class ViewIncidentReportPage
 
   def add_review(data={})
     @browser.div(:class => 'jive-content-avgrating').wait_until_present
-    @browser.div(:class => 'jive-content-userrating-score').when_present.click
+    @browser.link(:css => 'div[class="jive-content-userrating-score"] a:nth-child(3)').when_present.click
     @browser.link(:class => 'jive-icon-userrating-3 jive-icon-med jive-icon-rate-usr-on').when_present.click
     @browser.link(:text => 'Write a review').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
