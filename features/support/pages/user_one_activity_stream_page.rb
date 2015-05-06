@@ -13,9 +13,7 @@ class UserOneActivityStreamPage
   end
 
   def confirm_comment_is_anon
-    sleep 4 # allow time for page to render
     browser.links(:class => "j-js-show-all j-expand").first.click
-    sleep 4 # allow time for comment to display
     !fail 'Not marked as anonymous' unless browser.divs(:class => "j-act-comment").first.text.include? 'Anonymous'
     !fail 'Username visible' if browser.divs(:class => "j-act-comment").first.text.include? user1_uname
   end

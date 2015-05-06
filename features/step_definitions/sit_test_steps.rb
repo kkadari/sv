@@ -10,23 +10,23 @@ Given(/^I create all the content types$/) do
   on(IncidentReportPage).publish_to(custom_group)
   on(IncidentReportPage).complete_incident_report :subject => @ir_subject
   on(IncidentReportSummaryPage).click_home
-  sleep 3
+
   @subject = on(HomePage).create_title_for('poll')
   title[:po] = @subject
   on(HomePage).create('poll')
   on(PollPage).set_ihm_level('amber')
   on(PollPage).publish_to(custom_group)
   on(PollPage).complete_poll :subject => @subject
-  sleep 1
+
   on(PollSummaryPage).click_home
-  sleep 3
+
   @subject = on(HomePage).create_title_for('blog')
   title[:bp] = @subject
   on(HomePage).create('blog')
   on(BlogPostPage).set_ihm_level('green')
   on(BlogPostPage).complete_blog_post :subject => @subject
   on(BlogPostSummaryPage).click_home
-  sleep 3
+
   @subject = on(HomePage).create_title_for('discussion')
   title[:di] = @subject
   on(HomePage).create('discussion')
@@ -58,7 +58,7 @@ end
 Then(/^I can search for all the content types as another user$/) do
   visit(LoginPage).log_in username = user2_uname, password = user2_pswd
   on(HomePage).search_for title[:bp]
-  sleep 3
+
   on(SearchResultsPage).verify_content_exists title[:bp]
   on(SearchResultsPage).search_for title[:po]
   on(SearchResultsPage).verify_content_exists title[:po]

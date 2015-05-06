@@ -27,7 +27,7 @@ class DiscussionSummaryPage
     @browser.link(:text => 'Reply').when_present.click
     @browser.link(:id => 'wysiwygtext1_html').when_present.click
     populate_page_with data_for(:DiscussionPage, data)
-    sleep 1
+
     @browser.button(:name => 'post').when_present.click
   end
   

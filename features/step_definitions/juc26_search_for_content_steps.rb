@@ -6,7 +6,7 @@ end
 
 Then (/^I can use the spotlight search to find the incident report by ID$/) do
   navigate_to(HomePage)
-  sleep 10 # allow time for IR to be indexed
+
   on(HomePage).verify_spotlight_search_result_exists_for_incident_id(@incident_id, @subject)
 end
 

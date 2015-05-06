@@ -25,7 +25,6 @@ class DiscussionPage
     @browser.link(:id => 'wysiwygtext_html').when_present.click
     populate_page_with data_for(:DiscussionPage, data)
     @browser.button(:id => 'submitButton').when_present.click
-    sleep 3
   end
   
   def mark_as_question

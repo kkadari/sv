@@ -43,7 +43,6 @@ class PollSummaryPage
   end
 
   def follow_breadcrumb
-    sleep 3
     testing_breadcrumb
   end
 
@@ -53,8 +52,8 @@ class PollSummaryPage
       @browser.text.include? 'Archiving expires a poll and removes it from the active polls list'
     end
     @browser.button(:id => 'poll-archive-submit-button').when_present.click
-    sleep 3
   end
+
 
   def confirm_poll_archived
     fail "Poll not archived" unless @browser.html.to_s.include? 'This poll was archived on'
@@ -66,13 +65,11 @@ class PollSummaryPage
 
   def vote_on_poll
     @browser.element(:xpath => '//*[@id="jive-poll-vote"]/ul[1]/li[1]/a[1]').when_present.click
-    sleep 1
     @browser.button(:id => 'vote').when_present.click
   end
 
   def confirm_vote
     wait_until { @browser.element(:xpath => '//*[@id="jive-poll-vote"]/ul[2]/li[1]/span[@class="j-vote-box j-ui-elem j-check"]') }
-    sleep 2
   end
 
   def verify_content_exists(title)

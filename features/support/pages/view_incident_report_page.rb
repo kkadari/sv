@@ -54,11 +54,8 @@ class ViewIncidentReportPage
     @browser.link(:text => 'Write a review').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
     populate_page_with data_for(:ViewIncidentReportPage, data)
-    sleep 1
     @browser.send_keys :tab
-    sleep 1
     @browser.send_keys :space
-    sleep 1
     @browser.button(:name => 'post').when_present.click
   end
 
@@ -80,11 +77,8 @@ class ViewIncidentReportPage
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
     mention_tim
-    sleep 1
     @browser.send_keys :tab
-    sleep 1
     @browser.send_keys :space
-    sleep 1
     @browser.button(:name => 'post').when_present.click
   end
 
@@ -92,11 +86,8 @@ class ViewIncidentReportPage
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
     mention_simonwi
-    sleep 1
     @browser.send_keys :tab
-    sleep 1
     @browser.send_keys :space
-    sleep 1
     @browser.button(:name => 'post').when_present.click
   end
 end

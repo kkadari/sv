@@ -45,7 +45,7 @@ module GroupRequest
     @browser.div(:id => 'jive-people-search').text_field(:id => 'query').when_present.set(user)
     @browser.button(:id => 'people-search-submit').when_present.click
     @browser.div(:id => 'jive-table-userpicker-body').wait_until_present
-    sleep 3
+
     # Jump inside table, grab the label of first term, then set (click) the associated input (checkbox)
     label = @browser.label(:xpath => '//*[@id="jive-table-userpicker-body"]/table/tbody/tr[1]/td[1]/label')
     @browser.checkbox(:id => label.for).when_present.set
@@ -66,7 +66,7 @@ module GroupRequest
       @browser.div(:id => 'jive-people-search').text_field(:id => 'query').set(user)
       @browser.button(:id => 'people-search-submit').when_present.click
       @browser.div(:id => 'jive-table-userpicker-body').wait_until_present
-      sleep 3
+
       # Jump inside table, grab the label of first term, then set (click) the associated input (checkbox)
       label = @browser.label(:xpath => '//*[@id="jive-table-userpicker-body"]/table/tbody/tr[1]/td[1]/label')
       @browser.checkbox(:id => label.for).when_present.set
