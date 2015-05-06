@@ -6,6 +6,10 @@ module SearchBox
     @browser.send_keys :return
   end
 
+  def click_search_result(term)
+    @browser.link(:text, /#{term}/).when_present.click
+  end
+
   def verify_spotlight_search_result_exists(term)
     attempt = 0
     begin
@@ -13,6 +17,22 @@ module SearchBox
       @browser.div(:class => "j-results", :data_type => "people").wait_until_present
       @browser.span(:class => "result-title").when_present.text.include?(term)
     rescue 
+      attempt += 1
+      if attempt <= 3 # Retry up to 3 times.
+        @browser.text_field(:id, 'autosearch').when_present.set('')
+        retry
+      end
+      fail 'Search term not found'
+    end
+  end
+
+  def verify_spotlight_search_result_exists_and_click(term)
+    attempt = 0
+    begin
+      @browser.text_field(:id, 'autosearch').when_present.set(term)
+      @browser.div(:class => "j-results").wait_until_present
+      @browser.link(:text, /#{term}/).when_present.click
+    rescue
       attempt += 1
       if attempt <= 3 # Retry up to 3 times.
         @browser.text_field(:id, 'autosearch').when_present.set('')

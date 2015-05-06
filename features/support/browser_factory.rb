@@ -17,6 +17,8 @@ module BrowserFactory
         # profile['proxy.no_proxies_for']='localhost, 127.0.0.1'
       when 'chrome'
         driver = Watir::Browser.new :chrome
+      when 'phantom'
+        driver = Watir::Browser.new :remote, url: 'http://localhost:8001'
       else # Not specified? Use Firefox.
         puts 'ENV[\'Browser\'] wasn\'t set.  Reverting to Firefox.'
         profile = Selenium::WebDriver::Firefox::Profile.new

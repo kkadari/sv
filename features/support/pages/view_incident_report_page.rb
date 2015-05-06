@@ -29,17 +29,17 @@ class ViewIncidentReportPage
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
     populate_page_with data_for(:ViewIncidentReportPage, data)
-    sleep 1
-    @browser.send_keys :tab
-    sleep 1
-    @browser.send_keys :space
-    sleep 1
+
+    # Hack for phantomjs to ensure that the checkbox is checked as populate_page doesn't appear to work
+    anonCheck = @browser.checkbox(:id,'attributed-check')
+    anonCheck.click if !anonCheck.set?
+
     @browser.button(:name => 'post').when_present.click
   end
 
   def add_review(data={})
     @browser.div(:class => 'jive-content-avgrating').wait_until_present
-    @browser.div(:class => 'jive-content-userrating-score').when_present.click
+    @browser.link(:css => 'div[class="jive-content-userrating-score"] a:nth-child(3)').when_present.click
     @browser.link(:class => 'jive-icon-userrating-3 jive-icon-med jive-icon-rate-usr-on').when_present.click
     @browser.link(:text => 'Write a review').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
@@ -49,7 +49,7 @@ class ViewIncidentReportPage
 
   def add_review_anonymously(data={})
     @browser.div(:class => 'jive-content-avgrating').wait_until_present
-    @browser.div(:class => 'jive-content-userrating-score').when_present.click
+    @browser.link(:css => 'div[class="jive-content-userrating-score"] a:nth-child(3)').when_present.click
     @browser.link(:class => 'jive-icon-userrating-3 jive-icon-med jive-icon-rate-usr-on').when_present.click
     @browser.link(:text => 'Write a review').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
