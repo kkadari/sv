@@ -29,11 +29,11 @@ class ViewIncidentReportPage
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
     populate_page_with data_for(:ViewIncidentReportPage, data)
-    sleep 1
-    @browser.send_keys :tab
-    sleep 1
-    @browser.send_keys :space
-    sleep 1
+
+    # Hack for phantomjs to ensure that the checkbox is checked as populate_page doesn't appear to work
+    anonCheck = @browser.checkbox(:id,'attributed-check')
+    anonCheck.click if !anonCheck.set?
+
     @browser.button(:name => 'post').when_present.click
   end
 
