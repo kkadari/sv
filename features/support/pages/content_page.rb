@@ -56,24 +56,24 @@ class ContentPage
   end
 
   def navigate_to_content_named(subject)
-    search = subject[0..25]
+    search = subject[0..23]
     @browser.link(:text, /#{search}/).when_present.click
   end
 
   def navigate_to_blog_post_named(subject)
-    search = subject[0..25]
+    search = subject[0..23]
     blogs
     @browser.link(:text, /#{search}/).when_present.click
   end
 
   def navigate_to_document_named(subject)
-    search = subject[0..25]
+    search = subject[0..23]
     documents
     @browser.link(:text, /#{search}/).when_present.click
   end
 
   def navigate_to_discussion_named(subject)
-    search = subject[0..25]
+    search = subject[0..23]
     discussions
     @browser.link(:text, /#{search}/).when_present.click
   end
@@ -85,7 +85,7 @@ class ContentPage
   end
 
   def navigate_to_ir_named(subject)
-    search = subject[0..25]
+    search = subject[0..23]
     incident_reports
     @browser.link(:text, /#{search}/).when_present.click
   end
