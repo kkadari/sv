@@ -34,7 +34,7 @@ class BlogPostSummaryPage
     end
     @browser.button(:id => 'blogpost-delete-submit-button').wait_until_present
     confirm_delete
-    sleep 2
+
   end
 
   def add_comment(data={})
@@ -42,7 +42,7 @@ class BlogPostSummaryPage
     comment
     @browser.link(:id => 'wysiwyg_id_0_html').wait_until_present
     edit
-    sleep 2
+
     populate_page_with data_for(:PollSummaryPage, data)
     @browser.button(:name => 'post').wait_until_present
     submit

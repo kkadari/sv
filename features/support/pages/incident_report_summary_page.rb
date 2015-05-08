@@ -24,7 +24,6 @@ class IncidentReportSummaryPage
       @browser.text.include? 'Are you sure'
     end
     confirm_delete
-    sleep 2
   end
 
   def click_edit
@@ -36,7 +35,6 @@ class IncidentReportSummaryPage
   end
 
   def confirm_first_comment_is_anonymous user_name
-    sleep 3
     !fail 'Not marked as anonymous' unless browser.img(:class => "jive-avatar anonymous-avatar").exists?
     !fail 'Username visible' if browser.divs(:class => "jive-comment-container").first.text.include? user_name
   end

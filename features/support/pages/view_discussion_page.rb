@@ -23,7 +23,6 @@ class ViewDiscussionPage
     @browser.link(:id => "wysiwygtext1_html").when_present.click
     populate_page_with data_for(:ViewDiscussionPage, data)
     @browser.element(:xpath => '//*[@id="postform"]/div[5]/input[1]').when_present.click
-    sleep 3
   end
 
   def comment_anonymously_on_discussion(data={})
@@ -32,38 +31,33 @@ class ViewDiscussionPage
     populate_page_with data_for(:ViewDiscussionPage, data)
     #TODO: Find a better way of clicking the Anonymous checkbox. ~TD
     #@browser.checkbox(:id => 'notAttributable').set
-    sleep 1
+
     @browser.send_keys :tab
-    sleep 1
+
     @browser.send_keys :space
-    sleep 1
+
     @browser.element(:xpath => '//*[@id="postform"]/div[5]/input[1]').when_present.click
-    sleep 3
+
   end
 
   def comment_on_comment(data={})
-    sleep 2
     @browser.link(:title => "Reply to this message", :index => 1).when_present.click
     @browser.link(:id => "wysiwygtext1_html").when_present.click
     populate_page_with data_for(:ViewDiscussionPage, data)
     @browser.element(:xpath => '//*[@id="postform"]/div[5]/input[1]').when_present.click
-    sleep 3
   end
 
   def comment_anonymously_on_comment(data={})
-    sleep 2
     @browser.link(:title => "Reply to this message", :index => 1).when_present.click
     @browser.link(:id => "wysiwygtext1_html").when_present.click
     populate_page_with data_for(:ViewDiscussionPage, data)
     #TODO: Find a better way of clicking the Anonymous checkbox. ~TD
     #@browser.checkbox(:id => 'notAttributable').set
-    sleep 1
     @browser.send_keys :tab
-    sleep 1
+
     @browser.send_keys :space
-    sleep 1
+
     @browser.element(:xpath => '//*[@id="postform"]/div[5]/input[1]').when_present.click
-    sleep 3
   end
 
   def verify_content_exists(title)

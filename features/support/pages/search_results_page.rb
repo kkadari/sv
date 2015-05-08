@@ -11,7 +11,6 @@ class SearchResultsPage
   page_url("#{FigNewton.base_url}/search.jspa?q=#{/.*/}")
 
   def verify_content_exists(title)
-    sleep 4 # allow time to render
     fail "Content not visible or created" unless @browser.html.to_s.include? title
   end
 

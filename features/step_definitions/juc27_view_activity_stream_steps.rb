@@ -1,7 +1,7 @@
 Given /^a participant has raised an anonymous incident report in a group I follow in my connections stream$/ do
   visit(LoginPage).log_in
   on(HomePage).click_places
-  sleep 2
+
   on(PlacesPage).view_custom_group
   on(CustomGroupPage).follow_in_connections_stream
   on(CustomGroupPage).log_out
@@ -12,7 +12,7 @@ Given /^a participant has raised an anonymous incident report in a group I follo
   on(IncidentReportPage).publish_to(custom_group)
   on(IncidentReportPage).raise_anonymously
   on(IncidentReportPage).complete_incident_report :subject => @subject
-  sleep 2
+
   on(IncidentReportSummaryPage).log_out
 end
 

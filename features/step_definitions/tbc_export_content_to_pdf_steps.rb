@@ -28,12 +28,12 @@ Then /^I can export the blog to PDF with the correct timestamp$/ do
   on(HomePage).click_content
   on(ContentPage).navigate_to_content_named(@subject)
   on(BlogPostSummaryPage).export_to_pdf
-  sleep 3
+
   on(BlogPostPdfPage).pdf_includes text
   @browser.goto("#{FigNewton.base_url}/welcome")
   on(HomePage).open_preferences
   on(PreferencesPage).change_timezone_to "Europe/London"
-  sleep 2
+
   on(PreferencesPage).click_home
 end
 
@@ -46,12 +46,12 @@ Then /^I can export the discussion to PDF with the correct timestamp$/ do
   on(ContentPage).click_discussions
   on(ContentPage).navigate_to_content_named @subject
   on(DiscussionSummaryPage).export_to_pdf
-  sleep 3
+
   on(DiscussionPdfPage).pdf_includes text
   @browser.goto("#{FigNewton.base_url}/welcome")
   on(HomePage).open_preferences
   on(PreferencesPage).change_timezone_to "Europe/London"
-  sleep 2
+
   on(PreferencesPage).click_home
 end
 
@@ -63,11 +63,11 @@ Then /^I can export the ir to PDF with the correct timestamp$/ do
   on(HomePage).click_content
   on(ContentPage).navigate_to_ir_named @subject
   on(IncidentReportSummaryPage).export_to_pdf
-  sleep 3
+
   on(IncidentReportPdfPage).pdf_includes text
   @browser.goto("#{FigNewton.base_url}/welcome")
   on(HomePage).open_preferences
   on(PreferencesPage).change_timezone_to "Europe/London"
-  sleep 2
+
   on(PreferencesPage).click_home
 end

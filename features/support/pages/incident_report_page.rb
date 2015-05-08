@@ -26,6 +26,5 @@ class IncidentReportPage
     @browser.link(:id => 'wysiwygtext_html').when_present.click
     populate_page_with data_for(:IncidentReportPage, data)
     @browser.button(:id => 'submitButton').when_present.click
-    sleep 3
   end
 end

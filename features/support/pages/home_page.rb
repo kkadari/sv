@@ -21,7 +21,6 @@ class HomePage
   link(:connections_stream, :text => 'Connections Stream')
 
   def confirm_ir_present_with(subject)
-    sleep 2
     fail "Incident not visible or created" unless @browser.html.to_s.include? subject
   end
 
@@ -30,12 +29,10 @@ class HomePage
       @browser.form(:class,"status-morecontent-form").exists?
     end
     @browser.link(:text, subject).click
-    sleep 2
   end
 
   def navigate_to_content_named(subject)
     search = subject[6..50]
-    sleep 3
     @browser.link(:text, /#{search}/).click
   end
 

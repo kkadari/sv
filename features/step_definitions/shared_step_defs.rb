@@ -92,10 +92,20 @@ end
 Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|
   @browser.link(:href => "/inbox").when_present.click
   @browser.span(:class => 'title').when_present.click
-  sleep 2
-  fail "IR not visible" unless @browser.html.include? @subject
-  if (anonymously)
-    fail "Author visible" unless @browser.divs(:class => "j-author-act font-color-meta-light", :text => "Anonymous")
+
+  attempt = 0
+  begin
+    @browser.html.include? @subject
+    if (anonymously)
+      fail "Author visible" unless @browser.divs(:class => "j-author-act font-color-meta-light", :text => "Anonymous")
+    end
+  rescue
+    attempt += 1
+    if attempt <= 3 # Retry up to 3 times.
+      @browser.refresh
+      retry
+    end
+    fail 'IR not visible'
   end
 end
 

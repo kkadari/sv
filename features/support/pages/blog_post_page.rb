@@ -23,6 +23,6 @@ class BlogPostPage
     @browser.link(:id => 'wysiwygtext_html').when_present.click
     populate_page_with data_for(:BlogPostPage, data)
     @browser.button(:text => 'Create blog post').when_present.click
-    sleep 3
+
   end
 end
