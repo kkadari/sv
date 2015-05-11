@@ -1,11 +1,11 @@
 Then (/^I can use Jive search to find the anonymous incident report$/) do
-  navigate_to(HomePage)
-  on(HomePage).verify_spotlight_search_result_exists_and_click @subject
+  visit(SearchPage)
+  on(SearchPage).verify_search_result_exists_and_click @subject
   on(IncidentReportSummaryPage).verify_content_exists @subject
 end
 
 Then (/^I can use the spotlight search to find the incident report by ID$/) do
-  navigate_to(HomePage)
+  visit(HomePage)
 
   on(HomePage).verify_spotlight_search_result_exists_for_incident_id(@incident_id, @subject)
 end
