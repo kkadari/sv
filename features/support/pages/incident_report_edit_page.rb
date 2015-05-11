@@ -6,14 +6,14 @@ require_relative '../modules/ihm_bar'
 
 class IncidentReportEditPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include CreateModal
   include SearchBox
   include IhmBar
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/incidentreports/<%=params[:id]%>/edit")
+  page_url(incidentreporteditpage)
 
   text_field(:subject, :id => 'subject')
   

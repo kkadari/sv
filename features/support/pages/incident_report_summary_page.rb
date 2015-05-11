@@ -5,14 +5,14 @@ require_relative '../modules/ihm_bar'
 
 class IncidentReportSummaryPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include DataMagic
   include PdfExport
   include IhmBar
+  extend UrlFactory
 
-  page_url(/#{FigNewton.base_url}\/view\-incidentreport\.jspa\?incidentReportID\=\d+/)
+  page_url(incidentreportsummarypage)
 
   link(:delete, :text => /Delete/)
   button(:confirm_delete, :id => 'deletebutton')
@@ -47,7 +47,7 @@ class IncidentReportSummaryPage
   end
 
   def navigate_directly_to_ir_with_id(incident_id)
-    browser.goto "#{FigNewton.base_url}/view-incidentreport.jspa?incidentReportID=#{incident_id}"
+    browser.goto incidentreportsummaryparampage + incident_id
   end
 
   def verify_not_found

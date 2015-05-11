@@ -10,8 +10,9 @@ class BlogPostSummaryPage
   include DataMagic
   include PdfExport
   include IhmBar
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/people/#{/.*/}")
+  page_url(blogpostsummarypage)
   
   link(:edit_blog_button, :text => /Edit/)
   link(:delete, :text => /Delete/)

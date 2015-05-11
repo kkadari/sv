@@ -4,13 +4,13 @@ require_relative '../modules/mention_module'
 
 class ViewIncidentReportPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include DataMagic
   include MentionModule
+  extend UrlFactory
 
-  page_url(/#{FigNewton.base_url}view\-incidentreport\.jspa\?incidentReportID\=\d+/)
+  page_url(viewincidentreportpage)
   
   link(:comment, :text => 'Add a comment')
   link(:edit, :id => 'wysiwyg_id_0_html')

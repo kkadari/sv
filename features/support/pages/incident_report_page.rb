@@ -7,7 +7,6 @@ require_relative '../modules/title_creator'
 
 class IncidentReportPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include DataMagic
@@ -15,8 +14,9 @@ class IncidentReportPage
   include PublishBar
   include AnonymityBar
   include TitleCreator
+  extend UrlFactory
 
-  page_url(/#{FigNewton.base_url}\/create-incidentreport\!input\.jspa\?containerType\=\d+\&containerID\=\d+/)
+  page_url(incidentreportpage)
   
   text_field(:subject, :name => 'subject')
   text_area(:body, :class => 'usertext')

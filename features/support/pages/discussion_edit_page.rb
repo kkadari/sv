@@ -6,14 +6,14 @@ require_relative '../modules/ihm_bar'
 
 class DiscussionEditPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include CreateModal
   include SearchBox
   include IhmBar
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/message/#{/.*/}/edit")
+  page_url(discussioneditpage)
   
   text_field(:subject, :id => 'subject')
 

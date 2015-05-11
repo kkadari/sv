@@ -5,14 +5,14 @@ require_relative '../modules/publish_bar'
 
 class BlogPostPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include DataMagic
   include IhmBar
   include PublishBar
+  extend UrlFactory
 
-  page_url(/#{FigNewton.base_url}\/blog\/create\-post\.jspa\?sr\=cmenu\&containerType\=\d+\&containerID\=\d+/)
+  page_url(blogpostpage)
 
   text_field(:subject, :name => 'subject')
   text_area(:body, :class => 'usertext')

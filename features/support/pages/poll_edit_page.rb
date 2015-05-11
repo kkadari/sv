@@ -5,13 +5,13 @@ require_relative '../modules/search_box'
 
 class PollEditPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include CreateModal
   include SearchBox
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/poll/edit#{/.*/}")
+  page_url(polleditpage)
 
   def change_body_content
     @browser.link(:id => 'wysiwygtext_html').when_present.click

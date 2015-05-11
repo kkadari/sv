@@ -4,13 +4,13 @@ require_relative '../modules/mention_module'
 
 class ViewDiscussionPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include DataMagic
   include MentionModule
+  extend UrlFactory
 
-  page_url(/#{FigNewton.base_url}thread\/\d+/)
+  page_url(viewdiscussionpage)
   
   link(:reply, :title => "Reply to this message")
   link(:edit, :id => "wysiwygtext1_html")

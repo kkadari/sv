@@ -7,7 +7,7 @@ class ContentPage
   include UserModal
   extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/content")
+  page_url(contentpage)
   
   link(:blogs, :text => /Blog Posts/)
   link(:documents, :text => /Documents/)

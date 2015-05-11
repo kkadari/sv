@@ -7,7 +7,6 @@ require_relative '../modules/group_request'
 
 class HomePage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include CreateModal
@@ -15,8 +14,9 @@ class HomePage
   include TitleCreator
   include GroupRequest
   include DataMagic
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/activity")
+  page_url(homepage)
   
   link(:connections_stream, :text => 'Connections Stream')
 
