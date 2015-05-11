@@ -10,6 +10,7 @@ require 'open-uri'
 require 'net/http'
 require 'json'
 require File.dirname(__FILE__) + '/test_config'
+require File.dirname(__FILE__) + '/url_factory.rb'
 require_all File.dirname(__FILE__) + '/pages'
 require_all File.dirname(__FILE__) + '/api'
 

@@ -3,11 +3,11 @@ require_relative '../modules/user_modal'
 
 class ActivityPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/activity")
+  page_url(activitypage)
 
   def confirm_first_ir_is_anonymous
 
