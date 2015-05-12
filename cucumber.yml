@@ -1,2 +1,2 @@
-cert_ce_sv_ref: FIG_NEWTON_FILE=cert_ce_sv_ref.yml --format pretty
-cert_ce_cpc_test: FIG_NEWTON_FILE=cert_ce_cpc_test.yml --format pretty
+cert_ce_sv_ref: --format pretty
+cert_ce_cpc_test: --format pretty

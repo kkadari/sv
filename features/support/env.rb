@@ -1,7 +1,6 @@
 require 'rspec'
 require 'page-object'
 require 'data_magic'
-require 'fig_newton'
 require 'require_all'
 require 'faker'
 require 'active_support/time'
