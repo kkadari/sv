@@ -30,7 +30,7 @@ Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report(
 
   response = Request.create_incident_report @browser.cookies.to_a, @subject, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
   @incident_id = response['redirect'][/[0-9]+/,0]
-  #@incident_url = FigNewton.base_url + response['redirect']
+  @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end
 
 Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
@@ -86,7 +86,6 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
   @incident_id = on(IncidentReportSummaryPage).capture_incident_id
-  @incident_url = on(IncidentReportSummaryPage).capture_url
 end
 
 Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|
