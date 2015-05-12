@@ -37,7 +37,7 @@ class PeoplePage
   end
 
   def navigate_directly_to_profile_of(username)
-    browser.goto UrlFactory.peoplepage + username
+    browser.goto UrlFactory.peoplepage + "/" + username
   end
 
   def verify_not_found

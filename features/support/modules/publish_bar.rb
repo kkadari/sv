@@ -45,6 +45,6 @@ module PublishBar
     # Wait for place search results popover
     @browser.div(:class => 'j-pop js-pop j-autocomplete j-placePicker popover').wait_until_present
     group = name.sub("-"," ").split.map(&:capitalize).join(' ')
-    @browser.link(:text,/#{group}/).click
+    @browser.span(:text,/#{group}/).click
   end
 end
