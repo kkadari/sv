@@ -9,7 +9,7 @@ Given /^a participant has raised an anonymous incident report in a group I follo
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).create('incident_report')
   on(IncidentReportPage).set_ihm_level('amber')
-  on(IncidentReportPage).publish_to(custom_group)
+  on(IncidentReportPage).publish_to(TestConfig.custom_group)
   on(IncidentReportPage).raise_anonymously
   on(IncidentReportPage).complete_incident_report :subject => @subject
 
