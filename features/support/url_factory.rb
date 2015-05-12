@@ -56,10 +56,6 @@ module UrlFactory
     ENV['base_url'] + '/create-group!input.jspa?sr=cmenu'
   end
 
-  def cannotcreategrouppage
-    ENV['base_url'] + '/edit-place.jspa?sr=cmenu&containerType=700'
-  end
-
   def incidentreporteditpage
     ENV['base_url'] + '/incidentreports/<%=params[:id]%>/edit'
   end
@@ -74,10 +70,6 @@ module UrlFactory
 
   def incidentreportsummarypage
     /#{ENV['base_url']}\/view\-incidentreport\.jspa\?incidentReportID\=\d+/
-  end
-
-  def incidentreportsummaryparampage
-    ENV['base_url'] + '/view-incidentreport.jspa?incidentReportID='
   end
 
   def polleditpage
@@ -106,6 +98,14 @@ module UrlFactory
 
   def viewincidentreportpage
     /#{ENV['base_url']}view\-incidentreport\.jspa\?incidentReportID\=\d+/
+  end
+
+  def self.cannotcreategrouppage
+    ENV['base_url'] + '/edit-place.jspa?sr=cmenu&containerType=700'
+  end
+
+  def self.incidentreportsummaryparampage
+    ENV['base_url'] + '/view-incidentreport.jspa?incidentReportID='
   end
 
 end

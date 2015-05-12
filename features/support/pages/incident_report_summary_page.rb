@@ -47,7 +47,7 @@ class IncidentReportSummaryPage
   end
 
   def navigate_directly_to_ir_with_id(incident_id)
-    browser.goto incidentreportsummaryparampage + incident_id
+    browser.goto UrlFactory.incidentreportsummaryparampage + incident_id
   end
 
   def verify_not_found

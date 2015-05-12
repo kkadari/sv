@@ -37,7 +37,7 @@ class GroupPage
   end
 
   def verify_cannot_create_group
-    browser.goto cannotcreategrouppage
+    browser.goto UrlFactory.cannotcreategrouppage
     fail 'Not presented with Unauthorized page' unless @browser.div(:id => 'jive-body-intro-content').h1.text.include?('Unauthorized')
   end
 end
