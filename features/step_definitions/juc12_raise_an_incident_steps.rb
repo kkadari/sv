@@ -5,7 +5,7 @@ Given /^I have mentioned "([^\"]+)" in? (?:a|an) (red|amber|green|white) inciden
 
   response = Request.create_incident_report @browser.cookies.to_a, @subject, "Some sample text <p><a class='jive_macro jive_macro_user' href='javascript:;' jivemacro='user' ___default_attr='2013' data-objecttype='3' data-orig-content='simonwhi@surevine'>simonwhi@surevine</a></p>", @marking, Hash[:type => @location], "", anonymous
   @incident_id = response['redirect'][/[0-9]+/,0]
-  @incident_url = FigNewton.base_url + response['redirect']
+  #@incident_url = FigNewton.base_url + response['redirect']
 end
 
 Given /^I have raised a white incident report in a private group containing an internal link$/ do
