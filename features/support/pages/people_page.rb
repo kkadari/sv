@@ -3,15 +3,14 @@ require_relative '../modules/user_modal'
 
 class PeoplePage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
 
-  page_url("#{FigNewton.base_url}/people")
+  page_url(UrlFactory.peoplepage)
 
-  link(:user1_profile, :href => "/people/#{FigNewton.user1_uname_en.gsub(/\s+/, "")}")
-  link(:user2_profile, :href => "/people/#{FigNewton.user2_uname_en.gsub(/\s+/, "")}")
-  link(:user3_profile, :href => "/people/#{FigNewton.user3_uname_en.gsub(/\s+/, "")}")
+  link(:user1_profile, :href => "/people/#{TestConfig.user1_uname_en.gsub(/\s+/, "")}")
+  link(:user2_profile, :href => "/people/#{TestConfig.user2_uname_en.gsub(/\s+/, "")}")
+  link(:user3_profile, :href => "/people/#{TestConfig.user3_uname_en.gsub(/\s+/, "")}")
   text_area(:search, :name => 'query')
 
   def view_profile(user = 'user1')
@@ -33,12 +32,12 @@ class PeoplePage
   end
 
   def click_result(name)
-    result = "people\/#{user1_id}"
+    result = "people\/#{TestConfig.user1_id}"
     @browser.link(:href => /#{result}/).when_present.click
   end
 
   def navigate_directly_to_profile_of(username)
-    browser.goto "#{FigNewton.base_url}people/#{username}"
+    browser.goto UrlFactory.peoplepage + username
   end
 
   def verify_not_found

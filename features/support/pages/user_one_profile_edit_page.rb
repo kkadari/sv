@@ -3,12 +3,12 @@ require_relative '../modules/user_modal'
 
 class UserOneProfileEditPage
   include PageObject
-  include FigNewton
   include DataMagic
   include NavRibbon
   include UserModal
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/edit-profile!input.jspa?targetUser=#{FigNewton.user1_id}")
+  page_url(useroneprofileeditpage)
 
   link(:privacy_settings, :text => 'Privacy Settings')
   text_field(:main_phone, :name => /profile\[\d+\]\.phoneNumbers\[\d+\]\.phoneNumber$/)

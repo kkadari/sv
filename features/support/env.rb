@@ -15,6 +15,3 @@ require_all File.dirname(__FILE__) + '/pages'
 require_all File.dirname(__FILE__) + '/api'
 
 World(PageObject::PageFactory)
-World do
-  TestConfig.new
-end

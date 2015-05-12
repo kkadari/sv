@@ -100,12 +100,52 @@ module UrlFactory
     /#{ENV['base_url']}view\-incidentreport\.jspa\?incidentReportID\=\d+/
   end
 
+  def customgroupcontentpage
+    "#{ENV['base_url']}/groups/#{TestConfig.custom_group}/content"
+  end
+
+  def customgrouppage
+    "#{ENV['base_url']}/#{TestConfig.custom_group}"
+  end
+
+  def placespage
+    "#{ENV['base_url']}/places"
+  end
+
+  def pollsummarypage
+    "#{ENV['base_url']}/polls/#{/.*/}"
+  end
+
+  def useroneactivitystreampage
+    "#{ENV['base_url']}/people/#{TestConfig.user1_id}/activity"
+  end
+
+  def useroneprivacyeditpage
+    "#{ENV['base_url']}/edit-profile-security!input.jspa?targetUser=#{TestConfig.user1_id}"
+  end
+
+  def useroneprofileeditpage
+    "#{ENV['base_url']}/edit-profile!input.jspa?targetUser=#{TestConfig.user1_id}"
+  end
+
+  def useroneprofilepage
+    "#{ENV['base_url']}/people/#{TestConfig.user1_id}"
+  end
+
   def self.cannotcreategrouppage
     ENV['base_url'] + '/edit-place.jspa?sr=cmenu&containerType=700'
   end
 
+  def self.cannotcreateplacepage
+    "#{ENV['base_url']}/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14"
+  end
+
   def self.incidentreportsummaryparampage
     ENV['base_url'] + '/view-incidentreport.jspa?incidentReportID='
+  end
+
+  def self.peoplepage
+    "#{ENV['base_url']}/people"
   end
 
 end

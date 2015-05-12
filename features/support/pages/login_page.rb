@@ -7,7 +7,7 @@ class LoginPage
   text_field(:username, :name => "username")
   text_field(:password, :id => "password01")
   
-  def log_in(username = user1_uname, password = user1_pswd)
+  def log_in(username, password)
     self.username = username
     self.password = password
     @browser.button(:id => "login-submit").when_present.click

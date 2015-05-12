@@ -17,16 +17,16 @@ Then (/^I am not able to view their identity on the comment when I search for th
   on(SearchResultsPage).sort_last_modified_newest_first
   on(SearchResultsPage).verify_content_exists @subject
   on(SearchResultsPage).click_top_result
-  on(IncidentReportSummaryPage).confirm_first_comment_is_anonymous user1_uname
+  on(IncidentReportSummaryPage).confirm_first_comment_is_anonymous TestConfig.user1_uname
 end
 
 Given /^I have used spotlight search to search for a participant$/ do
-  on(HomePage).verify_spotlight_search_result_exists(user2_uname)
+  on(HomePage).verify_spotlight_search_result_exists(TestConfig.user2_uname)
   visit(SearchPage)
-  on(SearchPage).search_for user2_uname
+  on(SearchPage).search_for TestConfig.user2_uname
   on(SearchResultsPage).click_people
 end
 
 Then /^details for that participant are returned by Jive search$/ do
-  on(SearchResultsPage).verify_results_present_for(user2_uname)
+  on(SearchResultsPage).verify_results_present_for(TestConfig.user2_uname)
 end

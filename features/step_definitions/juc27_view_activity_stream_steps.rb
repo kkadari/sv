@@ -6,7 +6,7 @@ Given /^a participant has raised an anonymous incident report in a group I follo
   on(CustomGroupPage).follow_in_connections_stream
   on(CustomGroupPage).log_out
   @subject = on(HomePage).create_title_for('incident')
-  visit(LoginPage).log_in username = user2_uname, password = user2_pswd
+  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).create('incident_report')
   on(IncidentReportPage).set_ihm_level('amber')
   on(IncidentReportPage).publish_to(custom_group)
@@ -24,10 +24,10 @@ Then /^I can verify the incident report is marked anonymous in my connection str
 end
 
 Then /^I am not able to view it in their activity stream$/ do
-  visit(LoginPage).log_in username = user2_uname, password = user2_pswd
+  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).click_people
-  on(PeoplePage).search_for_user user1_surname
-  on(PeoplePage).click_result user1_irlname
+  on(PeoplePage).search_for_user TestConfig.user1_surname
+  on(PeoplePage).click_result TestConfig.user1_irlname
   on(UserOneProfilePage).click_activity
   on(UserOneActivityStreamPage).confirm_no_anon_content
 end
@@ -35,17 +35,17 @@ end
 Then /^I am not able to view their identity on the comment in their activity stream$/ do
   on(HomePage).click_people
   #TODO: Allow a user to be passed in ~TD
-  on(PeoplePage).search_for_user(user1_surname)
-  on(PeoplePage).click_result(user1_irlname)
+  on(PeoplePage).search_for_user(TestConfig.user1_surname)
+  on(PeoplePage).click_result(TestConfig.user1_irlname)
   on(UserOneProfilePage).click_activity
   on(UserOneActivityStreamPage).confirm_comment_is_anon
 end
 
 Then /^another user is not able to view it in my activity stream$/ do
-  visit(LoginPage).log_in username = user2_uname, password = user2_pswd
+  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).click_people
-  on(PeoplePage).search_for_user user1_surname
-  on(PeoplePage).click_result user1_irlname
+  on(PeoplePage).search_for_user TestConfig.user1_surname
+  on(PeoplePage).click_result TestConfig.user1_irlname
   on(UserOneProfilePage).click_activity
   on(UserOneActivityStreamPage).confirm_no_anon_content
 end

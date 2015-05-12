@@ -14,7 +14,7 @@ class ActivityPage
     incident_report = browser.divs(:class => 'j-act-entry').first
     !fail 'Not marked with anonymous avatar' unless incident_report.html.to_s.include? 'anonymous-avatar'
     !fail 'Not marked as anonymous' unless incident_report.text.include? 'Anonymous'
-    !fail 'Username visible' if incident_report.text.include? user2_uname
+    !fail 'Username visible' if incident_report.text.include? TestConfig.user2_uname
   end
 
 end

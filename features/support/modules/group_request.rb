@@ -11,9 +11,9 @@ module GroupRequest
       @ifr = @browser.iframe(:id => '__gadget_j-app-modal-parent')
       @ifr.text_field(:id => 'jive-socialgroup-desc').wait_until_present
       populate_page_with data_for(:GroupRequest, data)
-      set_group_owner(user1_uname)
-      set_additional_owner(user2_uname)
-      set_group_supporters([adminuser_uname, user2_uname])
+      set_group_owner(TestConfig.user1_uname)
+      set_additional_owner(TestConfig.user2_uname)
+      set_group_supporters([TestConfig.adminuser_uname, TestConfig.user2_uname])
       @ifr.button(:id => 'requestNewGroup').when_present.click
     end
   end

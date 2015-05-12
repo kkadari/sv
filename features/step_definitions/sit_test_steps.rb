@@ -38,7 +38,7 @@ Given(/^I create all the content types$/) do
 end
 
 Then(/^I can view all the created content types as another user$/) do
-  visit(LoginPage).log_in username = user2_uname, password = user2_pswd
+  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).click_content
   on(ContentPage).click_polls
   on(ContentPage).verify_poll_exists_with title[:po]
@@ -56,7 +56,7 @@ Given(/^all the content types have been created$/) do
 end
 
 Then(/^I can search for all the content types as another user$/) do
-  visit(LoginPage).log_in username = user2_uname, password = user2_pswd
+  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).search_for title[:bp]
 
   on(SearchResultsPage).verify_content_exists title[:bp]
@@ -100,7 +100,7 @@ Then(/^I can delete all the content types as the author$/) do
 end
 
 When(/^as an admin I can delete incident reports$/) do
-  visit(LoginPage).log_in username = adminuser_uname, password = adminuser_pswd
+  visit(LoginPage).log_in TestConfig.adminuser_uname, TestConfig.adminuser_pswd
   on(HomePage).click_content
   on(ContentPage).navigate_to_ir_named title[:ir]
   on(IncidentReportSummaryPage).delete_incident_report

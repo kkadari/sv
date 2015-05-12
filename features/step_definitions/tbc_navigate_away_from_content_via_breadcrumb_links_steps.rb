@@ -1,6 +1,6 @@
 Given /^I have navigated away from a poll using the breadcrumb links$/ do
   @subject = on(HomePage).create_title_for('poll')
-  visit(LoginPage).log_in username = user1_uname, password = user1_pswd
+  visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
   on(HomePage).create('poll')
   on(PollPage).set_ihm_level('amber')
   on(PollPage).publish_to(custom_group)

@@ -3,11 +3,11 @@ require_relative '../modules/user_modal'
 
 class UserOneProfilePage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/people/#{FigNewton.user1_id}")
+  page_url(useroneprofilepage)
 
   def edit_profile
     @browser.link(:href => /edit-profile\!/).when_present.click
@@ -35,11 +35,11 @@ class UserOneProfilePage
   end
 
   def confirm_restriction_visible
-    fail "Name not visible, and should be" unless @browser.html.include? user1_irlname
+    fail "Name not visible, and should be" unless @browser.html.include? TestConfig.user1_irlname
   end
 
   def confirm_restriction_invisible
-    fail "Name visible, and should not be" if @browser.html.to_s.include? user1_irlname
+    fail "Name visible, and should not be" if @browser.html.to_s.include? TestConfig.user1_irlname
   end
 
   def confirm_incident_report_invisible(subject)

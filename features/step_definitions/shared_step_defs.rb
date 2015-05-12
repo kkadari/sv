@@ -7,12 +7,12 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
 
   user = "#{login}"
   case user
-    when user = 'participant A'
-      visit(LoginPage).log_in username = user1_uname, password = user1_pswd
-    when user = 'participant B'
-      visit(LoginPage).log_in username = user2_uname, password = user2_pswd
-    when user = 'admin'
-      visit(LoginPage).log_in username = adminuser_uname, password = adminuser_pswd
+    when 'participant A'
+      visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
+    when 'participant B'
+      visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
+    when 'admin'
+      visit(LoginPage).log_in TestConfig.adminuser_uname, TestConfig.adminuser_pswd
     else
       fail 'Supplied user not recognised.'
   end
