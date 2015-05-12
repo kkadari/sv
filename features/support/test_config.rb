@@ -56,10 +56,18 @@ class TestConfig
     @adminuser_uname      = ENV['adminuser_uname']
     @adminuser_uname_en   = ENV['adminuser_uname_en']
     @adminuser_pswd       = ENV['adminuser_pswd']
+  end
 
-    @custom_group         = ENV['custom_group']
-    @secret_group         = ENV['secret_group']
-    @custom_space         = ENV['custom_space']
+  def self.custom_group
+    ENV['custom_group']
+  end
+
+  def self.secret_group
+    ENV['secret_group']
+  end
+
+  def self.custom_space
+    ENV['custom_space']
   end
 
 end
