@@ -140,6 +140,10 @@ module UrlFactory
     ENV['base_url'] + '/edit-place.jspa?sr=cmenu&containerType=700'
   end
 
+  def self.incidentreportsummaryparampage
+    ENV['base_url'] + '/view-incidentreport.jspa?incidentReportID='
+  end
+
   def self.cannotcreateplacepage
     "#{ENV['base_url']}/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14"
   end
