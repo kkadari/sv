@@ -4,6 +4,10 @@ module UrlFactory
     ENV['base_url'] + '/login.jspa'
   end
 
+  def logoutpage
+    ENV['base_url'] + '/logout.jspa'
+  end
+
   def homepage
     ENV['base_url'] + '/activity'
   end
@@ -49,7 +53,7 @@ module UrlFactory
   end
 
   def discussionsummarypage
-    ENV['base_url'] + "/thread/#{/.*/}"
+    ENV['base_url'] + '/message/<%=params[:id]%>'
   end
 
   def grouppage

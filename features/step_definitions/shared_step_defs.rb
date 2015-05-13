@@ -1,12 +1,7 @@
 Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
+  visit(LogoutPage)
 
-  @user_logged_in = @browser.link(:id => 'j-satNav').present?
-  if @user_logged_in then
-    visit(HomePage).log_out
-  end
-
-  user = "#{login}"
-  case user
+  case login
     when 'participant A'
       visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
     when 'participant B'
@@ -69,7 +64,9 @@ Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( que
   @marking = marking
   @location = location
 
-  Request.create_discussion @browser.cookies.to_a, @subject, question, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
+  response = Request.create_discussion @browser.cookies.to_a, @subject, question, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
+  puts response
+  @discussion_id = response['redirect'][/[0-9]+/,0]
 end
 
 Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
@@ -121,8 +118,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
 end
 
 Then /^I can view the( anonymous)? discussion$/ do |anonymous|
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_discussion_named(@subject)
+  visit DiscussionSummaryPage, :using_params => {:id => @discussion_id}
   on(DiscussionSummaryPage).verify_content_exists(@subject)
   if (anonymous)
     on(DiscussionSummaryPage).verify_anonymous_as_participant
