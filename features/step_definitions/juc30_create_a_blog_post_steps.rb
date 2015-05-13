@@ -4,12 +4,13 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my persona
   on(HomePage).create('blog')
   on(BlogPostPage).set_ihm_level(@marking)
   on(BlogPostPage).complete_blog_post :subject => @subject
-  on(BlogPostSummaryPage).verify_content_exists(@subject)
-  on(BlogPostSummaryPage).correct_ihm_displayed(@marking)
+  on(BlogPostSummaryPage).verify_content_exists @subject
+  on(BlogPostSummaryPage).correct_ihm_displayed @marking
 end
 
 Then(/^I can view the blog post$/) do
-  on(HomePage).navigate_to_blog_post_named(@subject)
-  on(BlogPostSummaryPage).verify_content_exists(@subject)
-  on(BlogPostSummaryPage).correct_ihm_displayed(@marking)
+  visit(ContentPage)
+  on(ContentPage).navigate_to_blog_post_named @subject
+  on(BlogPostSummaryPage).verify_content_exists @subject
+  on(BlogPostSummaryPage).correct_ihm_displayed @marking
 end

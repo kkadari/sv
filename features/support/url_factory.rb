@@ -4,6 +4,10 @@ module UrlFactory
     ENV['base_url'] + '/login.jspa'
   end
 
+  def logoutpage
+    ENV['base_url'] + '/logout.jspa'
+  end
+
   def homepage
     ENV['base_url'] + '/activity'
   end
@@ -49,7 +53,7 @@ module UrlFactory
   end
 
   def discussionsummarypage
-    ENV['base_url'] + "/thread/#{/.*/}"
+    ENV['base_url'] + '/message/<%=params[:id]%>'
   end
 
   def grouppage
@@ -97,7 +101,7 @@ module UrlFactory
   end
 
   def viewincidentreportpage
-    /#{ENV['base_url']}view\-incidentreport\.jspa\?incidentReportID\=\d+/
+    ENV['base_url'] + '/incidentreports/<%=params[:id]%>'
   end
 
   def customgroupcontentpage
@@ -113,7 +117,7 @@ module UrlFactory
   end
 
   def pollsummarypage
-    "#{ENV['base_url']}/polls/#{/.*/}"
+    ENV['base_url'] + '/polls/<%=params[:id]%>'
   end
 
   def useroneactivitystreampage
@@ -136,12 +140,12 @@ module UrlFactory
     ENV['base_url'] + '/edit-place.jspa?sr=cmenu&containerType=700'
   end
 
-  def self.cannotcreateplacepage
-    "#{ENV['base_url']}/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14"
-  end
-
   def self.incidentreportsummaryparampage
     ENV['base_url'] + '/view-incidentreport.jspa?incidentReportID='
+  end
+
+  def self.cannotcreateplacepage
+    "#{ENV['base_url']}/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14"
   end
 
   def self.peoplepage
