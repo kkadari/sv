@@ -117,7 +117,7 @@ module UrlFactory
   end
 
   def pollsummarypage
-    "#{ENV['base_url']}/polls/#{/.*/}"
+    ENV['base_url'] + '/polls/<%=params[:id]%>'
   end
 
   def useroneactivitystreampage

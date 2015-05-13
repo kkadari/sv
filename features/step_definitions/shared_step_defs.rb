@@ -60,7 +60,6 @@ Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( que
   @location = location
 
   response = Request.create_discussion @browser.cookies.to_a, @subject, question, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
-  puts response
   @discussion_id = response['redirect'][/[0-9]+/,0]
 end
 
@@ -110,6 +109,9 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   on(PollPage).complete_poll :subject => @subject
   on(PollSummaryPage).verify_content_exists(@subject)
   on(PollSummaryPage).correct_ihm_displayed(@marking)
+
+  # This is clunky but will do for now - Review later MW
+  @incident_id = @browser.url.gsub(ENV['base_url'],'')[/[0-9]+/,0]
 end
 
 Then /^I can view the( anonymous)? discussion$/ do |anonymous|
