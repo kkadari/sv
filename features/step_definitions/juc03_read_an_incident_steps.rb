@@ -14,7 +14,7 @@ Then /^I can verify the anonymous identifiers have been added$/ do
 end
 
 Then /^I can not directly access the incident report if I am not in that group$/ do
-  on(IncidentReportSummaryPage).navigate_directly_to_ir_with_id @incident_id
+  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
   on(IncidentReportSummaryPage).verify_not_found
 end
 
@@ -24,12 +24,12 @@ Then /^I can see the incident in my activity stream$/ do
 end
 
 Then /^I can view the anonymous incident report$/ do
-  on(IncidentReportSummaryPage).navigate_directly_to_ir_with_id @incident_id
+  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
   on(IncidentReportSummaryPage).verify_content_exists @subject
 end
 
 Then /^I as an admin can view the anonymous incident report$/ do
-  on(IncidentReportSummaryPage).navigate_directly_to_ir_with_id @incident_id
+  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
   on(IncidentReportSummaryPage).verify_content_exists @subject
   on(IncidentReportSummaryPage).verify_anonymous
 end
@@ -47,7 +47,7 @@ Then (/^I can not find the incident report in search if I am not in that group$/
 end
 
 Then(/^I will be able to view my recently created report$/) do
-  on(IncidentReportSummaryPage).navigate_directly_to_ir_with_id @incident_id
+  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
   on(IncidentReportSummaryPage).verify_content_exists @subject
   on(IncidentReportSummaryPage).correct_ihm_displayed @marking
 end

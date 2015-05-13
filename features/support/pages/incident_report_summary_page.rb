@@ -46,10 +46,6 @@ class IncidentReportSummaryPage
     return incident_id
   end
 
-  def navigate_directly_to_ir_with_id(incident_id)
-    browser.goto UrlFactory.incidentreportsummaryparampage + incident_id
-  end
-
   def verify_not_found
     wait_until { @browser.html.to_s.include? 'Not Found' }
   end

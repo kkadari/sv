@@ -101,7 +101,7 @@ module UrlFactory
   end
 
   def viewincidentreportpage
-    /#{ENV['base_url']}view\-incidentreport\.jspa\?incidentReportID\=\d+/
+    ENV['base_url'] + '/incidentreports/<%=params[:id]%>'
   end
 
   def customgroupcontentpage
@@ -142,10 +142,6 @@ module UrlFactory
 
   def self.cannotcreateplacepage
     "#{ENV['base_url']}/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14"
-  end
-
-  def self.incidentreportsummaryparampage
-    ENV['base_url'] + '/view-incidentreport.jspa?incidentReportID='
   end
 
   def self.peoplepage
