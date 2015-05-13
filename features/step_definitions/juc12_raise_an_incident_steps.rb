@@ -13,12 +13,13 @@ Given /^I have raised a white incident report in a private group containing an i
   @marking = 'white'
   @location = 'private group'
 
-  Request.create_incident_report @browser.cookies.to_a, @subject, @incident_url, @marking, Hash[:type => @location], "", false
+  response = Request.create_incident_report @browser.cookies.to_a, @subject, @incident_url, @marking, Hash[:type => @location], "", false
+  @incident_id = response['redirect'][/[0-9]+/,0]
 end
 
 Then /^I can view the internal link$/ do
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named(@subject)
+  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
-  fail "Link not present" unless @browser.html.include? @incident_url
+  fail 'Link not present' unless @browser.html.include? @incident_url
 end

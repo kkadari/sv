@@ -1,13 +1,13 @@
 Then /^I am able to view the marking$/ do
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named @subject
+  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+
   on(IncidentReportSummaryPage).verify_content_exists @subject
   on(IncidentReportSummaryPage).correct_ihm_displayed @marking
 end
 
 Then /^I can verify the anonymous identifiers have been added$/ do
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named @subject
+  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+
   on(IncidentReportSummaryPage).verify_content_exists @subject
   on(IncidentReportSummaryPage).correct_ihm_displayed @marking
   on(IncidentReportSummaryPage).verify_anonymous
@@ -25,11 +25,13 @@ end
 
 Then /^I can view the anonymous incident report$/ do
   visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+
   on(IncidentReportSummaryPage).verify_content_exists @subject
 end
 
 Then /^I as an admin can view the anonymous incident report$/ do
   visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+
   on(IncidentReportSummaryPage).verify_content_exists @subject
   on(IncidentReportSummaryPage).verify_anonymous
 end
@@ -48,6 +50,7 @@ end
 
 Then(/^I will be able to view my recently created report$/) do
   visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+
   on(IncidentReportSummaryPage).verify_content_exists @subject
   on(IncidentReportSummaryPage).correct_ihm_displayed @marking
 end
