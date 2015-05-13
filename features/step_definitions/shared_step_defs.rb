@@ -34,8 +34,8 @@ Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report(
 end
 
 Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
-  on(HomePage).click_content
-  on(ContentPage).navigate_to_ir_named(@subject)
+  on(IncidentReportSummaryPage).navigate_directly_to_ir_with_id @incident_id
+
   if (anonymous)
     on(ViewIncidentReportPage).add_comment_anonymously
   else

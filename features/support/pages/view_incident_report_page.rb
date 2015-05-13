@@ -40,9 +40,8 @@ class ViewIncidentReportPage
   def add_review(data={})
     @browser.div(:class => 'jive-content-avgrating').wait_until_present
     @browser.link(:css => 'div[class="jive-content-userrating-score"] a:nth-child(3)').when_present.click
-    @browser.link(:class => 'jive-icon-userrating-3 jive-icon-med jive-icon-rate-usr-on').when_present.click
     @browser.link(:text => 'Write a review').when_present.click
-    @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
+    @browser.link(:css => 'a[title="Toggle HTML mode"]').when_present.click
     populate_page_with data_for(:ViewIncidentReportPage, data)
     @browser.button(:name => 'post').when_present.click
   end
@@ -50,9 +49,8 @@ class ViewIncidentReportPage
   def add_review_anonymously(data={})
     @browser.div(:class => 'jive-content-avgrating').wait_until_present
     @browser.link(:css => 'div[class="jive-content-userrating-score"] a:nth-child(3)').when_present.click
-    @browser.link(:class => 'jive-icon-userrating-3 jive-icon-med jive-icon-rate-usr-on').when_present.click
     @browser.link(:text => 'Write a review').when_present.click
-    @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
+    @browser.link(:css => 'a[title="Toggle HTML mode"]').when_present.click
     populate_page_with data_for(:ViewIncidentReportPage, data)
     @browser.send_keys :tab
     @browser.send_keys :space
