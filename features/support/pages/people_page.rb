@@ -8,9 +8,9 @@ class PeoplePage
 
   page_url(UrlFactory.peoplepage)
 
-  link(:user1_profile, :href => "/people/#{TestConfig.user1_uname.gsub(/\s+/, "")}")
-  link(:user2_profile, :href => "/people/#{TestConfig.user2_uname.gsub(/\s+/, "")}")
-  link(:user3_profile, :href => "/people/#{TestConfig.user3_uname.gsub(/\s+/, "")}")
+  link(:user1_profile, :title => TestConfig.user1_uname)
+  link(:user2_profile, :title => TestConfig.user2_uname)
+  link(:user3_profile, :title => TestConfig.user3_uname)
   text_area(:search, :name => 'query')
 
   def view_profile(user = 'user1')

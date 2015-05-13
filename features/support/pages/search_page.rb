@@ -47,7 +47,7 @@ class SearchPage
         @browser.input(:class, 'js-search-submit').click
         retry
       end
-      fail "Search term '#{term}' not found"
+      raise "Search term '#{term}' not found"
     end
   end
 

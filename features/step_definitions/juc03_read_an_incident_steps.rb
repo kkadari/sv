@@ -18,11 +18,6 @@ Then /^I can not directly access the incident report if I am not in that group$/
   on(IncidentReportSummaryPage).verify_not_found
 end
 
-Then /^I can see the incident in my activity stream$/ do
-  navigate_to(HomePage)
-  on(HomePage).confirm_ir_present_with @subject
-end
-
 Then /^I can view the anonymous incident report$/ do
   visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
