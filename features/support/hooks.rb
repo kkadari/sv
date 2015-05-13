@@ -13,7 +13,7 @@ After do |scenario|
   end
 
   @browser.cookies.clear
-  @browser.goto(FigNewton.base_url + '/login.jspa')
+  visit(LoginPage)
 end
 
 at_exit do

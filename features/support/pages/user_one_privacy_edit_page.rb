@@ -3,11 +3,11 @@ require_relative '../modules/user_modal'
 
 class UserOnePrivacyEditPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/edit-profile-security!input.jspa?targetUser=#{FigNewton.user1_id}")
+  page_url(useroneprivacyeditpage)
 
   def restrict_name
     @browser.select_list(:name => 'nameSecurityLevelID').select 'Connections'

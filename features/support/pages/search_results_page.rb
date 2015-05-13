@@ -7,8 +7,9 @@ class SearchResultsPage
   include NavRibbon
   include UserModal
   include SearchBox
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/search.jspa?q=#{/.*/}")
+  page_url(searchresultpage)
 
   def verify_content_exists(title)
     fail "Content not visible or created" unless @browser.html.to_s.include? title

@@ -5,13 +5,13 @@ require_relative '../modules/search_box'
 
 class BlogPostEditPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include CreateModal
   include SearchBox
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/blog/update-post#{/.*/}")
+  page_url(blogposteditpage)
 
   def change_body_content
     @browser.link(:id => 'wysiwygtext_html').when_present.click

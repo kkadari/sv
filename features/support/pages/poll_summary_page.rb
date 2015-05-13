@@ -8,8 +8,9 @@ class PollSummaryPage
   include UserModal
   include DataMagic
   include IhmBar
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/polls/#{/.*/}")
+  page_url(pollsummarypage)
   
   link(:edit_poll_button, :text => /Edit/)
   link(:delete, :text => 'Delete')
@@ -18,7 +19,7 @@ class PollSummaryPage
   link(:edit, :id => 'wysiwyg_id_0_html')
   text_area(:comment_content, :class => 'usertext')
   button(:submit, :name => 'post')
-  link(:testing_breadcrumb, :href => "/groups/#{FigNewton.custom_group}/content?filterID=contentstatus[published]~objecttype~objecttype[poll]")
+  link(:testing_breadcrumb, :href => "/groups/#{TestConfig.custom_group}/content?filterID=contentstatus[published]~objecttype~objecttype[poll]")
   link(:archive, :text => /Archive/)
   button(:confirm_archive, :id => 'poll-archive-submit-button')
   button(:vote, :id => 'vote')

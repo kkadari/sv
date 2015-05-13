@@ -2,8 +2,9 @@ require 'open-uri'
 
 class BlogPostPdfPage
   include PageObject
+  extend UrlFactory
   
-  page_url(/#{FigNewton.base_url}\/people\S+.pdf/)
+  page_url(blogpostpdfpage)
   
   def pdf_includes(text)
     url = @browser.url

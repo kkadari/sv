@@ -7,12 +7,12 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
 
   user = "#{login}"
   case user
-    when user = 'participant A'
-      visit(LoginPage).log_in username = user1_uname, password = user1_pswd
-    when user = 'participant B'
-      visit(LoginPage).log_in username = user2_uname, password = user2_pswd
-    when user = 'admin'
-      visit(LoginPage).log_in username = adminuser_uname, password = adminuser_pswd
+    when 'participant A'
+      visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
+    when 'participant B'
+      visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
+    when 'admin'
+      visit(LoginPage).log_in TestConfig.adminuser_uname, TestConfig.adminuser_pswd
     else
       fail 'Supplied user not recognised.'
   end
@@ -30,7 +30,7 @@ Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report(
 
   response = Request.create_incident_report @browser.cookies.to_a, @subject, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
   @incident_id = response['redirect'][/[0-9]+/,0]
-  @incident_url = FigNewton.base_url + response['redirect']
+  @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end
 
 Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
@@ -86,7 +86,6 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   on(IncidentReportSummaryPage).verify_content_exists(@subject)
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
   @incident_id = on(IncidentReportSummaryPage).capture_incident_id
-  @incident_url = on(IncidentReportSummaryPage).capture_url
 end
 
 Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|
@@ -135,7 +134,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   @marking = marking
   on(HomePage).create('blog')
   on(BlogPostPage).set_ihm_level(@marking)
-  on(BlogPostPage).publish_to(custom_group)
+  on(BlogPostPage).publish_to(TestConfig.custom_group)
   on(BlogPostPage).complete_blog_post :subject => @subject
   on(BlogPostSummaryPage).verify_content_exists(@subject)
   on(BlogPostSummaryPage).correct_ihm_displayed(@marking)

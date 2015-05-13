@@ -5,8 +5,9 @@ class PreferencesPage
   include PageObject
   include NavRibbon
   include UserModal
+  extend UrlFactory
   
-  page_url("#{FigNewton.base_url}/user-preferences!input.jspa")
+  page_url(preferencespage)
   
   def change_timezone_to(value)
     @browser.select_list(:id => "jive-timezone").when_present.select_value(value)

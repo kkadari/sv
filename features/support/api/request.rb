@@ -1,5 +1,4 @@
 module Request
-  include FigNewton
 
   # Allows you to create an incident report via the REST endpoint
   # Params:
@@ -13,7 +12,7 @@ module Request
   # +tags+:: String - Expects a standard string to create tags.  To create more than one tag they should be comma separated
   # +anonymous_flag+:: Boolean - Expects a boolean flag to set whether the report will be anonymous or not
   def self.create_incident_report(cookies,subject,body,handling_level,publication,tags,anonymous_flag)
-    uri = URI("#{FigNewton.base_url}/__services/v2/rest/incidentReports/")
+    uri = URI("#{ENV['base_url']}/__services/v2/rest/incidentReports/")
     http = Net::HTTP.new(uri.host, 80)
 
     headers = {
@@ -66,7 +65,7 @@ module Request
   # +tags+:: String - Expects a standard string to create tags.  To create more than one tag they should be comma separated
   # +anonymous_flag+:: Boolean - Expects a boolean flag to set whether the report will be anonymous or not
   def self.create_discussion(cookies,subject,question,body,handling_level,publication,tags,anonymous_flag)
-    uri = URI("#{FigNewton.base_url}/__services/v2/rest/discussion")
+    uri = URI("#{ENV['base_url']}/__services/v2/rest/discussion")
     http = Net::HTTP.new(uri.host, 80)
 
     headers = {

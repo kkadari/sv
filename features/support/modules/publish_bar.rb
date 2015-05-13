@@ -23,11 +23,11 @@ module PublishBar
       when 'community'
         select_community
       when 'private group'
-        publish_to(FigNewton.custom_group)
+        publish_to(TestConfig.custom_group)
       when 'secret group'
-        publish_to(FigNewton.secret_group)
+        publish_to(TestConfig.secret_group)
       when 'space'
-        publish_to(FigNewton.custom_space)
+        publish_to(TestConfig.custom_space)
       else
         fail 'Something went wrong. Sorry about that.'
     end
@@ -45,6 +45,6 @@ module PublishBar
     # Wait for place search results popover
     @browser.div(:class => 'j-pop js-pop j-autocomplete j-placePicker popover').wait_until_present
     group = name.sub("-"," ").split.map(&:capitalize).join(' ')
-    @browser.link(:text,/#{group}/).click
+    @browser.span(:text,/#{group}/).click
   end
 end

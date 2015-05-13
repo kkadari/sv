@@ -3,11 +3,11 @@ require_relative '../modules/user_modal'
 
 class CustomGroupContentPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/groups/#{FigNewton.custom_group}/content")
+  page_url(customgroupcontentpage)
 
   link(:incident_report, :href => /create\-incidentreport\!input\.jspa\?containerType\=14&containerID\=\d+/)
 

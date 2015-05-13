@@ -10,8 +10,9 @@ class DiscussionSummaryPage
   include DataMagic
   include PdfExport
   include IhmBar
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/thread/#{/.*/}")
+  page_url(discussionsummarypage)
 
   def click_edit
     @browser.link(:text => /Edit/).when_present.click

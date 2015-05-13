@@ -5,8 +5,9 @@ class SearchPage
   include PageObject
   include NavRibbon
   include UserModal
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/search")
+  page_url(searchpage)
   
   text_field(:search, :id => 'j-search-input')
   link(:people, :title => 'Search for People')

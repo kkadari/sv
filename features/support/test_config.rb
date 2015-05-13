@@ -1,65 +1,63 @@
 class TestConfig
 
-  attr_reader :user1_irlname
-  attr_reader :user1_surname
-  attr_reader :user1_uname
-  attr_reader :user1_uname_en
-  attr_reader :user1_pswd
-  attr_reader :user1_id
+  class << self
 
-  attr_reader :user2_irlname
-  attr_reader :user2_surname
-  attr_reader :user2_uname
-  attr_reader :user2_uname_en
-  attr_reader :user2_pswd
-  attr_reader :user2_id
+    def user1_irlname
+      ENV['user1_irlname']
+    end
 
-  attr_reader :user3_irlname
-  attr_reader :user3_surname
-  attr_reader :user3_uname
-  attr_reader :user3_uname_en
-  attr_reader :user3_pswd
-  attr_reader :user3_id
+    def user1_surname
+      ENV['user1_surname']
+    end
 
-  attr_reader :adminuser_irlname
-  attr_reader :adminuser_uname
-  attr_reader :adminuser_uname_en
-  attr_reader :adminuser_pswd
+    def user1_uname
+      ENV['user1_uname']
+    end
 
-  attr_reader :custom_group
-  attr_reader :secret_group
-  attr_reader :custom_space
+    def user1_pswd
+      ENV['user1_pswd']
+    end
 
-  def initialize
-    @user1_irlname        = ENV['user1_irlname']
-    @user1_surname        = ENV['user1_surname']
-    @user1_uname          = ENV['user1_uname']
-    @user1_uname_en       = ENV['user1_uname_en']
-    @user1_pswd           = ENV['user1_pswd']
-    @user1_id             = ENV['user1_id']
+    def user1_id
+      ENV['user1_id']
+    end
 
-    @user2_irlname        = ENV['user2_irlname']
-    @user2_surname        = ENV['user2_surname']
-    @user2_uname          = ENV['user2_uname']
-    @user2_uname_en       = ENV['user2_uname_en']
-    @user2_pswd           = ENV['user2_pswd']
-    @user2_id             = ENV['user2_id']
+    def user2_uname
+      ENV['user2_uname']
+    end
 
-    @user3_irlname        = ENV['user3_irlname']
-    @user3_surname        = ENV['user3_surname']
-    @user3_uname          = ENV['user3_uname']
-    @user3_uname_en       = ENV['user3_uname_en']
-    @user3_pswd           = ENV['user3_pswd']
-    @user3_id             = ENV['user3_id']
+    def user2_pswd
+      ENV['user2_pswd']
+    end
 
-    @adminuser_irlname    = ENV['adminuser_irlname']
-    @adminuser_uname      = ENV['adminuser_uname']
-    @adminuser_uname_en   = ENV['adminuser_uname_en']
-    @adminuser_pswd       = ENV['adminuser_pswd']
+    def user3_uname
+      ENV['user3_uname']
+    end
 
-    @custom_group         = ENV['custom_group']
-    @secret_group         = ENV['secret_group']
-    @custom_space         = ENV['custom_space']
+    def user3_pswd
+      ENV['user3_pswd']
+    end
+
+    def adminuser_uname
+      ENV['adminuser_uname']
+    end
+
+    def adminuser_pswd
+      ENV['adminuser_pswd']
+    end
+
+    def custom_group
+      ENV['custom_group']
+    end
+
+    def secret_group
+      ENV['secret_group']
+    end
+
+    def custom_space
+      ENV['custom_space']
+    end
+
   end
 
 end

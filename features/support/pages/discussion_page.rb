@@ -6,15 +6,15 @@ require_relative '../modules/anonymity_bar'
 
 class DiscussionPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
   include DataMagic
   include IhmBar
   include PublishBar
   include AnonymityBar
+  extend UrlFactory
 
-  page_url(/#{FigNewton.base_url}\/discussion\/create\.jspa\?sr\=cmenu\&containerType=\d+&containerID\=\d+/)
+  page_url(discussionpage)
   
   text_field(:subject, :name => 'subject')
   text_area(:body, :class => 'usertext')

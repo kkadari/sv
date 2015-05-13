@@ -47,7 +47,7 @@ Then (/^I can not find the incident report in search if I am not in that group$/
 end
 
 Then(/^I will be able to view my recently created report$/) do
-  @browser.goto @incident_url
-  on(IncidentReportSummaryPage).verify_content_exists(@subject)
-  on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
+  on(IncidentReportSummaryPage).navigate_directly_to_ir_with_id @incident_id
+  on(IncidentReportSummaryPage).verify_content_exists @subject
+  on(IncidentReportSummaryPage).correct_ihm_displayed @marking
 end

@@ -3,13 +3,13 @@ require_relative '../modules/user_modal'
 
 class CustomGroupPage
   include PageObject
-  include FigNewton
   include NavRibbon
   include UserModal
+  extend UrlFactory
 
-  page_url("#{FigNewton.base_url}/#{FigNewton.custom_group}")
+  page_url(customgrouppage)
 
-  link(:content_page, :href => "/groups/#{FigNewton.custom_group}/content")
+  link(:content_page, :href => "/groups/#{TestConfig.custom_group}/content")
 
   def follow_in_connections_stream
     follow = @browser.link(:id => 'jive-link-socialgroup-startFollowing')
@@ -19,7 +19,7 @@ class CustomGroupPage
   end
 
   def view_content_page
-    @browser.link(:href => "/groups/#{FigNewton.custom_group}/content").wait_until_present
+    @browser.link(:href => "/groups/#{TestConfig.custom_group}/content").wait_until_present
     content_page
   end
 end
