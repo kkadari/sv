@@ -12,7 +12,7 @@ Feature: JUC1 - Establish a Profile
     Then followers can see restrictions
     And non followers cannot see restrictions
 
-  @manual @CISP-355
+  @JUC1.1 @CISP-355 @manual
   Scenario: Participant establishes their Participant Profile
     Given I have logged in as "participant A"
     And I navigate to People
