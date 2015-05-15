@@ -2,7 +2,7 @@ Then /^I as admin can verify the anonymous identifiers have been added in their 
   on(HomePage).click_people
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
-  on(UserOneProfilePage).click_content
+  on(UserOneProfilePage).content.when_present.click
   # Check content is there and anon
 end
 
@@ -11,12 +11,13 @@ Then /^participants are not able to view the incident report on the posters prof
   on(HomePage).click_people
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
-  on(UserOneProfilePage).click_content
-  on(UserOneProfilePage).confirm_incident_report_invisible @subject
-  on(UserOneProfilePage).click_thumbnail_view
-  on(UserOneProfilePage).confirm_incident_report_invisible @subject
-  on(UserOneProfilePage).filter_by @subject
-  on(UserOneProfilePage).confirm_incident_report_invisible @subject
+  on(UserOneProfilePage).content.when_present.click
+  fail "Incident report visible, and should not be" if @browser.html.to_s.include? @subject
+  on(UserOneProfilePage).thumbnail_view.when_present.click
+  fail "Incident report visible, and should not be" if @browser.html.to_s.include? @subject
+  on(UserOneProfilePage).filter_by.send_keys @subject
+  on(UserOneProfilePage).filter_by.send_keys :return
+  fail "Incident report visible, and should not be" if @browser.html.to_s.include? @subject
   on(UserOneProfilePage).log_out
 end
 
@@ -25,8 +26,8 @@ Then /^participants are not able to view the discussion in the posters activity 
   on(HomePage).click_people
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
-  on(UserOneProfilePage).click_activity
-  on(UserOneProfilePage).confirm_discussion_invisible @subject
+  on(UserOneProfilePage).activity.when_present.click
+  fail "Discussion is visible and should not be" if @browser.html.to_s.include? @subject
   on(UserOneProfilePage).log_out
 end
 
@@ -35,8 +36,8 @@ Then /^I am not able to view the discussion in my activity stream/ do
   on(HomePage).click_people
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
-  on(UserOneProfilePage).click_activity
-  on(UserOneProfilePage).confirm_discussion_invisible @subject
+  on(UserOneProfilePage).activity.when_present.click
+  fail "Discussion is visible and should not be" if @browser.html.to_s.include? @subject
   on(UserOneProfilePage).log_out
 end
 
