@@ -59,11 +59,11 @@ Then(/^I can search for all the content types as another user$/) do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).search_for title[:bp]
 
-  on(SearchResultsPage).verify_content_exists title[:bp]
+  fail 'Content not visible or created' unless @browser.html.to_s.include? title[:bp]
   on(SearchResultsPage).search_for title[:po]
-  on(SearchResultsPage).verify_content_exists title[:po]
+  fail 'Content not visible or created' unless @browser.html.to_s.include? title[:po]
   on(SearchResultsPage).search_for title[:di]
-  on(SearchResultsPage).verify_content_exists title[:di]
+  fail 'Content not visible or created' unless @browser.html.to_s.include? title[:di]
   on(SearchResultsPage).log_out
 end
 

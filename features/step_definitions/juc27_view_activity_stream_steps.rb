@@ -32,7 +32,8 @@ Then /^I am not able to view it in their activity stream$/ do
   on(PeoplePage).search_for_user TestConfig.user1_surname
   on(PeoplePage).click_result TestConfig.user1_irlname
   on(UserOneProfilePage).activity.when_present.click
-  on(UserOneActivityStreamPage).confirm_no_anon_content
+
+  !fail 'Anonymous content visible' unless @browser.html.to_s.include? 'Anonymous'
 end
 
 Then /^I am not able to view their identity on the comment in their activity stream$/ do
@@ -41,7 +42,11 @@ Then /^I am not able to view their identity on the comment in their activity str
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
   on(UserOneProfilePage).activity.when_present.click
-  on(UserOneActivityStreamPage).confirm_comment_is_anon
+  .confirm_comment_is_anon
+
+  on(UserOneActivityStreamPage).links.first.click
+  !fail 'Not marked as anonymous' unless on(UserOneActivityStreamPage).comments.first.text.include? 'Anonymous'
+  !fail 'Username visible' if on(UserOneActivityStreamPage).comments.first.text.include? TestConfig.user1_uname
 end
 
 Then /^another user is not able to view it in my activity stream$/ do
@@ -50,7 +55,8 @@ Then /^another user is not able to view it in my activity stream$/ do
   on(PeoplePage).search_for_user TestConfig.user1_surname
   on(PeoplePage).click_result TestConfig.user1_irlname
   on(UserOneProfilePage).activity.when_present.click
-  on(UserOneActivityStreamPage).confirm_no_anon_content
+
+  !fail 'Anonymous content visible' unless @browser.html.to_s.include? 'Anonymous'
 end
 
 Then /^I can see the incident in my activity stream$/ do

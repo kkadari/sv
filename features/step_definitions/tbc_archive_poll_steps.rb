@@ -1,13 +1,16 @@
 And /^I archive the poll$/ do
   on(PollSummaryPage).archive_poll
-  on(PollSummaryPage).verify_content_exists(@subject)
-  on(PollSummaryPage).confirm_poll_archived
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
+  on(PollSummaryPage).wait_for_poll_archived
+
+  fail 'Poll not archived' unless @browser.html.to_s.include? 'This poll was archived on'
 end
 
 Then /^I can edit the poll and it remain archived$/ do
-  on(PollSummaryPage).verify_content_exists(@subject)
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(PollSummaryPage).edit_poll
   on(PollEditPage).edit_subject(@subject)
-  on(PollSummaryPage).verify_content_exists(@subject)
-  on(PollSummaryPage).confirm_poll_remains_archived
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
+
+  fail "Poll did not remain archived" unless @browser.html.to_s.include? 'This poll ended on'
 end

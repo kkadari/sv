@@ -36,8 +36,4 @@ class IncidentReportEditPage
     return @new_subject
   end
 
-  def verify_page_title
-    title = @browser.title
-    fail "IR edit page title incorrect, was: ".concat(title) unless title.include? 'Edit incident report'
-  end
 end

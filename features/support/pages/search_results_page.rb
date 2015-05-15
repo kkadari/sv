@@ -11,20 +11,8 @@ class SearchResultsPage
 
   page_url(searchresultpage)
 
-  def verify_content_exists(title)
-    fail "Content not visible or created" unless @browser.html.to_s.include? title
-  end
-
-  def verify_content_not_exists(title)
-    fail 'Content should not be visible' if @browser.html.to_s.include? title
-  end
-
   def click_top_result
     @browser.links(:class => 'j-search-result-value').first.when_present.click
-  end
-
-  def verify_results_present_for(user)
-    fail "User not visible" unless @browser.html.to_s.include? user
   end
 
   def click_people

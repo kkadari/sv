@@ -49,9 +49,10 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   on(DiscussionPage).mark_as_question if question
   on(DiscussionPage).raise_anonymously if anonymous
   on(DiscussionPage).complete_discussion :subject => @subject
-  on(DiscussionSummaryPage).verify_content_exists(@subject)
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(DiscussionSummaryPage).correct_ihm_displayed(@marking)
-  on(DiscussionSummaryPage).verify_anonymous if anonymous
+
+  fail 'Incident report not anonymous' unless @browser.html.to_s.include? 'This content was posted anonymously by its author'
 end
 
 Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
@@ -73,7 +74,7 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   on(IncidentReportPage).set_publish_level(@location)
   on(IncidentReportPage).raise_anonymously if anonymous
   on(IncidentReportPage).complete_incident_report :subject => @subject
-  on(IncidentReportSummaryPage).verify_content_exists(@subject)
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
   @incident_id = on(IncidentReportSummaryPage).capture_incident_id
 end
@@ -107,7 +108,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   on(PollPage).set_ihm_level(@marking)
   on(PollPage).set_publish_level(@location)
   on(PollPage).complete_poll :subject => @subject
-  on(PollSummaryPage).verify_content_exists(@subject)
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(PollSummaryPage).correct_ihm_displayed(@marking)
 
   # This is clunky but will do for now - Review later MW
@@ -117,7 +118,7 @@ end
 Then /^I can view the( anonymous)? discussion$/ do |anonymous|
   visit DiscussionSummaryPage, :using_params => {:id => @discussion_id}
 
-  on(DiscussionSummaryPage).verify_content_exists(@subject)
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   if anonymous
     fail 'Discussion does not include Anonymous avatar' unless on(DiscussionSummaryPage).avatar.visible?
   end
@@ -131,14 +132,14 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   on(BlogPostPage).set_ihm_level(@marking)
   on(BlogPostPage).publish_to(TestConfig.custom_group)
   on(BlogPostPage).complete_blog_post :subject => @subject
-  on(BlogPostSummaryPage).verify_content_exists(@subject)
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(BlogPostSummaryPage).correct_ihm_displayed(@marking)
 end
 
 Then /^I can edit the anonymous incident report$/ do
   visit IncidentReportEditPage, :using_params => {:id => @incident_id}
 
-  on(IncidentReportEditPage).verify_page_title
+  fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
   @new_subject = on(IncidentReportEditPage).change_subject
-  on(IncidentReportSummaryPage).verify_content_exists(@new_subject)
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @new_subject
 end

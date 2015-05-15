@@ -8,13 +8,13 @@ Then /^I export the (blog|discussion|incident report) to PDF$/ do |type|
   case type
     when 'blog'
       on(BlogPostSummaryPage).export_to_pdf
-      on(BlogPostPdfPage).pdf_includes(@subject)
+      fail "#{text} not found in PDF" unless @browser.html.include? @subject
     when 'discussion'
       on(DiscussionSummaryPage).export_to_pdf
-      on(DiscussionPdfPage).pdf_includes(@subject)
+      fail "#{text} not found in PDF" unless @browser.html.include? @subject
     when 'incident report'
       on(DiscussionSummaryPage).export_to_pdf
-      on(DiscussionPdfPage).pdf_includes(@subject)
+      fail "#{text} not found in PDF" unless @browser.html.include? @subject
     else
       fail 'Cannot export content of that type.'
   end 
@@ -29,7 +29,7 @@ Then /^I can export the blog to PDF with the correct timestamp$/ do
   on(ContentPage).navigate_to_content_named(@subject)
   on(BlogPostSummaryPage).export_to_pdf
 
-  on(BlogPostPdfPage).pdf_includes text
+  fail "#{text} not found in PDF" unless @browser.html.include? text
   visit(Homepage)
   on(HomePage).open_preferences
   on(PreferencesPage).change_timezone_to "Europe/London"
@@ -47,7 +47,7 @@ Then /^I can export the discussion to PDF with the correct timestamp$/ do
   on(ContentPage).navigate_to_content_named @subject
   on(DiscussionSummaryPage).export_to_pdf
 
-  on(DiscussionPdfPage).pdf_includes text
+  fail "#{text} not found in PDF" unless @browser.html.include? text
   visit(Homepage)
   on(HomePage).open_preferences
   on(PreferencesPage).change_timezone_to "Europe/London"
@@ -64,7 +64,7 @@ Then /^I can export the ir to PDF with the correct timestamp$/ do
   on(ContentPage).navigate_to_ir_named @subject
   on(IncidentReportSummaryPage).export_to_pdf
 
-  on(IncidentReportPdfPage).pdf_includes text
+  fail "#{text} not found in PDF" unless @browser.html.include? text
   visit(Homepage)
   on(HomePage).open_preferences
   on(PreferencesPage).change_timezone_to "Europe/London"

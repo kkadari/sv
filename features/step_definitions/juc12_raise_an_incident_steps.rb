@@ -20,6 +20,6 @@ end
 Then /^I can view the internal link$/ do
   visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
-  on(IncidentReportSummaryPage).verify_content_exists(@subject)
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   fail 'Link not present' unless @browser.html.include? @incident_url
 end

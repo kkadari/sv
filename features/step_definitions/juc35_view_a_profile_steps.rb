@@ -46,5 +46,5 @@ Given /^I attempt to view the profile of a non existent user$/ do
 end
 
 Then /^I am notified that the user does not exist$/ do
-  on(PeoplePage).verify_not_found
+  fail 'Person profile unexpectedly displayed' unless @browser.html.to_s.include? 'Not Found'
 end

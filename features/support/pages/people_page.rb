@@ -22,7 +22,7 @@ class PeoplePage
       when 'user3'
         user3_profile
       else
-        fail "Unknown user provided"
+        raise "Unknown user provided"
     end
   end
 
@@ -38,10 +38,6 @@ class PeoplePage
 
   def navigate_directly_to_profile_of(username)
     browser.goto UrlFactory.peoplepage + "/" + username
-  end
-
-  def verify_not_found
-    fail 'Person profile unexpectedly displayed' unless @browser.html.to_s.include? 'Not Found'
   end
 
 end

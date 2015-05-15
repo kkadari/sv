@@ -1,7 +1,7 @@
 Then (/^I can use Jive search to find the anonymous incident report$/) do
   visit(SearchPage)
   on(SearchPage).verify_search_result_exists_and_click @subject
-  on(IncidentReportSummaryPage).verify_content_exists @subject
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
 end
 
 Then (/^I can use the spotlight search to find the incident report by ID$/) do
@@ -15,9 +15,11 @@ Then (/^I am not able to view their identity on the comment when I search for th
   on(SearchPage).search_for @subject
   on(SearchResultsPage).click_incident_reports
   on(SearchResultsPage).sort_last_modified_newest_first
-  on(SearchResultsPage).verify_content_exists @subject
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(SearchResultsPage).click_top_result
-  on(IncidentReportSummaryPage).confirm_first_comment_is_anonymous TestConfig.user1_uname
+
+  !fail 'Not marked as anonymous' unless on(IncidentReportSummaryPage).avatar.exists?
+  !fail 'Username visible' if on(IncidentReportSummaryPage).comments.first.text.include? TestConfig.user1_uname
 end
 
 Given /^I have used spotlight search to search for a participant$/ do
@@ -28,5 +30,5 @@ Given /^I have used spotlight search to search for a participant$/ do
 end
 
 Then /^details for that participant are returned by Jive search$/ do
-  on(SearchResultsPage).verify_results_present_for(TestConfig.user2_uname)
+  fail "User not visible" unless @browser.html.to_s.include? TestConfig.user2_uname
 end

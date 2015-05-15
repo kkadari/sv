@@ -10,10 +10,10 @@ class PlacesPage
   page_url(placespage)
 
   link(:custom_group, :href => "/groups/#{TestConfig.custom_group}")
+  div(:place_header, :css => '#jive-body-intro-content h1')
 
   def verify_cannot_create_place
-    browser.goto UrlFactory.cannotcreateplacepage
-    fail 'Not presented with Unauthorized page' unless @browser.div(:id => 'jive-body-intro-content').h1.text.include?('Unauthorized')
+
   end
 
   def view_custom_group
