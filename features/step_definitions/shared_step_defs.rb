@@ -111,8 +111,9 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
 
   on(PollSummaryPage).wait_until do
     on(PollSummaryPage).title.include? @subject
-    on(PollSummaryPage).correct_ihm_displayed(@marking)
   end
+
+  on(PollSummaryPage).correct_ihm_displayed @marking
 
   # This is clunky but will do for now - Review later MW
   @incident_id = @browser.url.gsub(ENV['base_url'],'')[/[0-9]+/,0]
