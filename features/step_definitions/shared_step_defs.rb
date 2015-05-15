@@ -120,7 +120,8 @@ Then /^I can view the( anonymous)? discussion$/ do |anonymous|
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   if anonymous
-    fail 'Discussion does not include Anonymous avatar' unless on(DiscussionSummaryPage).avatar.visible?
+
+    fail 'Discussion does not include Anonymous avatar' unless on(DiscussionSummaryPage).avatar_element.visible?
   end
 end
 

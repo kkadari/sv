@@ -13,7 +13,7 @@ class DiscussionSummaryPage
   extend UrlFactory
 
   page_url(discussionsummarypage)
-  image(:avatar,:class => 'jive-avatar anonymous-avatar')
+  image(:avatar, :class => 'jive-avatar anonymous-avatar')
 
   def click_edit
     @browser.link(:text => /Edit/).when_present.click

@@ -24,7 +24,7 @@ module CreateModal
       when 'request_group'
         @browser.link(:text => 'Apply for a new Group').when_present.click
       else
-        fail "Cannot create a content or place type of #{content_type}."
+        raise "Cannot create a content or place type of #{content_type}."
     end
   end 
 end

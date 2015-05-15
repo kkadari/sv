@@ -9,5 +9,5 @@ Then /^I can verify the anonymous identifiers have been added to the discussion$
   visit DiscussionSummaryPage, :using_params => {:id => @discussion_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  fail 'Discussion does not include Anonymous avatar' unless on(DiscussionSummaryPage).avatar.visible?
+  fail 'Discussion does not include Anonymous avatar' unless on(DiscussionSummaryPage).avatar_element.visible?
 end
