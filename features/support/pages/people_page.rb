@@ -5,8 +5,9 @@ class PeoplePage
   include PageObject
   include NavRibbon
   include UserModal
+  extend UrlFactory
 
-  page_url(UrlFactory.peoplepage)
+  page_url(peoplepage)
 
   link(:user1_profile, :title => TestConfig.user1_uname)
   link(:user2_profile, :title => TestConfig.user2_uname)

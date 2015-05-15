@@ -108,8 +108,11 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   on(PollPage).set_ihm_level(@marking)
   on(PollPage).set_publish_level(@location)
   on(PollPage).complete_poll :subject => @subject
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(PollSummaryPage).correct_ihm_displayed(@marking)
+
+  on(PollSummaryPage).wait_until do
+    on(PollSummaryPage).title.include? @subject
+    on(PollSummaryPage).correct_ihm_displayed(@marking)
+  end
 
   # This is clunky but will do for now - Review later MW
   @incident_id = @browser.url.gsub(ENV['base_url'],'')[/[0-9]+/,0]

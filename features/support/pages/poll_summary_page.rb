@@ -23,6 +23,7 @@ class PollSummaryPage
   link(:archive, :text => /Archive/)
   button(:confirm_archive, :id => 'poll-archive-submit-button')
   button(:vote, :id => 'vote')
+  h1(:title, :css => '.j-poll-title h1')
 
   def edit_poll
     @browser.link(:text => /Edit/).when_present.click
