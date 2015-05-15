@@ -13,6 +13,7 @@ class DiscussionSummaryPage
   extend UrlFactory
 
   page_url(discussionsummarypage)
+  image(:avatar,:class => 'jive-avatar anonymous-avatar')
 
   def click_edit
     @browser.link(:text => /Edit/).when_present.click
@@ -34,11 +35,6 @@ class DiscussionSummaryPage
   
   def verify_anonymous
     wait_until { @browser.html.to_s.include? 'This content was posted anonymously by its author' }
-  end
-  
-  def verify_anonymous_as_participant
-    # Simple check for now, could be greatly improved.
-    fail 'Discussion does not include Anonymous avatar' unless @browser.image(:class => 'jive-avatar anonymous-avatar').visible?
   end
 
   def verify_content_exists(title)

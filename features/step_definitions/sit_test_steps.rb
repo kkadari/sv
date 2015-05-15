@@ -40,14 +40,14 @@ end
 Then(/^I can view all the created content types as another user$/) do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).click_content
-  on(ContentPage).click_polls
-  on(ContentPage).verify_poll_exists_with title[:po]
-  on(ContentPage).click_blogs
-  on(ContentPage).verify_blog_post_exists_with title[:bp]
-  on(ContentPage).click_discussions
-  on(ContentPage).verify_discussion_exists_with title[:di]
-  on(ContentPage).click_incident_reports
-  on(ContentPage).verify_ir_exists_with title[:ir]
+  on(ContentPage).polls.click
+  fail 'Poll not visible' unless @browser.html.include? title[:po]
+  on(ContentPage).blogs.click
+  fail 'Blog post not visible' unless @browser.html.include? title[:bp]
+  on(ContentPage).discussions.click
+  fail 'Discussion not visible' unless @browser.html.include? title[:di]
+  on(ContentPage).incident_reports.click
+  fail 'Incident Report not visible' unless @browser.html.include? title[:ir]
   on(ContentPage).log_out
 end
 

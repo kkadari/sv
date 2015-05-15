@@ -43,7 +43,7 @@ Then /^I can export the discussion to PDF with the correct timestamp$/ do
   zone = ActiveSupport::TimeZone[utc_offset].name
   text = DateTime.now.in_time_zone(zone).strftime("%b %d, %Y %H")
   on(HomePage).click_content
-  on(ContentPage).click_discussions
+  on(ContentPage).discussions.click
   on(ContentPage).navigate_to_content_named @subject
   on(DiscussionSummaryPage).export_to_pdf
 

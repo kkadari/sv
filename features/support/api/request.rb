@@ -122,7 +122,7 @@ module Request
       when 'random'
         %w(1 2 3 4).sample
       else
-        fail "Allowed combinations are red, amber, green, white and random.  You chose: #{color}"
+        raise "Allowed combinations are red, amber, green, white and random.  You chose: #{color}"
     end
   end
 
@@ -137,7 +137,7 @@ module Request
       when 'secret group'
         return '{"visibility":"place","container":{"objectType":"700","objectID":"1005"}}'
       else
-        fail "Allowed publications are community, private group, secret group and space.  You chose: #{publication[:type]}"
+        raise "Allowed publications are community, private group, secret group and space.  You chose: #{publication[:type]}"
     end
   end
 

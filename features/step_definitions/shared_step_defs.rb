@@ -119,7 +119,7 @@ Then /^I can view the( anonymous)? discussion$/ do |anonymous|
 
   on(DiscussionSummaryPage).verify_content_exists(@subject)
   if anonymous
-    on(DiscussionSummaryPage).verify_anonymous_as_participant
+    fail 'Discussion does not include Anonymous avatar' unless on(DiscussionSummaryPage).avatar.visible?
   end
 end
 
