@@ -148,8 +148,8 @@ module UrlFactory
     "#{ENV['base_url']}/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14"
   end
 
-  def self.peoplepage
-    "#{ENV['base_url']}/people"
+  def peoplepage
+    ENV['base_url'] + '/people/<%=params[:id]%>'
   end
 
 end

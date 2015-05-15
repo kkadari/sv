@@ -42,7 +42,7 @@ Then /^I am not able to view the discussion in my activity stream/ do
 end
 
 Given /^I attempt to view the profile of a non existent user$/ do
-  on(PeoplePage).navigate_directly_to_profile_of 'invalid-user@nowhere'
+  visit PeoplePage, :using_params => {:id => 'invalid-user@nowhere'}
 end
 
 Then /^I am notified that the user does not exist$/ do

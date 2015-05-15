@@ -4,13 +4,14 @@ class LoginPage
 
   page_url(loginpage)
 
-  text_field(:username, :name => "username")
-  text_field(:password, :id => "password01")
+  text_field(:username, :name => 'username')
+  text_field(:password, :id => 'password01')
+  button(:submit, :id => 'login-submit')
   
-  def log_in(username, password)
-    self.username = username
-    self.password = password
-    @browser.button(:id => "login-submit").when_present.click
+  def log_in(uname, pswd)
+    self.username = uname
+    self.password = pswd
+    submit
   end
 
 end

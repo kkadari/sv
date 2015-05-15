@@ -18,7 +18,7 @@ end
 
 Then /^I can verify the incident report is marked anonymous in my connection stream$/ do
   visit(LoginPage).log_in
-  on(HomePage).navigate_to_connections_stream
+  on(HomePage).connections_stream
 
   incident_report = on(ActivityPage).incident_report.first
   !fail 'Not marked with anonymous avatar' unless incident_report.html.to_s.include? 'anonymous-avatar'

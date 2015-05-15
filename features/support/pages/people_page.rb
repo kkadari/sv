@@ -32,12 +32,8 @@ class PeoplePage
   end
 
   def click_result(name)
-    result = "people\/#{TestConfig.user1_id}"
+    result = "people/#{TestConfig.user1_id}"
     @browser.link(:href => /#{result}/).when_present.click
-  end
-
-  def navigate_directly_to_profile_of(username)
-    browser.goto UrlFactory.peoplepage + "/" + username
   end
 
 end

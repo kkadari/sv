@@ -34,10 +34,6 @@ module NavRibbon
     @browser.link(:text => 'Apply for a new Group').when_present.click
   end
   
-  def capture_url
-    return @browser.url
-  end
-  
   def verify_cannot_create(type)
     click_create
     case type
