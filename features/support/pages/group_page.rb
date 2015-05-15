@@ -14,7 +14,7 @@ class GroupPage
   radio_button(:private, :id => 'jive-socialgroup-type-PRIVATE')
   radio_button(:secret, :id => 'jive-socialgroup-type-SECRET')
   button(:save, :name => 'save')
-  div(:content_header, :css => '#jive-body-intro-content h1')
+  h1(:content_header, :css => '#jive-body-intro-content h1')
 
   def complete_group(data = {})
     populate_page_with data_for(:GroupPage, data)
