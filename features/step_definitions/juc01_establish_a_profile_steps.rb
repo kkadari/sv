@@ -12,6 +12,7 @@ Then /^participants that follow me can view the profile enhancements$/ do
 
   visit(PeoplePage)
   on(PeoplePage).view_profile 'user1'
+  on(UserOneProfilePage).view_more_details.click
 
   fail('Could not find profile enhancement') unless @browser.html.to_s.include? @prefix
 end
