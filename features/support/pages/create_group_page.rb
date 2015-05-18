@@ -1,9 +1,8 @@
-class GroupPage
+class CreateGroupPage
   include PageObject
-  include DataMagic
   extend UrlFactory
 
-  page_url(grouppage)
+  page_url(creategrouppage)
   
   text_field(:name, :id => 'jive-socialgroup-name-input')
   text_area(:description, :id => 'jive-socialgroup-desc')

@@ -20,14 +20,14 @@ end
 Given /^I have restricted parts of my profile$/ do
   visit(LoginPage).log_in
   navigate_to(UserOnePrivacyEditPage, :using => :user1_profile_route).restrict_name
-  on(UserOneProfilePage).log_out
+  visit(LogoutPage)
 end
 
 Then /^followers can see restrictions$/ do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   navigate_to(PeoplePage, :using => :user1_profile_route).view_profile 'user1'
   fail 'Name not visible, and should be' unless @browser.html.include? TestConfig.user1_irlname
-  on(UserOneProfilePage).log_out
+  visit(LogoutPage)
 end
 
 And /^non followers cannot see restrictions$/ do

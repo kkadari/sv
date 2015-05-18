@@ -1,9 +1,16 @@
 Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my personal blog$/) do |marking|
   @subject = on(HomePage).create_title_for('blog')
   @marking = marking
+
   on(HomePage).create('blog')
-  on(BlogPostPage).set_ihm_level(@marking)
-  on(BlogPostPage).complete_blog_post :subject => @subject
+
+  on CreateBlogPostPage do |create|
+    create.subject  = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation poll'
+    create.set_ihm_level      @marking
+    create.save
+  end
 
   on(BlogPostSummaryPage).wait_until do
     on(BlogPostSummaryPage).title_element.exists?

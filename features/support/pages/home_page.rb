@@ -1,5 +1,5 @@
 require_relative '../modules/nav_ribbon'
-require_relative '../modules/user_modal'
+
 require_relative '../modules/create_modal'
 require_relative '../modules/search_box'
 require_relative '../modules/title_creator'
@@ -8,7 +8,7 @@ require_relative '../modules/group_request'
 class HomePage
   include PageObject
   include NavRibbon
-  include UserModal
+
   include CreateModal
   include SearchBox
   include TitleCreator
@@ -54,6 +54,11 @@ class HomePage
   def create(type)
     click_create
     click_to_create_type(type)
+  end
+
+  def open_preferences
+    @browser.link(:id => 'j-satNav').when_present.click
+    @browser.link(:href => '/user-preferences!input.jspa').when_present.click
   end
 
 end

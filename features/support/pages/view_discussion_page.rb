@@ -1,10 +1,8 @@
 require_relative '../modules/nav_ribbon'
-require_relative '../modules/user_modal'
 
 class ViewDiscussionPage
   include PageObject
   include NavRibbon
-  include UserModal
   include DataMagic
   extend UrlFactory
 
@@ -57,10 +55,5 @@ class ViewDiscussionPage
 
     @browser.element(:xpath => '//*[@id="postform"]/div[5]/input[1]').when_present.click
   end
-
-
-
-
-
 
 end

@@ -18,7 +18,7 @@ Then /^participants are not able to view the incident report on the posters prof
   on(UserOneProfilePage).filter_by.send_keys @subject
   on(UserOneProfilePage).filter_by.send_keys :return
   fail "Incident report visible, and should not be" if @browser.html.to_s.include? @subject
-  on(UserOneProfilePage).log_out
+  visit(LogoutPage)
 end
 
 Then /^participants are not able to view the discussion in the posters activity stream/ do
@@ -28,7 +28,7 @@ Then /^participants are not able to view the discussion in the posters activity 
   on(PeoplePage).click_result(TestConfig.user1_irlname)
   on(UserOneProfilePage).activity.when_present.click
   fail "Discussion is visible and should not be" if @browser.html.to_s.include? @subject
-  on(UserOneProfilePage).log_out
+  visit(LogoutPage)
 end
 
 Then /^I am not able to view the discussion in my activity stream/ do
@@ -38,7 +38,7 @@ Then /^I am not able to view the discussion in my activity stream/ do
   on(PeoplePage).click_result(TestConfig.user1_irlname)
   on(UserOneProfilePage).activity.when_present.click
   fail "Discussion is visible and should not be" if @browser.html.to_s.include? @subject
-  on(UserOneProfilePage).log_out
+  visit(LogoutPage)
 end
 
 Given /^I attempt to view the profile of a non existent user$/ do

@@ -1,23 +1,31 @@
 Given /^a participant has raised an anonymous incident report in a group I follow in my connections stream$/ do
-  visit(LoginPage).log_in
-  on(HomePage).click_places
+  visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
 
-  on(PlacesPage).view_custom_group
-  on(CustomGroupPage).follow_in_connections_stream
-  on(CustomGroupPage).log_out
-  @subject = on(HomePage).create_title_for('incident')
+  visit CustomGroupPage do | customgroup |
+    customgroup.follow_in_connections_stream
+  end
+
+  visit(LogoutPage)
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).create('incident_report')
-  on(IncidentReportPage).set_ihm_level('amber')
-  on(IncidentReportPage).publish_to(TestConfig.custom_group)
-  on(IncidentReportPage).raise_anonymously
-  on(IncidentReportPage).complete_incident_report :subject => @subject
 
-  on(IncidentReportSummaryPage).log_out
+  @subject = on(HomePage).create_title_for('incident')
+  on(HomePage).create('incident_report')
+
+  on CreateIncidentReportPage do |create|
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation poll'
+    create.set_ihm_level      'amber'
+    create.publish_to         TestConfig.custom_group
+    create.check_anonymous
+    create.save
+  end
+
+  visit(LogoutPage)
 end
 
 Then /^I can verify the incident report is marked anonymous in my connection stream$/ do
-  visit(LoginPage).log_in
+  visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
   on(HomePage).connections_stream
 
   incident_report = on(ActivityPage).incident_report.first

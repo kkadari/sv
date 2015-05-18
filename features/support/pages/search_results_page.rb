@@ -1,11 +1,9 @@
 require_relative '../modules/nav_ribbon'
-require_relative '../modules/user_modal'
 require_relative '../modules/search_box'
 
 class SearchResultsPage
   include PageObject
   include NavRibbon
-  include UserModal
   include SearchBox
   extend UrlFactory
 

@@ -1,5 +1,5 @@
 require_relative '../modules/nav_ribbon'
-require_relative '../modules/user_modal'
+
 
 class UserOneActivityStreamPage
   include PageObject
