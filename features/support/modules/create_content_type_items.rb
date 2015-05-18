@@ -17,6 +17,7 @@ module CreateContentTypeItems
 
   text_field(:tags, :class => 'js-tag-input')
   button(:save, :id => 'submitButton')
+  checkbox(:anonymous,:id => 'notAttributable')
 
   def set_publish_level(level)
     case level

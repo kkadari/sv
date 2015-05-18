@@ -1,11 +1,11 @@
 require_relative '../modules/create_content_type_items'
 
-class CreateBlogPostPage
+class CreateIncidentReportPage
   include PageObject
   include DataMagic
   include CreateContentTypeItems
   extend UrlFactory
 
-  page_url(blogpostpage)
+  page_url(incidentreportpage)
 
 end

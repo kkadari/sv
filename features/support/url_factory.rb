@@ -56,8 +56,12 @@ module UrlFactory
     ENV['base_url'] + '/message/<%=params[:id]%>'
   end
 
-  def grouppage
+  def creategrouppage
     ENV['base_url'] + '/create-group!input.jspa?sr=cmenu'
+  end
+
+  def grouppage
+    ENV['base_url'] + '/groups/<%=params[:id]%>'
   end
 
   def incidentreporteditpage
@@ -109,7 +113,7 @@ module UrlFactory
   end
 
   def customgrouppage
-    "#{ENV['base_url']}/#{TestConfig.custom_group}"
+    ENV['base_url'] + '/groups/' + TestConfig.custom_group
   end
 
   def placespage

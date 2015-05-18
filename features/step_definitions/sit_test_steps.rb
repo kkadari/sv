@@ -1,14 +1,21 @@
 title = {}
 
 Given(/^I create all the content types$/) do
-  attack = %w(DDoS phishing logic-bomb trojan).sample
   @ir_subject = on(HomePage).create_title_for('incident')
   title[:ir] = @ir_subject
   visit(LoginPage).log_in
   on(HomePage).create('incident_report')
-  on(IncidentReportPage).set_ihm_level('red')
-  on(IncidentReportPage).publish_to(TestConfig.custom_group)
-  on(IncidentReportPage).complete_incident_report :subject => @ir_subject
+
+  on CreateIncidentReportPage do |create|
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation poll'
+    create.set_ihm_level      'red'
+    create.publish_to         TestConfig.custom_group
+    create.check_anonymous
+    create.save
+  end
+
   on(IncidentReportSummaryPage).click_home
 
   @subject = on(HomePage).create_title_for('poll')

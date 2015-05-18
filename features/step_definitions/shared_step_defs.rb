@@ -70,10 +70,16 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   @location = location
 
   on(HomePage).create('incident_report')
-  on(IncidentReportPage).set_ihm_level(@marking)
-  on(IncidentReportPage).set_publish_level(@location)
-  on(IncidentReportPage).raise_anonymously if anonymous
-  on(IncidentReportPage).complete_incident_report :subject => @subject
+
+  on CreateIncidentReportPage do |create|
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation poll'
+    create.set_ihm_level      @marking
+    create.publish_to         @location
+    create.check_anonymous if anonymous
+    create.save
+  end
 
   on(IncidentReportSummaryPage).wait_until do
     on(IncidentReportSummaryPage).title_element.exists?
