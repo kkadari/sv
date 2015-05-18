@@ -16,14 +16,15 @@ class PollPage
   
   text_field(:subject, :name => 'subject')
   text_area(:body, :class => 'usertext')
-  text_field(:tags, :xpath => "//div[contains(@id,'jive-compose-tags-form')]//input[@type=\"text\"][1]")
+  text_field(:tags, :class => 'js-tag-input')
   text_field(:option1, :name => 'options[0].text')
   text_field(:option2, :name => 'options[1].text')
+  link(:enable_html_mode, :id => 'wysiwygtext_html')
   button(:save, :id => 'submitButton')
 
   def complete_poll(data = {})
-    @browser.link(:id => 'wysiwygtext_html').when_present.click
+    self.enable_html_mode_element.when_present.click
     populate_page_with data_for(:PollPage, data)
-    @browser.button(:id => 'submitButton').when_present.click
+    self.save_element.click
   end
 end

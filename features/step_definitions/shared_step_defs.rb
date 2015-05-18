@@ -76,9 +76,10 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   on(IncidentReportPage).complete_incident_report :subject => @subject
 
   on(IncidentReportSummaryPage).wait_until do
-    on(IncidentReportSummaryPage).title.include? @subject
+    on(IncidentReportSummaryPage).title_element.exists?
   end
 
+  on(IncidentReportSummaryPage).title.include? @subject
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
   @incident_id = on(IncidentReportSummaryPage).capture_incident_id
 end
@@ -114,9 +115,10 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   on(PollPage).complete_poll :subject => @subject
 
   on(PollSummaryPage).wait_until do
-    on(PollSummaryPage).title.include? @subject
+    on(PollSummaryPage).title_element.exists?
   end
 
+  on(PollSummaryPage).title.include? @subject
   on(PollSummaryPage).correct_ihm_displayed @marking
 
   # This is clunky but will do for now - Review later MW
@@ -142,9 +144,10 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   on(BlogPostPage).publish_to(TestConfig.custom_group)
   on(BlogPostPage).complete_blog_post :subject => @subject
   on(BlogPostSummaryPage).wait_until do
-    on(BlogPostSummaryPage).title.include? @subject
+    on(BlogPostSummaryPage).title_element.exists?
   end
 
+  on(BlogPostSummaryPage).title.include? @subject
   on(BlogPostSummaryPage).correct_ihm_displayed(@marking)
 end
 

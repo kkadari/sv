@@ -1,4 +1,4 @@
-@JUC16 @wip
+@JUC16
 Feature: JUC16 - Create a poll
 
   @JUC16.1 @CISP-598
