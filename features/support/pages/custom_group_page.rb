@@ -18,8 +18,4 @@ class CustomGroupPage
     follow.click unless following.present?
   end
 
-  def view_content_page
-    @browser.link(:href => "/groups/#{TestConfig.custom_group}/content").wait_until_present
-    content_page
-  end
 end

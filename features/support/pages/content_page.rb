@@ -26,21 +26,9 @@ class ContentPage
     @browser.link(:text, /#{search}/).when_present.click
   end
 
-  def navigate_to_document_named(subject)
-    search = subject[0..23]
-    documents
-    @browser.link(:text, /#{search}/).when_present.click
-  end
-
   def navigate_to_discussion_named(subject)
     search = subject[0..23]
     discussions
-    @browser.link(:text, /#{search}/).when_present.click
-  end
-
-  def navigate_to_poll_named(subject)
-    search = subject[0..23]
-    polls
     @browser.link(:text, /#{search}/).when_present.click
   end
 

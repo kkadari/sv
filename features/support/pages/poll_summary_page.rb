@@ -76,9 +76,4 @@ class PollSummaryPage
     wait_until { @browser.element(:xpath => '//*[@id="jive-poll-vote"]/ul[2]/li[1]/span[@class="j-vote-box j-ui-elem j-check"]') }
   end
 
-  def verify_content_exists(title)
-    wait_until { @browser.html.to_s.include? title[15] }
-    #Ratings widget causes delay in logout link being accessible. Wait for it to fully load. ~TD
-    @browser.div(:class => 'jive-content-avgrating-score').wait_until_present
-  end
 end
