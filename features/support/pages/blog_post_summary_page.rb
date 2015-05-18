@@ -21,6 +21,7 @@ class BlogPostSummaryPage
   link(:edit, :id => 'wysiwyg_id_0_html')
   text_area(:comment_content, :class => 'usertext')
   button(:submit, :name => 'post')
+  h1(:title, :css => '.jive-blog-post-subject-header h1')
 
   def edit_blog_post
     @browser.link(:text => /Edit/).wait_until_present

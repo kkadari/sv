@@ -56,7 +56,4 @@ class HomePage
     click_to_create_type(type)
   end
 
-  def navigate_to_connections_stream
-    connections_stream
-  end
 end

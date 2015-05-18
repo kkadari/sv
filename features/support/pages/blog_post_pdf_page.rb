@@ -16,9 +16,9 @@ class BlogPostPdfPage
         @found = page.text.include? text
       end
     rescue PDF::Reader::MalformedPDFError
-      puts "Malformed PDF error. Exiting."
+      puts 'Malformed PDF error. Exiting.'
       exit
     end
-    fail "#{text} not found in PDF" unless @found
+    raise "#{text} not found in PDF" unless @found
   end
 end

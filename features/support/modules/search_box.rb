@@ -22,7 +22,7 @@ module SearchBox
         @browser.text_field(:id, 'autosearch').when_present.set('')
         retry
       end
-      fail 'Search term not found'
+      raise 'Search term not found'
     end
   end
 
@@ -38,7 +38,7 @@ module SearchBox
         @browser.text_field(:id, 'autosearch').when_present.set('')
         retry
       end
-      fail 'Search term not found'
+      raise 'Search term not found'
     end
   end
   
@@ -54,7 +54,7 @@ module SearchBox
         @browser.text_field(:id, 'autosearch').when_present.set('')
         retry
       end
-      fail 'Incident not found'
+      raise 'Incident not found'
     end
   end
 end

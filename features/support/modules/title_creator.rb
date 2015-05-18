@@ -19,7 +19,7 @@ module TitleCreator
       when 'space'
         $subject = "#{appname} Space"
       else
-        fail 'Incorrect content type supplied to title creator'
+        raise 'Incorrect content type supplied to title creator'
     end
   end
 end

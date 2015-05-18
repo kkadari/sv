@@ -7,9 +7,11 @@ Then (/^I cannot create a (group|space) directly$/) do |type|
   @type = type
   case type
     when 'group'
-      on(GroupPage).verify_cannot_create_group
+      @browser.goto UrlFactory.cannotcreategrouppage
+      fail 'Not presented with Unauthorized page' unless on(GroupPage).content_header_element.text.include?('Unauthorized')
     when 'space'
-      on(PlacesPage).verify_cannot_create_place 
+      @browser.goto UrlFactory.cannotcreateplacepage
+      fail 'Not presented with Unauthorized page' unless on(PlacesPage).text.include?('Unauthorized')
     else
       fail 'Type not recognised.'
   end

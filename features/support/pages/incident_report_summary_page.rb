@@ -17,6 +17,9 @@ class IncidentReportSummaryPage
   link(:delete, :text => /Delete/)
   button(:confirm_delete, :id => 'deletebutton')
   link(:edit_ir_button, :text => /Edit/)
+  image(:avatar, :class => 'jive-avatar anonymous-avatar')
+  div(:first_comment, :class => 'jive-comment-container')
+  h1(:title, :css => '.jive-incidentreport h1')
 
   def delete_incident_report
     delete
@@ -30,20 +33,15 @@ class IncidentReportSummaryPage
     @browser.link(:text => 'Edit').when_present.click
   end
 
-  def verify_anonymous
-    fail 'Incident report not anonymous' unless @browser.html.to_s.include? 'This content was posted anonymously by its author'
-  end
-
   def confirm_first_comment_is_anonymous user_name
-    !fail 'Not marked as anonymous' unless browser.img(:class => "jive-avatar anonymous-avatar").exists?
-    !fail 'Username visible' if browser.divs(:class => "jive-comment-container").first.text.include? user_name
+
   end
 
   def capture_incident_id
     @browser.url.to_s.match(/.*incidentreports\/(\d+).*/)
     incident_id = $1
-    fail 'Incident ID not captured' unless incident_id =~ /^\d+$/
-    return incident_id
+    raise 'Incident ID not captured' unless incident_id =~ /^\d+$/
+    incident_id
   end
 
   def verify_not_found

@@ -14,6 +14,7 @@ class GroupPage
   radio_button(:private, :id => 'jive-socialgroup-type-PRIVATE')
   radio_button(:secret, :id => 'jive-socialgroup-type-SECRET')
   button(:save, :name => 'save')
+  h1(:content_header, :css => '#jive-body-intro-content h1')
 
   def complete_group(data = {})
     populate_page_with data_for(:GroupPage, data)
@@ -32,12 +33,8 @@ class GroupPage
       when 'secret'
         select_secret
       else
-        fail "Incorrect type selection: #{type}"
+        raise "Incorrect type selection: #{type}"
     end
   end
 
-  def verify_cannot_create_group
-    browser.goto UrlFactory.cannotcreategrouppage
-    fail 'Not presented with Unauthorized page' unless @browser.div(:id => 'jive-body-intro-content').h1.text.include?('Unauthorized')
-  end
 end

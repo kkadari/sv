@@ -29,7 +29,7 @@ module PublishBar
       when 'space'
         publish_to(TestConfig.custom_space)
       else
-        fail 'Something went wrong. Sorry about that.'
+        raise 'Something went wrong. Sorry about that.'
     end
   end
 

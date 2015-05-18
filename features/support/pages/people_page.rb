@@ -5,8 +5,9 @@ class PeoplePage
   include PageObject
   include NavRibbon
   include UserModal
+  extend UrlFactory
 
-  page_url(UrlFactory.peoplepage)
+  page_url(peoplepage)
 
   link(:user1_profile, :title => TestConfig.user1_uname)
   link(:user2_profile, :title => TestConfig.user2_uname)
@@ -22,7 +23,7 @@ class PeoplePage
       when 'user3'
         user3_profile
       else
-        fail "Unknown user provided"
+        raise "Unknown user provided"
     end
   end
 
@@ -32,16 +33,8 @@ class PeoplePage
   end
 
   def click_result(name)
-    result = "people\/#{TestConfig.user1_id}"
+    result = "people/#{TestConfig.user1_id}"
     @browser.link(:href => /#{result}/).when_present.click
-  end
-
-  def navigate_directly_to_profile_of(username)
-    browser.goto UrlFactory.peoplepage + "/" + username
-  end
-
-  def verify_not_found
-    fail 'Person profile unexpectedly displayed' unless @browser.html.to_s.include? 'Not Found'
   end
 
 end

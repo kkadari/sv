@@ -45,9 +45,9 @@ module IhmBar
       when '4'
         new_color = 'white'
       else
-        fail 'Handling level ID incorrect.'
+        raise 'Handling level ID incorrect.'
     end
-    return new_color
+    new_color
   end
 
   def set_ihm_level(color)
@@ -63,7 +63,7 @@ module IhmBar
       when 'random'
         %w(select_red select_amber select_green select_white).sample
       else
-        fail "Incorrect IHM selection: #{color}"
+        raise "Incorrect IHM selection: #{color}"
     end
   end
 end
