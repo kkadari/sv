@@ -18,7 +18,7 @@ class IncidentReportSummaryPage
   button(:confirm_delete, :id => 'deletebutton')
   link(:edit_ir_button, :text => /Edit/)
   image(:avatar, :class => 'jive-avatar anonymous-avatar')
-  divs(:comments, :class => 'jive-comment-container')
+  div(:first_comment, :class => 'jive-comment-container')
   h1(:title, :css => '.jive-incidentreport h1')
 
   def delete_incident_report
