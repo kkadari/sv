@@ -26,14 +26,14 @@ class IncidentReportEditPage
   def change_handling_level
     @new_color = edit_handling_level
     @browser.button(:id => 'submitButton').when_present.click
-    return @new_color
+    @new_color
   end
 
   def change_subject
     @browser.text_field(:id => 'subject').when_present.set("=Edited= ".concat(subject))
     @new_subject = @browser.text_field(:id => 'subject').value
     @browser.button(:id => 'submitButton').when_present.click
-    return @new_subject
+    @new_subject
   end
 
 end

@@ -74,7 +74,11 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   on(IncidentReportPage).set_publish_level(@location)
   on(IncidentReportPage).raise_anonymously if anonymous
   on(IncidentReportPage).complete_incident_report :subject => @subject
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
+
+  on(IncidentReportSummaryPage).wait_until do
+    on(IncidentReportSummaryPage).title.include? @subject
+  end
+
   on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
   @incident_id = on(IncidentReportSummaryPage).capture_incident_id
 end
@@ -137,7 +141,10 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   on(BlogPostPage).set_ihm_level(@marking)
   on(BlogPostPage).publish_to(TestConfig.custom_group)
   on(BlogPostPage).complete_blog_post :subject => @subject
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
+  on(BlogPostSummaryPage).wait_until do
+    on(BlogPostSummaryPage).title.include? @subject
+  end
+
   on(BlogPostSummaryPage).correct_ihm_displayed(@marking)
 end
 
@@ -146,5 +153,10 @@ Then /^I can edit the anonymous incident report$/ do
 
   fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
   @new_subject = on(IncidentReportEditPage).change_subject
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @new_subject
+
+  on(IncidentReportSummaryPage).wait_until do
+    on(IncidentReportSummaryPage).title_element.exists?
+  end
+
+  fail 'Content not visible or created' unless on(IncidentReportSummaryPage).title.include? @new_subject
 end
