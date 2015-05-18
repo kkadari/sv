@@ -1,7 +1,7 @@
 module BrowserFactory
 
   def self.create
-    Watir.default_timeout = 15
+    Watir.default_timeout = 30
 
     case ENV['browser']
       when 'firefox'
