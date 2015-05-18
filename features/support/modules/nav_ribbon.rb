@@ -22,18 +22,6 @@ module NavRibbon
     @browser.div(:id => 'menuCreate').wait_until_present
   end
   
-  def click_create_group
-    @browser.link(:text => 'Group').when_present.click
-  end
-  
-  def click_create_space
-    @browser.link(:text => 'Space').when_present.click
-  end
-  
-  def click_request_group
-    @browser.link(:text => 'Apply for a new Group').when_present.click
-  end
-  
   def verify_cannot_create(type)
     click_create
     case type

@@ -16,25 +16,4 @@ class GroupPage
   button(:save, :name => 'save')
   h1(:content_header, :css => '#jive-body-intro-content h1')
 
-  def complete_group(data = {})
-    populate_page_with data_for(:GroupPage, data)
-    save
-  end
-
-  def type_is (type = 'private')
-    advanced
-    case type
-      when 'open'
-        select_open
-      when 'members-only'
-        select_member_only
-      when 'private'
-        select_private
-      when 'secret'
-        select_secret
-      else
-        raise "Incorrect type selection: #{type}"
-    end
-  end
-
 end

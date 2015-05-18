@@ -9,5 +9,5 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
 end
 
 Then /I am able to view more polls in a related container$/ do
-  fail "Not on correct content page" unless @browser.url.include? "/groups/#{TestConfig.custom_group}/content?filterID=contentstatus[published]~objecttype~objecttype[poll]"
+  fail 'Not on correct content page' unless @browser.url.include? "/groups/#{TestConfig.custom_group}/content?filterID=contentstatus[published]~objecttype~objecttype[poll]"
 end

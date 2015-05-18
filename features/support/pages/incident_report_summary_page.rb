@@ -33,10 +33,6 @@ class IncidentReportSummaryPage
     @browser.link(:text => 'Edit').when_present.click
   end
 
-  def confirm_first_comment_is_anonymous user_name
-
-  end
-
   def capture_incident_id
     @browser.url.to_s.match(/.*incidentreports\/(\d+).*/)
     incident_id = $1
@@ -44,13 +40,4 @@ class IncidentReportSummaryPage
     incident_id
   end
 
-  def verify_not_found
-    wait_until { @browser.html.to_s.include? 'Not Found' }
-  end
-
-  def verify_content_exists(title)
-    wait_until { @browser.html.to_s.include? title }
-    #Ratings widget causes delay in logout link being accessible. Wait for it to fully load. ~TD
-    @browser.div(:class => 'jive-content-avgrating-score').wait_until_present
-  end
 end

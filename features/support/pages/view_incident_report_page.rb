@@ -1,13 +1,11 @@
 require_relative '../modules/nav_ribbon'
 require_relative '../modules/user_modal'
-require_relative '../modules/mention_module'
 
 class ViewIncidentReportPage
   include PageObject
   include NavRibbon
   include UserModal
   include DataMagic
-  include MentionModule
   extend UrlFactory
 
   page_url(viewincidentreportpage)
@@ -57,24 +55,10 @@ class ViewIncidentReportPage
     @browser.button(:name => 'post').when_present.click
   end
 
-  def add_comment_mentioning_tim
-    @browser.link(:text => 'Add a comment').when_present.click
-    @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
-    mention_tim
-    @browser.button(:name => 'post').when_present.click
-  end
-
-  def add_comment_mentioning_matt
-    @browser.link(:text => 'Add a comment').when_present.click
-    @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
-    mention_matt
-    @browser.button(:name => 'post').when_present.click
-  end
-
   def add_anon_comment_mentioning_tim
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
-    mention_tim
+    @browser.textarea(:class => 'usertext').set "This is a comment mentioning " + '<body><p><a class="jive_macro jive_macro_user" href="javascript:;" jivemacro="user" ___default_attr="2002" data-objecttype="3" data-orig-content="Tim Durden">Tim Durden</a></p></body>'
     @browser.send_keys :tab
     @browser.send_keys :space
     @browser.button(:name => 'post').when_present.click
@@ -83,7 +67,7 @@ class ViewIncidentReportPage
   def add_anon_comment_mentioning_simonwi
     @browser.link(:text => 'Add a comment').when_present.click
     @browser.link(:id => 'wysiwyg_id_0_html').when_present.click
-    mention_simonwi
+    @browser.textarea(:class => 'usertext').set "This is a comment mentioning " + '<body><p><a class="jive_macro jive_macro_user" href="javascript:;" jivemacro="user" ___default_attr="2013" data-objecttype="3" data-orig-content="simonwhi@surevine">simonwhi@surevine</a></p></body>'
     @browser.send_keys :tab
     @browser.send_keys :space
     @browser.button(:name => 'post').when_present.click

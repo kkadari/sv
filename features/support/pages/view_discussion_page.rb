@@ -1,13 +1,11 @@
 require_relative '../modules/nav_ribbon'
 require_relative '../modules/user_modal'
-require_relative '../modules/mention_module'
 
 class ViewDiscussionPage
   include PageObject
   include NavRibbon
   include UserModal
   include DataMagic
-  include MentionModule
   extend UrlFactory
 
   page_url(viewdiscussionpage)
@@ -60,9 +58,9 @@ class ViewDiscussionPage
     @browser.element(:xpath => '//*[@id="postform"]/div[5]/input[1]').when_present.click
   end
 
-  def verify_content_exists(title)
-    wait_until { @browser.html.to_s.include? title[15] }
-    #Ratings widget causes delay in logout link being accessible. Wait for it to fully load. ~TD
-    @browser.div(:class => 'jive-content-avgrating-score').wait_until_present
-  end
+
+
+
+
+
 end

@@ -27,7 +27,4 @@ class UserOneProfileEditPage
     @browser.button(:name => 'save').when_present.click
   end
 
-  def edit_privacy_settings
-    @browser.link(:text => 'Privacy Settings').when_present.click
-  end
 end
