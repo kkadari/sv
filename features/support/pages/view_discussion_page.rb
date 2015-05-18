@@ -56,9 +56,4 @@ class ViewDiscussionPage
     @browser.element(:xpath => '//*[@id="postform"]/div[5]/input[1]').when_present.click
   end
 
-
-
-
-
-
 end
