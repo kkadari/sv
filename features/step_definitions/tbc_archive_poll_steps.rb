@@ -10,7 +10,11 @@ Then /^I can edit the poll and it remain archived$/ do
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(PollSummaryPage).edit_poll
   on(PollEditPage).edit_subject(@subject)
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
 
-  fail "Poll did not remain archived" unless @browser.html.to_s.include? 'This poll ended on'
+  on(PollSummaryPage).wait_until do
+    on(PollSummaryPage).title_element.exists?
+  end
+
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
+  fail 'Poll did not remain archived' unless @browser.html.to_s.include? 'This poll ended on'
 end

@@ -6,7 +6,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my persona
   on(BlogPostPage).complete_blog_post :subject => @subject
 
   on(BlogPostSummaryPage).wait_until do
-    on(BlogPostSummaryPage).title.include? @subject
+    on(BlogPostSummaryPage).title_element.exists?
   end
 
   on(BlogPostSummaryPage).correct_ihm_displayed @marking
