@@ -1,13 +1,11 @@
 require_relative '../modules/nav_ribbon'
 require_relative '../modules/user_modal'
-require_relative '../modules/mention_module'
 
 class ViewIncidentReportPage
   include PageObject
   include NavRibbon
   include UserModal
   include DataMagic
-  include MentionModule
   extend UrlFactory
 
   page_url(viewincidentreportpage)
