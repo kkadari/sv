@@ -1,11 +1,9 @@
 require_relative '../modules/nav_ribbon'
-require_relative '../modules/user_modal'
 require_relative '../modules/ihm_bar'
 
 class PollSummaryPage
   include PageObject
   include NavRibbon
-  include UserModal
   include DataMagic
   include IhmBar
   extend UrlFactory

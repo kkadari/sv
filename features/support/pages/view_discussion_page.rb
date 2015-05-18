@@ -1,10 +1,8 @@
 require_relative '../modules/nav_ribbon'
-require_relative '../modules/user_modal'
 
 class ViewDiscussionPage
   include PageObject
   include NavRibbon
-  include UserModal
   include DataMagic
   extend UrlFactory
 

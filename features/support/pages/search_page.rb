@@ -1,10 +1,10 @@
 require_relative '../modules/nav_ribbon'
-require_relative '../modules/user_modal'
+
 
 class SearchPage
   include PageObject
   include NavRibbon
-  include UserModal
+
   extend UrlFactory
 
   page_url(searchpage)

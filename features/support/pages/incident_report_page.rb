@@ -1,17 +1,15 @@
 require_relative '../modules/nav_ribbon'
-require_relative '../modules/user_modal'
+
 require_relative '../modules/ihm_bar'
-require_relative '../modules/publish_bar'
 require_relative '../modules/anonymity_bar'
 require_relative '../modules/title_creator'
 
 class IncidentReportPage
   include PageObject
   include NavRibbon
-  include UserModal
+
   include DataMagic
   include IhmBar
-  include PublishBar
   include AnonymityBar
   include TitleCreator
   extend UrlFactory

@@ -1,12 +1,10 @@
 require_relative '../modules/nav_ribbon'
-require_relative '../modules/user_modal'
 require_relative '../modules/create_modal'
 require_relative '../modules/search_box'
 
-class PollEditPage
+class EditPollPage
   include PageObject
   include NavRibbon
-  include UserModal
   include CreateModal
   include SearchBox
   extend UrlFactory

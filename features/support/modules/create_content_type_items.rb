@@ -1,6 +1,13 @@
-module PublishBar
+module CreateContentTypeItems
   include PageObject
 
+  text_field(:subject, :name => 'subject')
+
+  # Body related items
+  text_area(:body, :class => 'usertext')
+  link(:enable_html_mode, :id => 'wysiwygtext_html')
+
+  # Publish bar related items
   radio_button(:place, :id => 'js-place')
   radio_button(:people, :id => 'js-people')
   radio_button(:community, :id => 'js-all')
@@ -8,14 +15,17 @@ module PublishBar
   link(:browse, :id => 'js-publishbar-place-browse')
   link(:testing, :href => /create\.jspa\?sr\=cmenu\&containerType0\=14\&containerID\=1\#/)
 
+  text_field(:tags, :class => 'js-tag-input')
+  button(:save, :id => 'submitButton')
+
   def set_publish_level(level)
     case level
       when /In a place/
         area = level[/(?<=\+)(.*?)(?=\+)/]
         puts "Functionality pending, would have shared in #{area}"
         select_community
-        #select_place
-        #where = area
+      #select_place
+      #where = area
       when /Specific people/
         people = level[/(?<=\+)(.*?)(?=\+)/]
         puts "Functionality pending, would have shared only with #{people}"
@@ -47,4 +57,22 @@ module PublishBar
     group = name.sub("-"," ").split.map(&:capitalize).join(' ')
     @browser.span(:text,/#{group}/).click
   end
+
+  def set_ihm_level(color)
+    case color
+      when 'red'
+        @browser.radio(:name => 'handlingLevel', :id => '1').when_present.click
+      when 'amber'
+        @browser.radio(:name => 'handlingLevel', :id => '2').when_present.click
+      when 'green'
+        @browser.radio(:name => 'handlingLevel', :id => '3').when_present.click
+      when 'white'
+        @browser.radio(:name => 'handlingLevel', :id => '4').when_present.click
+      when 'random'
+        %w(select_red select_amber select_green select_white).sample
+      else
+        raise "Incorrect IHM selection: #{color}"
+    end
+  end
+
 end

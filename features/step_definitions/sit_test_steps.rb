@@ -14,17 +14,32 @@ Given(/^I create all the content types$/) do
   @subject = on(HomePage).create_title_for('poll')
   title[:po] = @subject
   on(HomePage).create('poll')
-  on(PollPage).set_ihm_level('amber')
-  on(PollPage).publish_to(TestConfig.custom_group)
-  on(PollPage).complete_poll :subject => @subject
+
+  on CreatePollPage do |create|
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation poll'
+    create.option1          = 'Option 1 to choose'
+    create.option2          = 'Option 2 to choose'
+    create.set_ihm_level    @marking
+    create.publish_to       @location
+    create.save
+  end
 
   on(PollSummaryPage).click_home
 
   @subject = on(HomePage).create_title_for('blog')
   title[:bp] = @subject
   on(HomePage).create('blog')
-  on(BlogPostPage).set_ihm_level('green')
-  on(BlogPostPage).complete_blog_post :subject => @subject
+
+  on CreateBlogPostPage do |create|
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation poll'
+    create.set_ihm_level      'green'
+    create.save
+  end
+
   on(BlogPostSummaryPage).click_home
 
   @subject = on(HomePage).create_title_for('discussion')
@@ -34,7 +49,7 @@ Given(/^I create all the content types$/) do
   on(DiscussionPage).publish_to(TestConfig.custom_group)
   on(DiscussionPage).complete_discussion :subject => @subject
   on(DiscussionSummaryPage).click_home
-  on(DiscussionSummaryPage).log_out
+  visit(LogoutPage)
 end
 
 Then(/^I can view all the created content types as another user$/) do
@@ -48,7 +63,7 @@ Then(/^I can view all the created content types as another user$/) do
   fail 'Discussion not visible' unless @browser.html.include? title[:di]
   on(ContentPage).incident_reports.click
   fail 'Incident Report not visible' unless @browser.html.include? title[:ir]
-  on(ContentPage).log_out
+  visit(LogoutPage)
 end
 
 Given(/^all the content types have been created$/) do
@@ -64,7 +79,7 @@ Then(/^I can search for all the content types as another user$/) do
   fail 'Content not visible or created' unless @browser.html.to_s.include? title[:po]
   on(SearchResultsPage).search_for title[:di]
   fail 'Content not visible or created' unless @browser.html.to_s.include? title[:di]
-  on(SearchResultsPage).log_out
+  visit(LogoutPage)
 end
 
 When(/^I can edit all the content types as the author$/) do
@@ -77,7 +92,7 @@ When(/^I can edit all the content types as the author$/) do
   on(HomePage).click_content
   on(ContentPage).navigate_to_content_named title[:po]
   on(PollSummaryPage).edit_poll
-  on(PollEditPage).change_body_content
+  on(EditPollPage).change_body_content
   on(PollSummaryPage).click_home
   on(HomePage).click_content
   on(ContentPage).navigate_to_blog_post_named title[:bp]
@@ -96,7 +111,7 @@ Then(/^I can delete all the content types as the author$/) do
   on(PollSummaryPage).click_home
   on(HomePage).navigate_to_blog_post_named title[:bp]
   on(BlogPostSummaryPage).delete_blog_post
-  on(PollSummaryPage).log_out
+  visit(LogoutPage)
 end
 
 When(/^as an admin I can delete incident reports$/) do
@@ -104,5 +119,5 @@ When(/^as an admin I can delete incident reports$/) do
   on(HomePage).click_content
   on(ContentPage).navigate_to_ir_named title[:ir]
   on(IncidentReportSummaryPage).delete_incident_report
-  on(IncidentReportPage).log_out
+  visit(LogoutPage)
 end

@@ -4,7 +4,7 @@ Given /^a participant has raised an anonymous incident report in a group I follo
 
   on(PlacesPage).view_custom_group
   on(CustomGroupPage).follow_in_connections_stream
-  on(CustomGroupPage).log_out
+  visit(LogoutPage)
   @subject = on(HomePage).create_title_for('incident')
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).create('incident_report')
@@ -13,7 +13,7 @@ Given /^a participant has raised an anonymous incident report in a group I follo
   on(IncidentReportPage).raise_anonymously
   on(IncidentReportPage).complete_incident_report :subject => @subject
 
-  on(IncidentReportSummaryPage).log_out
+  visit(LogoutPage)
 end
 
 Then /^I can verify the incident report is marked anonymous in my connection stream$/ do

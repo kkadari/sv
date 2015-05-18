@@ -2,9 +2,18 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
   @subject = on(HomePage).create_title_for('poll')
   visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
   on(HomePage).create('poll')
-  on(PollPage).set_ihm_level('amber')
-  on(PollPage).publish_to(TestConfig.custom_group)
-  on(PollPage).complete_poll :subject => @subject
+
+  on CreatePollPage do |create|
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation poll'
+    create.option1          = 'Option 1 to choose'
+    create.option2          = 'Option 2 to choose'
+    create.set_ihm_level    'amber'
+    create.publish_to       TestConfig.custom_group
+    create.save
+  end
+
   on(PollSummaryPage).follow_breadcrumb
 end
 

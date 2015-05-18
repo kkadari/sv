@@ -110,9 +110,17 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   @location = location
 
   on(HomePage).create('poll')
-  on(PollPage).set_ihm_level(@marking)
-  on(PollPage).set_publish_level(@location)
-  on(PollPage).complete_poll :subject => @subject
+
+  on CreatePollPage do |create|
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation poll'
+    create.option1          = 'Option 1 to choose'
+    create.option2          = 'Option 2 to choose'
+    create.set_ihm_level      @marking
+    create.set_publish_level  @location
+    create.save
+  end
 
   on(PollSummaryPage).wait_until do
     on(PollSummaryPage).title_element.exists?
@@ -140,9 +148,16 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   @marking = marking
 
   on(HomePage).create('blog')
-  on(BlogPostPage).set_ihm_level(@marking)
-  on(BlogPostPage).publish_to(TestConfig.custom_group)
-  on(BlogPostPage).complete_blog_post :subject => @subject
+
+  on CreateBlogPostPage do |create|
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation poll'
+    create.set_ihm_level      @marking
+    create.publish_to         TestConfig.custom_group
+    create.save
+  end
+
   on(BlogPostSummaryPage).wait_until do
     on(BlogPostSummaryPage).title_element.exists?
   end
