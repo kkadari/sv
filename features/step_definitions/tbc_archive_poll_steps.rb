@@ -2,7 +2,7 @@ And /^I archive the poll$/ do
   on PollSummaryPage do |poll|
     poll.archive
 
-    wait_until do
+    poll.wait_until do
       poll.archive_confirmation_element.exists?
     end
 
@@ -11,8 +11,10 @@ And /^I archive the poll$/ do
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
 
-  wait_until do
-    poll_ended_element.exists?
+  on PollSummaryPage do |poll|
+    poll.wait_until do
+      poll.poll_ended_element.exists?
+    end
   end
 
   fail 'Poll not archived' unless @browser.html.to_s.include? 'This poll was archived on'

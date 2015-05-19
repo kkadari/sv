@@ -142,7 +142,7 @@ Then(/^I can delete all the content types as the author$/) do
   on DiscussionSummaryPage do |discussion|
       discussion.delete
 
-      wait_until do
+      discussion.wait_until do
         discussion.delete_container_element.exists?
       end
 
@@ -154,7 +154,7 @@ Then(/^I can delete all the content types as the author$/) do
   on PollSummaryPage do |poll|
     poll.delete
 
-    wait_until do
+    poll.wait_until do
       poll.delete_confirmation_element.exists?
     end
 
@@ -166,7 +166,7 @@ Then(/^I can delete all the content types as the author$/) do
 
   on BlogPostSummaryPage do |blog|
     blog.delete
-    wait_until do
+    blog.wait_until do
       blog.delete_container.exists?
     end
     blog.confirm_delete
@@ -182,7 +182,7 @@ When(/^as an admin I can delete incident reports$/) do
 
   on IncidentReportSummaryPage do |report|
     report.delete
-    wait_until do
+    report.wait_until do
       report.delete_confirm_element.exists?
     end
     report.confirm_delete

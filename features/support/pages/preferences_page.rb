@@ -3,9 +3,11 @@ class PreferencesPage
   extend UrlFactory
   
   page_url(preferencespage)
+
+  button(:save,:name => 'save')
+  select_list(:timezone, :id => 'jive-timezone')
   
   def change_timezone_to(value)
-    @browser.select_list(:id => "jive-timezone").when_present.select_value(value)
-    @browser.button(:name => "save").when_present.click
+
   end
 end

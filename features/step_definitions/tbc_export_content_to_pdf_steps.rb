@@ -1,6 +1,9 @@
 And /^I have changed my time zone preferences$/ do
   on(HomePage).open_preferences
-  on(PreferencesPage).change_timezone_to("America/Bogota")
+  on PreferencesPage do |pref|
+    pref.timezone = 'America/Bogota'
+    pref.save
+  end
 end
 
 Then /^I export the (blog|discussion|incident report) to PDF$/ do |type|
@@ -32,7 +35,11 @@ Then /^I can export the blog to PDF with the correct timestamp$/ do
   fail "#{text} not found in PDF" unless @browser.html.include? text
   visit(Homepage)
   on(HomePage).open_preferences
-  on(PreferencesPage).change_timezone_to "Europe/London"
+
+  on PreferencesPage do |pref|
+    pref.timezone = 'Europe/London'
+    pref.save
+  end
 
   on(GlobalNav).home
 end
@@ -50,7 +57,11 @@ Then /^I can export the discussion to PDF with the correct timestamp$/ do
   fail "#{text} not found in PDF" unless @browser.html.include? text
   visit(Homepage)
   on(HomePage).open_preferences
-  on(PreferencesPage).change_timezone_to "Europe/London"
+
+  on PreferencesPage do |pref|
+    pref.timezone = 'Europe/London'
+    pref.save
+  end
 
   on(GlobalNav).home
 end
@@ -67,7 +78,11 @@ Then /^I can export the ir to PDF with the correct timestamp$/ do
   fail "#{text} not found in PDF" unless @browser.html.include? text
   visit(Homepage)
   on(HomePage).open_preferences
-  on(PreferencesPage).change_timezone_to "Europe/London"
+
+  on PreferencesPage do |pref|
+    pref.timezone = 'Europe/London'
+    pref.save
+  end
 
   on(GlobalNav).home
 end
