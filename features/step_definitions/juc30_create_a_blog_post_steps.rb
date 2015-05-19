@@ -21,7 +21,6 @@ end
 
 Then(/^I can view the blog post$/) do
   visit(ContentPage)
-  on(GlobalNav).content
   on(ContentPage).navigate_to_blog_post_named @subject
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
 
