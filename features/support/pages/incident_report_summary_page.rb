@@ -6,7 +6,6 @@ require_relative '../modules/ihm_bar'
 class IncidentReportSummaryPage
   include PageObject
   include NavRibbon
-
   include DataMagic
   include PdfExport
   include IhmBar

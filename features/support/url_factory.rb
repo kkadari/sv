@@ -92,12 +92,8 @@ module UrlFactory
     ENV['base_url'] + '/user-preferences!input.jspa'
   end
 
-  def searchpage
+  def advsearchpage
     ENV['base_url'] + '/search'
-  end
-
-  def searchresultpage
-    "#{ENV['base_url']}/search.jspa?q=#{/.*/}"
   end
 
   def viewdiscussionpage

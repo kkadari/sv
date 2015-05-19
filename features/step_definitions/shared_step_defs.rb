@@ -44,11 +44,18 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   @location = location
 
   on(HomePage).create('discussion')
-  on(DiscussionPage).set_ihm_level(@marking)
-  on(DiscussionPage).set_publish_level(@location)
-  on(DiscussionPage).mark_as_question if question
-  on(DiscussionPage).raise_anonymously if anonymous
-  on(DiscussionPage).complete_discussion :subject => @subject
+
+  on CreateDiscussionPage do | create |
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation discussion body'
+    create.set_ihm_level      @marking
+    create.publish_to         @location
+    create.check_anonymous    if anonymous
+    create.check_as_question  if question
+    create.save
+  end
+
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(DiscussionSummaryPage).correct_ihm_displayed(@marking)
 

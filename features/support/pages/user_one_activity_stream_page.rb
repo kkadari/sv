@@ -1,6 +1,5 @@
 require_relative '../modules/nav_ribbon'
 
-
 class UserOneActivityStreamPage
   include PageObject
   extend UrlFactory

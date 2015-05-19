@@ -52,9 +52,16 @@ Given(/^I create all the content types$/) do
   @subject = on(HomePage).create_title_for('discussion')
   title[:di] = @subject
   on(HomePage).create('discussion')
-  on(DiscussionPage).set_ihm_level('white')
-  on(DiscussionPage).publish_to(TestConfig.custom_group)
-  on(DiscussionPage).complete_discussion :subject => @subject
+
+  on CreateDiscussionPage do | create |
+    create.subject          = @subject
+    create.enable_html_mode
+    create.body             = 'Test automation discussion body'
+    create.set_ihm_level      'white'
+    create.publish_to         TestConfig.custom_group
+    create.save
+  end
+
   on(DiscussionSummaryPage).click_home
   visit(LogoutPage)
 end
@@ -82,9 +89,11 @@ Then(/^I can search for all the content types as another user$/) do
   on(HomePage).search_for title[:bp]
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? title[:bp]
-  on(SearchResultsPage).search_for title[:po]
+  on(AdvancedSearchPage).search_query = title[:po]
+  on(AdvancedSearchPage).search_query = :return
   fail 'Content not visible or created' unless @browser.html.to_s.include? title[:po]
-  on(SearchResultsPage).search_for title[:di]
+  on(AdvancedSearchPage).search_query = title[:di]
+  on(AdvancedSearchPage).search_query = :return
   fail 'Content not visible or created' unless @browser.html.to_s.include? title[:di]
   visit(LogoutPage)
 end

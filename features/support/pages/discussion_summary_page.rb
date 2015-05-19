@@ -1,12 +1,10 @@
 require_relative '../modules/nav_ribbon'
-
 require_relative '../modules/pdf_export'
 require_relative '../modules/ihm_bar'
 
 class DiscussionSummaryPage
   include PageObject
   include NavRibbon
-
   include DataMagic
   include PdfExport
   include IhmBar

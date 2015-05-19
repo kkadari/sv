@@ -36,7 +36,7 @@ end
 
 Then /^I am not able to view it in their activity stream$/ do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).click_people
+  on(HomePage).people
   on(PeoplePage).search_for_user TestConfig.user1_surname
   on(PeoplePage).click_result TestConfig.user1_irlname
   on(UserOneProfilePage).activity.when_present.click
@@ -45,7 +45,7 @@ Then /^I am not able to view it in their activity stream$/ do
 end
 
 Then /^I am not able to view their identity on the comment in their activity stream$/ do
-  on(HomePage).click_people
+  on(HomePage).people
   #TODO: Allow a user to be passed in ~TD
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
@@ -59,7 +59,7 @@ end
 
 Then /^another user is not able to view it in my activity stream$/ do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).click_people
+  on(HomePage).people
   on(PeoplePage).search_for_user TestConfig.user1_surname
   on(PeoplePage).click_result TestConfig.user1_irlname
   on(UserOneProfilePage).activity.when_present.click

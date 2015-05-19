@@ -1,5 +1,5 @@
 Then /^I as admin can verify the anonymous identifiers have been added in their profile$/ do
-  on(HomePage).click_people
+  on(HomePage).people
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
   on(UserOneProfilePage).content.when_present.click
@@ -8,7 +8,7 @@ end
 
 Then /^participants are not able to view the incident report on the posters profile$/ do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).click_people
+  on(HomePage).people
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
   on(UserOneProfilePage).content.when_present.click
@@ -23,7 +23,7 @@ end
 
 Then /^participants are not able to view the discussion in the posters activity stream/ do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).click_people
+  on(HomePage).people
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
   on(UserOneProfilePage).activity.when_present.click
@@ -33,7 +33,7 @@ end
 
 Then /^I am not able to view the discussion in my activity stream/ do
   visit(LoginPage).log_in
-  on(HomePage).click_people
+  on(HomePage).people
   on(PeoplePage).search_for_user(TestConfig.user1_surname)
   on(PeoplePage).click_result(TestConfig.user1_irlname)
   on(UserOneProfilePage).activity.when_present.click
