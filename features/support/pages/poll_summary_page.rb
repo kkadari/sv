@@ -23,7 +23,7 @@ class PollSummaryPage
 
   div(:poll_ended, :id => 'j-poll-ended')
 
-  radio(:first_poll_choice, :css => '.jive-poll-vote-list li:nth-child(1) input')
+  radio_button(:first_poll_choice, :css => '.jive-poll-vote-list li:nth-child(1) input')
   button(:vote, :id => 'vote')
 
   h1(:title, :css => '.j-poll-title h1')
