@@ -7,7 +7,6 @@ require_relative '../modules/ihm_bar'
 class IncidentReportEditPage
   include PageObject
   include NavRibbon
-
   include CreateModal
   include SearchBox
   include IhmBar

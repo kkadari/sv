@@ -1,20 +1,14 @@
 module NavRibbon
   include PageObject
 
+  link(:people,:text => 'people')
+
   def click_home
     @browser.link(:text => /Home/).when_present.click
   end
 
   def click_content
     @browser.link(:text => /Content/).when_present.click
-  end
-
-  def click_people
-    @browser.link(:text => /People/).when_present.click
-  end
-
-  def click_places
-    @browser.link(:text => /Places/).when_present.click
   end
 
   def click_create
