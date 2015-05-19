@@ -3,7 +3,11 @@ Given /^I have enhanced my profile$/ do
   visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
 
   visit(UserOneProfileEditPage)
-  on(UserOneProfileEditPage).update_profile 'title' => @prefix
+  on UserOneProfileEditPage do |edit|
+    edit.title = @prefix
+    edit.save
+  end
+
 end
 
 Then /^participants that follow me can view the profile enhancements$/ do
