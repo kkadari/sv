@@ -2,7 +2,7 @@ Given /^a participant has raised an anonymous incident report in a group I follo
   visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
 
   visit CustomGroupPage do | customgroup |
-    customgroup.follow_in_connections_stream
+    customgroup.follow unless customgroup.following_element.exists?
   end
 
   visit(LogoutPage)
