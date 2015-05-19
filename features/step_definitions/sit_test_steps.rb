@@ -89,11 +89,11 @@ Then(/^I can search for all the content types as another user$/) do
   on(HomePage).search_for title[:bp]
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? title[:bp]
-  on(SearchPage).search_query = title[:po]
-  on(SearchPage).search_query = :return
+  on(AdvancedSearchPage).search_query = title[:po]
+  on(AdvancedSearchPage).search_query = :return
   fail 'Content not visible or created' unless @browser.html.to_s.include? title[:po]
-  on(SearchPage).search_query = title[:di]
-  on(SearchPage).search_query = :return
+  on(AdvancedSearchPage).search_query = title[:di]
+  on(AdvancedSearchPage).search_query = :return
   fail 'Content not visible or created' unless @browser.html.to_s.include? title[:di]
   visit(LogoutPage)
 end
