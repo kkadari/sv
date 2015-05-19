@@ -12,9 +12,10 @@ class DiscussionSummaryPage
 
   page_url(discussionsummarypage)
   image(:avatar, :class => 'jive-avatar anonymous-avatar')
+  h1(:title, :css => '.js-original-header h1')
 
   def click_edit
-    @browser.link(:text => /Edit/).when_present.click
+    @browser.link(:css => '#jive-link-edit a').when_present.click
   end
 
   def delete_discussion
