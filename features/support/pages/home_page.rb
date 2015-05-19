@@ -32,7 +32,6 @@ class HomePage
 
   def navigate_to_blog_post_named(subject)
     search = subject[0..20]
-    click_content
     wait_until do
       @browser.html.include? search
     end
@@ -41,7 +40,6 @@ class HomePage
 
   def navigate_to_discussion_named(subject)
     search = subject[6..50]
-    click_content
     click_discussions
     wait_until do
       @browser.html.include? search
@@ -50,13 +48,27 @@ class HomePage
   end
 
   def create(type)
-    click_create
+    @browser.link(:id => 'navCreate').when_present.click
+    @browser.div(:id => 'menuCreate').wait_until_present
     click_to_create_type(type)
   end
 
   def open_preferences
     @browser.link(:id => 'j-satNav').when_present.click
     @browser.link(:href => '/user-preferences!input.jspa').when_present.click
+  end
+
+  def verify_cannot_create(type)
+    @browser.link(:id => 'navCreate').when_present.click
+    @browser.div(:id => 'menuCreate').wait_until_present
+    case type
+      when 'group'
+        fail 'User should not have option to create group.' if @browser.link(:text => 'Group').present?
+      when 'space'
+        fail 'User should not have option to create space.' if @browser.link(:text => 'Space').present?
+      else
+        fail 'Supplied link type not defined.'
+    end
   end
 
 end

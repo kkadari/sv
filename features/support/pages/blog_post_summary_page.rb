@@ -1,18 +1,10 @@
-require_relative '../modules/nav_ribbon'
-require_relative '../modules/pdf_export'
-require_relative '../modules/ihm_bar'
-
 class BlogPostSummaryPage
   include PageObject
-  include NavRibbon
-  include DataMagic
-  include PdfExport
-  include IhmBar
   extend UrlFactory
 
   page_url(blogpostsummarypage)
   
-  link(:edit_blog_button, :text => /Edit/)
+  link(:edit_blog_button, :text => 'Edit')
   link(:delete, :text => /Delete/)
   button(:confirm_delete, :id => 'blogpost-delete-submit-button')
   link(:comment, :text => 'Add a comment')
@@ -20,35 +12,8 @@ class BlogPostSummaryPage
   text_area(:comment_content, :class => 'usertext')
   button(:submit, :name => 'post')
   h1(:title, :css => '.jive-blog-post-subject-header h1')
+  div(:delete_container, :class => 'jive-modal-content')
+  div(:ihm_bar, :class => 'ihmbar')
+  link(:export_to_pdf, :text => 'View as PDF')
 
-  def edit_blog_post
-    @browser.link(:text => /Edit/).wait_until_present
-    edit_blog_button
-  end
-
-  def delete_blog_post
-    @browser.link(:text => /Delete/).wait_until_present
-    delete
-    wait_until do
-      @browser.text.include? 'Are you sure you want to delete this post'
-    end
-    @browser.button(:id => 'blogpost-delete-submit-button').wait_until_present
-    confirm_delete
-
-  end
-
-  def add_comment(data={})
-    @browser.link(:text => 'Add a comment').wait_until_present
-    comment
-    @browser.link(:id => 'wysiwyg_id_0_html').wait_until_present
-    edit
-
-    populate_page_with data_for(:PollSummaryPage, data)
-    @browser.button(:name => 'post').wait_until_present
-    submit
-  end
-
-  def verify_content_exists(title)
-    wait_until { @browser.html.to_s.include? title[15] }
-  end
 end

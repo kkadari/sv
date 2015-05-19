@@ -16,7 +16,7 @@ Given(/^I create all the content types$/) do
     create.save
   end
 
-  on(IncidentReportSummaryPage).click_home
+  on(GlobalNave).home
 
   @subject = on(HomePage).create_title_for('poll')
   title[:po] = @subject
@@ -33,7 +33,7 @@ Given(/^I create all the content types$/) do
     create.save
   end
 
-  on(PollSummaryPage).click_home
+  on(GlobalNav).home
 
   @subject = on(HomePage).create_title_for('blog')
   title[:bp] = @subject
@@ -47,7 +47,7 @@ Given(/^I create all the content types$/) do
     create.save
   end
 
-  on(BlogPostSummaryPage).click_home
+  on(GlobalNav).home
 
   @subject = on(HomePage).create_title_for('discussion')
   title[:di] = @subject
@@ -62,13 +62,13 @@ Given(/^I create all the content types$/) do
     create.save
   end
 
-  on(DiscussionSummaryPage).click_home
+  on(GlobalNav).home
   visit(LogoutPage)
 end
 
 Then(/^I can view all the created content types as another user$/) do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).click_content
+  on(GlobalNav).content
   on(ContentPage).polls.click
   fail 'Poll not visible' unless @browser.html.include? title[:po]
   on(ContentPage).blogs.click
@@ -100,9 +100,9 @@ end
 
 When(/^I can edit all the content types as the author$/) do
   visit(LoginPage).log_in
-  on(HomePage).click_content
+  on(GlobalNav).content
   on(ContentPage).navigate_to_content_named title[:di]
-  on(DiscussionSummaryPage).click_edit
+  on(DiscussionSummaryPage).edit
 
   on EditDiscussionPage do |edit|
     edit.enable_html_mode
@@ -110,10 +110,10 @@ When(/^I can edit all the content types as the author$/) do
     edit.save
   end
 
-  on(DiscussionSummaryPage).click_home
-  on(HomePage).click_content
+  on(GlobalNav).home
+  on(GlobalNav).content
   on(ContentPage).navigate_to_content_named title[:po]
-  on(PollSummaryPage).edit_poll
+  on(PollSummaryPage).edit
 
   on EditPollPage do |edit|
     edit.enable_html_mode
@@ -121,10 +121,10 @@ When(/^I can edit all the content types as the author$/) do
     edit.save
   end
 
-  on(PollSummaryPage).click_home
-  on(HomePage).click_content
+  on(GlobalNav).home
+  on(GlobalNav).content
   on(ContentPage).navigate_to_blog_post_named title[:bp]
-  on(BlogPostSummaryPage).edit_blog_post
+  on(BlogPostSummaryPage).edit_blog_button
 
   on EditBlogPostPage do |edit|
     edit.enable_html_mode
@@ -132,26 +132,61 @@ When(/^I can edit all the content types as the author$/) do
     edit.save
   end
 
-  on(BlogPostSummaryPage).click_home
+  on(GlobalNav).home
 end
 
 Then(/^I can delete all the content types as the author$/) do
   visit(LoginPage).log_in
   on(HomePage).navigate_to_content_named title[:di]
-  on(DiscussionSummaryPage).delete_discussion
-  on(DiscussionSummaryPage).click_home
+
+  on DiscussionSummaryPage do |discussion|
+      discussion.delete
+
+      wait_until do
+        discussion.delete_container_element.exists?
+      end
+
+      discussion.confirm_delete
+  end
+
+  on(GlobalNav).home
   on(HomePage).navigate_to_content_named title[:po]
-  on(PollSummaryPage).delete_poll
-  on(PollSummaryPage).click_home
+  on PollSummaryPage do |poll|
+    poll.delete
+
+    wait_until do
+      poll.delete_confirmation_element.exists?
+    end
+
+    poll.confirm_deletion
+  end
+  on(GlobalNav).home
+  on(GlobalNav).content
   on(HomePage).navigate_to_blog_post_named title[:bp]
-  on(BlogPostSummaryPage).delete_blog_post
+
+  on BlogPostSummaryPage do |blog|
+    blog.delete
+    wait_until do
+      blog.delete_container.exists?
+    end
+    blog.confirm_delete
+  end
+
   visit(LogoutPage)
 end
 
 When(/^as an admin I can delete incident reports$/) do
   visit(LoginPage).log_in TestConfig.adminuser_uname, TestConfig.adminuser_pswd
-  on(HomePage).click_content
+  on(GlobalNav).content
   on(ContentPage).navigate_to_ir_named title[:ir]
-  on(IncidentReportSummaryPage).delete_incident_report
+
+  on IncidentReportSummaryPage do |report|
+    report.delete
+    wait_until do
+      report.delete_confirm_element.exists?
+    end
+    report.confirm_delete
+  end
+
   visit(LogoutPage)
 end

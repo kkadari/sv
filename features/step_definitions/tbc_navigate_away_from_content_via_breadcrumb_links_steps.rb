@@ -14,7 +14,11 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
     create.save
   end
 
-  on(PollSummaryPage).follow_breadcrumb
+  on(PollSummaryPage).wait_until do
+    PollSummaryPage.title_element.exists?
+  end
+
+  on(PollSummaryPage).breadcrumb
 end
 
 Then /I am able to view more polls in a related container$/ do

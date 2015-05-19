@@ -1,5 +1,5 @@
 Then /^I can edit the discussion$/ do
-  on(DiscussionSummaryPage).click_edit
+  on(DiscussionSummaryPage).edit
 
   on EditDiscussionPage do |edit|
     @new_subject = "=Edited= ".concat edit.subject
@@ -15,7 +15,7 @@ Then /^I can edit the discussion$/ do
 end
 
 Then /^I can change the discussion marking$/ do
-  on(DiscussionSummaryPage).click_edit
+  on(DiscussionSummaryPage).edit
 
   on EditDiscussionPage do |edit|
     @new_color = edit.edit_handling_level
@@ -23,5 +23,5 @@ Then /^I can change the discussion marking$/ do
   end
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(DiscussionSummaryPage).correct_ihm_displayed(@new_color)
+  on(DiscussionSummaryPage).ihm_bar.downcase.includes? @marking
 end

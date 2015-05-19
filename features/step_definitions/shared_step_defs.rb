@@ -61,7 +61,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   end
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(DiscussionSummaryPage).correct_ihm_displayed(@marking)
+  on(DiscussionSummaryPage).ihm_bar.downcase.includes? @marking
 
   fail 'Discussion not anonymous' unless @browser.html.to_s.include? 'This content was posted anonymously by its author' if anonymous
 end
@@ -97,8 +97,11 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   end
 
   on(IncidentReportSummaryPage).title.include? @subject
-  on(IncidentReportSummaryPage).correct_ihm_displayed(@marking)
-  @incident_id = on(IncidentReportSummaryPage).capture_incident_id
+  on(IncidentReportSummaryPage).ihm_bar.downcase.includes? @marking
+
+  @browser.url.to_s.match(/.*incidentreports\/(\d+).*/)
+  incident_id = $1
+  raise 'Incident ID not captured' unless incident_id =~ /^\d+$/
 end
 
 Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|
@@ -144,7 +147,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   end
 
   on(PollSummaryPage).title.include? @subject
-  on(PollSummaryPage).correct_ihm_displayed @marking
+  on(PollSummaryPage).ihm_bar.downcase.includes? @marking
 
   # This is clunky but will do for now - Review later MW
   @incident_id = @browser.url.gsub(ENV['base_url'],'')[/[0-9]+/,0]
@@ -180,7 +183,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   end
 
   on(BlogPostSummaryPage).title.include? @subject
-  on(BlogPostSummaryPage).correct_ihm_displayed(@marking)
+  on(BlogPostSummaryPage).ihm_bar.downcase.includes? @marking
 end
 
 Then /^I can edit the anonymous incident report$/ do
