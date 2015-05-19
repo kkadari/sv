@@ -1,4 +1,3 @@
-require_relative '../modules/nav_ribbon'
 require_relative '../modules/create_modal'
 require_relative '../modules/search_box'
 require_relative '../modules/title_creator'
@@ -6,7 +5,6 @@ require_relative '../modules/group_request'
 
 class HomePage
   include PageObject
-  include NavRibbon
   include CreateModal
   include SearchBox
   include TitleCreator

@@ -1,8 +1,5 @@
-require_relative '../modules/nav_ribbon'
-
 class UserOnePrivacyEditPage
   include PageObject
-  include NavRibbon
   extend UrlFactory
 
   page_url(useroneprivacyeditpage)

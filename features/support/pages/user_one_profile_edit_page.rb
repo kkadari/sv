@@ -1,9 +1,6 @@
-require_relative '../modules/nav_ribbon'
-
 class UserOneProfileEditPage
   include PageObject
   include DataMagic
-  include NavRibbon
   extend UrlFactory
 
   page_url(useroneprofileeditpage)

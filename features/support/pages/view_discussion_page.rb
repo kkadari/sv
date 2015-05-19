@@ -1,8 +1,5 @@
-require_relative '../modules/nav_ribbon'
-
 class ViewDiscussionPage
   include PageObject
-  include NavRibbon
   include DataMagic
   extend UrlFactory
 
