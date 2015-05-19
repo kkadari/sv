@@ -23,7 +23,10 @@ end
 
 Given /^I have restricted parts of my profile$/ do
   visit(LoginPage).log_in
-  navigate_to(UserOnePrivacyEditPage, :using => :user1_profile_route).restrict_name
+  visit UserOnePrivacyEditPage do |edit|
+    edit.security_level = 'Connections'
+    edit.save
+  end
   visit(LogoutPage)
 end
 

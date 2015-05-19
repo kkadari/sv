@@ -4,8 +4,7 @@ class UserOnePrivacyEditPage
 
   page_url(useroneprivacyeditpage)
 
-  def restrict_name
-    @browser.select_list(:name => 'nameSecurityLevelID').select 'Connections'
-    @browser.button(:name => 'save').when_present.click
-  end
+  select(security_level,:name => 'nameSecurityLevelID')
+  button(save, :name => 'save')
+
 end
