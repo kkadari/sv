@@ -5,7 +5,7 @@ Then /^I can delete the incident report$/ do
 
   on IncidentReportSummaryPage do |report|
     report.delete
-    wait_until do
+    report.wait_until do
       report.delete_confirm_element.exists?
     end
     report.confirm_delete
