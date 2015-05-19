@@ -184,7 +184,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
 end
 
 Then /^I can edit the anonymous incident report$/ do
-  visit IncidentReportEditPage, :using_params => {:id => @incident_id}
+  visit EditIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
 

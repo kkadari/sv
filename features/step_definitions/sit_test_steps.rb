@@ -103,7 +103,6 @@ When(/^I can edit all the content types as the author$/) do
   on(HomePage).click_content
   on(ContentPage).navigate_to_content_named title[:di]
   on(DiscussionSummaryPage).click_edit
-  on(EditDiscussionPage).change_body_content
 
   on EditDiscussionPage do |edit|
     edit.enable_html_mode

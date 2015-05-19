@@ -16,7 +16,6 @@ end
 
 Then /^I can change the discussion marking$/ do
   on(DiscussionSummaryPage).click_edit
-  @new_color = on(EditDiscussionPage).edit_handling_level
 
   on EditDiscussionPage do |edit|
     @new_color = edit.edit_handling_level
