@@ -119,7 +119,13 @@ When(/^I can edit all the content types as the author$/) do
   on(HomePage).click_content
   on(ContentPage).navigate_to_blog_post_named title[:bp]
   on(BlogPostSummaryPage).edit_blog_post
-  on(BlogPostEditPage).change_body_content
+
+  on EditBlogPostPage do |edit|
+    edit.enable_html_mode
+    edit.body = '=1234='
+    edit.save
+  end
+
   on(BlogPostSummaryPage).click_home
 end
 
