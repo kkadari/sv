@@ -9,7 +9,8 @@ end
 Then /^I can edit the poll and it remain archived$/ do
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(PollSummaryPage).edit_poll
-  on(EditPollPage).edit_subject(@subject)
+  on(EditPollPage).subject = @subject
+  on(EditPollPage).save
 
   on(PollSummaryPage).wait_until do
     on(PollSummaryPage).title_element.exists?

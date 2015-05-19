@@ -50,16 +50,20 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
     create.enable_html_mode
     create.body             = 'Test automation discussion body'
     create.set_ihm_level      @marking
-    create.publish_to         @location
+    create.set_publish_level  @location
     create.check_anonymous    if anonymous
     create.check_as_question  if question
     create.save
   end
 
+  on(DiscussionSummaryPage).wait_until do
+    on(DiscussionSummaryPage).title_element.exists?
+  end
+
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(DiscussionSummaryPage).correct_ihm_displayed(@marking)
 
-  fail 'Incident report not anonymous' unless @browser.html.to_s.include? 'This content was posted anonymously by its author'
+  fail 'Discussion not anonymous' unless @browser.html.to_s.include? 'This content was posted anonymously by its author' if anonymous
 end
 
 Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
@@ -180,10 +184,15 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
 end
 
 Then /^I can edit the anonymous incident report$/ do
-  visit IncidentReportEditPage, :using_params => {:id => @incident_id}
+  visit EditIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
-  @new_subject = on(IncidentReportEditPage).change_subject
+
+  on EditDiscussionPage do |edit|
+    @new_subject = "=Edited= ".concat edit.subject
+    edit.subject = @new_subject
+    edit.save
+  end
 
   on(IncidentReportSummaryPage).wait_until do
     on(IncidentReportSummaryPage).title_element.exists?

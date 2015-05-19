@@ -1,9 +1,10 @@
 require_relative '../modules/create_content_type_items'
 
-class EditPollPage
+class EditIncidentReportPage
   include PageObject
   include CreateContentTypeItems
   extend UrlFactory
 
-  page_url(polleditpage)
+  page_url(incidentreporteditpage)
+
 end
