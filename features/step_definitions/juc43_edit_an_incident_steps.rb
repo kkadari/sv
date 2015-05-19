@@ -8,5 +8,5 @@ Then /^I can change incident report marking$/ do
   end
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(IncidentReportSummaryPage).ihm_bar.downcase.includes? @marking
+  on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
 end

@@ -16,7 +16,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my persona
     on(BlogPostSummaryPage).title_element.exists?
   end
 
-  on(BlogPostSummaryPage).ihm_bar.downcase.includes? @marking
+  on(BlogPostSummaryPage).ihm_bar.downcase.include? @marking
 end
 
 Then(/^I can view the blog post$/) do
@@ -25,5 +25,5 @@ Then(/^I can view the blog post$/) do
   on(ContentPage).navigate_to_blog_post_named @subject
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
 
-  on(BlogPostSummaryPage).ihm_bar.downcase.includes? @marking
+  on(BlogPostSummaryPage).ihm_bar.downcase.include? @marking
 end
