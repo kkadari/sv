@@ -1,5 +1,8 @@
+require_relative '../modules/shared_summary_items'
+
 class IncidentReportSummaryPage
   include PageObject
+  include SharedSummaryItems
   extend UrlFactory
 
   page_url(incidentreportsummarypage)
