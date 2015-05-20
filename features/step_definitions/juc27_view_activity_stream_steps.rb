@@ -2,7 +2,7 @@ Given /^a participant has raised an anonymous incident report in a group I follo
   visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
 
   visit CustomGroupPage do | customgroup |
-    customgroup.follow_in_connections_stream
+    customgroup.follow unless customgroup.following_element.exists?
   end
 
   visit(LogoutPage)
@@ -37,8 +37,9 @@ end
 Then /^I am not able to view it in their activity stream$/ do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).people
-  on(PeoplePage).search_for_user TestConfig.user1_surname
-  on(PeoplePage).click_result TestConfig.user1_irlname
+  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search :return
+  on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
 
   !fail 'Anonymous content visible' unless @browser.html.to_s.include? 'Anonymous'
@@ -47,8 +48,9 @@ end
 Then /^I am not able to view their identity on the comment in their activity stream$/ do
   on(HomePage).people
   #TODO: Allow a user to be passed in ~TD
-  on(PeoplePage).search_for_user(TestConfig.user1_surname)
-  on(PeoplePage).click_result(TestConfig.user1_irlname)
+  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search :return
+  on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
   .confirm_comment_is_anon
 
@@ -60,8 +62,9 @@ end
 Then /^another user is not able to view it in my activity stream$/ do
   visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
   on(HomePage).people
-  on(PeoplePage).search_for_user TestConfig.user1_surname
-  on(PeoplePage).click_result TestConfig.user1_irlname
+  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search :return
+  on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
 
   !fail 'Anonymous content visible' unless @browser.html.to_s.include? 'Anonymous'

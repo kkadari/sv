@@ -1,8 +1,5 @@
-require_relative '../modules/nav_ribbon'
-
 class ContentPage
   include PageObject
-  include NavRibbon
   extend UrlFactory
 
   page_url(contentpage)

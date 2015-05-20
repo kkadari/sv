@@ -2,14 +2,14 @@ Then /^I am able to view the marking$/ do
   visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(IncidentReportSummaryPage).correct_ihm_displayed @marking
+  on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
 end
 
 Then /^I can verify the anonymous identifiers have been added$/ do
   visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(IncidentReportSummaryPage).correct_ihm_displayed @marking
+  on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
 
   fail 'Incident report not anonymous' unless @browser.html.to_s.include? 'This content was posted anonymously by its author'
 end
@@ -50,5 +50,5 @@ Then(/^I will be able to view my recently created report$/) do
   visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(IncidentReportSummaryPage).correct_ihm_displayed @marking
+  on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
 end

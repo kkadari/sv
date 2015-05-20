@@ -1,9 +1,5 @@
-require_relative '../modules/nav_ribbon'
-
 class UserOneProfileEditPage
   include PageObject
-  include DataMagic
-  include NavRibbon
   extend UrlFactory
 
   page_url(useroneprofileeditpage)
@@ -19,10 +15,5 @@ class UserOneProfileEditPage
   #text_field(:bio, :name => /profile\[\d+\]\.value/)
   text_field(:title, :css => '.jive-edit-profile tr:nth-child(7) input')
   button(:save, :name => 'save')
-
-  def update_profile(data = {})
-    populate_page_with data_for(:UserOneProfilePage, data)
-    @browser.button(:name => 'save').when_present.click
-  end
 
 end

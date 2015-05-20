@@ -1,5 +1,5 @@
 Then /^I? (?:can|have)? (?:comment|commented) on the discussion( anonymously)?$/ do |anonymous|
-  on(HomePage).click_content
+  on(GlobalNav).content
   on(ContentPage).navigate_to_discussion_named(@subject)
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   if anonymous
@@ -10,7 +10,7 @@ Then /^I? (?:can|have)? (?:comment|commented) on the discussion( anonymously)?$/
 end
 
 Then /^I can comment on the comment( anonymously)?$/ do |anonymous|
-  on(HomePage).click_content
+  on(GlobalNav).content
   on(ContentPage).navigate_to_discussion_named(@subject)
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   if anonymous
