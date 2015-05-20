@@ -1,4 +1,4 @@
-module CreateContentTypeItems
+module SharedCreateContentItems
   include PageObject
 
   text_field(:subject, :name => 'subject')

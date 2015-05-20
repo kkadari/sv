@@ -1,10 +1,13 @@
 title = {}
 
 Given(/^I create all the content types$/) do
-  @ir_subject = on(HomePage).create_title_for('incident')
+  @ir_subject = TitleCreator.create_title_for('incident')
   title[:ir] = @ir_subject
-  visit(LoginPage).log_in
-  on(HomePage).create('incident_report')
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.submit
+  end
+  on(GlobalNav).create('incident_report')
 
   on CreateIncidentReportPage do |create|
     create.subject          = @subject
@@ -18,9 +21,9 @@ Given(/^I create all the content types$/) do
 
   on(GlobalNav).home
 
-  @subject = on(HomePage).create_title_for('poll')
+  @subject = TitleCreator.create_title_for('poll')
   title[:po] = @subject
-  on(HomePage).create('poll')
+  on(GlobalNav).create('poll')
 
   on CreatePollPage do |create|
     create.subject          = @subject
@@ -35,9 +38,9 @@ Given(/^I create all the content types$/) do
 
   on(GlobalNav).home
 
-  @subject = on(HomePage).create_title_for('blog')
+  @subject = TitleCreator.create_title_for('blog')
   title[:bp] = @subject
-  on(HomePage).create('blog')
+  on(GlobalNav).create('blog')
 
   on CreateBlogPostPage do |create|
     create.subject          = @subject
@@ -49,9 +52,9 @@ Given(/^I create all the content types$/) do
 
   on(GlobalNav).home
 
-  @subject = on(HomePage).create_title_for('discussion')
+  @subject = TitleCreator.create_title_for('discussion')
   title[:di] = @subject
-  on(HomePage).create('discussion')
+  on(GlobalNav).create('discussion')
 
   on CreateDiscussionPage do | create |
     create.subject          = @subject
@@ -66,16 +69,19 @@ Given(/^I create all the content types$/) do
   visit(LogoutPage)
 end
 
-Then(/^I can view all the created content types as another user$/) do
-  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
+Then /^I can view all the created content types as another user$/ do
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
   on(GlobalNav).content
-  on(ContentPage).polls.click
+  on(ContentPage).polls
   fail 'Poll not visible' unless @browser.html.include? title[:po]
-  on(ContentPage).blogs.click
+  on(ContentPage).blogs
   fail 'Blog post not visible' unless @browser.html.include? title[:bp]
-  on(ContentPage).discussions.click
+  on(ContentPage).discussions
   fail 'Discussion not visible' unless @browser.html.include? title[:di]
-  on(ContentPage).incident_reports.click
+  on(ContentPage).incident_reports
   fail 'Incident Report not visible' unless @browser.html.include? title[:ir]
   visit(LogoutPage)
 end
@@ -85,8 +91,11 @@ Given(/^all the content types have been created$/) do
 end
 
 Then(/^I can search for all the content types as another user$/) do
-  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).search_for title[:bp]
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
+  on(GlobalNav).search_for title[:bp]
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? title[:bp]
   on(AdvancedSearchPage).search_query = title[:po]
@@ -99,9 +108,20 @@ Then(/^I can search for all the content types as another user$/) do
 end
 
 When(/^I can edit all the content types as the author$/) do
-  visit(LoginPage).log_in
-  on(GlobalNav).content
-  on(ContentPage).navigate_to_content_named title[:di]
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.submit
+  end
+
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? title[:di]
+        link.click
+        break
+      end
+    end
+  end
+
   on(DiscussionSummaryPage).edit
 
   on EditDiscussionPage do |edit|
@@ -111,8 +131,14 @@ When(/^I can edit all the content types as the author$/) do
   end
 
   on(GlobalNav).home
-  on(GlobalNav).content
-  on(ContentPage).navigate_to_content_named title[:po]
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? title[:po]
+        link.click
+        break
+      end
+    end
+  end
   on(PollSummaryPage).edit
 
   on EditPollPage do |edit|
@@ -122,8 +148,14 @@ When(/^I can edit all the content types as the author$/) do
   end
 
   on(GlobalNav).home
-  on(GlobalNav).content
-  on(ContentPage).navigate_to_blog_post_named title[:bp]
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? title[:bp]
+        link.click
+        break
+      end
+    end
+  end
   on(BlogPostSummaryPage).edit
 
   on EditBlogPostPage do |edit|
@@ -136,8 +168,18 @@ When(/^I can edit all the content types as the author$/) do
 end
 
 Then(/^I can delete all the content types as the author$/) do
-  visit(LoginPage).log_in
-  on(HomePage).navigate_to_content_named title[:di]
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.submit
+  end
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? title[:di]
+        link.click
+        break
+      end
+    end
+  end
 
   on DiscussionSummaryPage do |discussion|
       discussion.delete
@@ -150,7 +192,14 @@ Then(/^I can delete all the content types as the author$/) do
   end
 
   on(GlobalNav).home
-  on(HomePage).navigate_to_content_named title[:po]
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? title[:po]
+        link.click
+        break
+      end
+    end
+  end
   on PollSummaryPage do |poll|
     poll.delete
 
@@ -162,7 +211,14 @@ Then(/^I can delete all the content types as the author$/) do
   end
   on(GlobalNav).home
   on(GlobalNav).content
-  on(HomePage).navigate_to_blog_post_named title[:bp]
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? title[:bp]
+        link.click
+        break
+      end
+    end
+  end
 
   on BlogPostSummaryPage do |blog|
     blog.delete
@@ -175,10 +231,20 @@ Then(/^I can delete all the content types as the author$/) do
   visit(LogoutPage)
 end
 
-When(/^as an admin I can delete incident reports$/) do
-  visit(LoginPage).log_in TestConfig.adminuser_uname, TestConfig.adminuser_pswd
-  on(GlobalNav).content
-  on(ContentPage).navigate_to_ir_named title[:ir]
+When /^as an admin I can delete incident reports$/ do
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.adminuser_uname, :password => TestConfig.adminuser_pswd
+    creds.submit
+  end
+
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? title[:ir]
+        link.click
+        break
+      end
+    end
+  end
 
   on IncidentReportSummaryPage do |report|
     report.delete

@@ -1,8 +1,8 @@
 Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my personal blog$/) do |marking|
-  @subject = on(HomePage).create_title_for('blog')
+  @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  on(HomePage).create('blog')
+  on(GlobalNav).create('blog')
 
   on CreateBlogPostPage do |create|
     create.subject  = @subject
@@ -20,8 +20,15 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my persona
 end
 
 Then(/^I can view the blog post$/) do
-  visit(ContentPage)
-  on(ContentPage).navigate_to_blog_post_named @subject
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? @subject[0.23]
+        link.click
+        break
+      end
+    end
+  end
+
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
 
   on(BlogPostSummaryPage).ihm_bar.downcase.include? @marking

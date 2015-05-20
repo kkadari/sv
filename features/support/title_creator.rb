@@ -1,5 +1,4 @@
 module TitleCreator
-  include PageObject
 
   def create_title_for(type)
     attack = %w(DDoS phishing logic-bomb trojan).sample
@@ -22,4 +21,5 @@ module TitleCreator
         raise 'Incorrect content type supplied to title creator'
     end
   end
+
 end

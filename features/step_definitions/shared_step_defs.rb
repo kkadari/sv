@@ -3,13 +3,21 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
 
   case login
     when 'participant A'
-      visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
+      @username = TestConfig.user1_uname
+      @password = TestConfig.user1_pswd
     when 'participant B'
-      visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
+      @username = TestConfig.user2_uname
+      @password = TestConfig.user2_pswd
     when 'admin'
-      visit(LoginPage).log_in TestConfig.adminuser_uname, TestConfig.adminuser_pswd
+      @username = TestConfig.adminuser_uname
+      @password = TestConfig.adminuser_pswd
     else
       fail 'Supplied user not recognised.'
+  end
+
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => @username, :password => @password
+    creds.submit
   end
 
   #A quick hack to force the tests to use one node until the load balancer has been fixed
@@ -19,7 +27,7 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
 end
 
 Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
-  @subject = on(HomePage).create_title_for('incident')
+  @subject = TitleCreator.create_title_for('incident')
   @marking = marking
   @location = location
 
@@ -31,19 +39,21 @@ end
 Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
   visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
-  if anonymous
-    on(ViewIncidentReportPage).add_comment_anonymously
-  else
-    on(ViewIncidentReportPage).add_comment
+  on ViewIncidentReportPage do |comment|
+    comment.comment
+    comment.enable_html_mode
+    comment.comment_body = 'An anonymous incident report comment'
+    comment.check_anonymous if anonymous
+    comment.save
   end
 end
 
 Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
-  @subject = on(HomePage).create_title_for('discussion')
+  @subject = TitleCreator.create_title_for('discussion')
   @marking = marking
   @location = location
 
-  on(HomePage).create('discussion')
+  on(GlobalNav).create('discussion')
 
   on CreateDiscussionPage do | create |
     create.subject          = @subject
@@ -67,7 +77,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
 end
 
 Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
-  @subject = on(HomePage).create_title_for('discussion')
+  @subject = TitleCreator.create_title_for('discussion')
   @marking = marking
   @location = location
 
@@ -76,11 +86,11 @@ Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( que
 end
 
 Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
-  @subject = on(HomePage).create_title_for('incident')
+  @subject = TitleCreator.create_title_for('incident')
   @marking = marking
   @location = location
 
-  on(HomePage).create('incident_report')
+  on(GlobalNav).create('incident_report')
 
   on CreateIncidentReportPage do |create|
     create.subject          = @subject
@@ -125,11 +135,11 @@ Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|
 end
 
 Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (community|private group|secret group|space)$/ do |marking, location|
-  @subject = on(HomePage).create_title_for('poll')
+  @subject = TitleCreator.create_title_for('poll')
   @marking = marking
   @location = location
 
-  on(HomePage).create('poll')
+  on(GlobalNav).create('poll')
 
   on CreatePollPage do |create|
     create.subject          = @subject
@@ -164,10 +174,10 @@ Then /^I can view the( anonymous)? discussion$/ do |anonymous|
 end
 
 Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private group$/) do |marking|
-  @subject = on(HomePage).create_title_for('blog')
+  @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  on(HomePage).create('blog')
+  on(GlobalNav).create('blog')
 
   on CreateBlogPostPage do |create|
     create.subject          = @subject

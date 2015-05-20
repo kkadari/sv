@@ -1,6 +1,6 @@
 Then (/^I am not presented with a menu option to create a (group|space)$/) do |type|
   @type = type
-  on(HomePage).verify_cannot_create(@type)
+  on(GlobalNav).verify_cannot_create(@type)
 end
 
 Then (/^I cannot create a (group|space) directly$/) do |type|

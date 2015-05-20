@@ -1,15 +1,21 @@
 Given /^a participant has raised an anonymous incident report in a group I follow in my connections stream$/ do
-  visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.submit
+  end
 
   visit CustomGroupPage do | customgroup |
     customgroup.follow unless customgroup.following_element.exists?
   end
 
   visit(LogoutPage)
-  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
 
-  @subject = on(HomePage).create_title_for('incident')
-  on(HomePage).create('incident_report')
+  @subject = TitleCreator.create_title_for('incident')
+  on(GlobalNav).create('incident_report')
 
   on CreateIncidentReportPage do |create|
     create.subject          = @subject
@@ -25,7 +31,10 @@ Given /^a participant has raised an anonymous incident report in a group I follo
 end
 
 Then /^I can verify the incident report is marked anonymous in my connection stream$/ do
-  visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.submit
+  end
   on(HomePage).connections_stream
 
   incident_report = on(ActivityPage).incident_report.first
@@ -35,8 +44,12 @@ Then /^I can verify the incident report is marked anonymous in my connection str
 end
 
 Then /^I am not able to view it in their activity stream$/ do
-  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).people
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
+
+  visit(PeoplePage)
   on(PeoplePage).search TestConfig.user1_surname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
@@ -46,8 +59,7 @@ Then /^I am not able to view it in their activity stream$/ do
 end
 
 Then /^I am not able to view their identity on the comment in their activity stream$/ do
-  on(HomePage).people
-  #TODO: Allow a user to be passed in ~TD
+  visit(PeoplePage)
   on(PeoplePage).search TestConfig.user1_surname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
@@ -60,8 +72,11 @@ Then /^I am not able to view their identity on the comment in their activity str
 end
 
 Then /^another user is not able to view it in my activity stream$/ do
-  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).people
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
+  visit(PeoplePage)
   on(PeoplePage).search TestConfig.user1_surname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link

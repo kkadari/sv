@@ -1,7 +1,10 @@
 Given /^I have navigated away from a poll using the breadcrumb links$/ do
-  @subject = on(HomePage).create_title_for('poll')
-  visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
-  on(HomePage).create('poll')
+  @subject = TitleCreator.create_title_for('poll')
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.submit
+  end
+  on(GlobalNav).create('poll')
 
   on CreatePollPage do |create|
     create.subject          = @subject

@@ -11,7 +11,7 @@ end
 Then /^I can use the spotlight search to find the incident report by ID$/ do
   visit(HomePage)
 
-  on(HomePage).verify_spotlight_search_result_exists_for_incident_id(@incident_id, @subject)
+  on(GlobalNav).verify_spotlight_search_result_exists_for_incident_id(@incident_id, @subject)
 end
 
 Then /^I am not able to view their identity on the comment when I search for the incident report$/ do
@@ -35,7 +35,7 @@ Then /^I am not able to view their identity on the comment when I search for the
 end
 
 Given /^I have used spotlight search to search for a participant$/ do
-  on(HomePage).verify_spotlight_search_result_exists(TestConfig.user2_uname)
+  on(GlobalNav).verify_spotlight_search_result_exists(TestConfig.user2_uname)
   visit AdvancedSearchPage do | search |
     search.wait_until do
       search.search_query = TestConfig.user2_uname
