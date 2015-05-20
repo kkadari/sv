@@ -58,6 +58,19 @@ class TestConfig
       ENV['custom_space']
     end
 
+    def groups_and_spaces(level)
+      case level
+        when 'private group'
+          self.custom_group
+        when 'secret group'
+          self.secret_group
+        when 'space'
+          self.custom_space
+        else
+          raise 'Something went wrong. Sorry about that.'
+      end
+    end
+
   end
 
 end

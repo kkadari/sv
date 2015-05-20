@@ -1,4 +1,4 @@
-require_relative '../modules/shared_create_content_items'
+require_relative './shared/shared_create_content_items'
 
 class EditDiscussionPage
   include PageObject

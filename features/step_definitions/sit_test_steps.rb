@@ -13,7 +13,9 @@ Given(/^I create all the content types$/) do
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
-    create.set_ihm_level      'red'
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? 'red'
+    end
     create.publish_to         TestConfig.custom_group
     create.check_anonymous
     create.save
@@ -31,7 +33,9 @@ Given(/^I create all the content types$/) do
     create.body             = 'Test automation poll'
     create.option1          = 'Option 1 to choose'
     create.option2          = 'Option 2 to choose'
-    create.set_ihm_level    @marking
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? @marking
+    end
     create.publish_to       @location
     create.save
   end
@@ -46,7 +50,9 @@ Given(/^I create all the content types$/) do
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
-    create.set_ihm_level      'green'
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? 'green'
+    end
     create.save
   end
 
@@ -60,7 +66,9 @@ Given(/^I create all the content types$/) do
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation discussion body'
-    create.set_ihm_level      'white'
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? 'white'
+    end
     create.publish_to         TestConfig.custom_group
     create.save
   end

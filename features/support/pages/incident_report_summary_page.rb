@@ -1,4 +1,4 @@
-require_relative '../modules/shared_summary_items'
+require_relative './shared/shared_summary_items'
 
 class IncidentReportSummaryPage
   include PageObject

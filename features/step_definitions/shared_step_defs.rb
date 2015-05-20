@@ -56,11 +56,13 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   on(GlobalNav).click_to_create_type('discussion')
 
   on CreateDiscussionPage do | create |
+    create.publish_to         TestConfig.groups_and_spaces(@location) if @location != 'community'
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation discussion body'
-    create.set_ihm_level      @marking
-    create.set_publish_level  @location
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? @marking
+    end
     create.check_anonymous    if anonymous
     create.check_as_question  if question
     create.save
@@ -96,7 +98,9 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
-    create.set_ihm_level      @marking
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? @marking
+    end
     create.publish_to         @location
     create.check_anonymous if anonymous
     create.save
@@ -142,13 +146,15 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   on(GlobalNav).click_to_create_type('poll')
 
   on CreatePollPage do |create|
-    create.set_publish_level  @location
+    create.publish_to         TestConfig.groups_and_spaces(@location) if @location != 'community'
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
     create.option1          = 'Option 1 to choose'
     create.option2          = 'Option 2 to choose'
-    create.set_ihm_level      @marking
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? @marking
+    end
     create.save
   end
 
@@ -185,7 +191,9 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
-    create.set_ihm_level      @marking
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? @marking
+    end
     create.save
   end
 

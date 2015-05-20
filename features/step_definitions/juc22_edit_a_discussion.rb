@@ -18,10 +18,12 @@ Then /^I can change the discussion marking$/ do
   on(DiscussionSummaryPage).edit
 
   on EditDiscussionPage do |edit|
-    @new_color = edit.edit_handling_level
+    edit.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? 'white'
+    end
     edit.save
   end
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(DiscussionSummaryPage).ihm_bar.downcase.include? @marking
+  on(DiscussionSummaryPage).ihm_bar.downcase.include? 'white'
 end

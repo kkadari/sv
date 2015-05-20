@@ -13,7 +13,9 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
     create.body             = 'Test automation poll'
     create.option1          = 'Option 1 to choose'
     create.option2          = 'Option 2 to choose'
-    create.set_ihm_level    'amber'
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? 'amber'
+    end
     create.save
   end
 
