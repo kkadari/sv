@@ -1,5 +1,5 @@
 Then /^I as admin can verify the anonymous identifiers have been added in their profile$/ do
-  on(HomePage).people
+  visit(PeoplePage)
   on(PeoplePage).search TestConfig.user1_surname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
@@ -8,8 +8,11 @@ Then /^I as admin can verify the anonymous identifiers have been added in their 
 end
 
 Then /^participants are not able to view the incident report on the posters profile$/ do
-  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).people
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
+  visit(PeoplePage)
   on(PeoplePage).search TestConfig.user1_surname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
@@ -24,8 +27,11 @@ Then /^participants are not able to view the incident report on the posters prof
 end
 
 Then /^participants are not able to view the discussion in the posters activity stream/ do
-  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
-  on(HomePage).people
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
+  visit(PeoplePage)
   on(PeoplePage).search TestConfig.user1_surname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
@@ -35,8 +41,11 @@ Then /^participants are not able to view the discussion in the posters activity 
 end
 
 Then /^I am not able to view the discussion in my activity stream/ do
-  visit(LoginPage).log_in
-  on(HomePage).people
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.submit
+  end
+  visit(PeoplePage)
   on(PeoplePage).search TestConfig.user1_surname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link

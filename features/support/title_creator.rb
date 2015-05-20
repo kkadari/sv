@@ -1,7 +1,6 @@
-module TitleCreator
-  include PageObject
+class TitleCreator
 
-  def create_title_for(type)
+  def self.create_title_for(type)
     attack = %w(DDoS phishing logic-bomb trojan).sample
     system = Faker::Company.catch_phrase.downcase
     appname = Faker::App.name.camelize
@@ -22,4 +21,5 @@ module TitleCreator
         raise 'Incorrect content type supplied to title creator'
     end
   end
+
 end

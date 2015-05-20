@@ -1,6 +1,5 @@
 And /^I have changed my time zone preferences$/ do
-  on(HomePage).open_preferences
-  on PreferencesPage do |pref|
+  visit PreferencesPage do |pref|
     pref.timezone = 'America/Bogota'
     pref.save
   end
@@ -28,15 +27,19 @@ Then /^I can export the blog to PDF with the correct timestamp$/ do
   utc_offset = -5
   zone = ActiveSupport::TimeZone[utc_offset].name
   text = DateTime.now.in_time_zone(zone).strftime("%b %d, %Y %H")
-  on(GlobalNav).content
-  on(ContentPage).navigate_to_content_named(@subject)
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? @content
+        link.click
+        break
+      end
+    end
+  end
   on(BlogPostSummaryPage).export_to_pdf
 
   fail "#{text} not found in PDF" unless @browser.html.include? text
-  visit(Homepage)
-  on(HomePage).open_preferences
 
-  on PreferencesPage do |pref|
+  visit PreferencesPage do |pref|
     pref.timezone = 'Europe/London'
     pref.save
   end
@@ -51,14 +54,19 @@ Then /^I can export the discussion to PDF with the correct timestamp$/ do
   text = DateTime.now.in_time_zone(zone).strftime("%b %d, %Y %H")
   on(GlobalNav).content
   on(ContentPage).discussions.click
-  on(ContentPage).navigate_to_content_named @subject
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? @content
+        link.click
+        break
+      end
+    end
+  end
   on(DiscussionSummaryPage).export_to_pdf
 
   fail "#{text} not found in PDF" unless @browser.html.include? text
-  visit(Homepage)
-  on(HomePage).open_preferences
 
-  on PreferencesPage do |pref|
+  visit PreferencesPage do |pref|
     pref.timezone = 'Europe/London'
     pref.save
   end
@@ -72,14 +80,19 @@ Then /^I can export the ir to PDF with the correct timestamp$/ do
   zone = ActiveSupport::TimeZone[utc_offset].name
   text = DateTime.now.in_time_zone(zone).strftime("%b %d, %Y %H")
   on(GlobalNav).content
-  on(ContentPage).navigate_to_ir_named @subject
+  visit ContentPage do |content|
+    content.content_items_elements.each do |link|
+      if link.text.include? @content
+        link.click
+        break
+      end
+    end
+  end
   on(IncidentReportSummaryPage).export_to_pdf
 
   fail "#{text} not found in PDF" unless @browser.html.include? text
-  visit(Homepage)
-  on(HomePage).open_preferences
 
-  on PreferencesPage do |pref|
+  visit PreferencesPage do |pref|
     pref.timezone = 'Europe/London'
     pref.save
   end

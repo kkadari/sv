@@ -1,5 +1,5 @@
 Given /^I have mentioned "([^\"]+)" in? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |user, marking, anonymous, location|
-  @subject = on(HomePage).create_title_for('incident')
+  @subject = TitleCreator.create_title_for('incident')
   @marking = marking
   @location = location
 
@@ -9,7 +9,7 @@ Given /^I have mentioned "([^\"]+)" in? (?:a|an) (red|amber|green|white) inciden
 end
 
 Given /^I have raised a white incident report in a private group containing an internal link$/ do
-  @subject = on(HomePage).create_title_for('incident')
+  @subject = TitleCreator.create_title_for('incident')
   @marking = 'white'
   @location = 'private group'
 

@@ -1,6 +1,9 @@
 Given /^I have enhanced my profile$/ do
   @prefix = Faker::Name.prefix
-  visit(LoginPage).log_in TestConfig.user1_uname, TestConfig.user1_pswd
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.submit
+  end
 
   visit(UserOneProfileEditPage)
   on UserOneProfileEditPage do |edit|
@@ -12,7 +15,10 @@ end
 
 Then /^participants that follow me can view the profile enhancements$/ do
   visit(LogoutPage)
-  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
 
   visit(PeoplePage)
   on(PeoplePage).user1_profile
@@ -22,7 +28,11 @@ Then /^participants that follow me can view the profile enhancements$/ do
 end
 
 Given /^I have restricted parts of my profile$/ do
-  visit(LoginPage).log_in
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.submit
+  end
+
   visit UserOnePrivacyEditPage do |edit|
     edit.security_level = 'Connections'
     edit.save
@@ -31,14 +41,20 @@ Given /^I have restricted parts of my profile$/ do
 end
 
 Then /^followers can see restrictions$/ do
-  visit(LoginPage).log_in TestConfig.user2_uname, TestConfig.user2_pswd
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
   on(PeoplePage).user1_profile
   fail 'Name not visible, and should be' unless @browser.html.include? TestConfig.user1_irlname
   visit(LogoutPage)
 end
 
 And /^non followers cannot see restrictions$/ do
-  visit(LoginPage).log_in TestConfig.user3_uname, TestConfig.user3_pswd
+  visit LoginPage do |creds|
+    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.submit
+  end
   on(PeoplePage).user1_profile
   fail 'Name visible, and should not be' if @browser.html.to_s.include? TestConfig.user1_irlname
 end

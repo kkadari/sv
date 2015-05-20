@@ -1,6 +1,93 @@
-module GroupRequest
+class GlobalNav
   include PageObject
   include DataMagic
+
+  link(:people, :text => 'people')
+  link(:home, :text => 'Home')
+  link(:content, :text => 'Content')
+
+  def verify_cannot_create(type)
+    @browser.link(:id => 'navCreate').when_present.click
+    @browser.div(:id => 'menuCreate').wait_until_present
+    case type
+      when 'group'
+        fail 'User should not have option to create group.' if @browser.link(:text => 'Group').present?
+      when 'space'
+        fail 'User should not have option to create space.' if @browser.link(:text => 'Space').present?
+      else
+        fail 'Supplied link type not defined.'
+    end
+  end
+
+  #TODO: Regex all the links. ~MW
+  def click_to_create_type(type)
+    @browser.link(:id => 'navCreate').when_present.click
+    @browser.div(:id => 'menuCreate').wait_until_present
+
+    case type
+      when 'discussion'
+        @browser.link(:href => '/discussion/create.jspa?sr=cmenu&containerType=14&containerID=1').when_present.click
+      when 'blog'
+        @browser.link(:href => '/blog/create-post.jspa?sr=cmenu&containerType=14&containerID=1').when_present.click
+      when 'poll'
+        @browser.link(:href => '/poll/create.jspa?sr=cmenu&containerType=14&containerID=1').when_present.click
+      when 'message'
+        @browser.link(:class => 'quick j-selected', :data_content_type => '109016030').when_present.click
+      when 'incident_report'
+        @browser.link(:href => '/incidentreports/create-incidentreport.jspa!input?sr=cmenu&containerType=14&containerID=1').when_present.click
+      when 'uploaded_file'
+        @browser.link(:href => '/document/upload.jspa?sr=cmenu&containerType=-1&containerID=-1').when_present.click
+      when 'space'
+        @browser.link(:text => /Space/).when_present.click
+      when 'group'
+        @browser.link(:href => '/create-group!input.jspa?sr=cmenu').when_present.click
+      when 'request_group'
+        @browser.link(:text => 'Apply for a new Group').when_present.click
+      else
+        raise "Cannot create a content or place type of #{content_type}."
+    end
+  end
+
+  def search_for(term)
+    @browser.text_field(:id, 'autosearch').when_present.set(term)
+    @browser.send_keys :return
+  end
+
+  def click_search_result(term)
+    @browser.link(:text, /#{term}/).when_present.click
+  end
+
+  def verify_spotlight_search_result_exists(term)
+    attempt = 0
+    begin
+      @browser.text_field(:id, 'autosearch').when_present.set(term)
+      @browser.div(:class => "j-results", :data_type => "people").wait_until_present
+      @browser.span(:class => "result-title").when_present.text.include?(term)
+    rescue
+      attempt += 1
+      if attempt <= 3 # Retry up to 3 times.
+        @browser.text_field(:id, 'autosearch').when_present.set('')
+        retry
+      end
+      raise 'Search term not found'
+    end
+  end
+
+  def verify_spotlight_search_result_exists_for_incident_id(search_id, expected_result)
+    attempt = 0
+    begin
+      @browser.text_field(:id, 'autosearch').when_present.set(search_id)
+      @browser.div(:class => "j-results", :data_type => "contents").wait_until_present
+      @browser.span(:class => "result-title").when_present.text.include?(expected_result)
+    rescue
+      attempt += 1
+      if attempt <= 3 # Retry up to 3 times.
+        @browser.text_field(:id, 'autosearch').when_present.set('')
+        retry
+      end
+      raise 'Incident not found'
+    end
+  end
 
   text_field(:name){ @browser.iframe(:id => '__gadget_j-app-modal-parent').text_field(:id, 'group-name-input') }
   text_field(:description){ @browser.iframe(:id => '__gadget_j-app-modal-parent').text_field(:id => 'jive-socialgroup-desc') }
@@ -73,4 +160,5 @@ module GroupRequest
       @browser.div(:id => 'jive-people-search').text_field(:id => 'query').clear
     end
   end
+
 end

@@ -4,32 +4,11 @@ class ContentPage
 
   page_url(contentpage)
   
-  link(:blogs, :text => /Blog Posts/)
-  link(:documents, :text => /Documents/)
-  link(:discussions, :text => /Discussions/)
-  link(:polls, :text => /Polls/)
-  link(:incident_reports, :text => /Incident Reports/)
+  link(:blogs, :text => 'Blog Posts')
+  link(:documents, :text => 'Documents')
+  link(:discussions, :text => 'Discussions')
+  link(:polls, :text => 'Polls')
+  link(:incident_reports, :text => 'Incident Reports')
+  links(:content_items, :css => '#j-browse-item-grid a')
 
-  def navigate_to_content_named(subject)
-    search = subject[0..23]
-    @browser.link(:text, /#{search}/).when_present.click
-  end
-
-  def navigate_to_blog_post_named(subject)
-    search = subject[0..23]
-    blogs
-    @browser.link(:text, /#{search}/).when_present.click
-  end
-
-  def navigate_to_discussion_named(subject)
-    search = subject[0..23]
-    discussions
-    @browser.link(:text, /#{search}/).when_present.click
-  end
-
-  def navigate_to_ir_named(subject)
-    search = subject[0..23]
-    incident_reports
-    @browser.link(:text, /#{search}/).when_present.click
-  end
 end

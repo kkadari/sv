@@ -1,8 +1,8 @@
-require_relative '../modules/create_content_type_items'
+require_relative '../modules/shared_create_content_items'
 
 class EditPollPage
   include PageObject
-  include CreateContentTypeItems
+  include SharedCreateContentItems
   extend UrlFactory
 
   page_url(polleditpage)

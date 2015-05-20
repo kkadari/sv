@@ -1,4 +1,4 @@
-module CreateContentTypeItems
+module SharedCreateContentItems
   include PageObject
 
   text_field(:subject, :name => 'subject')
@@ -14,6 +14,7 @@ module CreateContentTypeItems
   text_area(:where, :id => 'js-publishbar-place-input')
   link(:browse, :id => 'js-publishbar-place-browse')
   link(:testing, :href => /create\.jspa\?sr\=cmenu\&containerType0\=14\&containerID\=1\#/)
+  link(:change_place, :id => 'js-publishbar-changePlace')
 
   text_field(:tags, :class => 'js-tag-input')
   button(:save, :id => 'submitButton')
