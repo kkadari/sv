@@ -13,7 +13,7 @@ class PollSummaryPage
   button(:submit, :name => 'post')
   link(:breadcrumb, :href => "/groups/#{TestConfig.custom_group}/content?filterID=contentstatus[published]~objecttype~objecttype[poll]")
 
-  link(:archive, :text => 'Archive')
+  link(:archive, :css => '#poll-archive-anchor a')
   div(:archive_confirmation, :id => 'jive-modal-archive-poll')
 
   button(:vote, :id => 'vote')

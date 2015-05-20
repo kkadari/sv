@@ -15,7 +15,7 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
   end
 
   on(PollSummaryPage).wait_until do
-    PollSummaryPage.title_element.exists?
+    on(PollSummaryPage).title_element.exists?
   end
 
   on(PollSummaryPage).breadcrumb

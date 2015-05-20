@@ -4,7 +4,7 @@ class UserOnePrivacyEditPage
 
   page_url(useroneprivacyeditpage)
 
-  select(security_level,:name => 'nameSecurityLevelID')
-  button(save, :name => 'save')
+  select(:security_level,:name => 'nameSecurityLevelID')
+  button(:save, :name => 'save')
 
 end

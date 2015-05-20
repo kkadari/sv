@@ -1,11 +1,11 @@
 And /^I archive the poll$/ do
   on PollSummaryPage do |poll|
-    poll.archive
-
     poll.wait_until do
-      poll.archive_confirmation_element.exists?
+      poll.archive
+      poll.archive_confirmation_element.attribute('style').include? 'display: block'
     end
 
+    sleep 1 # Wait one second to allow the popup animation to complete.  Otherwise phantom throws a wobbly
     poll.confirm_archive
   end
 
