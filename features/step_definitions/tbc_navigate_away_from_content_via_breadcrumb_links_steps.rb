@@ -4,16 +4,16 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
     creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
     creds.submit
   end
-  on(GlobalNav).create('poll')
+  on(GlobalNav).click_to_create_type('poll')
 
   on CreatePollPage do |create|
+    create.publish_to       TestConfig.custom_group
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
     create.option1          = 'Option 1 to choose'
     create.option2          = 'Option 2 to choose'
     create.set_ihm_level    'amber'
-    create.publish_to       TestConfig.custom_group
     create.save
   end
 

@@ -7,7 +7,7 @@ Given(/^I create all the content types$/) do
     creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
     creds.submit
   end
-  on(GlobalNav).create('incident_report')
+  on(GlobalNav).verify_cannot_create('incident_report')
 
   on CreateIncidentReportPage do |create|
     create.subject          = @subject
@@ -23,7 +23,7 @@ Given(/^I create all the content types$/) do
 
   @subject = TitleCreator.create_title_for('poll')
   title[:po] = @subject
-  on(GlobalNav).create('poll')
+  on(GlobalNav).verify_cannot_create('poll')
 
   on CreatePollPage do |create|
     create.subject          = @subject
@@ -40,7 +40,7 @@ Given(/^I create all the content types$/) do
 
   @subject = TitleCreator.create_title_for('blog')
   title[:bp] = @subject
-  on(GlobalNav).create('blog')
+  on(GlobalNav).verify_cannot_create('blog')
 
   on CreateBlogPostPage do |create|
     create.subject          = @subject
@@ -54,7 +54,7 @@ Given(/^I create all the content types$/) do
 
   @subject = TitleCreator.create_title_for('discussion')
   title[:di] = @subject
-  on(GlobalNav).create('discussion')
+  on(GlobalNav).verify_cannot_create('discussion')
 
   on CreateDiscussionPage do | create |
     create.subject          = @subject

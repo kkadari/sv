@@ -53,7 +53,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   @marking = marking
   @location = location
 
-  on(GlobalNav).create('discussion')
+  on(GlobalNav).click_to_create_type('discussion')
 
   on CreateDiscussionPage do | create |
     create.subject          = @subject
@@ -90,7 +90,7 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   @marking = marking
   @location = location
 
-  on(GlobalNav).create('incident_report')
+  on(GlobalNav).verify_cannot_create('incident_report')
 
   on CreateIncidentReportPage do |create|
     create.subject          = @subject
@@ -139,16 +139,16 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   @marking = marking
   @location = location
 
-  on(GlobalNav).create('poll')
+  on(GlobalNav).click_to_create_type('poll')
 
   on CreatePollPage do |create|
+    create.set_publish_level  @location
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
     create.option1          = 'Option 1 to choose'
     create.option2          = 'Option 2 to choose'
     create.set_ihm_level      @marking
-    create.set_publish_level  @location
     create.save
   end
 
@@ -177,14 +177,15 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  on(GlobalNav).create('blog')
+  on(GlobalNav).click_to_create_type('blog')
+  puts @subject
 
   on CreateBlogPostPage do |create|
+    create.publish_to         TestConfig.custom_group
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
     create.set_ihm_level      @marking
-    create.publish_to         TestConfig.custom_group
     create.save
   end
 

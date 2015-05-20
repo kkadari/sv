@@ -2,7 +2,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my persona
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  on(GlobalNav).create('blog')
+  on(GlobalNav).click_to_create_type('blog')
 
   on CreateBlogPostPage do |create|
     create.subject  = @subject
