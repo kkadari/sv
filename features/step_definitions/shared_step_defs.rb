@@ -53,7 +53,13 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   @marking = marking
   @location = location
 
-  on(GlobalNav).click_to_create_type('discussion')
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_discussion
+  end
 
   on CreateDiscussionPage do | create |
     create.publish_to         TestConfig.groups_and_spaces(@location) if @location != 'community'
@@ -92,7 +98,13 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   @marking = marking
   @location = location
 
-  on(GlobalNav).verify_cannot_create('incident_report')
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_incident_report
+  end
 
   on CreateIncidentReportPage do |create|
     create.subject          = @subject
@@ -143,7 +155,13 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   @marking = marking
   @location = location
 
-  on(GlobalNav).click_to_create_type('poll')
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_poll
+  end
 
   on CreatePollPage do |create|
     create.publish_to         TestConfig.groups_and_spaces(@location) if @location != 'community'
@@ -183,8 +201,13 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  on(GlobalNav).click_to_create_type('blog')
-  puts @subject
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_blog
+  end
 
   on CreateBlogPostPage do |create|
     create.publish_to         TestConfig.custom_group

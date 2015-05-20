@@ -7,7 +7,15 @@ Given(/^I create all the content types$/) do
     creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
     creds.submit
   end
-  on(GlobalNav).verify_cannot_create('incident_report')
+
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_incident_report
+  end
+
 
   on CreateIncidentReportPage do |create|
     create.subject          = @subject
@@ -25,7 +33,14 @@ Given(/^I create all the content types$/) do
 
   @subject = TitleCreator.create_title_for('poll')
   title[:po] = @subject
-  on(GlobalNav).verify_cannot_create('poll')
+
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_poll
+  end
 
   on CreatePollPage do |create|
     create.subject          = @subject
@@ -44,7 +59,14 @@ Given(/^I create all the content types$/) do
 
   @subject = TitleCreator.create_title_for('blog')
   title[:bp] = @subject
-  on(GlobalNav).verify_cannot_create('blog')
+
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_blog
+  end
 
   on CreateBlogPostPage do |create|
     create.subject          = @subject
@@ -60,7 +82,14 @@ Given(/^I create all the content types$/) do
 
   @subject = TitleCreator.create_title_for('discussion')
   title[:di] = @subject
-  on(GlobalNav).verify_cannot_create('discussion')
+
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_discussion
+  end
 
   on CreateDiscussionPage do | create |
     create.subject          = @subject

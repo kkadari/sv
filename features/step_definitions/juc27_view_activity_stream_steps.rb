@@ -15,7 +15,14 @@ Given /^a participant has raised an anonymous incident report in a group I follo
   end
 
   @subject = TitleCreator.create_title_for('incident')
-  on(GlobalNav).verify_cannot_create('incident_report')
+
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_incident_report
+  end
 
   on CreateIncidentReportPage do |create|
     create.subject          = @subject
