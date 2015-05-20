@@ -124,7 +124,7 @@ When(/^I can edit all the content types as the author$/) do
   on(GlobalNav).home
   on(GlobalNav).content
   on(ContentPage).navigate_to_blog_post_named title[:bp]
-  on(BlogPostSummaryPage).edit_blog_button
+  on(BlogPostSummaryPage).edit
 
   on EditBlogPostPage do |edit|
     edit.enable_html_mode
