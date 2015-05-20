@@ -16,7 +16,7 @@ Given(/^I create all the content types$/) do
     create.save
   end
 
-  on(GlobalNave).home
+  on(GlobalNav).home
 
   @subject = on(HomePage).create_title_for('poll')
   title[:po] = @subject
