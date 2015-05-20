@@ -1,4 +1,5 @@
 module SharedSummaryItems
+  include PageObject
 
   image(:avatar, :class => 'jive-avatar anonymous-avatar')
 
