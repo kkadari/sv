@@ -29,7 +29,7 @@ module UrlFactory
   end
 
   def blogpostpage
-    /#{ENV['base_url']}\/blog\/create\-post\.jspa\?sr\=cmenu\&containerType\=\d+\&containerID\=\d+/
+    ENV['base_url'] + '/blog/create-post.jspa?sr=cmenu&containerType=14&containerID=1'
   end
 
   def blogpostpdfpage
@@ -45,7 +45,7 @@ module UrlFactory
   end
 
   def discussionpage
-    /#{ENV['base_url']}\/discussion\/create\.jspa\?sr\=cmenu\&containerType=\d+&containerID\=\d+/
+    ENV['base_url'] + '/discussion/create.jspa?sr=cmenu&containerType=14&containerID=1'
   end
 
   def discussionpdfpage
@@ -69,7 +69,7 @@ module UrlFactory
   end
 
   def incidentreportpage
-    /#{ENV['base_url']}\/create-incidentreport\!input\.jspa\?containerType\=\d+\&containerID\=\d+/
+    ENV['base_url'] + '/incidentreports/create-incidentreport.jspa!input?sr=cmenu&containerType=14&containerID=1'
   end
 
   def incidentreportpdfpage
@@ -85,7 +85,7 @@ module UrlFactory
   end
 
   def pollpage
-    /#{ENV['base_url']}\/poll\/create\.jspa\?sr\=cmenu\&containerType\=\d+\&containerID\=\d+/
+    ENV['base_url'] + '/poll/create.jspa?sr=cmenu&containerType=14&containerID=1'
   end
 
   def preferencespage

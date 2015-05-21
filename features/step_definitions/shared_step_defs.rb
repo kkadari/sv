@@ -53,15 +53,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   @marking = marking
   @location = location
 
-  on(GlobalNav) do |menu|
-    menu.open_create
-    menu.wait_until do
-      menu.create_menu?
-    end
-    menu.create_discussion
-  end
-
-  on CreateDiscussionPage do | create |
+  visit CreateDiscussionPage do | create |
     create.publish_to         TestConfig.groups_and_spaces(@location) if @location != 'community'
     create.subject          = @subject
     create.enable_html_mode
@@ -98,15 +90,7 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   @marking = marking
   @location = location
 
-  on(GlobalNav) do |menu|
-    menu.open_create
-    menu.wait_until do
-      menu.create_menu?
-    end
-    menu.create_incident_report
-  end
-
-  on CreateIncidentReportPage do |create|
+  visit CreateIncidentReportPage do |create|
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
@@ -155,16 +139,9 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   @marking = marking
   @location = location
 
-  on(GlobalNav) do |menu|
-    menu.open_create
-    menu.wait_until do
-      menu.create_menu?
-    end
-    menu.create_poll
-  end
-
-  on CreatePollPage do |create|
+  visit CreatePollPage do |create|
     create.publish_to         TestConfig.groups_and_spaces(@location) if @location != 'community'
+    create.subject
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
@@ -201,16 +178,9 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  on(GlobalNav) do |menu|
-    menu.open_create
-    menu.wait_until do
-      menu.create_menu?
-    end
-    menu.create_blog
-  end
-
-  on CreateBlogPostPage do |create|
+  visit CreateBlogPostPage do |create|
     create.publish_to         TestConfig.custom_group
+    create.subject
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
