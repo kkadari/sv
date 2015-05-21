@@ -3,8 +3,8 @@ Feature: JUC41 - Create a group
 
   @JUC41.1 @quarantine
   Scenario: Admin creates a secret group (rough process outlined here)
-     Given I have logged in as "admin"
-     When I navigate to the location to create a new group
+     Given I have logged in as admin
+     When I navigate to the location to create a new group
      And I enter a Name and Description for the group
      And I set the Group Type to Private
      And I expand the Advanced Options and select Both (Activity Page and Overview Page)
