@@ -164,7 +164,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   @incident_id = @browser.url.gsub(ENV['base_url'],'')[/[0-9]+/,0]
 end
 
-Then /^I can view the( anonymous)? discussion$/ do |anonymous|
+Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|
   visit DiscussionSummaryPage, :using_params => {:id => @discussion_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
@@ -214,4 +214,31 @@ Then /^I can edit the anonymous incident report$/ do
   end
 
   fail 'Content not visible or created' unless on(IncidentReportSummaryPage).title.include? @new_subject
+end
+
+When /^I find and click on (?:a|an) ([^\"]+) I would like to read$/ do |doctype|
+  visit AdvancedSearchPage do |search|
+    case doctype
+      when 'incident report'
+        search.show_incident_reports
+      when 'poll'
+        search.show_polls
+      when 'uploaded document'
+        search.show_documents
+      when 'blogs'
+        search.show_blogs
+      when 'discussion'
+        search.show_discussions
+      else
+        fail 'Unrecognised parameter: ' + doctype
+    end
+    search.search_query = 'a*'
+    search.submit_search
+
+    search.wait_until do
+      search.search_results?
+    end
+
+    search.top_result
+  end
 end

@@ -1,6 +1,5 @@
 class ViewIncidentReportPage
   include PageObject
-  include DataMagic
   extend UrlFactory
 
   page_url(viewincidentreportpage)

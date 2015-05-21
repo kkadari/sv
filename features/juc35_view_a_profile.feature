@@ -1,5 +1,11 @@
 @JUC35
-Feature: JUC35 - View a profile 
+Feature: JUC35 - View a profile
+
+  @sit
+  Scenario: User attempts to view the profile of an existing user
+    Given I have logged in as "participant A"
+    When I attempt to view the profile of an existing user
+    Then I am shown that users profile details
 
   @JUC35.1 @CISP-608 @CISP-248 @quarantine
   Scenario: A Participant viewing another participant's profile is not shown anonymous content

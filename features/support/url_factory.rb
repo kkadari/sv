@@ -44,6 +44,10 @@ module UrlFactory
     ENV['base_url'] + "/message/#{/.*/}/edit"
   end
 
+  def viewuploadeddocumentpage
+    ENV['base_url'] + "/docs/#{/.*/}"
+  end
+
   def discussionpage
     ENV['base_url'] + '/discussion/create.jspa?sr=cmenu&containerType=14&containerID=1'
   end

@@ -27,7 +27,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my persona
   on(BlogPostSummaryPage).ihm_bar.downcase.include? @marking
 end
 
-Then(/^I can view the blog post$/) do
+Then /^I can locate and view the blog post$/ do
   visit ContentPage do |content|
     content.content_items_elements.each do |link|
       if link.text.include? @subject[0.23]

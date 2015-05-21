@@ -11,3 +11,14 @@ Then /^I can verify the anonymous identifiers have been added to the discussion$
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   fail 'Discussion does not include Anonymous avatar' unless on(DiscussionSummaryPage).avatar_element.visible?
 end
+
+Then(/^I can view the discussion$/) do
+  on(DiscussionSummaryPage).wait_until do
+    on(DiscussionSummaryPage).title?
+  end
+
+  fail 'Title not visible' unless on(DiscussionSummaryPage).title?
+  fail 'IHM not visible' unless on(DiscussionSummaryPage).ihm_bar?
+  fail 'Body not visible' unless on(DiscussionSummaryPage).original_message?
+  fail 'Comment not visible' unless on(DiscussionSummaryPage).comment?
+end
