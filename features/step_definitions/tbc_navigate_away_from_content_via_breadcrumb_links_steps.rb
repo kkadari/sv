@@ -4,7 +4,14 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
     creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
     creds.submit
   end
-  on(GlobalNav).click_to_create_type('poll')
+
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_poll
+  end
 
   on CreatePollPage do |create|
     create.publish_to       TestConfig.custom_group
@@ -13,7 +20,9 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
     create.body             = 'Test automation poll'
     create.option1          = 'Option 1 to choose'
     create.option2          = 'Option 2 to choose'
-    create.set_ihm_level    'amber'
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? 'amber'
+    end
     create.save
   end
 

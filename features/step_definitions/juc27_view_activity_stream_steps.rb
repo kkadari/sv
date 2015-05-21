@@ -15,13 +15,22 @@ Given /^a participant has raised an anonymous incident report in a group I follo
   end
 
   @subject = TitleCreator.create_title_for('incident')
-  on(GlobalNav).verify_cannot_create('incident_report')
+
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_incident_report
+  end
 
   on CreateIncidentReportPage do |create|
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
-    create.set_ihm_level      'amber'
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? 'amber'
+    end
     create.publish_to         TestConfig.custom_group
     create.check_anonymous
     create.save

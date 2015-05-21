@@ -2,13 +2,21 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my persona
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  on(GlobalNav).click_to_create_type('blog')
+  on(GlobalNav) do |menu|
+    menu.open_create
+    menu.wait_until do
+      menu.create_menu?
+    end
+    menu.create_blog
+  end
 
   on CreateBlogPostPage do |create|
     create.subject  = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
-    create.set_ihm_level      @marking
+    create.handling_elements.each do |colour|
+      colour.click if colour.text.downcase.include? @marking
+    end
     create.save
   end
 
