@@ -19,11 +19,6 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
     creds.populate_page_with :username => @username, :password => @password
     creds.submit
   end
-
-  #A quick hack to force the tests to use one node until the load balancer has been fixed
-  @browser.cookies.delete('JSESSIONID')
-  @browser.cookies.add 'JSESSIONID', 'dev141~24DBD919EEF5F05E808A148B27231227'
-  @browser.refresh
 end
 
 Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
@@ -204,7 +199,7 @@ Then /^I can edit the anonymous incident report$/ do
   fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
 
   on EditDiscussionPage do |edit|
-    @new_subject = "=Edited= ".concat edit.subject
+    @new_subject = '=Edited='.concat edit.subject
     edit.subject = @new_subject
     edit.save
   end
