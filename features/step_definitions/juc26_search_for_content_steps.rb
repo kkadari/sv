@@ -36,15 +36,6 @@ end
 
 Given /^I have used spotlight search to search for a participant$/ do
   on(GlobalNav).verify_spotlight_search_result_exists(TestConfig.user2_uname)
-  visit AdvancedSearchPage do | search |
-    search.wait_until do
-      search.search_query = TestConfig.user2_uname
-      search.submit_search
-      search.search_results_element.exists?
-
-      search.people
-    end
-  end
 end
 
 Then /^details for that participant are returned by Jive search$/ do

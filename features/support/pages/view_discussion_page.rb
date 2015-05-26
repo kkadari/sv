@@ -7,7 +7,7 @@ class ViewDiscussionPage
   link(:reply, :title => 'Reply to this message')
   link(:enable_html_mode, :id => 'wysiwygtext1_html')
   text_area(:comment_body, :class => 'usertext')
-  checkbox(:anonymous, :id => 'attributed-check')
-  button(:save, :text => 'Add Comment')
+  span(:anonymous, :css => '#attributed-wrapper-discussion span')
+  button(:save, :css => '#postform > div:nth-child(15) > input.jive-form-button-save')
 
 end
