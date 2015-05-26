@@ -52,3 +52,14 @@ Then(/^I will be able to view my recently created report$/) do
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
 end
+
+Then /^I can view the incident report$/ do
+  on(IncidentReportSummaryPage).wait_until do
+    on(IncidentReportSummaryPage).title_element.exists?
+  end
+
+  fail 'Title not visible' unless on(IncidentReportSummaryPage).title?
+  fail 'IHM not visible' unless on(IncidentReportSummaryPage).ihm_bar?
+  fail 'Body not visible' unless on(IncidentReportSummaryPage).original_message?
+  fail 'Comment not visible' unless on(IncidentReportSummaryPage).comment?
+end

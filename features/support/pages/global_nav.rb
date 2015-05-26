@@ -1,6 +1,5 @@
 class GlobalNav
   include PageObject
-  include DataMagic
 
   link(:people, :text => 'people')
   link(:home, :text => 'Home')

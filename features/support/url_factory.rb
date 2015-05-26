@@ -16,6 +16,14 @@ module UrlFactory
     ENV['base_url'] + '/welcome'
   end
 
+  def spacepage
+    ENV['base_url'] + "/community/#{/.*/}"
+  end
+
+  def grouppage
+    ENV['base_url'] + "/groups/#{/.*/}"
+  end
+
   def activitypage
     ENV['base_url'] + '/activity'
   end
@@ -42,6 +50,10 @@ module UrlFactory
 
   def discussioneditpage
     ENV['base_url'] + "/message/#{/.*/}/edit"
+  end
+
+  def viewuploadeddocumentpage
+    ENV['base_url'] + "/docs/#{/.*/}"
   end
 
   def discussionpage
