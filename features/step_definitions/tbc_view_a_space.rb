@@ -1,4 +1,4 @@
-When(/^I find and click on a (.*?) I would like to access$/) do |type|
+When /^I find and click on a (.*?) I would like to access$/ do |type|
   case type
     when 'group'
       @object_type = 'groups'
@@ -11,9 +11,9 @@ When(/^I find and click on a (.*?) I would like to access$/) do |type|
   visit AdvancedSearchPage do |search|
     search.show_places
     search.search_query = 'a*'
-    search.submit_query
+    search.submit_search
 
-    search.all_results_elements.each do |result|
+    search.all_result_elements.each do |result|
       if result.attribute('href').include? object_type
         result
         break
@@ -23,9 +23,12 @@ When(/^I find and click on a (.*?) I would like to access$/) do |type|
 end
 
 Then /^the group is displayed to me$/ do
-  pending # express the regexp above with the code you wish you had
+  fail('Activity not displayed') if on(ViewGroupPage).activity_stream?
+  fail('Space thumbnail not displayed') if on(ViewGroupPage).place_image?
 end
 
 Then /^the space is displayed to me$/ do
-  pending # express the regexp above with the code you wish you had
+  fail('Activity not displayed') if on(ViewSpacePage).activity_stream?
+  fail('Space thumbnail not displayed') if on(ViewSpacePage).place_image?
+  fail('Subspace option not displayer') if on(ViewSpacePage).subspace?
 end

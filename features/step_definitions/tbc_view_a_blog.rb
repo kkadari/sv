@@ -5,6 +5,6 @@ Then /^I can view the blog post$/ do
 
   fail 'Title not visible' unless on(BlogPostSummaryPage).title?
   fail 'IHM not visible' unless on(BlogPostSummaryPage).ihm_bar?
-  fail 'Body not visible' unless on(BlogPostSummaryPage).original_message?
+  fail 'Body not visible' unless on(BlogPostSummaryPage).blog_body?
   fail 'Comment not visible' unless on(BlogPostSummaryPage).comment?
 end

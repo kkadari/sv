@@ -20,5 +20,5 @@ Then(/^I can view the discussion$/) do
   fail 'Title not visible' unless on(DiscussionSummaryPage).title?
   fail 'IHM not visible' unless on(DiscussionSummaryPage).ihm_bar?
   fail 'Body not visible' unless on(DiscussionSummaryPage).original_message?
-  fail 'Comment not visible' unless on(DiscussionSummaryPage).comment?
+  fail 'Comment not visible' unless on(ViewDiscussionPage).reply?
 end

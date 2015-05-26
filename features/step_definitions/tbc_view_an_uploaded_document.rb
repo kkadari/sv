@@ -5,6 +5,6 @@ Then /^I can view the uploaded document$/ do
 
   fail 'Title not visible' unless on(ViewUploadedDocumentPage).title?
   fail 'IHM not visible' unless on(ViewUploadedDocumentPage).ihm_bar?
-  fail 'Choices not visible' unless on(ViewUploadedDocumentPage).first_poll_choice?
+  fail 'Document not visible' unless on(ViewUploadedDocumentPage).document?
   fail 'Comment not visible' unless on(ViewUploadedDocumentPage).comment?
 end

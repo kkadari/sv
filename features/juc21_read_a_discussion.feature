@@ -2,7 +2,7 @@
 Feature: JUC21 - Read a discussion
 
   @sit
-  Scenario: Participant can read a Discussion
+  Scenario: Participant can read a discussion
     Given I have logged in as "participant A"
     When I find and click on a discussion I would like to read
     Then I can view the discussion

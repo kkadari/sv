@@ -9,6 +9,7 @@ class BlogPostSummaryPage
 
   h1(:title, :css => '.jive-blog-post-subject-header h1')
 
+  div(:blog_body, :class => 'jive-blog-post-message')
   div(:delete_container, :class => 'jive-modal-content')
   button(:confirm_delete, :id => 'blogpost-delete-submit-button')
 

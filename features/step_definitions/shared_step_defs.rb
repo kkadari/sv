@@ -220,7 +220,7 @@ When /^I find and click on (?:a|an) ([^\"]+) I would like to read$/ do |doctype|
         search.show_polls
       when 'uploaded document'
         search.show_documents
-      when 'blogs'
+      when 'blog post'
         search.show_blogs
       when 'discussion'
         search.show_discussions
@@ -231,7 +231,7 @@ When /^I find and click on (?:a|an) ([^\"]+) I would like to read$/ do |doctype|
     search.submit_search
 
     search.wait_until do
-      search.search_results?
+      search.search_container?
     end
 
     search.top_result

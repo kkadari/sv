@@ -7,6 +7,7 @@ class AdvancedSearchPage
   text_field(:search_query, :id => 'j-search-input')
   button(:submit_search, :class => 'js-search-submit')
 
+  list_item(:search_container, :css => '.j-content-results > .j-search-result')
   span(:search_results,:class => 'j-search-result-title')
   link(:people, :title => 'Search for People')
   select(:sort, :id => 'sort')
