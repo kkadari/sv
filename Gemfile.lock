@@ -114,7 +114,6 @@ DEPENDENCIES
   rake
   require_all
   rspec
-  selenium-webdriver (= 2.44.0)
   sinatra
   syntax
   tzinfo

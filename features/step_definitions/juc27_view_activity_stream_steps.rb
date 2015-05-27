@@ -59,7 +59,7 @@ Then /^I am not able to view it in their activity stream$/ do
   end
 
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search TestConfig.user1_uname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
@@ -69,7 +69,7 @@ end
 
 Then /^I am not able to view their identity on the comment in their activity stream$/ do
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search TestConfig.user1_uname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
@@ -86,7 +86,7 @@ Then /^another user is not able to view it in my activity stream$/ do
     creds.submit
   end
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search TestConfig.user1_uname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click

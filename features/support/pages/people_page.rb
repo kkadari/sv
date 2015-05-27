@@ -5,7 +5,7 @@ class PeoplePage
   page_url(peoplepage)
 
   link(:user1_profile, :title => TestConfig.user1_uname)
-  link(:user1_profile_link, :href => "/people/" + TestConfig.user1_id)
+  link(:user1_profile_link, :href => '/people/' + TestConfig.user1_uname)
 
   text_area(:search, :name => 'query')
 

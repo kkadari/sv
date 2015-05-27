@@ -2,24 +2,12 @@ class TestConfig
 
   class << self
 
-    def user1_irlname
-      ENV['user1_irlname']
-    end
-
-    def user1_surname
-      ENV['user1_surname']
-    end
-
     def user1_uname
       ENV['user1_uname']
     end
 
     def user1_pswd
       ENV['user1_pswd']
-    end
-
-    def user1_id
-      ENV['user1_id']
     end
 
     def user2_uname

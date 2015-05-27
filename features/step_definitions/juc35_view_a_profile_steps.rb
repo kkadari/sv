@@ -1,6 +1,6 @@
 Then /^I as admin can verify the anonymous identifiers have been added in their profile$/ do
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search TestConfig.user1_uname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).content.when_present.click
@@ -13,7 +13,7 @@ Then /^participants are not able to view the incident report on the posters prof
     creds.submit
   end
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search TestConfig.user1_uname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).content.when_present.click
@@ -32,7 +32,7 @@ Then /^participants are not able to view the discussion in the posters activity 
     creds.submit
   end
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search TestConfig.user1_uname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
@@ -46,7 +46,7 @@ Then /^I am not able to view the discussion in my activity stream/ do
     creds.submit
   end
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_surname
+  on(PeoplePage).search TestConfig.user1_uname
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click

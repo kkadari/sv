@@ -46,7 +46,7 @@ Then /^followers can see restrictions$/ do
     creds.submit
   end
   on(PeoplePage).user1_profile
-  fail 'Name not visible, and should be' unless @browser.html.include? TestConfig.user1_irlname
+  fail 'Name not visible, and should be' unless @browser.html.include? TestConfig.user1_uname
   visit(LogoutPage)
 end
 
@@ -56,5 +56,5 @@ And /^non followers cannot see restrictions$/ do
     creds.submit
   end
   on(PeoplePage).user1_profile
-  fail 'Name visible, and should not be' if @browser.html.to_s.include? TestConfig.user1_irlname
+  fail 'Name visible, and should not be' if @browser.html.to_s.include? TestConfig.user1_uname
 end

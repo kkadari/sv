@@ -133,19 +133,19 @@ module UrlFactory
   end
 
   def useroneactivitystreampage
-    "#{ENV['base_url']}/people/#{TestConfig.user1_id}/activity"
+    "#{ENV['base_url']}/people/#{TestConfig.user1_uname}/activity"
   end
 
   def useroneprivacyeditpage
-    "#{ENV['base_url']}/edit-profile-security!input.jspa?targetUser=#{TestConfig.user1_id}"
+    ENV['base_url'] + '/edit-profile-security!input.jspa'
   end
 
   def useroneprofileeditpage
-    "#{ENV['base_url']}/edit-profile!input.jspa?targetUser=#{TestConfig.user1_id}"
+    ENV['base_url'] + '/edit-profile!input.jspa'
   end
 
   def useroneprofilepage
-    "#{ENV['base_url']}/people/#{TestConfig.user1_id}"
+    "#{ENV['base_url']}/people/#{TestConfig.user1_uname}"
   end
 
   def self.cannotcreategrouppage

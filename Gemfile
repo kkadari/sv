@@ -14,5 +14,4 @@ gem 'nokogiri'
 gem 'activesupport'
 gem 'tzinfo'
 gem 'pdf-reader'
-gem 'parallel_tests'
-gem 'selenium-webdriver', '2.44.0'
+gem 'parallel_tests', :group => :development
