@@ -1,3 +1,3 @@
 cert_ce_sv_ref: --format pretty
 cert_ce_cpc_test: --format pretty
-smoke_test: browser=firefox -c --format html --out reporting/latest_run.html -f json --out reporting/latest_run.json -f junit --out reporting/junit -t @sit -t ~@quarantine -t ~@manual
+smoke_test: browser=firefox -c --format pretty --format html --out reporting/latest_run.html -f json --out reporting/latest_run.json -f junit --out reporting/junit -t @sit -t ~@quarantine -t ~@manual
