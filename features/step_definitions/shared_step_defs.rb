@@ -1,8 +1,6 @@
 Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
   visit(LogoutPage)
 
-  puts "HEY MARK I AM RUNNING ON: " + ENV['TEST_ENV_NUMBER']
-
   case login
     when 'participant A'
       @username = TestConfig.user1_uname
