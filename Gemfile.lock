@@ -21,7 +21,7 @@ GEM
       gherkin (~> 2.12)
       multi_json (>= 1.7.5, < 2.0)
       multi_test (>= 0.1.1)
-    data_magic (0.20)
+    data_magic (0.21)
       faker (>= 1.1.2)
       yml_reader (>= 0.4)
     diff-lcs (1.2.5)
@@ -41,7 +41,7 @@ GEM
     multi_test (0.1.1)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
-    page-object (1.1.0)
+    page-object (1.0.3)
       page_navigation (>= 0.9)
       selenium-webdriver (>= 2.44.0)
       watir-webdriver (>= 0.6.11)
@@ -78,7 +78,7 @@ GEM
     rspec-support (3.1.0)
     ruby-rc4 (0.1.5)
     rubyzip (1.1.7)
-    selenium-webdriver (2.45.0)
+    selenium-webdriver (2.44.0)
       childprocess (~> 0.5)
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
@@ -93,10 +93,10 @@ GEM
     ttfunk (1.4.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    watir-webdriver (0.7.0)
-      selenium-webdriver (>= 2.45)
+    watir-webdriver (0.6.11)
+      selenium-webdriver (>= 2.18.0)
     websocket (1.2.2)
-    yml_reader (0.4)
+    yml_reader (0.5)
 
 PLATFORMS
   ruby
@@ -107,13 +107,14 @@ DEPENDENCIES
   faker
   headless
   nokogiri
-  page-object (= 1.1.0)
+  page-object (= 1.0.3)
   parallel_tests
   pdf-reader
   premailer
   rake
   require_all
   rspec
+  selenium-webdriver (= 2.44.0)
   sinatra
   syntax
   tzinfo
