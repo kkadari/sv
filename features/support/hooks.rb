@@ -23,7 +23,7 @@ end
 private
 
 def embed_screenshot(scenarioTitle)
-  directory_name = "./reporting/screenshots"
+  directory_name = './reporting/screenshots'
   Dir.mkdir(directory_name) unless File.exists?(directory_name)
 
   scenarioTitle = scenarioTitle.tr(' ', '_')

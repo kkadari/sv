@@ -5,13 +5,34 @@ module BrowserFactory
 
     case ENV['browser']
       when 'firefox'
-        # On ABC-108, bypass proxy with following script:
-        # /etc/profile.d/proxy.sh
-        # export http_proxy="http://proxy.com:8000"
-        # export no_proxy="127.0.0.1, localhost"
+        tmp_folder = File.dirname(__FILE__) + '/../../reporting/tmp'
+        FileUtils.rm_rf(tmp_folder) if File.exists?(tmp_folder)
+        Dir.mkdir(tmp_folder)
+
+        firebug_path = File.dirname(__FILE__) + '/../../bin/firebug-2.0.9-fx.xpi'
+        net_export_path = File.dirname(__FILE__) + '/../../bin/netExport-0.9b7.xpi'
+
         profile = Selenium::WebDriver::Firefox::Profile.new
-        profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv,application/pdf"
+        profile.add_extension(firebug_path)
+        profile.add_extension(net_export_path)
+
+        profile['extensions.firebug.allPagesActivation']  = 'on'
+        profile['extensions.firebug.currentVersion'] = '2.0.9'
+        profile['extensions.firebug.DBG_NETEXPORT'] = false
+        profile['extensions.firebug.onByDefault'] = true
+        profile['extensions.firebug.defaultPanelName'] = 'net'
+        profile['extensions.firebug.net.enableSites'] = true
+        profile['extensions.firebug.net.defaultPersist'] = true
+        profile['extensions.firebug.netexport.alwaysEnableAutoExport'] = true
+        profile['extensions.firebug.netexport.autoExportToFile'] = true
+        profile['extensions.firebug.netexport.autoExportToServer'] = false
+        profile['extensions.firebug.netexport.defaultLogDir'] = File.dirname(__FILE__) + '/../../reporting/tmp'
+        profile['extensions.firebug.netexport.showPreview'] = true
+        profile['extensions.firebug.netexport.sendToConfirmation'] = false
+        profile['extensions.firebug.netexport.Automation'] = true
+        profile['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv,application/pdf'
         driver = Watir::Browser.new :firefox, :profile => profile
+
         # ABC-108 profile config additions:
         # profile.proxy = Selenium::WebDriver::Proxy.new :http => false, :ssl => false
         # profile['proxy.no_proxies_for']='localhost, 127.0.0.1'
@@ -22,7 +43,7 @@ module BrowserFactory
       else # Not specified? Use Firefox.
         puts 'ENV[\'Browser\'] wasn\'t set.  Reverting to Firefox.'
         profile = Selenium::WebDriver::Firefox::Profile.new
-        profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv,application/pdf"
+        profile['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv,application/pdf'
         driver = Watir::Browser.new :firefox, :profile => profile
     end
 
