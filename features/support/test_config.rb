@@ -59,6 +59,20 @@ class TestConfig
       end
     end
 
+    def test_hash_group(id)
+      begin
+        if id.to_i > 1
+          puts 'Received: ' + id
+          {:uname => self.user2_uname, :pass => self.user2_pswd}
+        else
+          puts 'Received blank id'
+          {:uname => self.user1_uname, :pass => self.user1_pswd}
+        end
+      rescue
+          {:uname => self.user1_uname, :pass => self.user1_pswd}
+      end
+    end
+
   end
 
 end

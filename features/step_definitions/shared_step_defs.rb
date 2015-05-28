@@ -3,8 +3,11 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
 
   case login
     when 'participant A'
-      @username = TestConfig.user1_uname
-      @password = TestConfig.user1_pswd
+      #@username = TestConfig.user1_uname
+      #@password = TestConfig.user1_pswd
+      group = TestConfig.test_hash_group(ENV['TEST_ENV_NUMBER'])
+      @username = group[:uname]
+      @password = group[:pass]
     when 'participant B'
       @username = TestConfig.user2_uname
       @password = TestConfig.user2_pswd

@@ -7,7 +7,7 @@ module BrowserFactory
       when 'firefox'
         tmp_folder = File.dirname(__FILE__) + '/../../reporting/tmp'
         FileUtils.rm_rf(tmp_folder) if File.exists?(tmp_folder)
-        Dir.mkdir(tmp_folder)
+        Dir.mkdir(tmp_folder) unless File.exists?(tmp_folder)
 
         firebug_path = File.dirname(__FILE__) + '/../../bin/firebug-2.0.9-fx.xpi'
         net_export_path = File.dirname(__FILE__) + '/../../bin/netExport-0.9b7.xpi'

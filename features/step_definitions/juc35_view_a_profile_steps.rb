@@ -77,6 +77,10 @@ When /^I attempt to view the profile of an existing user$/ do
 end
 
 Then /^I am shown that users profile details$/ do
+  on(UserOneProfilePage).wait_until do
+    on(UserOneProfilePage).profile_element.exists?
+  end
+
   fail('Profile not displayed') unless on(UserOneProfilePage).profile_element.exists?
   fail('Organisation not displayed') unless on(UserOneProfilePage).organisation?
   fail('Skills not displayed') unless on(UserOneProfilePage).skills?
