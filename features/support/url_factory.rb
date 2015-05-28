@@ -20,10 +20,6 @@ module UrlFactory
     ENV['base_url'] + "/community/#{/.*/}"
   end
 
-  def grouppage
-    ENV['base_url'] + "/groups/#{/.*/}"
-  end
-
   def activitypage
     ENV['base_url'] + '/activity'
   end
@@ -116,16 +112,12 @@ module UrlFactory
     ENV['base_url'] + '/incidentreports/<%=params[:id]%>'
   end
 
-  def customgroupcontentpage
-    "#{ENV['base_url']}/groups/#{TestConfig.custom_group}/content"
-  end
-
   def customgrouppage
-    ENV['base_url'] + '/groups/' + TestConfig.custom_group
+    ENV['base_url'] + '/groups/<%=params[:id]%>'
   end
 
   def placespage
-    "#{ENV['base_url']}/places"
+    ENV['base_url'] + '/places'
   end
 
   def pollsummarypage
@@ -133,7 +125,7 @@ module UrlFactory
   end
 
   def useroneactivitystreampage
-    "#{ENV['base_url']}/people/#{TestConfig.user1_uname}/activity"
+    ENV['base_url'] + '/people/<%=params[:id]%>/activity'
   end
 
   def useroneprivacyeditpage
@@ -145,7 +137,7 @@ module UrlFactory
   end
 
   def useroneprofilepage
-    "#{ENV['base_url']}/people/#{TestConfig.user1_uname}"
+    ENV['base_url'] + '/people/<%=params[:id]%>'
   end
 
   def self.cannotcreategrouppage
@@ -157,7 +149,7 @@ module UrlFactory
   end
 
   def self.cannotcreateplacepage
-    "#{ENV['base_url']}/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14"
+    ENV['base_url'] = '/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14'
   end
 
   def peoplepage

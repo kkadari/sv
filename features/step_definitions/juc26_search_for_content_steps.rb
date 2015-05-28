@@ -31,13 +31,13 @@ Then /^I am not able to view their identity on the comment when I search for the
   end
 
   !fail 'Not marked as anonymous' unless on(IncidentReportSummaryPage).avatar_element.exists?
-  !fail 'Username visible' if on(IncidentReportSummaryPage).first_comment.include? TestConfig.user1_uname
+  !fail 'Username visible' if on(IncidentReportSummaryPage).first_comment.include? @test_config_set[:user_1_name]
 end
 
 Given /^I have used spotlight search to search for a participant$/ do
-  on(GlobalNav).verify_spotlight_search_result_exists(TestConfig.user2_uname)
+  on(GlobalNav).verify_spotlight_search_result_exists @test_config_set[:user_2_name]
 end
 
 Then /^details for that participant are returned by Jive search$/ do
-  fail 'User not visible' unless @browser.html.to_s.include? TestConfig.user2_uname
+  fail 'User not visible' unless @browser.html.to_s.include? @test_config_set[:user_2_name]
 end

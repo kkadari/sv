@@ -1,78 +1,37 @@
-class TestConfig
+module TestConfig
 
-  class << self
+  @test_user_sets = [{
+    :user_1_name      => ENV['user1_uname'],
+    :user_1_password  => ENV['user1_pswd'],
+    :user_2_name      => ENV['user2_uname'],
+    :user_2_password  => ENV['user2_pswd'],
+    :admin_name       => ENV['adminuser_uname'],
+    :admin_password   => ENV['adminuser_pswd'],
+    :private_group    => ENV['private_group'],
+    :secret_group     => ENV['secret_group'],
+    :custom_space     => ENV['custom_space']
+  },{
+    :user_1_name      => ENV['user2_uname'],
+    :user_1_password  => ENV['user2_pswd'],
+    :user_2_name      => ENV['user2_uname'],
+    :user_2_password  => ENV['user2_pswd'],
+    :admin_name       => ENV['adminuser_uname'],
+    :admin_password   => ENV['adminuser_pswd'],
+    :private_group    => ENV['private_group'],
+    :secret_group     => ENV['secret_group'],
+    :custom_space     => ENV['custom_space']
+  }]
 
-    def user1_uname
-      ENV['user1_uname']
-    end
-
-    def user1_pswd
-      ENV['user1_pswd']
-    end
-
-    def user2_uname
-      ENV['user2_uname']
-    end
-
-    def user2_pswd
-      ENV['user2_pswd']
-    end
-
-    def user3_uname
-      ENV['user3_uname']
-    end
-
-    def user3_pswd
-      ENV['user3_pswd']
-    end
-
-    def adminuser_uname
-      ENV['adminuser_uname']
-    end
-
-    def adminuser_pswd
-      ENV['adminuser_pswd']
-    end
-
-    def custom_group
-      ENV['custom_group']
-    end
-
-    def secret_group
-      ENV['secret_group']
-    end
-
-    def custom_space
-      ENV['custom_space']
-    end
-
-    def groups_and_spaces(level)
-      case level
-        when 'private group'
-          self.custom_group
-        when 'secret group'
-          self.secret_group
-        when 'space'
-          self.custom_space
-        else
-          raise 'Something went wrong. Sorry about that.'
+  def self.get_config_set(id)
+    begin
+      if id.to_i > 1
+        @test_user_sets[1]
+      else
+        @test_user_sets[id.to_i]
       end
+    rescue
+      @test_user_sets[1]
     end
-
-    def test_hash_group(id)
-      begin
-        if id.to_i > 1
-          puts 'Received: ' + id
-          {:uname => self.user2_uname, :pass => self.user2_pswd}
-        else
-          puts 'Received blank id'
-          {:uname => self.user1_uname, :pass => self.user1_pswd}
-        end
-      rescue
-          {:uname => self.user1_uname, :pass => self.user1_pswd}
-      end
-    end
-
   end
 
 end

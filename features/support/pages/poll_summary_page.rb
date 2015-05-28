@@ -8,7 +8,7 @@ class PollSummaryPage
   page_url(pollsummarypage)
 
   h1(:title, :css => '.j-poll-title h1')
-  link(:breadcrumb, :href => "/groups/#{TestConfig.custom_group}/content?filterID=contentstatus[published]~objecttype~objecttype[poll]")
+  link(:breadcrumb, :href => /\/content?filterID=contentstatus[published]~objecttype~objecttype[poll]/)
 
   radio_button(:first_poll_choice, :css => '.jive-poll-vote-list li:nth-child(1) input')
 

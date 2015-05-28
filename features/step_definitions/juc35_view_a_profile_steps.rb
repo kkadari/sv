@@ -1,6 +1,6 @@
 Then /^I as admin can verify the anonymous identifiers have been added in their profile$/ do
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_uname
+  on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).content.when_present.click
@@ -9,11 +9,11 @@ end
 
 Then /^participants are not able to view the incident report on the posters profile$/ do
   visit LoginPage do |creds|
-    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.populate_page_with :username => @test_config_set[:user_2_name], :password => @test_config_set[:user_2_password]
     creds.submit
   end
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_uname
+  on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).content.when_present.click
@@ -28,11 +28,11 @@ end
 
 Then /^participants are not able to view the discussion in the posters activity stream/ do
   visit LoginPage do |creds|
-    creds.populate_page_with :username => TestConfig.user2_uname, :password => TestConfig.user2_pswd
+    creds.populate_page_with :username => @test_config_set[:user_2_name], :password => @test_config_set[:user_2_password]
     creds.submit
   end
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_uname
+  on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
@@ -42,11 +42,11 @@ end
 
 Then /^I am not able to view the discussion in my activity stream/ do
   visit LoginPage do |creds|
-    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.populate_page_with :username => @test_config_set[:user_1_name], :password => @test_config_set[:user_1_password]
     creds.submit
   end
   visit(PeoplePage)
-  on(PeoplePage).search TestConfig.user1_uname
+  on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
