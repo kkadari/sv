@@ -4,7 +4,7 @@ require 'cucumber/rake/task'
 require 'ci/reporter/rake/rspec'
 
 id = Time.now.strftime("%d %b %y - %H:%M")
-File.open('reporting/run_log.txt', 'a') {|f| f.write("\n#{id}")}
+File.open('run_log.txt', 'a') {|f| f.write("\n#{id}")}
 
 namespace :features do
 
