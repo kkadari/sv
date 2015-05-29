@@ -3,9 +3,10 @@ require 'cucumber'
 require 'cucumber/rake/task'
 require 'ci/reporter/rake/rspec'
 
+id = Time.now.strftime("%d %b %y - %H:%M")
+File.open('reporting/run_log.txt', 'a') {|f| f.write("\n#{id}")}
+
 namespace :features do
-  id = Time.now.strftime("%d %b %y - %H:%M")
-  File.open('reporting/run_log.txt', 'a') {|f| f.write("\n#{id}")}
 
   Cucumber::Rake::Task.new(:cert_ce_sv_ref_firefox) do |t|
     t.profile = 'cert_ce_sv_ref'
