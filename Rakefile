@@ -43,6 +43,6 @@ namespace :features do
   end
 end
 
-task :rspec => 'ci:setup:rspec' do
+task :integration => 'ci:setup:rspec' do
   sh 'rspec spec/'
 end
