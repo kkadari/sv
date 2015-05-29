@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="blog_service_v2 GET Blogs" tests="2" time="1.11243" failures="0" errors="0" skipped="0" timestamp="2015-05-29T12:28:27+01:00">
-  <testcase name="blog_service_v2 GET Blogs should return 200 on request of blogs" time="0.59297">
-  </testcase>
-  <testcase name="blog_service_v2 GET Blogs should return 200 on request of a specific blog" time="0.519064">
-  </testcase>
-</testsuite>
