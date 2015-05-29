@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe 'blog_service_v2' do
 
-  describe 'Blogs service' do
-
     it 'should return a 200 on create a blog' do
       payload = 'subject=' + Faker::Company.catch_phrase + '&html=%3Cdiv+class%3D%22jive-rendered-content%22%3EFoobar%3C%2Fdiv%3E'
 
@@ -47,6 +45,5 @@ describe 'blog_service_v2' do
         fail('Failed with ' + response.code.to_s) if response.code != 200
       }
     end
-  end
 
 end
