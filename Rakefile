@@ -2,7 +2,6 @@ require 'rubygems'
 require 'cucumber'
 require 'cucumber/rake/task'
 require 'ci/reporter/rake/rspec'
-require 'faker'
 
 id = Time.now.strftime("%d %b %y - %H:%M")
 File.open('run_log.txt', 'a') {|f| f.write("\n#{id}")}
