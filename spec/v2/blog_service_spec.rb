@@ -11,7 +11,7 @@ describe 'blog_service_v2' do
     end
 
     it 'should return 201 on following a blog' do
-      RestClient.post('http://dev188.sure.vine/api/core/v2/blogs/1005/followers', '{id: 1005}', :Authorization => @authorisation) { |response|
+      RestClient.post('http://dev188.sure.vine/api/core/v2/blogs/1005/followers', '{id: ' + ENV['user_id'] + '}', :Authorization => @authorisation) { |response|
         fail('Failed with ' + response.code.to_s) if response.code != 201
       }
     end
