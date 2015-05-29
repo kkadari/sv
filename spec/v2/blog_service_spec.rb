@@ -17,6 +17,8 @@ describe 'blog_service_v2' do
     end
 
     it 'should return 200 on confirming a follower for a blog' do
+      sleep 1
+
       RestClient.get('http://dev188.sure.vine/api/core/v2/blogs/1005/followers/' + ENV['user_id'], :Authorization => @authorisation) { |response|
         fail('Failed with ' + response.code.to_s) if response.code != 200
       }
