@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'cucumber'
 require 'cucumber/rake/task'
+require 'ci/reporter/rake/rspec'
 
 namespace :features do
   id = Time.now.strftime("%d %b %y - %H:%M")
@@ -40,4 +41,8 @@ namespace :features do
     t.profile = 'cert_ce_sv_ref'
     t.cucumber_opts = "browser=firefox -c --format html --out reporting/latest_run.html -f json --out reporting/latest_run.json -f junit --out reporting/junit -t @wip -t ~@manual"
   end
+end
+
+task :rspec => 'ci:setup:rspec' do
+  sh 'rspec spec/'
 end
