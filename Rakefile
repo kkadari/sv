@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'cucumber'
 require 'cucumber/rake/task'
+require 'ci/reporter/rake/rspec'
+
+id = Time.now.strftime("%d %b %y - %H:%M")
+File.open('run_log.txt', 'a') {|f| f.write("\n#{id}")}
 
 namespace :features do
   Cucumber::Rake::Task.new(:cert_ce_sv_ref_firefox) do |t|
@@ -29,4 +33,6 @@ namespace :features do
   end
 end
 
-
+task :integration => 'ci:setup:rspec' do
+  sh 'rspec spec/'
+end

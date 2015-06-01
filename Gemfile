@@ -14,4 +14,7 @@ gem 'nokogiri'
 gem 'activesupport'
 gem 'tzinfo'
 gem 'pdf-reader'
-gem 'parallel_tests', :group => :development
+gem 'parallel_tests'
+gem 'rest-client'
+gem 'ci_reporter'
+gem 'ci_reporter_rspec'
