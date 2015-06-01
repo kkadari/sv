@@ -3,14 +3,14 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
 
   case login
     when 'participant A'
-      @username = TestConfig.user1_uname
-      @password = TestConfig.user1_pswd
+      @username = @test_config_set[:user_1_name]
+      @password = @test_config_set[:user_1_password]
     when 'participant B'
-      @username = TestConfig.user2_uname
-      @password = TestConfig.user2_pswd
+      @username = @test_config_set[:user_2_name]
+      @password = @test_config_set[:user_2_password]
     when 'admin'
-      @username = TestConfig.adminuser_uname
-      @password = TestConfig.adminuser_pswd
+      @username = @test_config_set[:admin_name]
+      @password = @test_config_set[:admin_password]
     else
       fail 'Supplied user not recognised.'
   end
@@ -49,7 +49,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   @location = location
 
   visit CreateDiscussionPage do | create |
-    create.publish_to         TestConfig.groups_and_spaces(@location) if @location != 'community'
+    create.publish_to         @test_config_set[@location.parameterize.to_sym] if @location != 'community'
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation discussion body'
@@ -135,7 +135,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   @location = location
 
   visit CreatePollPage do |create|
-    create.publish_to         TestConfig.groups_and_spaces(@location) if @location != 'community'
+    create.publish_to         @test_config_set[@location.parameterize.to_sym] if @location != 'community'
     create.subject
     create.subject          = @subject
     create.enable_html_mode
@@ -174,7 +174,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   @marking = marking
 
   visit CreateBlogPostPage do |create|
-    create.publish_to         TestConfig.custom_group
+    create.publish_to         @test_config_set[:private_group]
     create.subject
     create.subject          = @subject
     create.enable_html_mode

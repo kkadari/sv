@@ -1,7 +1,7 @@
 Given /^I have navigated away from a poll using the breadcrumb links$/ do
   @subject = TitleCreator.create_title_for('poll')
   visit LoginPage do |creds|
-    creds.populate_page_with :username => TestConfig.user1_uname, :password => TestConfig.user1_pswd
+    creds.populate_page_with :username => @test_config_set[:user_1_name], :password => @test_config_set[:user_1_password]
     creds.submit
   end
 
@@ -14,7 +14,7 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
   end
 
   on CreatePollPage do |create|
-    create.publish_to       TestConfig.custom_group
+    create.publish_to       @test_config_set[:private_group]
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
@@ -34,5 +34,5 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
 end
 
 Then /I am able to view more polls in a related container$/ do
-  fail 'Not on correct content page' unless @browser.url.include? "/groups/#{TestConfig.custom_group}/content?filterID=contentstatus[published]~objecttype~objecttype[poll]"
+  fail 'Not on correct content page' unless @browser.url.include? "/groups/#{@test_config_set[:private_group]}/content?filterID=contentstatus[published]~objecttype~objecttype[poll]"
 end
