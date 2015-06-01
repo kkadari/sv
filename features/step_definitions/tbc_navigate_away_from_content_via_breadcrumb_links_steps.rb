@@ -1,9 +1,6 @@
 Given /^I have navigated away from a poll using the breadcrumb links$/ do
   @subject = TitleCreator.create_title_for('poll')
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_1_name], :password => @test_config_set[:user_1_password]
-    creds.submit
-  end
+  @browser = $browsers['participant A']
 
   on(GlobalNav) do |menu|
     menu.open_create

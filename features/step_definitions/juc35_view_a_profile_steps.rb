@@ -8,10 +8,7 @@ Then /^I as admin can verify the anonymous identifiers have been added in their 
 end
 
 Then /^participants are not able to view the incident report on the posters profile$/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_2_name], :password => @test_config_set[:user_2_password]
-    creds.submit
-  end
+  @browser = $browsers['participant B']
   visit(PeoplePage)
   on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
@@ -23,7 +20,7 @@ Then /^participants are not able to view the incident report on the posters prof
   on(UserOneProfilePage).filter_by.send_keys @subject
   on(UserOneProfilePage).filter_by.send_keys :return
   fail 'Incident report visible, and should not be' if @browser.html.to_s.include? @subject
-  visit(LogoutPage)
+  #visit(LogoutPage)
 end
 
 Then /^participants are not able to view the discussion in the posters activity stream/ do
@@ -37,21 +34,18 @@ Then /^participants are not able to view the discussion in the posters activity 
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
   fail 'Discussion is visible and should not be' if @browser.html.to_s.include? @subject
-  visit(LogoutPage)
+  #visit(LogoutPage)
 end
 
 Then /^I am not able to view the discussion in my activity stream/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_1_name], :password => @test_config_set[:user_1_password]
-    creds.submit
-  end
+  @browser = $browsers['participant A']
   visit(PeoplePage)
   on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
   on(UserOneProfilePage).activity.when_present.click
   fail 'Discussion is visible and should not be' if @browser.html.to_s.include? @subject
-  visit(LogoutPage)
+  #visit(LogoutPage)
 end
 
 Given /^I attempt to view the profile of a non existent user$/ do

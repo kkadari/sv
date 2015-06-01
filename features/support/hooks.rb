@@ -1,24 +1,47 @@
 require 'watir-webdriver'
 require 'syntax'
 
-driver = BrowserFactory.create
+$browsers = {}
 
-Before do
-  @browser = driver
-  @test_config_set = TestConfig.get_config_set(ENV['TEST_ENV_NUMBER'])
+@test_config_set = TestConfig.get_config_set(ENV['TEST_ENV_NUMBER'])
+
+['participant A','participant B','admin'].each do |user|
+  $browsers[user] = BrowserFactory.create
+
+  case user
+    when 'participant A'
+      @username = @test_config_set[:user_1_name]
+      @password = @test_config_set[:user_1_password]
+    when 'participant B'
+      @username = @test_config_set[:user_2_name]
+      @password = @test_config_set[:user_2_password]
+    when 'admin'
+      @username = @test_config_set[:admin_name]
+      @password = @test_config_set[:admin_password]
+
+    else
+      fail 'Supplied user not recognised.'
+  end
+
+  @browser = $browsers[user]
+
+  login_page = LoginPage.new(@browser)
+  @browser.goto('http://dev188.sure.vine/')
+  login_page.username = @username
+  login_page.password = @password
+  login_page.submit
 end
 
 After do |scenario|
   if scenario.failed?
     embed_screenshot(scenario.title)
   end
-
-  @browser.cookies.clear
-  visit(LoginPage)
 end
 
 at_exit do
-  driver.close
+  $browsers['participant A'].close
+  $browsers['participant B'].close
+  $browsers['admin'].close
 end
 
 private

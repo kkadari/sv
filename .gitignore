@@ -3,3 +3,4 @@ screenshots/
 .idea
 .DS_Store
 spec/reports/
+run_log.txt

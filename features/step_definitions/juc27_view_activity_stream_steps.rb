@@ -1,18 +1,11 @@
 Given /^a participant has raised an anonymous incident report in a group I follow in my connections stream$/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_1_name], :password => @test_config_set[:user_1_password]
-    creds.submit
-  end
+  @browser = $browsers['participant A']
 
   visit CustomGroupPage :using_params => {:id => @test_config_set[:private_group]} do | customgroup |
     customgroup.follow unless customgroup.following_element.exists?
   end
 
-  visit(LogoutPage)
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_2_name], :password => @test_config_set[:user_2_password]
-    creds.submit
-  end
+  @browser = $browsers['participant B']
 
   @subject = TitleCreator.create_title_for('incident')
 
@@ -36,14 +29,11 @@ Given /^a participant has raised an anonymous incident report in a group I follo
     create.save
   end
 
-  visit(LogoutPage)
+  #visit(LogoutPage)
 end
 
 Then /^I can verify the incident report is marked anonymous in my connection stream$/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_1_name], :password => @test_config_set[:user_1_password]
-    creds.submit
-  end
+  @browser = $browsers['participant A']
   on(HomePage).connections_stream
 
   incident_report = on(ActivityPage).incident_report.first
@@ -53,10 +43,7 @@ Then /^I can verify the incident report is marked anonymous in my connection str
 end
 
 Then /^I am not able to view it in their activity stream$/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_2_name], :password => @test_config_set[:user_2_password]
-    creds.submit
-  end
+  @browser = $browsers['participant B']
 
   visit(PeoplePage)
   on(PeoplePage).search @test_config_set[:user_1_name]
@@ -81,10 +68,7 @@ Then /^I am not able to view their identity on the comment in their activity str
 end
 
 Then /^another user is not able to view it in my activity stream$/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_2_name], :password => @test_config_set[:user_2_password]
-    creds.submit
-  end
+  @browser = $browsers['participant B']
   visit(PeoplePage)
   on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return

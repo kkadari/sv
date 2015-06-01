@@ -1,24 +1,5 @@
 Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
-  visit(LogoutPage)
-
-  case login
-    when 'participant A'
-      @username = @test_config_set[:user_1_name]
-      @password = @test_config_set[:user_1_password]
-    when 'participant B'
-      @username = @test_config_set[:user_2_name]
-      @password = @test_config_set[:user_2_password]
-    when 'admin'
-      @username = @test_config_set[:admin_name]
-      @password = @test_config_set[:admin_password]
-    else
-      fail 'Supplied user not recognised.'
-  end
-
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @username, :password => @password
-    creds.submit
-  end
+  @browser = $browsers[login]
 end
 
 Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
