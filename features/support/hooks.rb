@@ -3,11 +3,10 @@ require 'syntax'
 
 $browsers = {}
 
+driver = BrowserFactory.create
 config = TestConfig.get_config_set(ENV['TEST_ENV_NUMBER'])
 
 ['participant A','participant B','admin'].each do |user|
-  $browsers[user] = BrowserFactory.create
-
   case user
     when 'participant A'
       @username = config[:user_1_name]
@@ -23,17 +22,14 @@ config = TestConfig.get_config_set(ENV['TEST_ENV_NUMBER'])
       fail 'Supplied user not recognised.'
   end
 
-  @browser = $browsers[user]
-
-  login_page = LoginPage.new(@browser)
-  @browser.goto('http://dev188.sure.vine/')
-  login_page.username = @username
-  login_page.password = @password
-  login_page.submit
+  $browsers[user] = Login.do_login(@username,@password)
 end
 
 Before do
+  @browser = driver
   @test_config_set = config
+
+  @browser.goto(ENV['base_url'] + '/welcome')
 end
 
 After do |scenario|
@@ -43,9 +39,7 @@ After do |scenario|
 end
 
 at_exit do
-  $browsers['participant A'].close
-  $browsers['participant B'].close
-  $browsers['admin'].close
+  driver.close
 end
 
 private

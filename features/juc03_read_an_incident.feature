@@ -1,11 +1,11 @@
 @JUC3
 Feature: JUC3 - Read an incident
 
-  @sit
-  Scenario: Participant can read an incident report
-    Given I have logged in as "participant A"
-    When I find and click on an incident report I would like to read
-    Then I can view the incident report
+#  @sit
+#  Scenario: Participant can read an incident report
+#    Given I have logged in as "participant A"
+#    When I find and click on an incident report I would like to read
+#    Then I can view the incident report
 
   @JUC3.1 @CISP-188 @JUC3.4 @CISP-583
   Scenario: Participant views an anonymous incident report

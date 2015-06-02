@@ -1,6 +1,7 @@
 Given /^I have enhanced my profile$/ do
   @prefix = Faker::Name.prefix
-  @browser = $browsers['participant A']
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant A']
 
   visit(UserOneProfileEditPage)
   on UserOneProfileEditPage do |edit|
@@ -11,8 +12,8 @@ Given /^I have enhanced my profile$/ do
 end
 
 Then /^participants that follow me can view the profile enhancements$/ do
-  #visit(LogoutPage)
-  @browser = $browsers['participant B']
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant B']
 
   visit(PeoplePage)
   on(PeoplePage).user1_profile_link
@@ -22,7 +23,8 @@ Then /^participants that follow me can view the profile enhancements$/ do
 end
 
 Given /^I have restricted parts of my profile$/ do
-  @browser = $browsers['participant A']
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant A']
 
   visit UserOnePrivacyEditPage do |edit|
     edit.security_level = 'Connections'
@@ -32,14 +34,18 @@ Given /^I have restricted parts of my profile$/ do
 end
 
 Then /^followers can see restrictions$/ do
-  @browser = $browsers['participant B']
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+
   on(PeoplePage).user1_profile_link
   fail 'Name not visible, and should be' unless @browser.html.include? @test_config_set[:user_1_name]
   #visit(LogoutPage)
 end
 
 And /^non followers cannot see restrictions$/ do
-  @browser = $browsers['participant B']
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+
   on(PeoplePage).user1_profile_link
   fail 'Name visible, and should not be' if @browser.html.to_s.include? @test_config_set[:user_1_name]
 end

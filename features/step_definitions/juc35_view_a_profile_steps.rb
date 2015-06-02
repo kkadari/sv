@@ -8,7 +8,9 @@ Then /^I as admin can verify the anonymous identifiers have been added in their 
 end
 
 Then /^participants are not able to view the incident report on the posters profile$/ do
-  @browser = $browsers['participant B']
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+
   visit(PeoplePage)
   on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
@@ -38,7 +40,9 @@ Then /^participants are not able to view the discussion in the posters activity 
 end
 
 Then /^I am not able to view the discussion in my activity stream/ do
-  @browser = $browsers['participant A']
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant A']
+
   visit(PeoplePage)
   on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return

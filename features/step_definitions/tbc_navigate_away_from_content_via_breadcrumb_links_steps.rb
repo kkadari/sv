@@ -1,6 +1,8 @@
 Given /^I have navigated away from a poll using the breadcrumb links$/ do
   @subject = TitleCreator.create_title_for('poll')
-  @browser = $browsers['participant A']
+
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant A']
 
   on(GlobalNav) do |menu|
     menu.open_create

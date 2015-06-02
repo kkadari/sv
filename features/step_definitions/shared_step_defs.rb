@@ -1,5 +1,6 @@
 Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
-  @browser = $browsers[login]
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers[login]
 end
 
 Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
