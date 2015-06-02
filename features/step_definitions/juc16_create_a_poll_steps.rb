@@ -4,7 +4,6 @@ Then /^I can vote on the poll$/ do
   on PollSummaryPage do |poll|
     poll.select_first_poll_choice
     poll.vote
-    poll.confirm_vote
   end
 
 end

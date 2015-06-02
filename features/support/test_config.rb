@@ -9,7 +9,7 @@ module TestConfig
     :admin_password   => ENV['adminuser_pswd'],
     :private_group    => ENV['private_group'],
     :secret_group     => ENV['secret_group'],
-    :custom_space     => ENV['custom_space']
+    :space            => ENV['custom_space']
   },{
     :user_1_name      => ENV['user2_uname'],
     :user_1_password  => ENV['user2_pswd'],
@@ -19,7 +19,7 @@ module TestConfig
     :admin_password   => ENV['adminuser_pswd'],
     :private_group    => ENV['private_group'],
     :secret_group     => ENV['secret_group'],
-    :custom_space     => ENV['custom_space']
+    :space            => ENV['custom_space']
   }]
 
   def self.get_config_set(id)

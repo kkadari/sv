@@ -27,10 +27,15 @@ end
 Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
   @subject = TitleCreator.create_title_for('discussion')
   @marking = marking
-  @location = location
+  @location = location.gsub(' ','_')
 
   visit CreateDiscussionPage do | create |
-    create.publish_to         @test_config_set[@location.parameterize.to_sym] if @location != 'community'
+    if @location != 'community'
+      create.publish_to @test_config_set[@location.parameterize.to_sym]
+    else
+      create.select_community
+    end
+
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation discussion body'
@@ -64,7 +69,7 @@ end
 Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
   @subject = TitleCreator.create_title_for('incident')
   @marking = marking
-  @location = location
+  @location = location.gsub(' ','_')
 
   visit CreateIncidentReportPage do |create|
     create.subject          = @subject
@@ -113,10 +118,15 @@ end
 Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (community|private group|secret group|space)$/ do |marking, location|
   @subject = TitleCreator.create_title_for('poll')
   @marking = marking
-  @location = location
+  @location = location.gsub(' ','_')
 
   visit CreatePollPage do |create|
-    create.publish_to         @test_config_set[@location.parameterize.to_sym] if @location != 'community'
+    if @location != 'community'
+      create.publish_to @test_config_set[@location.to_sym]
+    else
+      create.select_community
+    end
+
     create.subject
     create.subject          = @subject
     create.enable_html_mode

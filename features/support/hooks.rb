@@ -3,21 +3,21 @@ require 'syntax'
 
 $browsers = {}
 
-@test_config_set = TestConfig.get_config_set(ENV['TEST_ENV_NUMBER'])
+config = TestConfig.get_config_set(ENV['TEST_ENV_NUMBER'])
 
 ['participant A','participant B','admin'].each do |user|
   $browsers[user] = BrowserFactory.create
 
   case user
     when 'participant A'
-      @username = @test_config_set[:user_1_name]
-      @password = @test_config_set[:user_1_password]
+      @username = config[:user_1_name]
+      @password = config[:user_1_password]
     when 'participant B'
-      @username = @test_config_set[:user_2_name]
-      @password = @test_config_set[:user_2_password]
+      @username = config[:user_2_name]
+      @password = config[:user_2_password]
     when 'admin'
-      @username = @test_config_set[:admin_name]
-      @password = @test_config_set[:admin_password]
+      @username = config[:admin_name]
+      @password = config[:admin_password]
 
     else
       fail 'Supplied user not recognised.'
@@ -30,6 +30,10 @@ $browsers = {}
   login_page.username = @username
   login_page.password = @password
   login_page.submit
+end
+
+Before do
+  @test_config_set = config
 end
 
 After do |scenario|
