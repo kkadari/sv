@@ -1,8 +1,6 @@
 Then /^I can change incident report marking$/ do
-  visit EditIncidentReportPage, :using_params => {:id => @incident_id}
-  fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
-
-  on EditIncidentReportPage do |edit|
+  visit_and_benchmark EditIncidentReportPage, :using_params => {:id => @incident_id} do |edit|
+    fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
     edit.handling_elements.each do |colour|
       colour.click if colour.text.downcase.include? 'white'
     end

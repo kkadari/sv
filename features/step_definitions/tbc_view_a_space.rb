@@ -8,7 +8,7 @@ When /^I find and click on a (.*?) I would like to access$/ do |type|
       fail 'I don\'t like the option: ' + type
   end
 
-  visit AdvancedSearchPage do |search|
+  visit_and_benchmark AdvancedSearchPage do |search|
     search.show_places
     search.search_query = 'a*'
     search.submit_search

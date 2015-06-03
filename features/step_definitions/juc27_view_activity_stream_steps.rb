@@ -1,18 +1,13 @@
 Given /^a participant has raised an anonymous incident report in a group I follow in my connections stream$/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_1_name], :password => @test_config_set[:user_1_password]
-    creds.submit
-  end
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant A']
 
-  visit CustomGroupPage :using_params => {:id => @test_config_set[:private_group]} do | customgroup |
+  visit_and_benchmark CustomGroupPage :using_params => {:id => @test_config_set[:private_group]} do | customgroup |
     customgroup.follow unless customgroup.following_element.exists?
   end
 
-  visit(LogoutPage)
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_2_name], :password => @test_config_set[:user_2_password]
-    creds.submit
-  end
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant B']
 
   @subject = TitleCreator.create_title_for('incident')
 
@@ -35,15 +30,12 @@ Given /^a participant has raised an anonymous incident report in a group I follo
     create.check_anonymous
     create.save
   end
-
-  visit(LogoutPage)
 end
 
 Then /^I can verify the incident report is marked anonymous in my connection stream$/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_1_name], :password => @test_config_set[:user_1_password]
-    creds.submit
-  end
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+
   on(HomePage).connections_stream
 
   incident_report = on(ActivityPage).incident_report.first
@@ -53,12 +45,10 @@ Then /^I can verify the incident report is marked anonymous in my connection str
 end
 
 Then /^I am not able to view it in their activity stream$/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_2_name], :password => @test_config_set[:user_2_password]
-    creds.submit
-  end
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant B']
 
-  visit(PeoplePage)
+  visit_and_benchmark(PeoplePage)
   on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
@@ -68,7 +58,7 @@ Then /^I am not able to view it in their activity stream$/ do
 end
 
 Then /^I am not able to view their identity on the comment in their activity stream$/ do
-  visit(PeoplePage)
+  visit_and_benchmark(PeoplePage)
   on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link
@@ -81,11 +71,10 @@ Then /^I am not able to view their identity on the comment in their activity str
 end
 
 Then /^another user is not able to view it in my activity stream$/ do
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @test_config_set[:user_2_name], :password => @test_config_set[:user_2_password]
-    creds.submit
-  end
-  visit(PeoplePage)
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+
+  visit_and_benchmark(PeoplePage)
   on(PeoplePage).search @test_config_set[:user_1_name]
   on(PeoplePage).search :return
   on(PeoplePage).user1_profile_link

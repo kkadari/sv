@@ -2,7 +2,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my persona
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  visit CreateBlogPostPage do |create|
+  visit_and_benchmark CreateBlogPostPage do |create|
     create.subject  = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
@@ -20,7 +20,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in my persona
 end
 
 Then /^I can locate and view the blog post$/ do
-  visit ContentPage do |content|
+  visit_and_benchmark ContentPage do |content|
     content.content_items_elements.each do |link|
       if link.text.include? @subject[0.23]
         link.click

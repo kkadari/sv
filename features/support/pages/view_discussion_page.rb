@@ -3,7 +3,8 @@ class ViewDiscussionPage
   extend UrlFactory
 
   page_url(viewdiscussionpage)
-  
+
+  h1(:title, :css => '.js-original-header h1')
   link(:reply, :title => 'Reply to this message')
   link(:enable_html_mode, :id => 'wysiwygtext1_html')
   text_area(:comment_body, :class => 'usertext')

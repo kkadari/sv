@@ -1,24 +1,6 @@
 Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
-  visit(LogoutPage)
-
-  case login
-    when 'participant A'
-      @username = @test_config_set[:user_1_name]
-      @password = @test_config_set[:user_1_password]
-    when 'participant B'
-      @username = @test_config_set[:user_2_name]
-      @password = @test_config_set[:user_2_password]
-    when 'admin'
-      @username = @test_config_set[:admin_name]
-      @password = @test_config_set[:admin_password]
-    else
-      fail 'Supplied user not recognised.'
-  end
-
-  visit LoginPage do |creds|
-    creds.populate_page_with :username => @username, :password => @password
-    creds.submit
-  end
+  @browser.cookies.delete 'jive.security.context'
+  @browser.cookies.add 'jive.security.context', $browsers[login]
 end
 
 Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
@@ -32,7 +14,7 @@ Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report(
 end
 
 Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   on ViewIncidentReportPage do |comment|
     comment.comment
@@ -46,10 +28,15 @@ end
 Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
   @subject = TitleCreator.create_title_for('discussion')
   @marking = marking
-  @location = location
+  @location = location.gsub(' ','_')
 
-  visit CreateDiscussionPage do | create |
-    create.publish_to         @test_config_set[@location.parameterize.to_sym] if @location != 'community'
+  visit_and_benchmark CreateDiscussionPage do | create |
+    if @location != 'community'
+      create.publish_to @test_config_set[@location.parameterize.to_sym]
+    else
+      create.select_community
+    end
+
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation discussion body'
@@ -83,9 +70,9 @@ end
 Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
   @subject = TitleCreator.create_title_for('incident')
   @marking = marking
-  @location = location
+  @location = location.gsub(' ','_')
 
-  visit CreateIncidentReportPage do |create|
+  visit_and_benchmark CreateIncidentReportPage do |create|
     create.subject          = @subject
     create.enable_html_mode
     create.body             = 'Test automation poll'
@@ -132,10 +119,15 @@ end
 Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (community|private group|secret group|space)$/ do |marking, location|
   @subject = TitleCreator.create_title_for('poll')
   @marking = marking
-  @location = location
+  @location = location.gsub(' ','_')
 
-  visit CreatePollPage do |create|
-    create.publish_to         @test_config_set[@location.parameterize.to_sym] if @location != 'community'
+  visit_and_benchmark CreatePollPage do |create|
+    if @location != 'community'
+      create.publish_to @test_config_set[@location.to_sym]
+    else
+      create.select_community
+    end
+
     create.subject
     create.subject          = @subject
     create.enable_html_mode
@@ -160,7 +152,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
 end
 
 Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|
-  visit DiscussionSummaryPage, :using_params => {:id => @discussion_id}
+  visit_and_benchmark DiscussionSummaryPage, :using_params => {:id => @discussion_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   if anonymous
@@ -173,7 +165,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  visit CreateBlogPostPage do |create|
+  visit_and_benchmark CreateBlogPostPage do |create|
     create.publish_to         @test_config_set[:private_group]
     create.subject
     create.subject          = @subject
@@ -194,7 +186,7 @@ Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
 end
 
 Then /^I can edit the anonymous incident report$/ do
-  visit EditIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark EditIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
 
@@ -212,7 +204,7 @@ Then /^I can edit the anonymous incident report$/ do
 end
 
 When /^I find and click on (?:a|an) ([^\"]+) I would like to read$/ do |doctype|
-  visit AdvancedSearchPage do |search|
+  visit_and_benchmark AdvancedSearchPage do |search|
     case doctype
       when 'incident report'
         search.show_incident_reports

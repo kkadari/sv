@@ -1,7 +1,5 @@
 Then /^I? (?:can|have)? (?:review|reviewed) the incident report( anonymously)?$/ do |anonymous|
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
-
-  on ViewIncidentReportPage do |review|
+  visit ViewIncidentReportPage, :using_params => {:id => @incident_id} do |review|
     review.three_star
     review.review
     review.wait_until do
@@ -15,7 +13,7 @@ Then /^I? (?:can|have)? (?:review|reviewed) the incident report( anonymously)?$/
 end
 
 Given /^I have mentioned "([^\"]+)" in an anonymous comment$/ do |user|
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   user_to_mention = "#{user}"
     case user_to_mention

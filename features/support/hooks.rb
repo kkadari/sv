@@ -1,20 +1,46 @@
 require 'watir-webdriver'
 require 'syntax'
 
+$browsers = {}
+
 driver = BrowserFactory.create
+config = TestConfig.get_config_set(ENV['TEST_ENV_NUMBER'])
+
+['participant A','participant B','admin'].each do |user|
+  case user
+    when 'participant A'
+      @username = config[:user_1_name]
+      @password = config[:user_1_password]
+    when 'participant B'
+      @username = config[:user_2_name]
+      @password = config[:user_2_password]
+    when 'admin'
+      @username = config[:admin_name]
+      @password = config[:admin_password]
+
+    else
+      fail 'Supplied user not recognised.'
+  end
+
+  $browsers[user] = Login.do_login(@username,@password)
+end
 
 Before do
   @browser = driver
-  @test_config_set = TestConfig.get_config_set(ENV['TEST_ENV_NUMBER'])
+  @test_config_set = config
+
+  @browser.goto(ENV['base_url'] + '/welcome')
+end
+
+AfterStep do
+  load_secs = @browser.performance.summary[:response_time]/1000
+  puts "Step benchmark: #{load_secs} seconds."
 end
 
 After do |scenario|
   if scenario.failed?
     embed_screenshot(scenario.title)
   end
-
-  @browser.cookies.clear
-  visit(LoginPage)
 end
 
 at_exit do
