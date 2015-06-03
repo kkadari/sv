@@ -149,7 +149,7 @@ module UrlFactory
   end
 
   def self.cannotcreateplacepage
-    ENV['base_url'] = '/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14'
+    ENV['base_url'] + '/edit-place.jspa?parentObjectID=1&parentObjectType=14&containerType=14'
   end
 
   def peoplepage

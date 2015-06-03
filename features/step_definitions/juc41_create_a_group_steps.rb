@@ -1,8 +1,14 @@
 Then (/^I am not presented with a menu option to create a (group|space)$/) do |type|
   @type = type
 
+  visit HomePage
   on(GlobalNav) do |menu|
+    menu.wait_until do
+      menu.open_create?
+    end
+
     menu.open_create
+
     menu.wait_until do
       menu.create_menu?
     end
@@ -19,7 +25,7 @@ Then (/^I am not presented with a menu option to create a (group|space)$/) do |t
 
 end
 
-Then (/^I cannot create a (group|space) directly$/) do |type|
+Then /^I cannot create a (group|space) directly$/ do |type|
   @type = type
   case type
     when 'group'
