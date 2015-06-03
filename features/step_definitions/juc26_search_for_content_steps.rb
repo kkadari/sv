@@ -1,5 +1,5 @@
 Then /^I can use Jive search to find the anonymous incident report$/ do
-  visit AdvancedSearchPage do | search |
+  visit_and_benchmark AdvancedSearchPage do | search |
     search.search_query = @subject
     search.submit_search
     search.search_results_element.exists?
@@ -9,13 +9,11 @@ Then /^I can use Jive search to find the anonymous incident report$/ do
 end
 
 Then /^I can use the spotlight search to find the incident report by ID$/ do
-  visit(HomePage)
-
   on(GlobalNav).verify_spotlight_search_result_exists_for_incident_id(@incident_id, @subject)
 end
 
 Then /^I am not able to view their identity on the comment when I search for the incident report$/ do
-  visit AdvancedSearchPage do | search |
+  visit_and_benchmark AdvancedSearchPage do | search |
     search.wait_until do
       search.search_query = @subject
       search.submit_search

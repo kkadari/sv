@@ -113,6 +113,8 @@ GEM
     unf_ext (0.0.7.1)
     watir-webdriver (0.6.11)
       selenium-webdriver (>= 2.18.0)
+    watir-webdriver-performance (0.2.4)
+      watir-webdriver
     websocket (1.2.2)
     yml_reader (0.5)
 
@@ -138,3 +140,4 @@ DEPENDENCIES
   sinatra
   syntax
   tzinfo
+  watir-webdriver-performance

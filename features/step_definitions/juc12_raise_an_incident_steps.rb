@@ -18,7 +18,7 @@ Given /^I have raised a white incident report in a private group containing an i
 end
 
 Then /^I can view the internal link$/ do
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   fail 'Link not present' unless @browser.html.include? @incident_url

@@ -3,6 +3,9 @@ module BrowserFactory
   def self.create
     Watir.default_timeout = 10
 
+    client = Selenium::WebDriver::Remote::Http::Default.new
+    client.timeout = 180 # seconds – default is 60
+
     case ENV['browser']
       when 'firefox'
         # tmp_folder = File.dirname(__FILE__) + '/../../reporting/tmp'
@@ -12,7 +15,7 @@ module BrowserFactory
         # firebug_path = File.dirname(__FILE__) + '/../../bin/firebug-2.0.9-fx.xpi'
         # net_export_path = File.dirname(__FILE__) + '/../../bin/netExport-0.9b7.xpi'
         #
-        # profile = Selenium::WebDriver::Firefox::Profile.new
+        profile = Selenium::WebDriver::Firefox::Profile.new
         # profile.add_extension(firebug_path)
         # profile.add_extension(net_export_path)
         #
@@ -31,20 +34,20 @@ module BrowserFactory
         # profile['extensions.firebug.netexport.sendToConfirmation'] = false
         # profile['extensions.firebug.netexport.Automation'] = true
         profile['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv,application/pdf'
-        driver = Watir::Browser.new :firefox, :profile => profile
+        driver = Watir::Browser.new :firefox, :profile => profile, :http_client => client
 
         # ABC-108 profile config additions:
         # profile.proxy = Selenium::WebDriver::Proxy.new :http => false, :ssl => false
         # profile['proxy.no_proxies_for']='localhost, 127.0.0.1'
       when 'chrome'
-        driver = Watir::Browser.new :chrome
+        driver = Watir::Browser.new :chrome, :http_client => client
       when 'phantom'
-        driver = Watir::Browser.new :remote, url: 'http://localhost:8001'
+        driver = Watir::Browser.new :remote, url: 'http://localhost:8001', :http_client => client
       else # Not specified? Use Firefox.
         puts 'ENV[\'Browser\'] wasn\'t set.  Reverting to Firefox.'
         profile = Selenium::WebDriver::Firefox::Profile.new
         profile['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv,application/pdf'
-        driver = Watir::Browser.new :firefox, :profile => profile
+        driver = Watir::Browser.new :firefox, :profile => profile, :http_client => client
     end
 
     driver.window.resize_to(1440, 900)

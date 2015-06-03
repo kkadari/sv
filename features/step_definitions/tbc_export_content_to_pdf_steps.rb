@@ -1,12 +1,12 @@
 And /^I have changed my time zone preferences$/ do
-  visit PreferencesPage do |pref|
+  visit_and_benchmark PreferencesPage do |pref|
     pref.timezone = 'America/Bogota'
     pref.save
   end
 end
 
 Then /^I export the (blog|discussion|incident report) to PDF$/ do |type|
-  pending("PDF exports cannot be verified, as they are an missing EOF file marker.")
+  pending('PDF exports cannot be verified, as they are an missing EOF file marker.')
   case type
     when 'blog'
       on(BlogPostSummaryPage).export_to_pdf
@@ -27,7 +27,7 @@ Then /^I can export the blog to PDF with the correct timestamp$/ do
   utc_offset = -5
   zone = ActiveSupport::TimeZone[utc_offset].name
   text = DateTime.now.in_time_zone(zone).strftime("%b %d, %Y %H")
-  visit ContentPage do |content|
+  visit_and_benchmark ContentPage do |content|
     content.content_items_elements.each do |link|
       if link.text.include? @content
         link.click
@@ -39,7 +39,7 @@ Then /^I can export the blog to PDF with the correct timestamp$/ do
 
   fail "#{text} not found in PDF" unless @browser.html.include? text
 
-  visit PreferencesPage do |pref|
+  visit_and_benchmark PreferencesPage do |pref|
     pref.timezone = 'Europe/London'
     pref.save
   end
@@ -54,7 +54,7 @@ Then /^I can export the discussion to PDF with the correct timestamp$/ do
   text = DateTime.now.in_time_zone(zone).strftime("%b %d, %Y %H")
   on(GlobalNav).content
   on(ContentPage).discussions.click
-  visit ContentPage do |content|
+  visit_and_benchmark ContentPage do |content|
     content.content_items_elements.each do |link|
       if link.text.include? @content
         link.click
@@ -66,7 +66,7 @@ Then /^I can export the discussion to PDF with the correct timestamp$/ do
 
   fail "#{text} not found in PDF" unless @browser.html.include? text
 
-  visit PreferencesPage do |pref|
+  visit_and_benchmark PreferencesPage do |pref|
     pref.timezone = 'Europe/London'
     pref.save
   end
@@ -80,7 +80,7 @@ Then /^I can export the ir to PDF with the correct timestamp$/ do
   zone = ActiveSupport::TimeZone[utc_offset].name
   text = DateTime.now.in_time_zone(zone).strftime("%b %d, %Y %H")
   on(GlobalNav).content
-  visit ContentPage do |content|
+  visit_and_benchmark ContentPage do |content|
     content.content_items_elements.each do |link|
       if link.text.include? @content
         link.click
@@ -92,7 +92,7 @@ Then /^I can export the ir to PDF with the correct timestamp$/ do
 
   fail "#{text} not found in PDF" unless @browser.html.include? text
 
-  visit PreferencesPage do |pref|
+  visit_and_benchmark PreferencesPage do |pref|
     pref.timezone = 'Europe/London'
     pref.save
   end

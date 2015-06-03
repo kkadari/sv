@@ -1,12 +1,12 @@
 Then /^I am able to view the marking$/ do
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
 end
 
 Then /^I can verify the anonymous identifiers have been added$/ do
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
@@ -15,19 +15,19 @@ Then /^I can verify the anonymous identifiers have been added$/ do
 end
 
 Then /^I can not directly access the incident report if I am not in that group$/ do
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Person profile unexpectedly displayed' unless @browser.html.to_s.include? 'Not Found'
 end
 
 Then /^I can view the anonymous incident report$/ do
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
 end
 
 Then /^I as an admin can view the anonymous incident report$/ do
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
 
@@ -35,7 +35,6 @@ Then /^I as an admin can view the anonymous incident report$/ do
 end
 
 Then (/^I can search for the incident report by ID and view the incident report$/) do
-  visit(HomePage)
   on(GlobalNav).verify_spotlight_search_result_exists_for_incident_id @incident_id, @subject
   on(GlobalNav).click_search_result @subject
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
@@ -47,7 +46,7 @@ Then (/^I can not find the incident report in search if I am not in that group$/
 end
 
 Then(/^I will be able to view my recently created report$/) do
-  visit ViewIncidentReportPage, :using_params => {:id => @incident_id}
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
@@ -55,7 +54,7 @@ end
 
 Then /^I can view the incident report$/ do
   on(IncidentReportSummaryPage).wait_until do
-    on(IncidentReportSummaryPage).title_element.exists?
+    on(IncidentReportSummaryPage).title?
   end
 
   fail 'Title not visible' unless on(IncidentReportSummaryPage).title?
