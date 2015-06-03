@@ -32,6 +32,11 @@ Before do
   @browser.goto(ENV['base_url'] + '/welcome')
 end
 
+AfterStep do
+  load_secs = @browser.performance.summary[:response_time]/1000
+  puts "Step benchmark: #{load_secs} seconds."
+end
+
 After do |scenario|
   if scenario.failed?
     embed_screenshot(scenario.title)
