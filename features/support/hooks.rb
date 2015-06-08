@@ -33,8 +33,10 @@ Before do
 end
 
 AfterStep do
-  load_secs = @browser.performance.summary[:response_time]/1000
-  puts "Step benchmark: #{load_secs} seconds."
+  if ENV['browser'] != 'phantom'
+    load_secs = @browser.performance.summary[:response_time]/1000
+    puts "Step benchmark: #{load_secs} seconds."
+  end
 end
 
 After do |scenario|
