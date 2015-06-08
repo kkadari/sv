@@ -4,6 +4,10 @@ require 'faker'
 
 RSpec.configure do |config|
   config.before(:all) do
-    @authorisation = 'Basic ' + Base64.encode64(ENV['username'] + ':' + ENV['password'])
+    payload = 'username=' + CGI.escape('markw@surevine') + '&password=' + CGI.escape('Grg@!6KsS1EY7Bb')
+
+    RestClient.post('http://dev188.sure.vine/cs_login',payload){ |response|
+      @authorisation = response.headers[:set_cookie]
+    }
   end
 end
