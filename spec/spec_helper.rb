@@ -1,5 +1,6 @@
 require 'rest-client'
 require 'base64'
+require 'faker'
 
 RSpec.configure do |config|
   config.before(:all) do
