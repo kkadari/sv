@@ -3,33 +3,33 @@ require 'cucumber'
 require 'cucumber/rake/task'
 require 'ci/reporter/rake/rspec'
 
-id = Time.now.strftime("%d %b %y - %H:%M")
+id = Time.now.strftime('%d %b %y - %H:%M')
 File.open('run_log.txt', 'a') {|f| f.write("\n#{id}")}
 
 namespace :features do
   Cucumber::Rake::Task.new(:cert_ce_sv_ref_firefox) do |t|
-    t.profile = 'cert_ce_sv_ref'
-    t.cucumber_opts = 'browser=firefox -c --format html --out reporting/latest_run.html -f json --out reporting/latest_run.json -f junit --out reporting/junit -t ~@quarantine -t ~@manual -t ~@sit'
+    t.profile = 'standard'
+    t.cucumber_opts = 'browser=firefox -t ~@sit'
   end
 
   Cucumber::Rake::Task.new(:cert_ce_sv_ref_chrome) do |t|
-    t.profile = 'cert_ce_sv_ref'
-    t.cucumber_opts = 'browser=chrome -c --format html --out reporting/latest_run.html -f json --out reporting/latest_run.json -f junit --out reporting/junit -t ~@quarantine -t ~@manual'
+    t.profile = 'standard'
+    t.cucumber_opts = 'browser=chrome -t ~@sit'
   end
 
   Cucumber::Rake::Task.new(:cert_ce_sv_ref_phantom) do |t|
-    t.profile = 'cert_ce_sv_ref'
-    t.cucumber_opts = 'browser=phantom -c --format html --out reporting/latest_run.html -f json --out reporting/latest_run.json -f junit --out reporting/junit -t ~@quarantine -t ~@manual -t ~@sit'
+    t.profile = 'standard'
+    t.cucumber_opts = 'browser=phantom -t ~@sit'
   end
 
   Cucumber::Rake::Task.new(:cert_ce_sv_ref_sit) do |t|
-    t.profile = 'cert_ce_sv_ref'
-    t.cucumber_opts = 'browser=firefox -c --format html --out reporting/latest_run.html -f json --out reporting/latest_run.json -f junit --out reporting/junit -t @sit -t ~@quarantine -t ~@manual'
+    t.profile = 'standard'
+    t.cucumber_opts = 'browser=firefox -t @sit'
   end
 
   Cucumber::Rake::Task.new(:wip) do |t|
-    t.profile = 'cert_ce_sv_ref'
-    t.cucumber_opts = 'browser=firefox -c --format html --out reporting/latest_run.html -f json --out reporting/latest_run.json -f junit --out reporting/junit -t @wip -t ~@manual'
+    t.profile = 'standard'
+    t.cucumber_opts = 'browser=firefox -t @wip'
   end
 end
 
