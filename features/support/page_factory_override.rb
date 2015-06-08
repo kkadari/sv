@@ -6,7 +6,7 @@ module PageFactoryOverride
   def visit_and_benchmark(page_class, params={:using_params => {}}, &block)
     visit(page_class, params, &block)
 
-    begin
+    if ENV['browser'] != 'phantom'
       load_secs = @browser.performance.summary[:response_time]/1000
       puts "Page load time: #{load_secs} seconds."
     end
