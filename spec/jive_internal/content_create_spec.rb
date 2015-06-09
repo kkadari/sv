@@ -9,6 +9,7 @@ describe 'Creating content' do
                        'body content goes here',
                        'red',
                        Hash[:type => 'community'],
+                       'test, test1',
                        false).payload
 
     RestClient.post('http://dev188.sure.vine/__services/v2/rest/discussion/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
