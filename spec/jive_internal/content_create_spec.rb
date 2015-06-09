@@ -12,7 +12,7 @@ describe 'Creating content' do
                        'test, test1',
                        false).payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/discussion/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/discussion/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -25,7 +25,7 @@ describe 'Creating content' do
                        Hash[:type => 'community'],
                        'test1, test2, test3').payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/blogPosts/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/blogPosts/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -38,7 +38,7 @@ describe 'Creating content' do
                        'green',
                        'Information text ').payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/polls',payload,{:cookie => @authorisation,:content_type => 'application/json; charset=UTF-8'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls',payload,{:cookie => @authorisation,:content_type => 'application/json; charset=UTF-8'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -53,7 +53,7 @@ describe 'Creating content' do
                        'test, test2',
                        false).payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/incidentReports/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/incidentReports/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -65,7 +65,7 @@ describe 'Creating content' do
                        'red',
                        'test.jpg').payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/document/upload',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/document/upload',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
