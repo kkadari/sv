@@ -3,16 +3,13 @@ require 'spec_helper'
 describe 'Creating content' do
 
   it 'should return a 200 when creating a discussion' do
-    payload = '{
-      "subject":"Discussion - Spec test 1",
-      "markAsQuestion": false,
-      "body":"<body><p>body content goes here</p></body>",
-      "handlingLevel":"2",
-      "publishBar":{
-        "visibility":"all"
-      },
-      "notAttributable": false
-    }'
+    payload = DiscussionPayload
+                  .new('Testing builder 2',
+                       false,
+                       'body content goes here',
+                       'red',
+                       Hash[:type => 'community'],
+                       false).payload
 
     RestClient.post('http://dev188.sure.vine/__services/v2/rest/discussion/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
@@ -91,16 +88,13 @@ describe 'Creating content' do
   end
 
   it 'should return a 200 when creating an incident report' do
-    payload = '{
-      "subject":"Incident report - Spec test 1",
-      "body":"<body><p>content goes here</p></body>",
-      "handlingLevel":"1",
-      "publishBar":{
-        "visibility":"all"
-      },
-      "tags":"tag1, tag2",
-      "notAttributable":false
-    }'
+    payload = IncidentReportPayload.new('Testing builder 2',
+                                        false,
+                                        'body content goes here',
+                                        'red',
+                                        Hash[:type => 'community'],
+                                        'test, test2',
+                                        false).payload
 
     RestClient.post('http://dev188.sure.vine/__services/v2/rest/incidentReports/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
