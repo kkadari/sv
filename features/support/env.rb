@@ -2,6 +2,7 @@ require 'rspec'
 require 'page-object'
 require 'data_magic'
 require 'require_all'
+require 'rest-client'
 require 'faker'
 require 'active_support/time'
 require 'pdf-reader'
@@ -14,6 +15,7 @@ require File.dirname(__FILE__) + '/url_factory.rb'
 require File.dirname(__FILE__) + '/page_factory_override.rb'
 require_all File.dirname(__FILE__) + '/pages'
 require_all File.dirname(__FILE__) + '/api'
+require_all File.dirname(__FILE__) + '/../../lib/content_payloads'
 
 World(PageObject::PageFactory)
 World(PageFactoryOverride)
