@@ -12,11 +12,11 @@ describe 'Viewing content' do
                        '',
                        false).payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/discussion/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/discussion/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       @payload = JSON.parse(response.body)
     }
 
-    RestClient.get('http://dev188.sure.vine/' + @payload['redirect'],:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -29,11 +29,11 @@ describe 'Viewing content' do
                        Hash[:type => 'community'],
                        'test1, test2, test3').payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/blogPosts/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/blogPosts/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       @payload = JSON.parse(response.body)
     }
 
-    RestClient.get('http://dev188.sure.vine/' + @payload['redirect'],:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -46,11 +46,11 @@ describe 'Viewing content' do
                        'random',
                        Faker::Lorem.words(2).join(',')).payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/polls',payload,{:cookie => @authorisation,:content_type => 'application/json; charset=UTF-8'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls',payload,{:cookie => @authorisation,:content_type => 'application/json; charset=UTF-8'}){|response|
       @payload = JSON.parse(response.body)
     }
 
-    RestClient.get('http://dev188.sure.vine/' + @payload['redirect'],:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -65,11 +65,11 @@ describe 'Viewing content' do
                        '',
                        false).payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/incidentReports/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/incidentReports/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       @payload = JSON.parse(response.body)
     }
 
-    RestClient.get('http://dev188.sure.vine/' + @payload['redirect'],:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -81,11 +81,11 @@ describe 'Viewing content' do
                        'random',
                        'test.jpg').payload
 
-    RestClient.post('http://dev188.sure.vine/__services/v2/rest/document/upload',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/document/upload',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       @payload = JSON.parse(response.body.scan(/{.*}/)[0])
     }
 
-    RestClient.get('http://dev188.sure.vine/' + @payload['redirect'],:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
