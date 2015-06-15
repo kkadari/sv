@@ -21,7 +21,7 @@ RSpec.configure do |config|
       @authorisation = 'jive.login.ts=' + c['jive.login.ts'][0] + '; ' +
                        'jive.login.type=' + c['jive.login.type'][0] + '; ' +
                        'jive.user.loggedIn=' + c['jive.user.loggedIn'][0] + '; ' +
-                       'jive.server.info="serverName=dev188.sure.vine:serverPort=80:contextPath=:localName=dev141:localPort=9001:localAddr=127.0.0.1"; ' +
+                       'jive.server.info=' + c['jive.server.info'][0] + '; ' +
                        'jive.security.context' + @token
     }
   end
