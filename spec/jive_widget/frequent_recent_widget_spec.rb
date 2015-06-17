@@ -30,4 +30,10 @@ describe 'Frequent and recent widget' do
     }
   end
 
+  it 'should return a 200 when requesting details on all people' do
+    RestClient.get(ENV['base_url'] + '/api/core/v3/people?fields=type%2Cid%2CmentionName%2CthumbnailId%2Cjive&sort=dateJoinedAsc&count=10', :cookie => @authorisation){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
+
 end
