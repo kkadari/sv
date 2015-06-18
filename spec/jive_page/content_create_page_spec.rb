@@ -80,13 +80,13 @@ describe 'Creating content' do
   end
 
   it 'should return a 200 when requesting the create blog post page' do
-    RestClient.get(ENV['base_url'] + '/poll/create.jspa?sr=crmenu&containerType=14&containerID=1',:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/blog/create-post.jspa?sr=cmenu&containerType=14&containerID=1',:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
 
   it 'should return a 200 when requesting the create poll page' do
-    RestClient.get(ENV['base_url'] + '/blog/create.jspa?sr=crmenu&containerType=14&containerID=1',:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/poll/create.jspa?sr=cmenu&containerType=14&containerID=1',:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
