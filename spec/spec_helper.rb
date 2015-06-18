@@ -3,6 +3,7 @@ require 'require_all'
 require 'base64'
 require 'faker'
 require 'cgi/cookie'
+require 'json'
 require_all File.dirname(__FILE__) + '/../lib/content_payloads/'
 
 RSpec.configure do |config|
