@@ -3,6 +3,7 @@ require 'require_all'
 require 'base64'
 require 'faker'
 require 'cgi/cookie'
+require 'json'
 require_all File.dirname(__FILE__) + '/../lib/content_payloads/'
 
 RSpec.configure do |config|
@@ -11,7 +12,7 @@ RSpec.configure do |config|
 
     puts 'Logging in as: ' + ENV['username']
 
-    RestClient.post('http://dev188.sure.vine/cs_login',payload){ |response|
+    RestClient.post(ENV['base_url'] + '/cs_login',payload){ |response|
       response.headers[:set_cookie].each do |cookie|
         @token = cookie.scan(/=.*;\s/)[0].gsub(';','') if cookie.include? 'jive.security.context'
       end
