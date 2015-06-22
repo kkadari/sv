@@ -12,8 +12,6 @@ describe 'Creating content' do
                        'test, test1',
                        false).payload
 
-    puts payload
-
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/discussion/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
