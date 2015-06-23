@@ -30,19 +30,6 @@ describe 'Creating content' do
     }
   end
 
-  it 'should return a 200 when creating a poll' do
-    payload = PollPayload
-                  .new(@authorisation,
-                       'Testing poll 1',
-                       'body content goes here',
-                       'green',
-                       'Information text ').payload
-
-    RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls',payload,{:cookie => @authorisation,:content_type => 'application/json; charset=UTF-8'}){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
-    }
-  end
-
   it 'should return a 200 when creating an incident report' do
     payload = IncidentReportPayload
                   .new('Testing builder 2',
@@ -79,12 +66,6 @@ describe 'Creating content' do
 
   it 'should return a 200 when requesting the create blog post page' do
     RestClient.get(ENV['base_url'] + '/blog/create-post.jspa?sr=cmenu&containerType=14&containerID=1',:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
-    }
-  end
-
-  it 'should return a 200 when requesting the create poll page' do
-    RestClient.get(ENV['base_url'] + '/poll/create.jspa?sr=cmenu&containerType=14&containerID=1',:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
