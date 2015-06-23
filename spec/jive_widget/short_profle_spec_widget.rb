@@ -13,5 +13,5 @@ describe 'Short profile widget' do
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
-  
+
 end
