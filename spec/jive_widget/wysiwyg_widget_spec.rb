@@ -53,4 +53,10 @@ describe 'WYSIWYG editor' do
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
+
+  it 'should return a 200 when calling the AutoTitle endpoint' do
+    RestClient.get(ENV['base_url'] + '/__services/v2/rest/rteLinks?href=http%3A%2F%2Fgoogle.com',:cookie => @authorisation){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
 end
