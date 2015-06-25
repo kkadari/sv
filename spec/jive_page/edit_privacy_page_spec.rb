@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Edit privacy page' do
 
   it 'should return a 200 when the page is requested' do
-    RestClient.get(ENV['base_url'] + '/edit-profile-security!input.jspa?targetUser=2012',:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/edit-profile-security!input.jspa?targetUser=' + @id,:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -22,9 +22,9 @@ describe 'Edit privacy page' do
               &creationDateSecurityLevelID=1005
               &lastLoginSecurityLevelID=1001
               &username=stephaniek%40surevine
-              &targetUser=2012
-              &jive.token.name=edit.profile.security.2012
-              &edit.profile.security.2012=1434553331436-E86MJFLU04FXQ4BVVD5T4EBT2N9SOYM0'
+              &targetUser=' + @id + '
+              &jive.token.name=edit.profile.security.' + @id + '
+              &edit.profile.security.' + @id + '=1434553331436-E86MJFLU04FXQ4BVVD5T4EBT2N9SOYM0'
 
     RestClient.post(ENV['base_url'] + '/preview-profile.jspa',payload,{:cookie => @authorisation,:content_type => 'application/x-www-form-urlencoded'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
@@ -45,9 +45,9 @@ describe 'Edit privacy page' do
               &creationDateSecurityLevelID=1005
               &lastLoginSecurityLevelID=1001
               &username=stephaniek%40surevine
-              &targetUser=2012
-              &jive.token.name=edit.profile.security.2012
-              &edit.profile.security.2012=1434553331436-E86MJFLU04FXQ4BVVD5T4EBT2N9SOYM0'
+              &targetUser=' + @id + '
+              &jive.token.name=edit.profile.security.' + @id + '
+              &edit.profile.security.' + @id + '=1434553331436-E86MJFLU04FXQ4BVVD5T4EBT2N9SOYM0'
 
     RestClient.post(ENV['base_url'] + '/edit-profile-security.jspa',payload,{:cookie => @authorisation,:content_type => 'application/x-www-form-urlencoded'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200

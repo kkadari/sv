@@ -9,7 +9,7 @@ describe 'Inbox page' do
   end
 
   it 'should return a 200 when initialising the inbox view in activity' do
-    payload = '{"objectType":3,"objectID":"2012","streamSource":"communications","streamID":0,"filterType":[],"timestamp":0}'
+    payload = '{"objectType":3,"objectID":"' + @id + '","streamSource":"communications","streamID":0,"filterType":[],"timestamp":0}'
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/activity-stream/initializeView',payload,{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
@@ -17,7 +17,7 @@ describe 'Inbox page' do
   end
 
   it 'should return a 200 when requesting messages' do
-    payload = '{"objectType":3,"objectID":2012,"streamSource":"communications","streamID":11,"filterType":["all"],"queryParam":null,"timestamp":"1434970679996"}'
+    payload = '{"objectType":3,"objectID":' + @id + ',"streamSource":"communications","streamID":11,"filterType":["all"],"queryParam":null,"timestamp":"1434970679996"}'
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/activity-stream/list/before',payload,{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
@@ -25,7 +25,7 @@ describe 'Inbox page' do
   end
 
   it 'should return a 200 when requesting the activity stream list' do
-    payload = '{"objectType":3,"objectID":2012,"streamSource":"communications","streamID":11,"filterType":["all"],"queryParam":null,"timestamp":"1435067712220"}'
+    payload = '{"objectType":3,"objectID":' + @id + ',"streamSource":"communications","streamID":11,"filterType":["all"],"queryParam":null,"timestamp":"1435067712220"}'
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/activity-stream/list',payload,{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200

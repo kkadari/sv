@@ -31,7 +31,7 @@ describe 'User search widget' do
   end
 
   it 'should return a 200 when retrieving details about a specific user' do
-    RestClient.get(ENV['base_url'] + '/__services/v2/rest/users/2012?objectID=3611&objectType=2&entitlement=VIEW',:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/__services/v2/rest/users/' + @id + '?objectID=3611&objectType=2&entitlement=VIEW',:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -46,11 +46,11 @@ describe 'User search widget' do
            '&containerID=2004' +
            '&filterID=place_follower' +
            '&itemView=detail' +
-           '&userID=2012' +
+           '&userID=' + @id
            '&sortKey=place_follower~lastNameAsc' +
            '&sortOrder=1'
 
-    RestClient.get(ENV['base_url'] + '/__services/v2/rest/users/2012/browse' + path,:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/__services/v2/rest/users/' + @id + '/browse' + path,:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end

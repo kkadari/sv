@@ -20,7 +20,7 @@ describe 'Create new feed' do
   end
 
   it 'should return a 200 when requesting all followed users' do
-    RestClient.get(ENV['base_url'] + '/api/core/v3/people/2012/followingIn',:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/api/core/v3/people/' + @id + '/followingIn',:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end

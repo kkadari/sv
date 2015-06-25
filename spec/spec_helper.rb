@@ -25,6 +25,11 @@ RSpec.configure do |config|
                        'jive.server.info=' + c['jive.server.info'][0] + '; ' +
                        'jive.security.context' + @token
     }
+
+
+    RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username'],:cookie => @authorisation){ |response|
+      @id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
+    }
   end
 
   config.before(:each) do
