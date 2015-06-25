@@ -15,8 +15,8 @@ describe 'User search widget' do
            '&propNames=hasConnection' +
            '&propNames=title' +
            '&propNames=department' +
-           '&objectID=1781' +
-           '&objectType=1' +
+           '&objectID=3611' +
+           '&objectType=2' +
            '&entitlement=VIEW'
 
     RestClient.get(ENV['base_url'] + path,:cookie => @authorisation){|response|
@@ -31,7 +31,7 @@ describe 'User search widget' do
   end
 
   it 'should return a 200 when retrieving details about a specific user' do
-    RestClient.get(ENV['base_url'] + '/__services/v2/rest/users/2012?objectID=1781&objectType=1&entitlement=VIEW',:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/__services/v2/rest/users/2012?objectID=3611&objectType=2&entitlement=VIEW',:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
