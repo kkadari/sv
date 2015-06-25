@@ -22,8 +22,6 @@ describe 'Viewing content' do
   end
 
   it 'should return a 200 when viewing a blog post' do
-    RestClient.proxy = 'http://127.0.0.1:8080'
-
     payload = BlogPayload
                   .new(Faker::Lorem.sentence(3),
                        Faker::Lorem.sentence(20),
