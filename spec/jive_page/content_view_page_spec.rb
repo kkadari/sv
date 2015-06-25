@@ -22,6 +22,8 @@ describe 'Viewing content' do
   end
 
   it 'should return a 200 when viewing a blog post' do
+    RestClient.proxy = 'http://127.0.0.1:8080'
+
     payload = BlogPayload
                   .new(Faker::Lorem.sentence(3),
                        Faker::Lorem.sentence(20),
@@ -30,6 +32,7 @@ describe 'Viewing content' do
                        'test1, test2, test3').payload
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/blogPosts/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
       @payload = JSON.parse(response.body)
     }
 
