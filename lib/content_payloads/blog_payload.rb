@@ -13,23 +13,18 @@ class BlogPayload < Payload
       "subject":"' + @subject + '",
       "body":"<body><p>' + @body + '</p></body>",
       "handlingLevel":"' + set_ihm_level(@handling_level) + '",
-      "publishBar":{
-        "visibility":"place",
-        "container":{
-          "objectType":"700",
-          "objectID":"1004"
+      "publishBar": {
+          "visibility": "all",
+          "commentStatus": "2",
+          "blogPublishOption": false,
+          "publishDate": {
+              "selectedDate": "6/26/2015",
+              "selectedHour": "1",
+              "selectedMinute": "0",
+              "selectedPeriod": "AM"
+          }
       },
-      "commentStatus":"2",
-      "blogPublishOption":false,
-      "publishDate":{
-          "selectedDate":"6/9/2015",
-          "selectedHour":"1",
-          "selectedMinute":"0",
-          "selectedPeriod":"AM"
-        }
-      },
-      "tags":"' + @tags + '",
-      "jiveTokenName":"jive.token.content.blogpost.create"
+      "moveNotifyStreams": false
     }'
   end
 

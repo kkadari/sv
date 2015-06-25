@@ -53,6 +53,8 @@ describe 'View discussion page' do
   end
 
   it 'should return a 302 when unlocking the discussion' do
+    sleep 2 # We wait a couple of seconds to allow Jive to catch up with locking the thread otherwise the test fails - MW
+
     RestClient.get(ENV['base_url'] + '/thread-unlock.jspa?thread=3041&unlock=Unlock',{:cookie => @authorisation, :content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 302
     }
