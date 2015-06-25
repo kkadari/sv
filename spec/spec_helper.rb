@@ -26,10 +26,20 @@ RSpec.configure do |config|
                        'jive.security.context' + @token
     }
 
+    # Lets start building params
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username'],:cookie => @authorisation){ |response|
       @id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
+
+    20.times do |i|
+      RestClient.get(ENV['base_url'] + '/api/core/v3/streams/' + i.to_s,:cookie => @authorisation){|response|
+        if response.code == 200
+          @stream_id = i.to_s
+          break
+        end
+      }
+    end
   end
 
   config.before(:each) do

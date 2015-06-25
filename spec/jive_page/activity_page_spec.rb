@@ -15,7 +15,7 @@ describe 'Activity page' do
   end
 
   it 'should return a 200 when switching to a new feed' do
-    payload = '{"objectType":3,"objectID":' + @id + ',"streamSource":"connections","streamID":"12","filterType":["all"],"timestamp":"0","includeUpdateCount":true}'
+    payload = '{"objectType":3,"objectID":' + @id + ',"streamSource":"connections","streamID":"' + @stream_id + '","filterType":["all"],"timestamp":"0","includeUpdateCount":true}'
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/activity-stream/list',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
