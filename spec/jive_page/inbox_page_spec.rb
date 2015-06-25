@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+
+# Create a message for use
+
 describe 'Inbox page' do
 
   it 'should return a 200 when requesting the inbox page' do

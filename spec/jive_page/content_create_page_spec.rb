@@ -47,7 +47,7 @@ describe 'Creating content' do
 
   it 'should return a 200 when creating a document' do
     payload = DocumentPayload
-                  .new('Testing document',
+                  .new(Faker::Lorem.words(10).join(','),
                        'body content here',
                        'red',
                        'test.jpg').payload

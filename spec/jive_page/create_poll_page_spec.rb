@@ -9,7 +9,7 @@ describe 'Create poll page' do
   end
 
   it 'should return a 200 when requesting a new poll choice' do
-    RestClient.get('http://dev188.sure.vine/poll/create.jspa?sr=cmenu&containerType=2020&containerID=1024',:cookie => @authorisation){|response|
+    RestClient.get('http://dev188.sure.vine/poll/create.jspa?sr=cmenu&containerType=14&containerID=1',:cookie => @authorisation){|response|
       @poll_id = response.body.scan(/name="pollID" value="([0-9]*)/).join(",")
     }
 
