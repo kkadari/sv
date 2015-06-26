@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Edit profile page' do
 
   it 'should return a 200 when requesting the edit profile page' do
-    RestClient.get(ENV['base_url'] + '/edit-profile!input.jspa?targetUser=2012',:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/edit-profile!input.jspa?targetUser=' + @id,:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
@@ -27,9 +27,9 @@ describe 'Edit profile page' do
         "profile[5002].value"  => 'Details',
         "save"  => 'Save',
         "username" => 'stephaniek@surevine',
-        "targetUser" => '2012',
-        "jive.token.name" => 'edit.profile.2012',
-        "edit.profile.2012" => '1434450629688-L7DIS7LESOF1JY7AV0CN17KA6Z9XP1J4',
+        "targetUser" => @id,
+        "jive.token.name" => 'edit.profile' + @id,
+        "edit.profile." + @id => '1434450629688-L7DIS7LESOF1JY7AV0CN17KA6Z9XP1J4',
         :multipart => true
     }
 

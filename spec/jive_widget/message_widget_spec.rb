@@ -9,7 +9,7 @@ describe 'Create message widget' do
   end
 
   it 'should return 200 when posting a new message to a user' do
-    payload = '{"wallentry":{"message":"Delete this msg<br>","userIDs":["2025","2012"],"subject":"Delete this msg","privateDM":true}}'
+    payload = '{"wallentry":{"message":"Delete this msg<br>","userIDs":["' + @id + '"],"subject":"Delete this msg","privateDM":true}}'
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/wall/14/1',payload, {:cookie => @authorisation,:accept => 'application/json',:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200

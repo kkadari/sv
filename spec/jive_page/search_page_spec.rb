@@ -4,7 +4,7 @@ describe 'Search page' do
 
   it 'should return a 200 when searching for content' do
     query_string = '?collapse=true' +
-                   '&fields=handlingLevel%2CrootType%2Ctype%2Csubject%2Cauthor%2Cquestion%2Canswer%2Chelpful%2CparentPlace%2CparentContent%2ChighlightSubject%2ChighlightBody%2ChighlightTags%2CoutcomeCounts%2Cpublished%2Cupdated%2CreplyCount%2ClikeCount%2CviewCount%2CvisibleToExternalContributors%2CbinaryURL%2CiconCss' +
+                   '&fields=handlingLevel' +
                    '&directive=include_rtc&filter=search(lorem)'
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/search/contents' + query_string,:cookie => @authorisation){|response|

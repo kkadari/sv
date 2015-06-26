@@ -9,7 +9,7 @@ describe 'Publish bar widget' do
   end
 
   it 'should return a 200 when calling the publish bar view' do
-    RestClient.get(ENV['base_url'] + '/__services/v2/rest/publishbar/view?objectType=1&objectID=-1&visibility=place&containerType=14&containerID=2007',{:cookie => @authorisation, :accept => 'application/json'}){|response|
+    RestClient.get(ENV['base_url'] + '/__services/v2/rest/publishbar/view?objectType=1&objectID=-1&visibility=place&containerType=14&containerID=' + @space_id,{:cookie => @authorisation, :accept => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end
