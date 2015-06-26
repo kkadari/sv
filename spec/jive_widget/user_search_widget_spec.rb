@@ -43,7 +43,7 @@ describe 'User search widget' do
            '&start=0' +
            '&numResults=20' +
            '&containerType=14' +
-           '&containerID=2004' +
+           '&containerID=' + @space_id +
            '&filterID=place_follower' +
            '&itemView=detail' +
            '&userID=' + @id

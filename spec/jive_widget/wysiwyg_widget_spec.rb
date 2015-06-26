@@ -47,7 +47,7 @@ describe 'WYSIWYG editor' do
   end
 
   it 'should return a 200 when creating a new instance of the editor to reply to content' do
-    path = '/__services/v2/rest/rteImages/settings?objectId=-1&objectType=-1&containerId=1006&containerType=2020'
+    path = '/__services/v2/rest/rteImages/settings?objectId=-1&objectType=-1&containerId=' + @space_id + '&containerType=14'
 
     RestClient.get(ENV['base_url'] + path,:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200

@@ -15,7 +15,7 @@ describe 'Move content widget' do
   end
 
   it 'should return a 200 when requesting capabilities of a place to move to' do
-    RestClient.get(ENV['base_url'] + '/__services/v2/rest/content/18/1831/capabilities?containerType=700&containerID=1028',{:cookie => @authorisation, :accept => 'application/json'}){|response|
+    RestClient.get(ENV['base_url'] + '/__services/v2/rest/content/18/1831/capabilities?containerType=14&containerID=' + @space_id,{:cookie => @authorisation, :accept => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
     }
   end

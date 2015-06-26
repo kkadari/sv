@@ -32,6 +32,10 @@ RSpec.configure do |config|
       @id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
 
+    RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username_2'],:cookie => @authorisation){ |response|
+      @user_2_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
+    }
+
     20.times do |i|
       RestClient.get(ENV['base_url'] + '/api/core/v3/streams/' + i.to_s,:cookie => @authorisation){|response|
         if response.code == 200
@@ -40,6 +44,14 @@ RSpec.configure do |config|
         end
       }
     end
+
+    RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['space'] + ')',:cookie => @authorisation){|response|
+      @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+    }
+
+    RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['group'] + ')',:cookie => @authorisation){|response|
+      @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+    }
   end
 
   config.before(:each) do
