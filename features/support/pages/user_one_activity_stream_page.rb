@@ -4,7 +4,7 @@ class UserOneActivityStreamPage
 
   page_url(useroneactivitystreampage)
 
-  divs(:comments, :class => 'j-act-comment')
-  links(:show_all, :class => 'j-js-show-all j-expand')
+  div(:comment, :class => 'j-act-comment')
+  link(:show_all, :class => 'j-js-show-all j-expand')
 
 end

@@ -155,7 +155,6 @@ Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|
 
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   if anonymous
-
     fail 'Discussion does not include Anonymous avatar' unless on(DiscussionSummaryPage).avatar_element.visible?
   end
 end
@@ -187,9 +186,10 @@ end
 Then /^I can edit the anonymous incident report$/ do
   visit_and_benchmark EditIncidentReportPage, :using_params => {:id => @incident_id}
 
-  fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
-
   on EditDiscussionPage do |edit|
+    edit.wait_until do
+      @browser.title.include? 'Edit incident report'
+    end
     @new_subject = '=Edited='.concat edit.subject
     edit.subject = @new_subject
     edit.save
