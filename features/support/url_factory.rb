@@ -20,6 +20,10 @@ module UrlFactory
     ENV['base_url'] + "/community/#{/.*/}"
   end
 
+  def inboxpage
+    ENV['base_url'] + '/inbox'
+  end
+
   def activitypage
     ENV['base_url'] + '/activity'
   end

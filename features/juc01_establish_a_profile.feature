@@ -1,17 +1,6 @@
 @JUC1 @quarantine
 Feature: JUC1 - Establish a Profile
 
-  @quarantine @invalid @jus2 @jus2-1
-  Scenario: Participant enhances their profile information
-    Given I have enhanced my profile
-    Then participants that follow me can view the profile enhancements
-
-  @quarantine @invalid @jus2 @jus2-2
-  Scenario: Participant restricts aspects of their profile information
-    Given I have restricted parts of my profile
-    Then followers can see restrictions
-    And non followers cannot see restrictions
-
   @JUC1.1 @CISP-355 @manual
   Scenario: Participant establishes their Participant Profile
     Given I have logged in as "participant A"
@@ -26,8 +15,6 @@ Feature: JUC1 - Establish a Profile
     And I navigate to 'Edit my profile and privacy' from the Jive menu
     Then I am presented with a form to edit my profile details
     And I make a change to my profile details
-
-    #Variants: But profile fields should be altered from their current state (in line with privacy settings)
     Then I have updated my profile.
     And I save changes to my profile fields.
     Then my profile is updated and stored in the system.
