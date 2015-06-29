@@ -26,9 +26,3 @@ Feature: JUC27 - View an Activity Stream
   Scenario: Activity stream does not leak anonymous content posted in a shared group
     Given a participant has raised an anonymous incident report in a group I follow in my connections stream
     Then I can verify the incident report is marked anonymous in my connection stream
-
-  @quarantine @invalid @jus11 @jus11-1
-  Scenario: Participant monitors their industry group for relevant incidents
-    Given I have logged in as "participant A"
-    And I have raised a green incident report in the community
-    Then I can see the incident in my activity stream

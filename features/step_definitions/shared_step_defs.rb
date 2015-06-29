@@ -97,8 +97,7 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
 end
 
 Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|
-  @browser.link(:href => '/inbox').when_present.click
-  @browser.span(:class => 'title').when_present.click
+  visit(InboxPage)
 
   attempt = 0
   begin
