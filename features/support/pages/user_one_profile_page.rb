@@ -4,7 +4,7 @@ class UserOneProfilePage
 
   page_url(useroneprofilepage)
   link(:activity, :text => 'Activity')
-  link(:content, :xpath => '//*[@id="jive-content-tab"]/a')
+  link(:content, :css => '.j-tabbar > li:nth-child(3) a')
   link(:thumbnail_view, :xpath => '//*[@id="j-item-view-toggle"]/li[1]/a')
   div(:organisation, :class => 'j-connections-orgchart')
   div(:skills, :class => 'j-expertise')

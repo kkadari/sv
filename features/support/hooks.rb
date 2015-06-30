@@ -41,7 +41,7 @@ end
 
 After do |scenario|
   if scenario.failed?
-    embed_screenshot(scenario.title)
+    embed_screenshot(scenario.name)
   end
 end
 
