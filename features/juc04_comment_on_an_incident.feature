@@ -4,11 +4,9 @@ Feature: JUC4 - Comment on an incident
   @JUC4.1 @CISP-336 @manual
   Scenario: Participant mentions another user in a comment on an Incident Report
     Given I have logged in as "participant A"
-    And I view an existing incident report
-    And I mention "participant B" in a normal comment on the incident report
-    When I have logged in as "participant B"
-    And I navigate to my inbox
-    Then I have received a notification that I was mentioned in an incident report.
+    And I mention "participant B" in a normal comment on an incident report
+    When I navigate to my inbox as "participant B"
+    Then I will have received a notification that I was mentioned in an incident report
     And the notification is attributed to "participant A"
 
   @JUC4.2 @CISP-259
@@ -18,16 +16,6 @@ Feature: JUC4 - Comment on an incident
     And I have mentioned "participant B" in an anonymous comment
     When I have logged in as "participant B"
     Then my inbox shows I have been mentioned anonymously
-
-  @JUC4.3 @CISP-335 @manual
-  Scenario: Participant mentions another user in a comment on an Incident Report
-    Given I have logged in as "participant A"
-    And I view an existing incident report
-    And I mention "participant B" in a anonymous comment on the incident report
-    When I have logged in as "participant B"
-    And I navigate to my inbox
-    Then I have received a notification that I was mentioned in an incident report.
-    And the notification is attributed to "Anonymous"
 
   @JUC4.4 @CISP-187
   Scenario: Participant reviews an incident report anonymously
