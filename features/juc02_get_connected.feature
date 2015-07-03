@@ -25,4 +25,3 @@ Feature: JUC2 - Get Connected
     When I select to stop following "participant B"
     And "participant B" rejects the connection request
     Then the connection is severed, and I am no longer following "participant B"
-    
