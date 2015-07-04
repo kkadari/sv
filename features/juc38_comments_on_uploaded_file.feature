@@ -1,94 +1,27 @@
 Feature: Comments on an uploaded file
-#<p>This test covers the following use case realisation(s):</p>
-#
-#<ul class="alternate" type="square">
-#	<li>JUC38.1: Participant comments on an Uploaded File</li>
-#	<li>JUC38.2: Participant comments on a comment on an Uploaded File</li>
-#	<li>JUC38.3: Author of the comment mentions another Participant</li>
-#	<li>JUC38.4: Author of the comment mentions another Participant in a comment on a comment</li>
-#</ul>
+#JUC38.1: Participant comments on an Uploaded File
+#JUC38.2: Participant comments on a comment on an Uploaded File
+#JUC38.3: Author of the comment mentions another Participant
+#JUC38.4: Author of the comment mentions another Participant in a comment on a comment
 
   Scenario: Participant comments on an Uploaded File
-    Given I log in
-      |  CE participant e-mail and password. |
-    And I navigate to an Uploaded File
-    Then the System checks that the Uploaded File exists and is valid, the System then displays the Uploaded File metadata and records appropriate metrics to capture the viewing of the Uploaded File. I am presented with the Uploaded File detail screen
-    And I click the download link to obtain a local copy of the Uploaded File
-    Then system initiates the download of the Uploaded File to the Participant's local machine
-    And I select to comment
-      | THIS IS A TEST COMMENT - PLEASE DISREGARD |
-    Then I have added Rich Text to the comment
-    And I submit the comment
-    Then the comment is submitted successfully, and the System displays the Uploaded File, inclusive of the newly posted comment
+    Given I am viewing an uploaded document
+    When I submit a comment for the uploaded document
+    Then the comment is submitted successfully and displayed under the uploaded file
 
   Scenario: Participant comments on a comment on an Uploaded File
-    Given I log in
-      | [User A (a normal user)] |
-    Then I am logged in to the CE
-    And I navigate to an Uploaded File
-    Then the System checks that the Uploaded File exists and is valid, the System then displays the Uploaded File metadata and records appropriate metrics to capture the viewing of the Uploaded File. I am presented with the Uploaded File detail screen
-    And I click the download link to obtain a local copy of the Uploaded File
-    Then system initiates the download of the Uploaded File to the Participant's local machine
-    And I select to comment
-      | THIS IS A TEST COMMENT - PLEASE DISREGARD |
-    Then I have added Rich Text to the comment
-    And I submit the comment
-    Then the comment is submitted successfully, and the System displays the Uploaded File, inclusive of the newly posted comment
-    And I log in
-      | [As User B (a normal user)] |
-    And I navigate to an Uploaded File
-      | [The same Uploaded File commented on in the steps above] |
-    Then the System checks that the Uploaded File exists and is valid, the System then displays the Uploaded File metadata and records appropriate metrics to capture the viewing of the Uploaded File. I am presented with the Uploaded File detail screen
-    And I select to comment
-      | THIS IS ANOTHER TEST COMMENT - PLEASE DISREGARD |
-    Then I have added Rich Text to the comment
-    And I submit the comment
-    Then the comment is submitted successfully, and the System displays the Uploaded File, inclusive of the newly posted comment
+    Given I am viewing an uploaded document that has a comment
+    When I submit a comment on the original comment
+    Then the comment is submitted successfully and displayed under the uploaded file
 
   Scenario: Author of the comment mentions another Participant in a comment on a comment
-    Given I log in
-      | [User A (a normal user)] |
-    And I navigate to an Uploaded File
-    Then the System checks that the Uploaded File exists and is valid, the System then displays the Uploaded File metadata and records appropriate metrics to capture the viewing of the Uploaded File. I am presented with the Uploaded File detail screen
-    And I click the download link to obtain a local copy of the Uploaded File
-    Then system initiates the download of the Uploaded File to the Participant's local machine
-    And I select to comment
-      | THIS IS A TEST COMMENT - PLEASE DISREGARD |
-    Then I have added Rich Text to the comment
-    And I submit the comment
-    Then the comment is submitted successfully, and the System displays the Uploaded File, inclusive of the newly posted comment.
-    When I log in
-      | [As User B (a normal user)] |
-    And I navigate to an Uploaded File
-      | [The same Uploaded File commented on in the steps above] |
-    Then the System checks that the Uploaded File exists and is valid, the System then displays the Uploaded File metadata and records appropriate metrics to capture the viewing of the Uploaded File. I am presented with the Uploaded File detail screen
-    And I select to comment
-      | THIS IS ANOTHER TEST COMMENT, MENTIONING [@{User A} - PLEASE DISREGARD |
-    Then I have added Rich Text to the comment mentioning another user
-    And I submit the comment
-    Then the comment is submitted successfully, and the System displays the Uploaded File, inclusive of the newly posted comment
-    And I log in
-      | [As User A] |
-    And I navigate to my inbox
-    Then I am viewing my inbox
-    And I have received a notification that I was mentioned in an Uploaded File
-    Then my inbox contains an unread message notifying me that I was mentioned in an Uploaed File
+    Given I am viewing an uploaded document that has multiple comments as 'participant A'
+    When I mention 'participant B' in a comment on a comment
+    And I log in as 'participant B'
+    Then I will receive a notification that I have been mentioned in a comment
 
   Scenario: Author of the comment mentions another Participant
-    Given I log in
-      | [User A (a normal user)] |
-    And I navigate to an Uploaded File
-    Then the System checks that the Uploaded File exists and is valid, the System then displays the Uploaded File metadata and records appropriate metrics to capture the viewing of the Uploaded File. I am presented with the Uploaded File detail screen
-    And I click the download link to obtain a local copy of the Uploaded File
-    Then system initiates the download of the Uploaded File to the Participant's local machine
-    And I select to comment
-      | THIS IS A TEST COMMENT, MENTIONING [@{User B} - PLEASE DISREGARD |
-    Then I have added Rich Text to the comment.
-    And I submit the comment
-    Then the comment is submitted successfully, and the System displays the Uploaded File, inclusive of the newly posted comment
-    And I log in
-      | [As User B] |
-    And I navigate to my inbox
-    Then I am viewing my inbox
-    And I have received a notification that I was mentioned in an Uploaded File
-    Then my inbox contains an unread message notifying me that I was mentioned in an Uploaed File
+    Given I have mentioned a 'participant B' on a uploaded document comment as 'participant A'
+    When I additionally mention 'admin' in the comment
+    And I log in as 'admin'
+    Then I will receive a notification that I have been mentioned in a comment
