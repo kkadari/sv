@@ -4,7 +4,7 @@ require 'syntax'
 $browsers = {}
 
 driver = BrowserFactory.create
-config = TestConfig.get_config_set(ENV['TEST_ENV_NUMBER'])
+config = TestConfig.get_config_set
 
 ['participant A','participant B','admin'].each do |user|
   case user
