@@ -1,3 +1,4 @@
+@manual
 Feature: [CISP-636] Participant views and downloads an Uploaded File
 #JUC32.1: Participant views and downloads an Uploaded File
 #JUC32.2: Participant views the metadata for an Uploaded File

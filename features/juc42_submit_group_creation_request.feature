@@ -1,4 +1,4 @@
-@JUC42
+@JUC42 @manual
 Feature: JUC42 - Submit Group Creation Request
 #JUC42.1: CE Participant submits Group Creation Request form successfully.</li>
 #JUC42.2: CE Participant does not complete all Group Creation Request mandatory fields</li>

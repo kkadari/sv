@@ -1,3 +1,4 @@
+@manual
 Feature: File sharing
 #JUC31.1: Participant shares a file with the community or sub-set
 #JUC32.3: Participant views a preview of an Uploaded File

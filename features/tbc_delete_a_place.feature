@@ -1,3 +1,4 @@
+@manual
 Feature: Delete a place
 
   Scenario: Participant deletes a secret group

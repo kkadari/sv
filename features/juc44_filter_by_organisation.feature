@@ -1,3 +1,4 @@
+@manual
 Feature: Filter by organisation
 #JUC44.1: CE Participant filters People by organisation
 

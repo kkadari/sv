@@ -1,3 +1,4 @@
+@manual
 Feature: [CISP-696] Author uploads a new version of a file
 #JUC33.1: Author uploads a new version of the file.
 #JUC33.2: Author updates the file's metadata.
