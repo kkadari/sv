@@ -9,7 +9,7 @@ Feature: JUC3 - Read an incident
 
   @JUC3.1 @CISP-188 @JUC3.4 @CISP-583
   Scenario: Participant views an anonymous incident report
-    Given I have logged in as "participant A" 
+    Given I have logged in as "participant A"
     And I have quickly raised a white incident report anonymously in a private group
     When I have logged in as "participant B" 
     Then I can view the anonymous incident report
