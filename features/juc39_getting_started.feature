@@ -1,3 +1,4 @@
+@manual
 Feature: Getting started feature
 #JUC39.1: Participant completes a step on their Getting Started Path
 #JUC39.2: Participant dismisses Getting Started Path

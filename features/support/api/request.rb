@@ -43,8 +43,6 @@ module Request
     }
   end
 
-  private
-
   def self.create_cookie(vals)
     cookie = ''
 

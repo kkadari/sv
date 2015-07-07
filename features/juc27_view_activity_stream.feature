@@ -29,6 +29,7 @@ Feature: JUC27 - View an Activity Stream
     Given a participant has raised an anonymous incident report in a group I follow in my connections stream
     Then I can verify the incident report is marked anonymous in my connection stream
 
+  @manual
   Scenario: Participant is following a Group in an Activity Stream which has content posted anonymously
     Given "participant A" and "participant B" are members of the same group
     When "participant B" creates a new piece of content for the group

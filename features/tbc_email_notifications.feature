@@ -1,3 +1,4 @@
+@manual
 Feature: Email notifications
 
   Scenario: Participant triggers a new blog post notification email
