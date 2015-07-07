@@ -30,6 +30,8 @@ When(/^I navigate to the feeds page as "([^"]*)"$/) do |user|
   @browser.cookies.delete 'jive.security.context'
   @browser.cookies.add 'jive.security.context', $browsers[user]
 
+  sleep 5 # We wait a few seconds to allow Jive to catch up and register the profile updates - MW
+
   RestClient.get(ENV['base_url'] + '/activity',:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
     fail('Failed with ' + response.code.to_s) if response.code != 200
     @response = response
