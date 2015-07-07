@@ -1,26 +1,14 @@
-Then /^I as admin can verify the anonymous identifiers have been added in their profile$/ do
-  visit_and_benchmark(PeoplePage)
-  on(PeoplePage).search @test_config_set[:user_1_name]
-  on(PeoplePage).search :return
-  on(PeoplePage).user1_profile_link
-  on(UserOneProfilePage).content.when_present.click
-  # Check content is there and anon
-end
-
 Then /^participants are not able to view the incident report on the posters profile$/ do
   @browser.cookies.delete 'jive.security.context'
   @browser.cookies.add 'jive.security.context', $browsers['participant B']
 
-  visit_and_benchmark(PeoplePage)
-  on(PeoplePage).search @test_config_set[:user_1_name]
-  on(PeoplePage).search :return
-  on(PeoplePage).user1_profile_link
-  on(UserOneProfilePage).content.when_present.click
+  visit_and_benchmark UserOneProfilePage, :using_params => {:id => @test_config_set[:user_1_name]}
+  on(UserOneProfilePage).content
   fail 'Incident report visible, and should not be' if @browser.html.to_s.include? @subject
-  on(UserOneProfilePage).thumbnail_view.when_present.click
+  on(UserOneProfilePage).thumbnail_view
   fail 'Incident report visible, and should not be' if @browser.html.to_s.include? @subject
-  on(UserOneProfilePage).filter_by.send_keys @subject
-  on(UserOneProfilePage).filter_by.send_keys :return
+  on(UserOneProfilePage).filter_by = @subject
+  on(UserOneProfilePage).filter_by = :return
   fail 'Incident report visible, and should not be' if @browser.html.to_s.include? @subject
 end
 
@@ -28,23 +16,17 @@ Then /^participants are not able to view the discussion in the posters activity 
   @browser.cookies.delete 'jive.security.context'
   @browser.cookies.add 'jive.security.context', $browsers['participant B']
 
-  visit_and_benchmark(PeoplePage)
-  on(PeoplePage).search @test_config_set[:user_1_name]
-  on(PeoplePage).search :return
-  on(PeoplePage).user1_profile_link
-  on(UserOneProfilePage).activity.when_present.click
+  visit_and_benchmark UserOneProfilePage, :using_params => {:id => @test_config_set[:user_1_name]}
+  on(UserOneProfilePage).activity
   fail 'Discussion is visible and should not be' if @browser.html.to_s.include? @subject
 end
 
 Then /^I am not able to view the discussion in my activity stream/ do
   @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers['participant A']
+  @browser.cookies.add 'jive.security.context', $browsers['participant B']
 
-  visit_and_benchmark(PeoplePage)
-  on(PeoplePage).search @test_config_set[:user_1_name]
-  on(PeoplePage).search :return
-  on(PeoplePage).user1_profile_link
-  on(UserOneProfilePage).activity.when_present.click
+  visit_and_benchmark UserOneProfilePage, :using_params => {:id => @test_config_set[:user_1_name]}
+  on(UserOneProfilePage).activity
   fail 'Discussion is visible and should not be' if @browser.html.to_s.include? @subject
 end
 
