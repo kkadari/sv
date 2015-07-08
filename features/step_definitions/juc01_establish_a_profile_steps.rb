@@ -30,8 +30,6 @@ When(/^I navigate to the feeds page as "([^"]*)"$/) do |user|
   @browser.cookies.delete 'jive.security.context'
   @browser.cookies.add 'jive.security.context', $browsers[user]
 
-  sleep 5 # We wait a few seconds to allow Jive to catch up and register the profile updates - MW
-
   RestClient.get(ENV['base_url'] + '/activity',:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
     fail('Failed with ' + response.code.to_s) if response.code != 200
     @response = response
@@ -42,7 +40,8 @@ Then /^I am informed that "([^"]*)" has updated their profile$/ do |user|
   user_profile = TestConfig.return_profile(user)
 
   html_doc = Nokogiri::HTML(@response)
-  fail('User updated feed item missing') unless html_doc.css('.j-last-updated').text.strip.include?(user_profile[:username])
+
+  fail('User updated feed item missing') unless html_doc.css('.j-act-g-item').text.strip.include?(user_profile[:username] + ' updated profile information')
 end
 
 Given /^I have navigated to the edit profile privacy page as "([^"]*)"$/ do |user|
