@@ -16,7 +16,7 @@ require File.dirname(__FILE__) + '/url_factory.rb'
 require File.dirname(__FILE__) + '/page_factory_override.rb'
 require_all File.dirname(__FILE__) + '/pages'
 require_all File.dirname(__FILE__) + '/api'
-require_all File.dirname(__FILE__) + '/../../lib/content_payloads'
+require_all File.dirname(__FILE__) + '/../../lib/'
 
 World(PageObject::PageFactory)
 World(PageFactoryOverride)
