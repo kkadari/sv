@@ -15,29 +15,16 @@ describe 'Edit profile page' do
       @token = response.body.scan(/edit.profile.[0-9]*" value=".*"/)[0].split('="')[1].gsub('"','')
     }
 
-    payload = {
-        'profile[5005].typeID'  => '8',
-        'profile[5005].fieldID' => '5005',
-        'profile[5005].value'   => 'Analyst',
-        'profile[5006].typeID'  => '9',
-        'profile[5006].fieldID' => '5006',
-        'profile[5006].value'   => 'Ms.',
-        'profile[5009].typeID'  => '11',
-        'profile[5009].fieldID' => '5009',
-        'profile[5008].typeID'  => '11',
-        'profile[5008].fieldID' => '5008',
-        'profile[5007].typeID'  => '4',
-        'profile[5007].fieldID' => '5007',
-        'profile[5002].typeID'  => '6',
-        'profile[5002].fieldID' => '5002',
-        'profile[5002].value'   => 'Details',
-        'save'                  => 'Save',
-        'username'              => ENV['username'],
-        'targetUser'            => @id,
-        'jive.token.name'       => 'edit.profile' + @id,
-        'edit.profile.' + @id   => @token,
-        :multipart => true
-    }
+    payload = ProfilePayload.new(
+        Faker::Name.prefix,
+        Faker::PhoneNumber.phone_number,
+        Faker::PhoneNumber.phone_number,
+        Faker::Internet.email,
+        Faker::Lorem.sentence,
+        ENV['username'],
+        @id,
+        @token
+    ).payload
 
     RestClient.post(ENV['base_url'] + '/edit-profile.jspa',payload,:cookie => @authorisation){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 302
