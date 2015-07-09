@@ -13,7 +13,7 @@ Feature: JUC35 - View a profile
     And I have quickly raised a white incident report anonymously in a private group
     Then participants are not able to view the incident report on the posters profile
 
-  @JUC35.3 @CISP-612 @quarantine
+  @JUC35.3 @CISP-612
   Scenario: Admin views the profile of an anonymous content poster
     Given I have logged in as "participant A"
     And I have quickly raised a white incident report anonymously in a private group
