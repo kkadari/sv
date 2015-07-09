@@ -11,7 +11,7 @@ Given /^a participant has raised an anonymous incident report in a group I follo
 
   @subject = TitleCreator.create_title_for('incident')
 
-  response = Request.create_incident_report @browser.cookies.to_a, @subject, 'Lorem ipsumy goodness', 'random', Hash[:type => 'private group'], '', true
+  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, 'Lorem ipsumy goodness', 'random', Hash[:type => 'private group'], '', true
   @incident_id = response['redirect'][/[0-9]+/,0]
   @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end

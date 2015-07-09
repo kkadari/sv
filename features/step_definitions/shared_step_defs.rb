@@ -8,7 +8,7 @@ Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report(
   @marking = marking
   @location = location
 
-  response = Request.create_incident_report @browser.cookies.to_a, @subject, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
+  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
   @incident_id = response['redirect'][/[0-9]+/,0]
   @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end
@@ -63,7 +63,7 @@ Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( que
   @marking = marking
   @location = location
 
-  response = Request.create_discussion @browser.cookies.to_a, @subject, question, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
+  response = CreateContent.create_discussion @browser.cookies.to_a, @subject, question, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
   @discussion_id = response['redirect'][/[0-9]+/,0]
 end
 

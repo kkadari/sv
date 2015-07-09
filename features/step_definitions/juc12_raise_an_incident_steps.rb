@@ -3,7 +3,7 @@ Given /^I have mentioned "([^\"]+)" in? (?:a|an) (red|amber|green|white) inciden
   @marking = marking
   @location = location
 
-  response = Request.create_incident_report @browser.cookies.to_a, @subject, "Some sample text <p><a class='jive_macro jive_macro_user' href='javascript:;' jivemacro='user' ___default_attr='2013' data-objecttype='3' data-orig-content='simonwhi@surevine'>simonwhi@surevine</a></p>", @marking, Hash[:type => @location], "", anonymous
+  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, "Some sample text <p><a class='jive_macro jive_macro_user' href='javascript:;' jivemacro='user' ___default_attr='2013' data-objecttype='3' data-orig-content='simonwhi@surevine'>simonwhi@surevine</a></p>", @marking, Hash[:type => @location], "", anonymous
   @incident_id = response['redirect'][/[0-9]+/,0]
   @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end
@@ -13,7 +13,7 @@ Given /^I have raised a white incident report in a private group containing an i
   @marking = 'white'
   @location = 'private group'
 
-  response = Request.create_incident_report @browser.cookies.to_a, @subject, @incident_url, @marking, Hash[:type => @location], "", false
+  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, @incident_url, @marking, Hash[:type => @location], "", false
   @incident_id = response['redirect'][/[0-9]+/,0]
 end
 

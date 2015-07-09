@@ -11,4 +11,9 @@ module PageFactoryOverride
       puts "Page load time: #{load_secs} seconds."
     end
   end
+
+  def switch_user user
+    @browser.cookies.delete 'jive.security.context'
+    @browser.cookies.add 'jive.security.context', $browsers[user]
+  end
 end

@@ -1,6 +1,5 @@
 Given /^that "([^"]*)" and "([^"]*)" are not following one another$/ do |user1, user2|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user1]
+  switch_user(user1)
 
   user_1_profile = TestConfig.return_profile(user1)
   user_2_profile = TestConfig.return_profile(user2)
@@ -22,8 +21,7 @@ Given /^I select to follow "([^"]*)"$/ do |user|
 end
 
 When /^"([^"]*)" accepts the connection request$/ do |user|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user]
+  switch_user(user)
 
   RestClient.get(ENV['base_url'] + '/__services/v2/rest/action-queue/list?categoryID=1002&type=active&numResults=1', {:cookie => Request.create_cookie(@browser.cookies.to_a), :content_type => 'application/json'}){|response|
     fail('Failed with ' + response.code.to_s) if response.code != 200
@@ -40,8 +38,7 @@ When /^"([^"]*)" accepts the connection request$/ do |user|
 end
 
 Then /^"([^"]*)" will get a confirmation that "([^"]*)" has accepted my request$/ do |user1, user2|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user1]
+  switch_user(user1)
 
   user_profile = TestConfig.return_profile(user2)
 
@@ -52,8 +49,7 @@ Then /^"([^"]*)" will get a confirmation that "([^"]*)" has accepted my request$
 end
 
 When /^"([^"]*)" rejects the connection request$/ do |user|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user]
+  switch_user(user)
 
   RestClient.get(ENV['base_url'] + '/__services/v2/rest/action-queue/list?categoryID=1002&type=active&numResults=1', {:cookie => Request.create_cookie(@browser.cookies.to_a), :content_type => 'application/json'}){|response|
     fail('Failed with ' + response.code.to_s) if response.code != 200
@@ -70,8 +66,7 @@ When /^"([^"]*)" rejects the connection request$/ do |user|
 end
 
 Then /^"([^"]*)" will receive a notification that my request has not been accepted$/ do |user|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user]
+  switch_user(user)
 
   RestClient.get(ENV['base_url'] + '/__services/v2/rest/action-queue/list?categoryID=1002&type=active&numResults=1', {:cookie => Request.create_cookie(@browser.cookies.to_a), :content_type => 'application/json'}){|response|
     fail('Follow rejection not received') unless JSON.parse(response.split(';',0)[1])['actionQueueList'][0]['templateData']['messageKey'].include? 'rejected_notification'
@@ -79,8 +74,7 @@ Then /^"([^"]*)" will receive a notification that my request has not been accept
 end
 
 Then /^"([^"]*)" is not listed as a follower of "([^"]*)"$/ do |user1, user2|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user1]
+  switch_user(user1)
 
   user_1_profile = TestConfig.return_profile(user1)
   user_2_profile = TestConfig.return_profile(user2)
@@ -98,8 +92,7 @@ Given /^I am following "([^"]*)"$/ do |user|
     fail('Failed with ' + response.code.to_s) if response.code != 200
   }
 
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user]
+  switch_user(user)
 
   RestClient.get(ENV['base_url'] + '/__services/v2/rest/action-queue/list?categoryID=1002&type=active&numResults=1', {:cookie => Request.create_cookie(@browser.cookies.to_a), :content_type => 'application/json'}){|response|
     fail('Failed with ' + response.code.to_s) if response.code != 200
@@ -116,8 +109,7 @@ Given /^I am following "([^"]*)"$/ do |user|
 end
 
 When /^I sever the connection with "([^"]*)" as "([^"]*)"$/ do |user1, user2|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user2]
+  switch_user(user2)
 
   user_profile = TestConfig.return_profile(user1)
 

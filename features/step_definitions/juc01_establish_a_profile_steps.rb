@@ -1,39 +1,29 @@
 Given /^"([^"]*)" has updated their profile$/ do |user|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user]
-
+  switch_user(user)
   user_profile = TestConfig.return_profile(user)
 
-  RestClient.get(ENV['base_url'] + '/edit-profile!input.jspa?targetUser=' + user_profile[:user_id],:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
-    fail('Failed with ' + response.code.to_s) if response.code != 200
-
-    @token = response.body.scan(/edit.profile.[0-9]*" value=".*"/)[0].split('="')[1].gsub('"','')
-  }
+  # Before we post we grab the token from the edit profile page for our payload otherwise the post will fail
+  response = Profile.get_edit_profile(user_profile[:user_id], @browser.cookies.to_a)
+  @token = Nokogiri::HTML(response).css('input[name*="edit.profile."]')[0]['value']
 
   payload = ProfilePayload.new(
-      @prefix,
-      @phone_1,
-      @phone_2,
-      @email,
-      @sentence,
+      Faker::Name.prefix,
+      Faker::PhoneNumber.phone_number,
+      Faker::PhoneNumber.phone_number,
+      Faker::Internet.email,
+      Faker::Lorem.sentence,
       user_profile[:username],
       user_profile[:user_id],
       @token
   ).payload
 
-  RestClient.post(ENV['base_url'] + '/edit-profile.jspa',payload,:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
-    fail('Failed with ' + response.code.to_s) if response.code != 302
-  }
+  Profile.post_edit_profile(payload, @browser.cookies.to_a)
 end
 
 When(/^I navigate to the feeds page as "([^"]*)"$/) do |user|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user]
+  switch_user(user)
 
-  RestClient.get(ENV['base_url'] + '/activity',:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
-    fail('Failed with ' + response.code.to_s) if response.code != 200
-    @response = response
-  }
+  @response = Feeds.get_activity(@browser.cookies.to_a)
 end
 
 Then /^I am informed that "([^"]*)" has updated their profile$/ do |user|
@@ -45,17 +35,12 @@ Then /^I am informed that "([^"]*)" has updated their profile$/ do |user|
 end
 
 Given /^I have navigated to the edit profile privacy page as "([^"]*)"$/ do |user|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user]
+  switch_user(user)
 
   @user_profile = TestConfig.return_profile(user)
 
-  RestClient.get(ENV['base_url'] + '/edit-profile-security!input.jspa?targetUser=' + @user_profile[:user_id],:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
-    fail('Failed with ' + response.code.to_s) if response.code != 200
-
-    html_doc = Nokogiri::HTML(response)
-    @token = html_doc.css('input[name*="edit.profile.security"]')[0]['value']
-  }
+  response = Profile.get_edit_privacy_profile(@user_profile[:user_id],@browser.cookies.to_a)
+  @token = Nokogiri::HTML(response).css('input[name*="edit.profile.security"]')[0]['value']
 end
 
 When /^I make changes to my privacy details and save them$/ do
@@ -63,33 +48,25 @@ When /^I make changes to my privacy details and save them$/ do
 
   payload = ProfilePrivacyPayload.new(@name_level, @user_profile[:username], @user_profile[:user_id], @token).payload
 
-  RestClient.post(ENV['base_url'] + '/edit-profile-security.jspa',payload,:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
-    fail('Failed with ' + response.code.to_s) if response.code != 302
-  }
+  Profile.post_edit_privacy_profile(payload,@browser.cookies.to_a)
 end
 
 Then /^my privacy profile details are updated$/ do
-  RestClient.get(ENV['base_url'] + '/edit-profile-security!input.jspa?targetUser=' + @user_profile[:user_id],:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
-    fail('Failed with ' + response.code.to_s) if response.code != 200
+  response = Profile.get_edit_privacy_profile(@user_profile[:user_id],@browser.cookies.to_a)
 
-    html_doc = Nokogiri::HTML(response)
-    id = html_doc.css('select[id="nameSecurityLevelID"] > option[selected="selected"]')[0]['value']
+  id =  Nokogiri::HTML(response).css('select[id="nameSecurityLevelID"] > option[selected="selected"]')[0]['value']
 
-    fail('Security level for name didn\'t update') unless id.include? @name_level
-  }
+  fail('Security level for name didn\'t update') unless id.include? @name_level
 end
 
 Given /^I have navigated to the edit profile page as "([^"]*)"$/ do |user|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[user]
+  switch_user(user)
 
   @user_profile = TestConfig.return_profile(user)
 
-  RestClient.get(ENV['base_url'] + '/edit-profile!input.jspa?targetUser=' + @user_profile[:user_id],:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
-    fail('Failed with ' + response.code.to_s) if response.code != 200
-
-    @token = response.body.scan(/edit.profile.[0-9]*" value=".*"/)[0].split('="')[1].gsub('"','')
-  }
+  # Before we post we grab the token from the edit profile page for our payload otherwise the post will fail
+  response = Profile.get_edit_profile(@user_profile[:user_id], @browser.cookies.to_a)
+  @token = Nokogiri::HTML(response).css('input[name*="edit.profile."]')[0]['value']
 end
 
 When /^I make changes to my profiles details and save them$/ do
@@ -110,20 +87,16 @@ When /^I make changes to my profiles details and save them$/ do
       @token
   ).payload
 
-  RestClient.post(ENV['base_url'] + '/edit-profile.jspa',payload,:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
-    fail('Failed with ' + response.code.to_s) if response.code != 302
-  }
+  Profile.post_edit_profile(payload, @browser.cookies.to_a)
 end
 
 Then /^my profile details are updated$/ do
-  RestClient.get(ENV['base_url'] + '/edit-profile!input.jspa?targetUser=' + @user_profile[:user_id],:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
-    fail('Failed with ' + response.code.to_s) if response.code != 200
+  response = Profile.get_edit_profile(@user_profile[:user_id], @browser.cookies.to_a)
 
-    html_doc = Nokogiri::HTML(response)
-    fail('Prefix not updated') unless html_doc.css('input[name="profile[5006].value"]').to_s.include?(@prefix)
-    fail('Phone 1 not updated') unless html_doc.css('input[name="profile[5009].phoneNumbers[0].phoneNumber"]').to_s.include?(@phone_1)
-    fail('Phone 2 not updated') unless html_doc.css('input[name="profile[5008].phoneNumbers[0].phoneNumber"]').to_s.include?(@phone_2)
-    fail('Email not updated') unless html_doc.css('input[name="profile[5007].emails[0].email"]').to_s.include?(@email)
-    fail('Sentence not updated') unless html_doc.css('textarea[name="profile[5002].value"]').to_s.include?(@sentence)
-  }
+  html_doc = Nokogiri::HTML(response)
+  fail('Prefix not updated') unless html_doc.css('input[name="profile[5006].value"]').to_s.include?(@prefix)
+  fail('Phone 1 not updated') unless html_doc.css('input[name="profile[5009].phoneNumbers[0].phoneNumber"]').to_s.include?(@phone_1)
+  fail('Phone 2 not updated') unless html_doc.css('input[name="profile[5008].phoneNumbers[0].phoneNumber"]').to_s.include?(@phone_2)
+  fail('Email not updated') unless html_doc.css('input[name="profile[5007].emails[0].email"]').to_s.include?(@email)
+  fail('Sentence not updated') unless html_doc.css('textarea[name="profile[5002].value"]').to_s.include?(@sentence)
 end
