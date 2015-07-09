@@ -28,4 +28,12 @@ class Profile < Request
     }
   end
 
+  def self.get_people_followed(username, cookies)
+    RestClient.get(ENV['base_url'] + '/people/' + username + '/people', :cookie => Request.create_cookie(cookies)){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return response
+    }
+  end
+
 end
