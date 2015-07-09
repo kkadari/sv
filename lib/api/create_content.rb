@@ -51,4 +51,12 @@ class CreateContent < Request
     }
   end
 
+  def self.post_blog(payload, cookies)
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/blogPosts/',payload,{:cookie => Request.create_cookie(cookies),:content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return response
+    }
+  end
+
 end

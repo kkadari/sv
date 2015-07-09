@@ -12,4 +12,12 @@ class Content < Request
     }
   end
 
+  def self.get_blog(doc_id, cookies)
+    RestClient.get(ENV['base_url'] + doc_id,{:cookie => Request.create_cookie(cookies),:content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return response
+    }
+  end
+
 end

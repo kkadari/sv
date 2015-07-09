@@ -24,9 +24,8 @@ Feature: JUC30 - Create a blog post
     When I have logged in as "participant B"
     Then I can locate and view the blog post
 
-  @manual
   Scenario: Participant reads a blog post containing one or more comments
     Given I have logged in as "participant A"
-    And I have created an amber blog post in a private group
+    And I have quickly created an amber blog post in a private group
     When I submit a comment for the blog post
     Then the comment is posted to the blog post
