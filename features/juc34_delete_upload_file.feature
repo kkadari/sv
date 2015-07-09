@@ -1,4 +1,3 @@
-@manual
 Feature: Delete upload file
 #The focus of this test is to cover use case realisation JUC34.1: Author deletes an Uploaded File
 
