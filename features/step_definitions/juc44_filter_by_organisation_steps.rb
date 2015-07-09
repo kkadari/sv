@@ -10,11 +10,11 @@ When /^I opt to add a filter$/ do
 end
 
 Then /^I can choose to filter by organisation$/ do
-  People.get_browse_people_by_organisation_all(@user_profile[:user_id], @browser.cookies.to_a)
+  People.order_by_organisation_all(@user_profile[:user_id], @browser.cookies.to_a)
 end
 
 Then /^opting to filter by organisation will return people within a specific organisation$/ do
-  response = People.get_browse_people_by_specific_organisation(@user_profile[:user_id], 'Cert', @browser.cookies.to_a)
+  response = People.order_by_specific_organisation(@user_profile[:user_id], 'Cert', @browser.cookies.to_a)
 
   fail('Search people by organisation failed') unless JSON.parse(response.split(';',0)[1])['items'][0]['subject'] == 'certtestuser@cert'
 end

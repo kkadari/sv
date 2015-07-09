@@ -1,4 +1,3 @@
-@manual
 Feature: Last logged in field
 
   Scenario: Viewing and sorting via the last logged in field
