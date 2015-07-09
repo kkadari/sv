@@ -65,5 +65,5 @@ end
 Then /^I as admin can verify the anonymous identifiers have been added in their profile$/ do
   response = Content.get_ir(@incident_id, @browser.cookies.to_a)
 
-  fail('IR not marked as anonymous') unless Nokogiri::HTML.parse(response).css('.j-byline') unless '<span class="anonymous-badge" title="This content was posted anonymously by its author">'
+  fail('IR not marked as anonymous') unless Nokogiri::HTML.parse(response).css('.j-byline').to_s.include? '<span class="anonymous-badge" title="This content was posted anonymously by its author">'
 end
