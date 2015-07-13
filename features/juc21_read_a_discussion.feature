@@ -23,7 +23,6 @@ Feature: JUC21 - Read a discussion
     When I have logged in as "admin"
     Then as an admin I can view the anonymous discussion
 
-  @manual
   Scenario: Participant attempts to view a Discussion that is not available
     Given I have logged in as "participant A"
     When I attempt to view a discussion that has recently been deleted
