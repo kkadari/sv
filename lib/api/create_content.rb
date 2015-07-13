@@ -1,4 +1,4 @@
-module Request
+class CreateContent < Request
 
   # Allows you to create an incident report via the REST endpoint
   # Params:
@@ -41,16 +41,6 @@ module Request
 
       JSON.parse(response.body)
     }
-  end
-
-  def self.create_cookie(vals)
-    cookie = ''
-
-    vals.each do |c|
-      cookie += c[:name] + '=' + c[:value] + '; '
-    end
-
-    return cookie
   end
 
 end
