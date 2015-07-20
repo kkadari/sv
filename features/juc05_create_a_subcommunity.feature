@@ -1,8 +1,8 @@
 @JUC5
 Feature: JUC5 - Create a Sub-community
 
-  @JUC5.2 @CISP-380 @manual
-  Scenario Outline: Facilitator creates a new private group
+  @JUC5.2 @CISP-380
+  Scenario Outline: Facilitator creates a new group
     Given I have opted to create a new group as "admin"
     When I create a "<type>" group
     Then the group is created successfully
@@ -13,10 +13,15 @@ Feature: JUC5 - Create a Sub-community
       | private |
       | secret  |
 
-  @JUC5.2 @CISP-380 @manual
-  Scenario: Participant deletes a private group
-    Given I have logged in as "participant A"
-    And I create a "private" group with content
+  @JUC5.2 @CISP-380
+  Scenario Outline: Participant deletes a group
+    Given I have logged in as "admin"
+    And I create a "<type>" group with content
     When I opt to delete the group
     Then the group is deleted
     And all content created within that group no longer exists
+
+    Examples:
+      | type    |
+      | private |
+      | secret  |
