@@ -1,7 +1,7 @@
 @JUC4
 Feature: JUC4 - Comment on an incident
 
-  @JUC4.1 @CISP-336 @manual
+  @JUC4.1 @CISP-336
   Scenario: Participant mentions another user in a comment on an Incident Report
     Given I have logged in as "participant A"
     And I mention "participant B" in a normal comment on an incident report
