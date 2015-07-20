@@ -30,4 +30,16 @@ class Comment < Request
     }
   end
 
+  def self.get_advanced_comment_editor(id, cookies)
+    RestClient.post(ENV['base_url'] + '/create-advanced-comment.jspa','id=' + id,{:cookie => Request.create_cookie(cookies),:content_type => 'application/x-www-form-urlencoded'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
+
+  def self.post_advanced_comment_editor(payload, cookies)
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/advancedComment', payload, {:cookie => Request.create_cookie(cookies),:content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
+
 end

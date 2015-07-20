@@ -32,9 +32,7 @@ Feature: JUC8 - Comment on a discussion
 	When I have logged in as "participant B"
     Then I can comment on the comment anonymously
 
-  @manual
   Scenario: Participant comments directly on a Discussion using the Advanced Editor
-    Given I have opted to leave a comment on a discussion as "participant A"
-    And I opt to use the advanced editor
+    Given I have opted to leave a comment on a discussion as "participant A" using the advanced editor
     When I submit a comment with some content
     Then the comment is published successfully
