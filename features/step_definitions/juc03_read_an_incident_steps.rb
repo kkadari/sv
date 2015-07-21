@@ -35,6 +35,7 @@ Then /^I as an admin can view the anonymous incident report$/ do
 end
 
 Then (/^I can search for the incident report by ID and view the incident report$/) do
+  visit_and_benchmark HomePage
   on(GlobalNav).verify_spotlight_search_result_exists_for_incident_id @incident_id, @subject
   on(GlobalNav).click_search_result @subject
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject

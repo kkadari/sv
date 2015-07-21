@@ -14,18 +14,21 @@ end
 
 Then /^I am not able to view their identity on the comment when I search for the incident report$/ do
   visit_and_benchmark AdvancedSearchPage do | search |
+    search.show_incident_reports
+    search.search_query = @subject
+
     search.wait_until do
-      search.search_query = @subject
       search.submit_search
       search.search_results_element.exists?
     end
 
-    search.show_incident_reports
-    search.sort = 'Last modified: newest first'
-
     fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
 
     search.top_result
+  end
+
+  on(IncidentReportSummaryPage).wait_until do
+    on(IncidentReportSummaryPage).title_element.exists?
   end
 
   !fail 'Not marked as anonymous' unless on(IncidentReportSummaryPage).avatar_element.exists?
