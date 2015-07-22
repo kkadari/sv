@@ -10,7 +10,7 @@ end
 Given /^I select to follow "([^"]*)"$/ do |user|
   user_profile = TestConfig.return_profile(user)
 
-  payload = FollowPayload.new(user_profile[:user_id]).payload
+  payload = FollowPayload.new(3, user_profile[:user_id]).payload
   Follow.post_follow_request(payload, @browser.cookies.to_a)
 end
 
@@ -66,7 +66,7 @@ end
 Given /^I am following "([^"]*)"$/ do |user|
   user_profile = TestConfig.return_profile(user)
 
-  payload = FollowPayload.new(user_profile[:user_id]).payload
+  payload = FollowPayload.new(3, user_profile[:user_id]).payload
   Follow.post_follow_request(payload, @browser.cookies.to_a)
 
   switch_user(user)

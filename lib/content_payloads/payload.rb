@@ -31,6 +31,8 @@ class Payload
         return '{"visibility":"place","container":{"objectType":"700","objectID":"1005"}}'
       when 'specific group'
         return '{"visibility":"place","container":{"objectType":"700","objectID":"' + publication[:id] + '"}}'
+      when 'specific space'
+        return '{"visibility":"place","container":{"objectType":"14","objectID":"' + publication[:id] + '"}}'
       else
         raise "Allowed publications are community, private group, secret group and space.  You chose: #{publication[:type]}"
     end
