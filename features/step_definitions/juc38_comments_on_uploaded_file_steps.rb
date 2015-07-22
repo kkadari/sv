@@ -100,7 +100,6 @@ When /^I additionally mention "([^"]*)" in the comment$/ do |user|
   user = TestConfig.return_profile(user)
 
   mention = '<a class=\'jive_macro jive_macro_user\' href=\'javascript:;\' jivemacro=\'user\' ___default_attr=\'' + user[:user_id] + '\' data-objecttype=\'3\' data-orig-content=\'' + user[:username] + '\'>' + user[:username] + '</a>'
-  puts mention
   payload = UpdateCommentPayload.new('Edited comment to now mention ' + mention).payload
 
   Comment.post_update_comment(comment_id, payload, @browser.cookies.to_a)
