@@ -1,20 +1,3 @@
-Given /^I am viewing an uploaded document I have recently created$/ do
-  switch_user('participant A')
-
-  @subject = TitleCreator.create_title_for('incident')
-
-  payload = DocumentPayload
-                .new(@subject,
-                     'body content here',
-                     'red',
-                     'test.jpg').payload
-
-  response = CreateContent.post_document(payload, @browser.cookies.to_a)
-  @doc_id = response.scan(/DOC-[0-9]*/)[0]
-
-  Content.get_document(@doc_id, @browser.cookies.to_a)
-end
-
 When /^I opt to delete the uploaded document$/ do
   DeleteContent.delete_document(@doc_id, @browser.cookies.to_a)
 end

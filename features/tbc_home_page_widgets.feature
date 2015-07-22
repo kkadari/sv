@@ -1,4 +1,4 @@
-@manual
+@ui
 Feature: Home page widgets
 
   Scenario: Hero banner widget

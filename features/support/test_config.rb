@@ -44,4 +44,10 @@ module TestConfig
     end
   end
 
+  def self.return_space
+    config = @test_user_sets[ENV['TEST_ENV_NUMBER'].to_i]
+
+    config[:space]
+  end
+
 end

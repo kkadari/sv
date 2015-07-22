@@ -54,4 +54,12 @@ class Places < Request
     }
   end
 
+  def self.get_place_id(place_name, cookies)
+    RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search%28' + place_name + '%29', :cookie => Request.create_cookie(cookies)){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return JSON.parse(response.split('.\';')[1])['list'][0]['id']
+    }
+  end
+
 end
