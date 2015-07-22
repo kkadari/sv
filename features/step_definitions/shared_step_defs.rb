@@ -1,6 +1,5 @@
 Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers[login]
+  switch_user(login)
 end
 
 Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
@@ -227,4 +226,21 @@ When /^I find and click on (?:a|an) ([^\"]+) I would like to read$/ do |doctype|
 
     search.top_result
   end
+end
+
+Given /^I am viewing an uploaded document I have recently created$/ do
+  switch_user('participant A')
+
+  @subject = TitleCreator.create_title_for('incident')
+
+  payload = DocumentPayload
+                .new(@subject,
+                     'body content here',
+                     'red',
+                     'test.jpg').payload
+
+  response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  @doc_id = response.scan(/DOC-[0-9]*/)[0]
+
+  Content.get_document(@doc_id, @browser.cookies.to_a)
 end
