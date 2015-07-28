@@ -25,42 +25,9 @@ end
 Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
   @subject = TitleCreator.create_title_for('discussion')
   @marking = marking
-  @location = location.gsub(' ','_')
-
-  visit_and_benchmark CreateDiscussionPage do | create |
-    if @location != 'community'
-      create.publish_to @test_config_set[@location.parameterize.to_sym]
-    else
-      create.select_community
-    end
-
-    create.subject          = @subject
-    create.enable_html_mode
-    create.body             = 'Test automation discussion body'
-    create.handling_elements.each do |colour|
-      colour.click if colour.text.downcase.include? @marking
-    end
-    create.check_anonymous    if anonymous
-    create.check_as_question  if question
-    create.save
-  end
-
-  on(DiscussionSummaryPage).wait_until do
-    on(DiscussionSummaryPage).title_element.exists?
-  end
-
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(DiscussionSummaryPage).ihm_bar.downcase.include? @marking
-
-  fail 'Discussion not anonymous' unless @browser.html.to_s.include? 'This content was posted anonymously by its author' if anonymous
-end
-
-Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
-  @subject = TitleCreator.create_title_for('discussion')
-  @marking = marking
   @location = location
 
-  response = CreateContent.create_discussion @browser.cookies.to_a, @subject, question, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
+  response = CreateContent.create_discussion @browser.cookies.to_a, @subject, question, 'Lorem ipsumy goodness', @marking, Hash[:type => @location], "", anonymous
   @discussion_id = response['redirect'][/[0-9]+/,0]
 end
 
@@ -109,12 +76,25 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
 end
 
 Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|
-  visit_and_benchmark DiscussionSummaryPage, :using_params => {:id => @discussion_id}
+  response = Content.get_message(@discussion_id, @browser.cookies.to_a)
 
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
+  title = Nokogiri::HTML.parse(response).css('.js-original-header > h1').text
+  fail 'Content not visible or created' unless title.include? @subject
+
   if anonymous
-    fail 'Discussion does not include Anonymous avatar' unless on(DiscussionSummaryPage).avatar_element.visible?
+    anon = Nokogiri::HTML.parse(response).css('.guest').to_s
+    fail 'Content not visible or created' unless anon.include? 'Anonymous'
   end
+end
+
+Then /^I can verify the anonymous identifiers have been added to the discussion$/ do
+  response = Content.get_message(@discussion_id, @browser.cookies.to_a)
+
+  title = Nokogiri::HTML.parse(response).css('.js-original-header > h1').text
+  fail 'Content not visible or created' unless title.include? @subject
+
+  anon = Nokogiri::HTML.parse(response).css('.anonymous-badge').to_s
+  fail 'Content not visible or created' if anon.include? 'This content was posted anonymously by its author'
 end
 
 Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private group$/) do |marking|
