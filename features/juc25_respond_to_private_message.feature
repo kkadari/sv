@@ -1,4 +1,4 @@
-@JUC25 @manual
+@JUC25 @manual @ui
 Feature: JUC25 - Respond to a Private Message
 
   @JUC25.1 @CISP-156

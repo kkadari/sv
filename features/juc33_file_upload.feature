@@ -19,6 +19,7 @@ Feature: [CISP-696] Author uploads a new version of a file
     When I submit an updated metadata for the uploaded documents
     Then the uploaded document's metadata is updated
 
+  @manual
   Scenario Outline: Participant shares a file with the community or sub-set that fails the AV check
     Given I am viewing a recently uploaded document with a "word document" attachment
     When I attempt to update an uploaded document with a "<file_type>" attachment
