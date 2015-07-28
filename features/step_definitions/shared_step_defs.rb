@@ -7,21 +7,19 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   @marking = marking
   @location = location
 
-  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
+  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, 'Lorem ipsumy goodness', @marking, Hash[:type => @location], "", anonymous
   @incident_id = response['redirect'][/[0-9]+/,0]
   @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end
 
 Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
-  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
-
-  on ViewIncidentReportPage do |comment|
-    comment.comment
-    comment.enable_html_mode
-    comment.comment_body = 'An anonymous incident report comment'
-    comment.check_anonymous if anonymous
-    comment.save
+  if anonymous
+    payload = CommentPayload.new('<body><p>A new comment</p></body>',true).payload
+  else
+    payload = CommentPayload.new('<body><p>A new comment</p></body>',false).payload
   end
+
+  Comment.post_ir_comment(@incident_id, payload, @browser.cookies.to_a)
 end
 
 Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
@@ -67,21 +65,11 @@ Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( que
 end
 
 Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|
-  visit(InboxPage)
+  sleep(5) # We wait a few seconds to let Jive process the Inbox
 
-  attempt = 0
-  begin
-    @browser.html.include? @subject
-    if anonymously
-      fail 'Author visible' unless @browser.divs(:class => 'j-author-act font-color-meta-light', :text => 'Anonymous')
-    end
-  rescue
-    attempt += 1
-    if attempt <= 3 # Retry up to 3 times.
-      @browser.refresh
-      retry
-    end
-    fail 'IR not visible'
+  if anonymously
+    response = Inbox.get_inbox(@browser.cookies.to_a)
+    fail 'Author visible' unless Nokogiri::HTML.parse(response).css('.j-js-act-content > div > div').text.include? 'Anonymous mentioned you in ' + @subject
   end
 end
 
