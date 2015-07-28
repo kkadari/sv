@@ -2,7 +2,7 @@ Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
   switch_user(login)
 end
 
-Given /^I have quickly raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
+Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
   @subject = TitleCreator.create_title_for('incident')
   @marking = marking
   @location = location
@@ -64,35 +64,6 @@ Given /^I have quickly created? (?:a|an) (red|amber|green|white) discussion( que
 
   response = CreateContent.create_discussion @browser.cookies.to_a, @subject, question, "Lorem ipsumy goodness", @marking, Hash[:type => @location], "", anonymous
   @discussion_id = response['redirect'][/[0-9]+/,0]
-end
-
-Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, anonymous, location|
-  @subject = TitleCreator.create_title_for('incident')
-  @marking = marking
-  @location = location.gsub(' ','_')
-
-  visit_and_benchmark CreateIncidentReportPage do |create|
-    create.subject          = @subject
-    create.enable_html_mode
-    create.body             = 'Test automation poll'
-    create.handling_elements.each do |colour|
-      colour.click if colour.text.downcase.include? @marking
-    end
-    create.publish_to         @location
-    create.check_anonymous if anonymous
-    create.save
-  end
-
-  on(IncidentReportSummaryPage).wait_until do
-    on(IncidentReportSummaryPage).title_element.exists?
-  end
-
-  on(IncidentReportSummaryPage).title.include? @subject
-  on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
-
-  @browser.url.to_s.match(/.*incidentreports\/(\d+).*/)
-  incident_id = $1
-  raise 'Incident ID not captured' unless incident_id =~ /^\d+$/
 end
 
 Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|

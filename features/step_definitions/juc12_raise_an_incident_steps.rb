@@ -23,3 +23,19 @@ Then /^I can view the internal link$/ do
   fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
   fail 'Link not present' unless @browser.html.include? @incident_url
 end
+
+Then /^I am able to view the marking$/ do
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
+
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
+  on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
+end
+
+Then /^I can verify the anonymous identifiers have been added$/ do
+  visit_and_benchmark ViewIncidentReportPage, :using_params => {:id => @incident_id}
+
+  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
+  on(IncidentReportSummaryPage).ihm_bar.downcase.include? @marking
+
+  fail 'Incident report not anonymous' unless @browser.html.to_s.include? 'This content was posted anonymously by its author'
+end
