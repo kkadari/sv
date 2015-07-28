@@ -1,7 +1,7 @@
-@JUC24 @manual
+@JUC24 @manual @ui
 Feature: JUC24 - Send a Private Message
 
-  @JUC24.1 @CISP-155 @manual
+  @JUC24.1 @CISP-155
   Scenario: Participant wants to directly message two or more Participants with an Internal Reference
     Given I have opted to create a direct message logged in as "participant A"
     When I reference internal content and people in the body

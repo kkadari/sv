@@ -1,4 +1,3 @@
-@manual
 Feature: [CISP-696] Author uploads a new version of a file
 #JUC33.1: Author uploads a new version of the file.
 #JUC33.2: Author updates the file's metadata.
@@ -9,16 +8,17 @@ Feature: [CISP-696] Author uploads a new version of a file
 #JUC33.7: Author updates the file's IHM.
 
   Scenario: Author uploads a new version of a file
-    Given I am viewing a recently uploaded document with a "word document" attachment
-    When I update the uploaded document with a "updated word document" attachment
+    Given I am viewing a recently uploaded document with a word document attachment
+    When I update the uploaded document with a updated word document attachment
     Then the system validates the upload and updates the uploaded document
     And I can then preview the uploaded document
 
   Scenario: Author updates the file's metadata
-    Given I am viewing a recently uploaded document with a "word document" attachment
+    Given I am viewing a recently uploaded document with a word document attachment
     When I submit an updated metadata for the uploaded documents
     Then the uploaded document's metadata is updated
 
+  @manual
   Scenario Outline: Participant shares a file with the community or sub-set that fails the AV check
     Given I am viewing a recently uploaded document with a "word document" attachment
     When I attempt to update an uploaded document with a "<file_type>" attachment

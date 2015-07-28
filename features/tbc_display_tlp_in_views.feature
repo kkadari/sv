@@ -1,4 +1,4 @@
-@manual
+@manual @ui
 Feature: Displays Traffic light protocols in views
 
   Scenario: Spotlight search results contain Traffic light protocols pills
