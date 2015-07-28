@@ -3,7 +3,7 @@ Feature: File sharing
 #JUC32.3: Participant views a preview of an Uploaded File
 #JUC31.4: Participant shares a file with the community or sub-set that is not a supported file type
 #JUC31.5: Participant shares a file with the community or sub-set that exceeds the maximum file size
-  
+
   Scenario: Participant shares a file with the community or sub-set
     Given I have logged in as "participant A"
     When I attempt to create an uploaded document with a word document attachment
