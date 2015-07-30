@@ -28,7 +28,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   @marking = marking
   @location = location
 
-  payload = DiscussionPayload.new(subject, question, 'Lorem ipsumy goodness', @marking, {:type => @location}, '', anonymous).payload
+  payload = DiscussionPayload.new(@subject, question, 'Lorem ipsumy goodness', @marking, {:type => @location}, '', anonymous).payload
   response = CreateContent.create_discussion(payload, @browser.cookies.to_a)
   @discussion_id = response['redirect'][/[0-9]+/,0]
 end
@@ -75,7 +75,7 @@ Then /^I can verify the anonymous identifiers have been added to the discussion$
   fail 'Content not visible or created' if anon.include? 'This content was posted anonymously by its author'
 end
 
-Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private group|my personal blog)$/ do |marking|
+Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private group|my personal blog)$/ do |marking, publication|
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
@@ -85,7 +85,8 @@ Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private
                      @marking,
                      'test1, test2, test3').payload
 
-  CreateContent.post_blog(payload, @browser.cookies.to_a)
+  response = CreateContent.post_blog(payload, @browser.cookies.to_a)
+  @blog_url = JSON.parse(response.body)['redirect']
 end
 
 Then /^I can edit the anonymous incident report$/ do
@@ -122,19 +123,6 @@ Given /^I am viewing an uploaded document I have recently created$/ do
   @doc_id = response.scan(/DOC-[0-9]*/)[0]
 
   Content.get_document(@doc_id, @browser.cookies.to_a)
-end
-
-Given /^I have created an amber blog post in a private group$/ do
-  switch_user('participant A')
-
-  payload = BlogPayload
-                .new(TitleCreator.create_title_for('blog'),
-                     'Content goes here',
-                     'amber',
-                     'test1, test2, test3').payload
-
-  response = CreateContent.post_blog(payload, @browser.cookies.to_a)
-  @blog_url = JSON.parse(response)['redirect']
 end
 
 ######### SMOKE TEST #########

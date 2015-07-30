@@ -1,6 +1,6 @@
 Then /^I can locate and view the blog post$/ do
   response = Content.get_blog(@blog_url, @browser.cookies.to_a)
-  title = Nokogiri::HTML.parse(response).css('.jive-content > header > h1').text
+  title = Nokogiri::HTML.parse(response).css('.jive-blog-post-subject-header > div > h1').text
 
   fail 'Content not visible or created' unless title.include? @subject
 end
