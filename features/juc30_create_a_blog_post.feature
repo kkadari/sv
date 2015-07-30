@@ -26,6 +26,6 @@ Feature: JUC30 - Create a blog post
 
   Scenario: Participant reads a blog post containing one or more comments
     Given I have logged in as "participant A"
-    And I have quickly created an amber blog post in a private group
+    And I have created an amber blog post in a private group
     When I submit a comment for the blog post
     Then the comment is posted to the blog post

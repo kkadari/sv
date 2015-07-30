@@ -34,20 +34,6 @@ Then /^I can locate and view the blog post$/ do
   on(BlogPostSummaryPage).ihm_bar.downcase.include? @marking
 end
 
-Given /^I have quickly created an amber blog post in a private group$/ do
-  switch_user('participant A')
-
-  payload = BlogPayload
-                .new(TitleCreator.create_title_for('blog'),
-                     'Content goes here',
-                     'amber',
-                     Hash[:type => 'private group'],
-                     'test1, test2, test3').payload
-
-  response = CreateContent.post_blog(payload, @browser.cookies.to_a)
-  @blog_url = JSON.parse(response)['redirect']
-end
-
 When /^I submit a comment for the blog post$/ do
   response = Content.get_blog(@blog_url, @browser.cookies.to_a)
   @blog_id = Nokogiri::HTML.parse(response).css('input[name="blogPost"]')[0]['value']

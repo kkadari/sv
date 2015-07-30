@@ -123,6 +123,20 @@ Given /^I am viewing an uploaded document I have recently created$/ do
   Content.get_document(@doc_id, @browser.cookies.to_a)
 end
 
+Given /^I have created an amber blog post in a private group$/ do
+  switch_user('participant A')
+
+  payload = BlogPayload
+                .new(TitleCreator.create_title_for('blog'),
+                     'Content goes here',
+                     'amber',
+                     Hash[:type => 'private group'],
+                     'test1, test2, test3').payload
+
+  response = CreateContent.post_blog(payload, @browser.cookies.to_a)
+  @blog_url = JSON.parse(response)['redirect']
+end
+
 ######### SMOKE TEST #########
 
 When /^I find and click on (?:a|an) ([^\"]+) I would like to read$/ do |doctype|
