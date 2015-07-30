@@ -1,10 +1,9 @@
 class BlogPayload < Payload
 
-  def initialize(subject, body, handling_level, publication, tags)
+  def initialize(subject, body, handling_level, tags)
     @subject           = subject
     @body              = body
     @handling_level    = handling_level
-    @publication       = publication
     @tags              = tags
   end
 

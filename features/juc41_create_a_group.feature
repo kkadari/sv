@@ -1,4 +1,4 @@
-@JUC41
+@JUC41 @ui
 Feature: JUC41 - Create a group
 
   @JUC41.2 @CISP-929

@@ -22,7 +22,6 @@ describe 'Creating content' do
                   .new('Testing blog 1',
                        'Content goes here',
                        'amber',
-                       Hash[:type => 'community'],
                        'test1, test2, test3').payload
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/blogPosts/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|

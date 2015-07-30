@@ -32,7 +32,8 @@ Given /^I am viewing an incident report$/ do
   switch_user('participant A')
   subject = TitleCreator.create_title_for('incident')
 
-  response = CreateContent.create_incident_report @browser.cookies.to_a, subject, 'Lorem ipsumy goodness', 'white', Hash[:type => 'community'], "", false
+  payload = IncidentReportPayload.new(subject, false, 'Lorem ipsumy goodness', 'white', {:type => 'community'}, '', false).payload
+  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
   incident_id = response['redirect'][/[0-9]+/,0]
 
   @response = Content.get_ir(incident_id, @browser.cookies.to_a)
@@ -46,7 +47,8 @@ Given /^I am viewing a discussion$/ do
   switch_user('participant A')
   subject = TitleCreator.create_title_for('discussion')
 
-  response = CreateContent.create_discussion @browser.cookies.to_a, subject, false, 'Lorem ipsumy goodness', 'white', Hash[:type => 'community'], '', false
+  payload = DiscussionPayload.new(subject, false, 'Lorem ipsumy goodness', 'white', {:type => 'community'}, '', false).payload
+  response = CreateContent.create_discussion(payload, @browser.cookies.to_a)
   discussion_id = response['redirect'][/[0-9]+/,0]
 
   @response = Content.get_message(discussion_id, @browser.cookies.to_a)
