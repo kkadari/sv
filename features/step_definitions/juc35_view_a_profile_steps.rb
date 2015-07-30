@@ -1,6 +1,5 @@
 Then /^participants are not able to view the incident report on the posters profile$/ do
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+  switch_user('participant B')
 
   visit_and_benchmark UserOneProfilePage, :using_params => {:id => @test_config_set[:user_1_name]}
   on(UserOneProfilePage).content
@@ -13,8 +12,7 @@ Then /^participants are not able to view the incident report on the posters prof
 end
 
 Then /^participants are not able to view the discussion in the posters activity stream/ do
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+  switch_user('participant B')
 
   visit_and_benchmark UserOneProfilePage, :using_params => {:id => @test_config_set[:user_1_name]}
   on(UserOneProfilePage).activity
@@ -22,8 +20,7 @@ Then /^participants are not able to view the discussion in the posters activity 
 end
 
 Then /^I am not able to view the discussion in my activity stream/ do
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+  switch_user('participant B')
 
   visit_and_benchmark UserOneProfilePage, :using_params => {:id => @test_config_set[:user_1_name]}
   on(UserOneProfilePage).activity
