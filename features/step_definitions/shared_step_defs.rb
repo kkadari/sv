@@ -43,36 +43,12 @@ end
 Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (community|private group|secret group|space)$/ do |marking, location|
   @subject = TitleCreator.create_title_for('poll')
   @marking = marking
-  @location = location.gsub(' ','_')
 
-  visit_and_benchmark CreatePollPage do |create|
-    if @location != 'community'
-      create.publish_to @test_config_set[@location.to_sym]
-    else
-      create.select_community
-    end
-
-    create.subject
-    create.subject          = @subject
-    create.enable_html_mode
-    create.body             = 'Test automation poll'
-    create.option1          = 'Option 1 to choose'
-    create.option2          = 'Option 2 to choose'
-    create.handling_elements.each do |colour|
-      colour.click if colour.text.downcase.include? @marking
-    end
-    create.save
-  end
-
-  on(PollSummaryPage).wait_until do
-    on(PollSummaryPage).title_element.exists?
-  end
-
-  on(PollSummaryPage).title.include? @subject
-  on(PollSummaryPage).ihm_bar.downcase.include? @marking
+  payload = PollPayload.new(@browser.cookies.to_a, @subject, 'Test automation poll', marking, 'Auto choice ', {:type => location}).payload
+  response = CreateContent.post_create_poll(payload, @browser.cookies.to_a)
 
   # This is clunky but will do for now - Review later MW
-  @incident_id = @browser.url.gsub(ENV['base_url'],'')[/[0-9]+/,0]
+  @incident_id = response.headers[:redirect].gsub(ENV['base_url'],'')[/[0-9]+/,0]
 end
 
 Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|
@@ -97,28 +73,18 @@ Then /^I can verify the anonymous identifiers have been added to the discussion$
   fail 'Content not visible or created' if anon.include? 'This content was posted anonymously by its author'
 end
 
-Given(/^I have created? (?:a|an) (red|amber|green|white) blog post in a private group$/) do |marking|
+Given /^I have created? (?:a|an) (red|amber|green|white) blog post in a private group$/ do |marking|
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
-  visit_and_benchmark CreateBlogPostPage do |create|
-    create.publish_to         @test_config_set[:private_group]
-    create.subject
-    create.subject          = @subject
-    create.enable_html_mode
-    create.body             = 'Test automation poll'
-    create.handling_elements.each do |colour|
-      colour.click if colour.text.downcase.include? @marking
-    end
-    create.save
-  end
+  payload = BlogPayload
+                .new(@subject,
+                     'Content goes here',
+                     @marking,
+                     Hash[:type => 'private group'],
+                     'test1, test2, test3').payload
 
-  on(BlogPostSummaryPage).wait_until do
-    on(BlogPostSummaryPage).title_element.exists?
-  end
-
-  on(BlogPostSummaryPage).title.include? @subject
-  on(BlogPostSummaryPage).ihm_bar.downcase.include? @marking
+  CreateContent.post_blog(payload, @browser.cookies.to_a)
 end
 
 Then /^I can edit the anonymous incident report$/ do
@@ -139,6 +105,25 @@ Then /^I can edit the anonymous incident report$/ do
 
   fail 'Content not visible or created' unless on(IncidentReportSummaryPage).title.include? @new_subject
 end
+
+Given /^I am viewing an uploaded document I have recently created$/ do
+  switch_user('participant A')
+
+  @subject = TitleCreator.create_title_for('incident')
+
+  payload = DocumentPayload
+                .new(@subject,
+                     'body content here',
+                     'red',
+                     'test.jpg').payload
+
+  response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  @doc_id = response.scan(/DOC-[0-9]*/)[0]
+
+  Content.get_document(@doc_id, @browser.cookies.to_a)
+end
+
+######### SMOKE TEST #########
 
 When /^I find and click on (?:a|an) ([^\"]+) I would like to read$/ do |doctype|
   visit_and_benchmark AdvancedSearchPage do |search|
@@ -165,21 +150,4 @@ When /^I find and click on (?:a|an) ([^\"]+) I would like to read$/ do |doctype|
 
     search.top_result
   end
-end
-
-Given /^I am viewing an uploaded document I have recently created$/ do
-  switch_user('participant A')
-
-  @subject = TitleCreator.create_title_for('incident')
-
-  payload = DocumentPayload
-                .new(@subject,
-                     'body content here',
-                     'red',
-                     'test.jpg').payload
-
-  response = CreateContent.post_document(payload, @browser.cookies.to_a)
-  @doc_id = response.scan(/DOC-[0-9]*/)[0]
-
-  Content.get_document(@doc_id, @browser.cookies.to_a)
 end

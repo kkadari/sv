@@ -59,4 +59,10 @@ class CreateContent < Request
     }
   end
 
+  def self.post_create_poll(payload, cookies)
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls',payload,{:cookie => Request.create_cookie(cookies),:content_type => 'application/json; charset=UTF-8'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
+
 end

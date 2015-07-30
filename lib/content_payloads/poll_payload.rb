@@ -1,11 +1,12 @@
 class PollPayload < Payload
 
-  def initialize(cookie, subject, body, handling_level, choice_text)
+  def initialize(cookie, subject, body, handling_level, choice_text, publication)
     @authorisation  = cookie
     @subject        = subject
     @body           = body
     @handling_level = handling_level
     @choice_text    = choice_text
+    @publication    = publication
   end
 
   def payload
@@ -35,10 +36,7 @@ class PollPayload < Payload
       "options": [' + @options[0...-1] + '
       ],
       "handlingLevel": "' + set_ihm_level(@handling_level) + '",
-      "publishBar": {
-          "visibility": "all",
-          "pollVoteOptions": false
-      },
+      "publishBar":' + set_publish_bar(@publication) + ',
       "activeMode": "activenow",
       "endsMode": "endsnever",
       "endsDays": "14",
