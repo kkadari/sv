@@ -32,7 +32,8 @@ Given /^I create a "([^"]*)" group with content$/ do |group_type|
   response = Places.post_v3_group(payload, @browser.cookies.to_a)
   @group_id = JSON.parse(response)['id']
 
-  response2 = CreateContent.create_incident_report @browser.cookies.to_a, TitleCreator.create_title_for('incident'), 'Lorem ipsumy goodness', 'white', Hash[:type => 'specific group',:id => @group_id], '', false
+  payload = IncidentReportPayload.new(TitleCreator.create_title_for('incident'),false,'Lorem ipsumy goodness','white',{:type => 'specific group', :id => @group_id},'',false).payload
+  response2 = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
   @incident_id = response2['redirect'][/[0-9]+/,0]
 end
 

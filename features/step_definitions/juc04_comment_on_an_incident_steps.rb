@@ -15,7 +15,9 @@ end
 
 Given /^I mention "([^"]*)" in a normal comment on an incident report$/ do |user|
   subject = TitleCreator.create_title_for('incident')
-  response = CreateContent.create_incident_report @browser.cookies.to_a, subject, 'Lorem ipsumy goodness', 'amber', Hash[:type => 'community'], "", false
+
+  payload = IncidentReportPayload.new(subject,false,'Lorem ipsumy goodness','amber',{:type => 'community'},'',false).payload
+  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
   @incident_id = response['redirect'][/[0-9]+/,0]
 
   user_profile = TestConfig.return_profile(user)

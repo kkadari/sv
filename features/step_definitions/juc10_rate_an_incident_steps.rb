@@ -3,7 +3,8 @@ Given /^I am viewing an anonymous incident report as "([^"]*)"$/ do |user|
 
   subject = TitleCreator.create_title_for('incident')
 
-  response = CreateContent.create_incident_report @browser.cookies.to_a, subject, 'Lorem ipsumy goodness', 'green', Hash[:type => 'community'], 'auto', true
+  payload = IncidentReportPayload.new(subject,false,'Lorem ipsumy goodness','green',{:type => 'community'},'auto',true).payload
+  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
   @incident_id = response['redirect'][/[0-9]+/,0]
 end
 
@@ -37,7 +38,8 @@ Given /^I am viewing an incident report as "([^"]*)"$/ do |user|
 
   subject = TitleCreator.create_title_for('incident')
 
-  response = CreateContent.create_incident_report @browser.cookies.to_a, subject, 'Lorem ipsumy goodness', 'green', Hash[:type => 'community'], 'auto', false
+  payload = IncidentReportPayload.new(subject, false, 'Lorem ipsumy goodness', 'green', {:type => 'community'}, 'auto', false).payload
+  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
   @incident_id = response['redirect'][/[0-9]+/,0]
 end
 

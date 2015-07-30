@@ -5,12 +5,12 @@ Given /^a participant has raised an anonymous incident report in a group I follo
     customgroup.follow unless customgroup.following_element.exists?
   end
 
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+  switch_user('participant B')
 
   @subject = TitleCreator.create_title_for('incident')
 
-  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, 'Lorem ipsumy goodness', 'random', Hash[:type => 'private group'], '', true
+  payload = IncidentReportPayload.new(@subject, false, 'Lorem ipsumy goodness', 'random', {:type => 'private group'}, '', true).payload
+  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
   @incident_id = response['redirect'][/[0-9]+/,0]
   @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end
@@ -44,7 +44,7 @@ Then /^I am not able to view their identity on the comment in their activity str
 end
 
 Then /^another user is not able to view it in my activity stream$/ do
-  switch_users('participant B')
+  switch_user('participant B')
 
   visit_and_benchmark PeoplePage, :using_params => {:id => @test_config_set[:user_1_name]}
 
@@ -75,7 +75,8 @@ When /^"([^"]*)" creates a new piece of content for the group$/ do |user|
 
   @subject = TitleCreator.create_title_for('incident')
 
-  CreateContent.create_incident_report @browser.cookies.to_a, @subject, 'Lorem ipsumy goodness', 'amber', Hash[:type => 'specific space', :id => @id], '', true
+  payload = IncidentReportPayload.new(@subject, false, 'Lorem ipsumy goodness', 'amber', {:type => 'specific place', :id => @id}, '', true).payload
+  CreateContent.create_incident_report(payload, @browser.cookies.to_a)
 end
 
 Then /^I will see the recently created content in my connections stream as "([^"]*)"$/ do |user|

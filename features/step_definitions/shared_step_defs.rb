@@ -7,7 +7,8 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   @marking = marking
   @location = location
 
-  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, 'Lorem ipsumy goodness', @marking, Hash[:type => @location], "", anonymous
+  payload = IncidentReportPayload.new(@subject, false, 'Lorem ipsumy goodness', @marking, {:type => @location}, '', anonymous).payload
+  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
   @incident_id = response['redirect'][/[0-9]+/,0]
   @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end

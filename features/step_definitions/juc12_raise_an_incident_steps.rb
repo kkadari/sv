@@ -2,8 +2,12 @@ Given /^I have mentioned "([^\"]+)" in? (?:a|an) (red|amber|green|white) inciden
   @subject = TitleCreator.create_title_for('incident')
   @marking = marking
   @location = location
+  user_profile = TestConfig.return_profile(user)
+  mention = 'Some sample text <p><a class="jive_macro jive_macro_user" href="javascript:;" jivemacro="user" ___default_attr="' + user_profile[:user_id] + '" data-objecttype="3" data-orig-content="' + user_profile[:username] + '">' + user_profile[:username] + '</a></p>'
 
-  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, "Some sample text <p><a class='jive_macro jive_macro_user' href='javascript:;' jivemacro='user' ___default_attr='2013' data-objecttype='3' data-orig-content='simonwhi@surevine'>simonwhi@surevine</a></p>", @marking, Hash[:type => @location], "", anonymous
+  payload = IncidentReportPayload.new(@subject, false, mention, @marking, {:type => @location}, '', anonymous).payload
+  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
+
   @incident_id = response['redirect'][/[0-9]+/,0]
   @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end
@@ -13,7 +17,8 @@ Given /^I have raised a white incident report in a private group containing an i
   @marking = 'white'
   @location = 'private group'
 
-  response = CreateContent.create_incident_report @browser.cookies.to_a, @subject, @incident_url, @marking, Hash[:type => @location], "", false
+  payload = IncidentReportPayload.new(@subject, false, @incident_url, @marking, {:type => @location}, '', false).payload
+  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
   @incident_id = response['redirect'][/[0-9]+/,0]
 end
 
