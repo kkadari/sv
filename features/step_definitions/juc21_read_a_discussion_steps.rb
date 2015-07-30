@@ -10,7 +10,8 @@ end
 When /^I attempt to view a discussion that has recently been deleted$/ do
   switch_user('admin')
 
-  response = CreateContent.create_discussion @browser.cookies.to_a, 'Discussion for deletion', false, 'Lorem ipsumy goodness', 'amber', Hash[:type => 'community'], '', true
+  payload = DiscussionPayload.new('Discussion for deletion', false, 'Lorem ipsumy goodness', 'amber', {:type => 'community'}, '', false).payload
+  response = CreateContent.create_discussion(payload, @browser.cookies.to_a)
   @discussion_id = response['redirect'][/[0-9]+/,0]
 
   DeleteContent.delete_discussion(@discussion_id, @browser.cookies.to_a)

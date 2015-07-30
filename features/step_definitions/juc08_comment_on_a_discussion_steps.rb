@@ -48,7 +48,8 @@ Given /^I have opted to leave a comment on a discussion as "([^"]*)" using the a
   switch_user(user)
   subject = TitleCreator.create_title_for('discussion')
 
-  response = CreateContent.create_discussion @browser.cookies.to_a, subject, false, 'Lorem ipsumy goodness', 'green', Hash[:type => 'community'], '', false
+  payload = DiscussionPayload.new(subject, false, 'Lorem ipsumy goodness', 'green', {:type => 'community'}, '', false).payload
+  response = CreateContent.create_discussion(payload, @browser.cookies.to_a)
   @discussion_id = response['redirect'][/[0-9]+/,0]
 
   Comment.get_advanced_comment_editor(@discussion_id, @browser.cookies.to_a)

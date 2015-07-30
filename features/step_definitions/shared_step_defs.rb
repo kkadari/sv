@@ -28,7 +28,8 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   @marking = marking
   @location = location
 
-  response = CreateContent.create_discussion @browser.cookies.to_a, @subject, question, 'Lorem ipsumy goodness', @marking, Hash[:type => @location], "", anonymous
+  payload = DiscussionPayload.new(subject, question, 'Lorem ipsumy goodness', @marking, {:type => @location}, '', anonymous).payload
+  response = CreateContent.create_discussion(payload, @browser.cookies.to_a)
   @discussion_id = response['redirect'][/[0-9]+/,0]
 end
 
