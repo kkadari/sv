@@ -26,7 +26,6 @@ describe 'Viewing content' do
                   .new(Faker::Lorem.sentence(3),
                        Faker::Lorem.sentence(20),
                        'random',
-                       Hash[:type => 'community'],
                        'test1, test2, test3').payload
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/blogPosts/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|

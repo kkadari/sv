@@ -1,6 +1,5 @@
 Given /^a participant has raised an anonymous incident report in a group I follow in my connections stream$/ do
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers['participant A']
+  switch_users('participant A')
 
   visit_and_benchmark CustomGroupPage, :using_params => {:id => @test_config_set[:private_group]} do | customgroup |
     customgroup.follow unless customgroup.following_element.exists?
@@ -17,8 +16,7 @@ Given /^a participant has raised an anonymous incident report in a group I follo
 end
 
 Then /^I can verify the incident report is marked anonymous in my connection stream$/ do
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers['participant A']
+  switch_users('participant A')
 
   visit_and_benchmark ActivityPage do |act|
     act.connections_stream
@@ -46,8 +44,7 @@ Then /^I am not able to view their identity on the comment in their activity str
 end
 
 Then /^another user is not able to view it in my activity stream$/ do
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers['participant B']
+  switch_users('participant B')
 
   visit_and_benchmark PeoplePage, :using_params => {:id => @test_config_set[:user_1_name]}
 

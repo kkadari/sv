@@ -73,7 +73,7 @@ Then /^I can verify the anonymous identifiers have been added to the discussion$
   fail 'Content not visible or created' if anon.include? 'This content was posted anonymously by its author'
 end
 
-Given /^I have created? (?:a|an) (red|amber|green|white) blog post in a private group$/ do |marking|
+Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private group|my personal blog)$/ do |marking|
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
@@ -81,7 +81,6 @@ Given /^I have created? (?:a|an) (red|amber|green|white) blog post in a private 
                 .new(@subject,
                      'Content goes here',
                      @marking,
-                     Hash[:type => 'private group'],
                      'test1, test2, test3').payload
 
   CreateContent.post_blog(payload, @browser.cookies.to_a)
@@ -130,7 +129,6 @@ Given /^I have created an amber blog post in a private group$/ do
                 .new(TitleCreator.create_title_for('blog'),
                      'Content goes here',
                      'amber',
-                     Hash[:type => 'private group'],
                      'test1, test2, test3').payload
 
   response = CreateContent.post_blog(payload, @browser.cookies.to_a)
