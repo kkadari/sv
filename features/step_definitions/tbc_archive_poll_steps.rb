@@ -1,35 +1,17 @@
 And /^I archive the poll$/ do
-  on PollSummaryPage do |poll|
-    poll.wait_until do
-      poll.archive
-      poll.archive_confirmation_element.attribute('style').include? 'display: block'
-    end
+  Archive.post_archive_poll(@poll_id, @browser.cookies.to_a)
 
-    sleep 1 # Wait one second to allow the popup animation to complete.  Otherwise phantom throws a wobbly
-    poll.confirm_archive
-  end
+  poll = Content.get_poll(@poll_id, @browser.cookies.to_a)
+  archive = Nokogiri::HTML.parse(poll).css('#j-poll-ended').text
 
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-
-  on PollSummaryPage do |poll|
-    poll.wait_until do
-      poll.poll_ended_element.exists?
-    end
-  end
-
-  fail 'Poll not archived' unless @browser.html.to_s.include? 'This poll was archived on'
+  fail 'Poll not archived' unless archive.include? 'This poll was archived on'
 end
 
 Then /^I can edit the poll and it remain archived$/ do
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(PollSummaryPage).edit
-  on(EditPollPage).subject = @subject
-  on(EditPollPage).save
+  response1 = EditContent.get_edit_poll(@poll_id, @browser.cookies.to_a)
+  token = Nokogiri::HTML.parse(response1).css('input[name="jive.token.content.poll.edit"]')[0]['value']
 
-  on(PollSummaryPage).wait_until do
-    on(PollSummaryPage).title_element.exists?
-  end
-
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  fail 'Poll did not remain archived' unless @browser.html.to_s.include? 'This poll ended on'
+  payload = EditPollPayload.new(token, @poll_id, '=edited= ' + @subject, 'Updated content', 'Updated choices').payload
+  
+  EditContent.put_edit_poll(@poll_id, payload, @browser.cookies.to_a)
 end
