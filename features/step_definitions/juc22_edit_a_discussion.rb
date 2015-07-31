@@ -1,29 +1,26 @@
 Then /^I can edit the discussion$/ do
-  on(DiscussionSummaryPage).edit
+  response = EditContent.get_edit_message(@discussion_id, @browser.cookies.to_a)
 
-  on EditDiscussionPage do |edit|
-    @new_subject = "=Edited= ".concat edit.subject
-    edit.subject = @new_subject
-    edit.save
-  end
+  @token = Nokogiri::HTML.parse(response).css('input[name="jive.token.content.discussion.edit"]')[0]['value']
+  @thread = Nokogiri::HTML.parse(response).css('input[name="thread"]')[0]['value']
+  current_user = TestConfig.return_profile('participant A')
 
-  on(DiscussionSummaryPage).wait_until do
-    on(DiscussionSummaryPage).title_element.exists?
-  end
-
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @new_subject
+  payload = EditDiscussionPayload.new(@token, @thread, @subject + ' - UPDATE', 'An updated discussion', current_user[:username], 'red', {:type => 'community'}).payload
+  EditContent.put_edit_message(@thread, payload, @browser.cookies.to_a)
 end
 
 Then /^I can change the discussion marking$/ do
-  on(DiscussionSummaryPage).edit
+  response = EditContent.get_edit_message(@discussion_id, @browser.cookies.to_a)
 
-  on EditDiscussionPage do |edit|
-    edit.handling_elements.each do |colour|
-      colour.click if colour.text.downcase.include? 'white'
-    end
-    edit.save
-  end
+  @token = Nokogiri::HTML.parse(response).css('input[name="jive.token.content.discussion.edit"]')[0]['value']
+  @thread = Nokogiri::HTML.parse(response).css('input[name="thread"]')[0]['value']
+  current_user = TestConfig.return_profile('participant A')
 
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(DiscussionSummaryPage).ihm_bar.downcase.include? 'white'
+  payload = EditDiscussionPayload.new(@token, @thread, @subject + ' - UPDATE', 'An updated discussion', current_user[:username], 'red', {:type => 'community'}).payload
+  EditContent.put_edit_message(@thread, payload, @browser.cookies.to_a)
+
+  response2 = Content.get_message(@discussion_id, @browser.cookies.to_a)
+  ihm = Nokogiri::HTML.parse(response2).css('.ihmbar').text.downcase
+
+  fail 'Marking not visible or not updated' unless ihm.include? 'red'
 end
