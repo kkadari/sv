@@ -46,11 +46,25 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   @subject = TitleCreator.create_title_for('poll')
   @marking = marking
 
-  payload = PollPayload.new(@browser.cookies.to_a, @subject, 'Test automation poll', marking, 'Auto choice ', {:type => location}).payload
+  response1 = CreateContent.get_create_poll(@browser.cookies.to_a)
+  poll_id = Nokogiri::HTML.parse(response1).css('input[name="pollID"]')[0]['value']
+
+  response2 = CreateContent.get_poll_choice(poll_id, @browser.cookies.to_a)
+  choice = JSON.parse(response2)['id']
+
+  payload = PollPayload
+                .new(@browser.cookies.to_a,
+                     poll_id,
+                     choice,
+                     @subject,
+                     'Test automation poll',
+                     marking,
+                     'Auto choice ',
+                     {:type => location}).payload
+
   response = CreateContent.post_create_poll(payload, @browser.cookies.to_a)
 
-  # This is clunky but will do for now - Review later MW
-  @incident_id = response.headers[:redirect].gsub(ENV['base_url'],'')[/[0-9]+/,0]
+  @poll_id = JSON.parse(response)['redirect'].scan(/polls\/[0-9]*/)[0].gsub('polls/','')
 end
 
 Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|

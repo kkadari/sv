@@ -4,6 +4,7 @@ require 'base64'
 require 'faker'
 require 'cgi/cookie'
 require 'json'
+require 'nokogiri'
 require_all File.dirname(__FILE__) + '/../lib/'
 
 RSpec.configure do |config|
