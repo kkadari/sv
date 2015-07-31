@@ -90,22 +90,17 @@ Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private
 end
 
 Then /^I can edit the anonymous incident report$/ do
-  visit_and_benchmark EditIncidentReportPage, :using_params => {:id => @incident_id}
+  response = EditContent.get_edit_ir(@incident_id, @browser.cookies.to_a)
+  token = Nokogiri::HTML.parse(response).css('input[name="jive.token.content.incidentReport.create"]')[0]['value']
 
-  on EditDiscussionPage do |edit|
-    edit.wait_until do
-      @browser.title.include? 'Edit incident report'
-    end
-    @new_subject = '=Edited='.concat edit.subject
-    edit.subject = @new_subject
-    edit.save
-  end
+  payload = EditIrPayload.new(token, @incident_id, '=edited= ' + @subject, 'Updated IR>', 'red', {:type => 'community'}).payload
 
-  on(IncidentReportSummaryPage).wait_until do
-    on(IncidentReportSummaryPage).title_element.exists?
-  end
+  EditContent.put_edit_ir(@incident_id, payload, @browser.cookies.to_a)
 
-  fail 'Content not visible or created' unless on(IncidentReportSummaryPage).title.include? @new_subject
+  ir = Content.get_ir(@incident_id, @browser.cookies.to_a)
+  title = Nokogiri::HTML.parse(ir).css('.jive-content > header > h1').text
+
+  fail 'Content not updated' unless title.include? '=edited= ' + @subject
 end
 
 Given /^I am viewing an uploaded document I have recently created$/ do

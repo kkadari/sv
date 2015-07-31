@@ -14,11 +14,17 @@ class EditContent < Request
     }
   end
 
+  def self.get_edit_ir(doc_id, cookies)
+    RestClient.get(ENV['base_url'] + '/incidentreports/' + doc_id + '/edit', :cookie => Request.create_cookie(cookies)){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return response
+    }
+  end
+
   def self.put_edit_ir(doc_id, payload, cookies)
     RestClient.put(ENV['base_url'] + '/__services/v2/rest/incidentReports/' + doc_id, payload,{:cookie => Request.create_cookie(cookies), :content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
-
-      @token = JSON.parse(response)[0]
     }
   end
 
