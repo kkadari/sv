@@ -62,4 +62,10 @@ class Comment < Request
     }
   end
 
+  def self.post_message_comment(thread_id, message_id, payload, cookies)
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/message/' + thread_id + '/' + message_id, payload, {:cookie => Request.create_cookie(cookies),:content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
+
 end

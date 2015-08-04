@@ -15,9 +15,9 @@ end
 
 Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
   if anonymous
-    payload = CommentPayload.new('<body><p>A new comment</p></body>',true).payload
+    payload = CommentPayload.new('<body><p>A new comment</p></body>', false).payload
   else
-    payload = CommentPayload.new('<body><p>A new comment</p></body>',false).payload
+    payload = CommentPayload.new('<body><p>A new comment</p></body>', true).payload
   end
 
   Comment.post_ir_comment(@incident_id, payload, @browser.cookies.to_a)
@@ -28,7 +28,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   @marking = marking
   @location = location
 
-  payload = DiscussionPayload.new(subject, question, 'Lorem ipsumy goodness', @marking, {:type => @location}, '', anonymous).payload
+  payload = DiscussionPayload.new(@subject, question, 'Lorem ipsumy goodness', @marking, {:type => @location}, '', anonymous).payload
   response = CreateContent.create_discussion(payload, @browser.cookies.to_a)
   @discussion_id = response['redirect'][/[0-9]+/,0]
 end
@@ -46,11 +46,25 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   @subject = TitleCreator.create_title_for('poll')
   @marking = marking
 
-  payload = PollPayload.new(@browser.cookies.to_a, @subject, 'Test automation poll', marking, 'Auto choice ', {:type => location}).payload
+  response1 = CreateContent.get_create_poll(@browser.cookies.to_a)
+  poll_id = Nokogiri::HTML.parse(response1).css('input[name="pollID"]')[0]['value']
+
+  response2 = CreateContent.get_poll_choice(poll_id, @browser.cookies.to_a)
+  choice = JSON.parse(response2)['id']
+
+  payload = PollPayload
+                .new(@browser.cookies.to_a,
+                     poll_id,
+                     choice,
+                     @subject,
+                     'Test automation poll',
+                     marking,
+                     'Auto choice ',
+                     {:type => location}).payload
+
   response = CreateContent.post_create_poll(payload, @browser.cookies.to_a)
 
-  # This is clunky but will do for now - Review later MW
-  @incident_id = response.headers[:redirect].gsub(ENV['base_url'],'')[/[0-9]+/,0]
+  @poll_id = JSON.parse(response)['redirect'].scan(/polls\/[0-9]*/)[0].gsub('polls/','')
 end
 
 Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|
@@ -75,7 +89,7 @@ Then /^I can verify the anonymous identifiers have been added to the discussion$
   fail 'Content not visible or created' if anon.include? 'This content was posted anonymously by its author'
 end
 
-Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private group|my personal blog)$/ do |marking|
+Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private group|my personal blog)$/ do |marking, publication|
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
 
@@ -85,26 +99,22 @@ Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private
                      @marking,
                      'test1, test2, test3').payload
 
-  CreateContent.post_blog(payload, @browser.cookies.to_a)
+  response = CreateContent.post_blog(payload, @browser.cookies.to_a)
+  @blog_url = JSON.parse(response.body)['redirect']
 end
 
 Then /^I can edit the anonymous incident report$/ do
-  visit_and_benchmark EditIncidentReportPage, :using_params => {:id => @incident_id}
+  response = EditContent.get_edit_ir(@incident_id, @browser.cookies.to_a)
+  token = Nokogiri::HTML.parse(response).css('input[name="jive.token.content.incidentReport.create"]')[0]['value']
 
-  on EditDiscussionPage do |edit|
-    edit.wait_until do
-      @browser.title.include? 'Edit incident report'
-    end
-    @new_subject = '=Edited='.concat edit.subject
-    edit.subject = @new_subject
-    edit.save
-  end
+  payload = EditIrPayload.new(token, @incident_id, '=edited= ' + @subject, 'Updated IR>', 'red', {:type => 'community'}).payload
 
-  on(IncidentReportSummaryPage).wait_until do
-    on(IncidentReportSummaryPage).title_element.exists?
-  end
+  EditContent.put_edit_ir(@incident_id, payload, @browser.cookies.to_a)
 
-  fail 'Content not visible or created' unless on(IncidentReportSummaryPage).title.include? @new_subject
+  ir = Content.get_ir(@incident_id, @browser.cookies.to_a)
+  title = Nokogiri::HTML.parse(ir).css('.jive-content > header > h1').text
+
+  fail 'Content not updated' unless title.include? '=edited= ' + @subject
 end
 
 Given /^I am viewing an uploaded document I have recently created$/ do
@@ -122,19 +132,6 @@ Given /^I am viewing an uploaded document I have recently created$/ do
   @doc_id = response.scan(/DOC-[0-9]*/)[0]
 
   Content.get_document(@doc_id, @browser.cookies.to_a)
-end
-
-Given /^I have created an amber blog post in a private group$/ do
-  switch_user('participant A')
-
-  payload = BlogPayload
-                .new(TitleCreator.create_title_for('blog'),
-                     'Content goes here',
-                     'amber',
-                     'test1, test2, test3').payload
-
-  response = CreateContent.post_blog(payload, @browser.cookies.to_a)
-  @blog_url = JSON.parse(response)['redirect']
 end
 
 ######### SMOKE TEST #########

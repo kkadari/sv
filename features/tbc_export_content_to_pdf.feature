@@ -1,4 +1,4 @@
-@quarantine
+@manual @broken
 Feature: TBC - Participant exports content to PDF
 
   @CISP-161

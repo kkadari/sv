@@ -1,5 +1,8 @@
 Then /^I? (?:can|have)? (?:review|reviewed) the incident report( anonymously)?$/ do |anonymous|
-  payload = IncidentReportPayload.new('Updated comment', false, '<body><p>Details here</p></body>', 'green', {:type => 'community'}, '', anonymous).payload
+  response = EditContent.get_edit_ir(@incident_id, @browser.cookies.to_a)
+  token = Nokogiri::HTML.parse(response).css('input[name="jive.token.content.incidentReport.create"]')[0]['value']
+
+  payload = EditIrPayload.new(token, @incident_id, '=edited= ' + @subject, '<body><p>Updated IR</p></body>', 'red', {:type => 'community'}).payload
 
   EditContent.put_edit_ir(@incident_id, payload, @browser.cookies.to_a)
 end

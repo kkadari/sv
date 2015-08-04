@@ -1,14 +1,19 @@
 class Request
 
   def self.create_cookie(vals)
-    cookie = ''
 
-    vals.each do |c|
-      cookie += c[:name] + '=' + c[:value] + '; '
+    if vals.kind_of?(Array)
+      cookie = ''
+
+      vals.each do |c|
+        cookie += c[:name] + '=' + c[:value] + '; '
+      end
+
+      return cookie
+    else
+      return vals
     end
 
-    return cookie
   end
-
 
 end

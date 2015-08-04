@@ -1,12 +1,13 @@
 Then /^I can change incident report marking$/ do
-  visit_and_benchmark EditIncidentReportPage, :using_params => {:id => @incident_id} do |edit|
-    fail 'IR edit page title incorrect, was: ' + @browser.title unless @browser.title.include? 'Edit incident report'
-    edit.handling_elements.each do |colour|
-      colour.click if colour.text.downcase.include? 'white'
-    end
-    edit.save
-  end
+  response = EditContent.get_edit_ir(@incident_id, @browser.cookies.to_a)
+  token = Nokogiri::HTML.parse(response).css('input[name="jive.token.content.incidentReport.create"]')[0]['value']
 
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-  on(IncidentReportSummaryPage).ihm_bar.downcase.include? 'white'
+  payload = EditIrPayload.new(token, @incident_id, '=edited= ' + @subject, 'Updated IR>', 'white', {:type => 'community'}).payload
+
+  EditContent.put_edit_ir(@incident_id, payload, @browser.cookies.to_a)
+
+  ir = Content.get_ir(@incident_id, @browser.cookies.to_a)
+  ihm = Nokogiri::HTML.parse(ir).css('.ihmbar').text.downcase
+
+  fail 'IHM not updated' unless ihm.include? 'white'
 end

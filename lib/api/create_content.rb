@@ -32,9 +32,27 @@ class CreateContent < Request
     }
   end
 
+  def self.get_create_poll(cookies)
+    RestClient.get(ENV['base_url'] + '/poll/create.jspa?sr=cmenu&containerType=2020&containerID=1024',:cookie => Request.create_cookie(cookies)){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return response
+    }
+  end
+
+  def self.get_poll_choice(poll_id, cookies)
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls/' + poll_id + '/pollOptions','',:cookie => Request.create_cookie(cookies)){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return response
+    }
+  end
+
   def self.post_create_poll(payload, cookies)
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls',payload,{:cookie => Request.create_cookie(cookies),:content_type => 'application/json; charset=UTF-8'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return response
     }
   end
 

@@ -19,12 +19,21 @@ describe 'Create poll page' do
   end
 
   it 'should return a 200 when creating a poll' do
+    response1 = CreateContent.get_create_poll(@authorisation)
+    poll_id = Nokogiri::HTML.parse(response1).css('input[name="pollID"]')[0]['value']
+
+    response2 = CreateContent.get_poll_choice(poll_id, @authorisation)
+    choice = JSON.parse(response2)['id']
+
     payload = PollPayload
                   .new(@authorisation,
-                       'Testing poll 1',
+                       poll_id,
+                       choice,
+                       'Testing poll 2',
                        'body content goes here',
                        'green',
-                       'Information text ').payload
+                       'Information text ',
+                      {:type => 'community'}).payload
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls',payload,{:cookie => @authorisation,:content_type => 'application/json; charset=UTF-8'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200

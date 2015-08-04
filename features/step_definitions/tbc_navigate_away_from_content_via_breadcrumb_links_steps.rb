@@ -1,31 +1,33 @@
 Given /^I have navigated away from a poll using the breadcrumb links$/ do
+  switch_user('participant A')
+
   @subject = TitleCreator.create_title_for('poll')
 
-  @browser.cookies.delete 'jive.security.context'
-  @browser.cookies.add 'jive.security.context', $browsers['participant A']
+  response1 = CreateContent.get_create_poll(@browser.cookies.to_a)
+  poll_id = Nokogiri::HTML.parse(response1).css('input[name="pollID"]')[0]['value']
 
-  visit_and_benchmark CreatePollPage do |create|
-    create.select_community
-    create.subject          = @subject
-    create.enable_html_mode
-    create.body             = 'Test automation poll'
-    create.option1          = 'Option 1 to choose'
-    create.option2          = 'Option 2 to choose'
-    create.handling_elements.each do |colour|
-      colour.click if colour.text.downcase.include? 'amber'
-    end
-    create.save
-  end
+  response2 = CreateContent.get_poll_choice(poll_id, @browser.cookies.to_a)
+  choice = JSON.parse(response2)['id']
 
-  on(PollSummaryPage).wait_until do
-    on(PollSummaryPage).title?
-  end
+  payload = PollPayload
+                .new(@browser.cookies.to_a,
+                     poll_id,
+                     choice,
+                     @subject,
+                     'Test automation poll',
+                     'amber',
+                     'Option ',
+                     {:type => 'community'}).payload
 
-  on(PollSummaryPage).breadcrumb
+  response = CreateContent.post_create_poll(payload, @browser.cookies.to_a)
+
+  poll_id = JSON.parse(response)['redirect'].scan(/polls\/[0-9]*/)[0].gsub('polls/','')
+
+  @response = Content.get_poll(poll_id, @browser.cookies.to_a)
 end
 
 Then /I am able to view more polls in a related container$/ do
-  fail 'Not on correct content page' unless @browser.url.include? "/people/#{@test_config_set[:user_1_name].gsub('@','%40')}/content?filterID=contentstatus[published]~objecttype~objecttype[poll]"
+  fail 'Not on correct content page' unless Nokogiri::HTML.parse(@response).css('.j-context > a')[0].to_s.include? "/people/#{@test_config_set[:user_1_name].gsub('@','%40')}/content?filterID=contentstatus%5Bpublished%5D~objecttype~objecttype%5Bpoll%5D"
 end
 
 Given /^I am viewing an incident report$/ do

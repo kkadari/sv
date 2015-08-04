@@ -26,4 +26,12 @@ class Follow < Request
     }
   end
 
+  def self.post_follow_group(group_id, cookies)
+    payload = '[{"objectType":"14","objectID":"' + group_id + '"}]'
+
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/stream-config/user/associations/manage', payload, {:cookie => Request.create_cookie(cookies), :content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
+
 end

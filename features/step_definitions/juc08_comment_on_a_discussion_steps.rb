@@ -1,47 +1,20 @@
 Then /^I? (?:can|have)? (?:comment|commented) on the discussion( anonymously)?$/ do |anonymous|
-  visit_and_benchmark ContentPage do |content|
-    content.content_items_elements.each do |link|
-      if link.text.include? @subject[0.23]
-        link.click
-        break
-      end
-    end
-  end
+  response = Content.get_message(@discussion_id, @browser.cookies.to_a)
+  thread_id = Nokogiri::HTML.parse(response).css('input[name="jive.token.name"]')[0]['value'].gsub('message.post.','')
 
-  on ViewDiscussionPage do |comment|
-    comment.wait_until do
-      comment.title?
-    end
+  payload = MessageCommentPayload.new(thread_id, @discussion_id, @subject, 'Auto test comment', anonymous).payload
 
-    comment.reply
-    comment.enable_html_mode
-    comment.comment_body = 'A discussion comment'
-    comment.anonymous if anonymous
-    comment.save
-  end
+  Comment.post_message_comment(thread_id, @discussion_id, payload, @browser.cookies.to_a)
 end
 
 Then /^I can comment on the comment( anonymously)?$/ do |anonymous|
-  visit_and_benchmark ContentPage do |content|
-    content.content_items_elements.each do |link|
-      if link.text.include? @subject[0.23]
-        link.click
-        break
-      end
-    end
-  end
+  response = Content.get_message(@discussion_id, @browser.cookies.to_a)
+  thread_id = Nokogiri::HTML.parse(response).css('input[name="jive.token.name"]')[0]['value'].gsub('message.post.','')
+  comment_id = Nokogiri::HTML.parse(response).css('.reply')[0]['data-object-id']
 
-  on ViewDiscussionPage do |comment|
-    comment.wait_until do
-      comment.title?
-    end
+  payload = MessageCommentPayload.new(thread_id, comment_id, @subject, 'Auto test comment for comment', anonymous).payload
 
-    comment.reply
-    comment.enable_html_mode
-    comment.comment_body = 'Anonymous comment for discussion'
-    comment.anonymous if anonymous
-    comment.save
-  end
+  Comment.post_message_comment(thread_id, comment_id, payload, @browser.cookies.to_a)
 end
 
 Given /^I have opted to leave a comment on a discussion as "([^"]*)" using the advanced editor$/ do |user|

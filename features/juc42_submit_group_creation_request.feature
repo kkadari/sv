@@ -1,4 +1,4 @@
-@JUC42 @manual
+@JUC42 @ui @manual
 Feature: JUC42 - Submit Group Creation Request
 #JUC42.1: CE Participant submits Group Creation Request form successfully
 #JUC42.2: CE Participant does not complete all Group Creation Request mandatory fields
@@ -10,7 +10,7 @@ Feature: JUC42 - Submit Group Creation Request
     When I have logged in as "participant B"
     Then I have received the group creation request in my inbox
 
-  @JUC4.2 @ui
+  @JUC4.2
   Scenario: CE Participant does not complete all Group Creation Request mandatory fields
     Given I have opted to request a new group
     When I leave the mandatory fields blank
