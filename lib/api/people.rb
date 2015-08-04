@@ -42,6 +42,24 @@ class People < Request
     }
   end
 
+  def self.get_people_page(username, cookies)
+    RestClient.get(ENV['base_url'] + '/people/' + username,{:cookie => Request.create_cookie(cookies), :content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return response
+    }
+  end
+
+  def self.post_ir_activity_comments(incident_id, cookies)
+    payload ='{"originalIDs":[],"timestamp":0,"fullContent":true,"pageSize":5}'
+
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/activity-stream/fillinthegaps/11111/' + incident_id, payload, {:cookie => Request.create_cookie(cookies), :content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+
+      return response
+    }
+  end
+
 end
 
 

@@ -1,54 +1,40 @@
 Given /^a participant has raised an anonymous incident report in a group I follow in my connections stream$/ do
-  switch_users('participant A')
+  switch_user('participant A')
 
-  visit_and_benchmark CustomGroupPage, :using_params => {:id => @test_config_set[:private_group]} do | customgroup |
-    customgroup.follow unless customgroup.following_element.exists?
-  end
+  Follow.post_follow_group('2009', @browser.cookies.to_a)
 
   switch_user('participant B')
 
   @subject = TitleCreator.create_title_for('incident')
 
-  payload = IncidentReportPayload.new(@subject, false, 'Lorem ipsumy goodness', 'random', {:type => 'private group'}, '', true).payload
+  payload = IncidentReportPayload.new(@subject, false, 'Lorem ipsumy goodness', 'random', {:type => 'space'}, '', true).payload
   response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
   @incident_id = response['redirect'][/[0-9]+/,0]
   @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end
 
 Then /^I can verify the incident report is marked anonymous in my connection stream$/ do
-  switch_users('participant A')
+  switch_user('participant A')
 
-  visit_and_benchmark ActivityPage do |act|
-    act.connections_stream
-    @incident_report = act.incident_report_element
-    act.wait_until do
-      act.header.include? 'Connections Stream'
-    end
-  end
+  response = Feeds.get_activity(@browser.cookies.to_a)
+  container = Nokogiri::HTML.parse(response).css('.j-act-content')[0].to_s
 
-  !fail 'Not marked with anonymous avatar' unless @incident_report.html.to_s.include? 'anonymous-avatar'
-  !fail 'Not marked as anonymous' unless @incident_report.text.include? 'Anonymous'
-  !fail 'Username visible' if @incident_report.text.include? @test_config_set[:user_2_name]
+  fail 'Not marked with anonymous avatar' unless container.include? 'anonymous-avatar'
+  fail 'Not marked as anonymous' unless container.include? 'Anonymous'
+  fail 'Username visible' if container.include? @test_config_set[:user_2_name]
 end
 
 Then /^I am not able to view their identity on the comment in their activity stream$/ do
-  visit_and_benchmark PeoplePage, :using_params => {:id => @test_config_set[:user_2_name]}
-  on(UserOneProfilePage).activity
-  on(UserOneActivityStreamPage).show_all
-  on(UserOneActivityStreamPage).wait_until do
-    on(UserOneActivityStreamPage).comment?
-  end
-
-  !fail 'Not marked as anonymous' unless on(UserOneActivityStreamPage).comment.include? 'Anonymous'
-  !fail 'Username visible' if on(UserOneActivityStreamPage).comment.include? @test_config_set[:user_1_name]
+  response = People.post_ir_activity_comments(@incident_id, @browser.cookies.to_a)
+  fail('Comment not anonymous') unless JSON.parse(response)['items'][0]['activityUser']['username'] == 'Anonymous'
 end
 
 Then /^another user is not able to view it in my activity stream$/ do
   switch_user('participant B')
 
-  visit_and_benchmark PeoplePage, :using_params => {:id => @test_config_set[:user_1_name]}
+  response = People.get_people_page(@test_config_set[:user_1_name], @browser.cookies.to_a)
 
-  !fail 'Anonymous content visible' unless @browser.html.to_s.include? 'Anonymous'
+  fail('Incident report found in activity stream') if response.include? @subject
 end
 
 Then /^I can see the incident in my activity stream$/ do
@@ -75,7 +61,7 @@ When /^"([^"]*)" creates a new piece of content for the group$/ do |user|
 
   @subject = TitleCreator.create_title_for('incident')
 
-  payload = IncidentReportPayload.new(@subject, false, 'Lorem ipsumy goodness', 'amber', {:type => 'specific place', :id => @id}, '', true).payload
+  payload = IncidentReportPayload.new(@subject, false, 'Lorem ipsumy goodness', 'amber', {:type => 'specific space', :id => @id}, '', true).payload
   CreateContent.create_incident_report(payload, @browser.cookies.to_a)
 end
 
