@@ -1,44 +1,65 @@
 Then /^I can use Jive search to find the anonymous incident report$/ do
-  visit_and_benchmark AdvancedSearchPage do | search |
-    search.search_query = @subject
-    search.submit_search
-    search.search_results_element.exists?
-  end
+  20.times do
+    response = Search.get_content_only_search(@subject.gsub(' ', '+'), @browser.cookies.to_a)
+    response_parsed = JSON.parse(response.split('.\';')[1])
 
-  fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
+    if response_parsed['list'].length >= 1
+      raise 'Subject not found in list' unless response_parsed['list'][0]['subject'] == @subject
+
+      break
+    else
+      sleep(1)
+    end
+  end
 end
 
 Then /^I can use the spotlight search to find the incident report by ID$/ do
-  on(GlobalNav).verify_spotlight_search_result_exists_for_incident_id(@incident_id, @subject)
+  20.times do
+    response = Search.get_spotlight_content(@incident_id, @browser.cookies.to_a)
+    response_parsed = JSON.parse(response.split('.\';')[1])
+
+    if response_parsed['list'].length >= 1
+      raise 'Subject not found in list' unless response_parsed['list'][0]['subject'] == @subject
+
+      break
+    else
+      sleep(1)
+    end
+  end
+
 end
 
 Then /^I am not able to view their identity on the comment when I search for the incident report$/ do
-  visit_and_benchmark AdvancedSearchPage do | search |
-    search.show_incident_reports
-    search.search_query = @subject
+  20.times do
+    response = Search.get_content_only_search(@subject.gsub(' ', '+'), @browser.cookies.to_a)
+    response_parsed = JSON.parse(response.split('.\';')[1])
 
-    search.wait_until do
-      search.submit_search
-      search.search_results_element.exists?
+    if response_parsed['list'].length >= 1
+      comment_response = Comment.get_ir_comments(response_parsed['list'][0]['id'], @browser.cookies.to_a)
+      raise 'Comment not anonymous' unless Nokogiri::HTML.parse(comment_response).css('.guest').text == 'Anonymous'
+
+      break
+    else
+      sleep(1)
     end
-
-    fail 'Content not visible or created' unless @browser.html.to_s.include? @subject
-
-    search.top_result
   end
-
-  on(IncidentReportSummaryPage).wait_until do
-    on(IncidentReportSummaryPage).title_element.exists?
-  end
-
-  !fail 'Not marked as anonymous' unless on(IncidentReportSummaryPage).avatar_element.exists?
-  !fail 'Username visible' if on(IncidentReportSummaryPage).first_comment.include? @test_config_set[:user_1_name]
 end
 
 Given /^I have used spotlight search to search for a participant$/ do
-  on(GlobalNav).verify_spotlight_search_result_exists @test_config_set[:user_2_name]
+  20.times do
+    response = Search.get_spotlight_people(@test_config_set[:user_2_name], @browser.cookies.to_a)
+    response_parsed = JSON.parse(response.split('.\';')[1])
+
+    if response_parsed['list'].length >= 1
+      @response = response_parsed
+
+      break
+    else
+      sleep(1)
+    end
+  end
 end
 
 Then /^details for that participant are returned by Jive search$/ do
-  fail 'User not visible' unless @browser.html.to_s.include? @test_config_set[:user_2_name]
+  fail 'User not visible' unless @response['list'][0]['displayName'] == @test_config_set[:user_2_name]
 end

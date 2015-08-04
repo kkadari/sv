@@ -15,9 +15,9 @@ end
 
 Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymously)?$/ do |anonymous|
   if anonymous
-    payload = CommentPayload.new('<body><p>A new comment</p></body>',true).payload
+    payload = CommentPayload.new('<body><p>A new comment</p></body>', false).payload
   else
-    payload = CommentPayload.new('<body><p>A new comment</p></body>',false).payload
+    payload = CommentPayload.new('<body><p>A new comment</p></body>', true).payload
   end
 
   Comment.post_ir_comment(@incident_id, payload, @browser.cookies.to_a)
