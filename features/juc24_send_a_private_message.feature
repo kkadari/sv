@@ -1,4 +1,4 @@
-@JUC24 @manual @ui
+@JUC24 @manual
 Feature: JUC24 - Send a Private Message
 
   @JUC24.1 @CISP-155
