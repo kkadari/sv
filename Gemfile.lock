@@ -129,7 +129,7 @@ DEPENDENCIES
   activesupport
   ci_reporter
   ci_reporter_rspec
-  cucumber
+  cucumber (= 2.0.0)
   faker
   headless
   nokogiri
