@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'cucumber', '2.0.0'
+gem 'cucumber', '2.0.2'
 gem 'rspec'
 gem 'page-object', '1.0.3'
 gem 'faker'
