@@ -6,8 +6,5 @@ class PreferencesPage
 
   button(:save,:name => 'save')
   select_list(:timezone, :id => 'jive-timezone')
-  
-  def change_timezone_to(value)
 
-  end
 end

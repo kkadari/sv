@@ -14,14 +14,25 @@ Given /^a participant has raised an anonymous incident report in a group I follo
 end
 
 Then /^I can verify the incident report is marked anonymous in my connection stream$/ do
-  switch_user('participant A')
+  5.times do |i|
+    begin
+      switch_user('participant A')
 
-  response = Feeds.get_activity(@browser.cookies.to_a)
-  container = Nokogiri::HTML.parse(response).css('.j-act-content')[0].to_s
+      response = Feeds.get_activity(@browser.cookies.to_a)
+      container = Nokogiri::HTML.parse(response).css('.j-act-content')[0].to_s
 
-  fail 'Not marked with anonymous avatar' unless container.include? 'anonymous-avatar'
-  fail 'Not marked as anonymous' unless container.include? 'Anonymous'
-  fail 'Username visible' if container.include? @test_config_set[:user_2_name]
+      fail 'Not marked with anonymous avatar' unless container.include? 'anonymous-avatar'
+      fail 'Not marked as anonymous' unless container.include? 'Anonymous'
+      fail 'Username visible' if container.include? @test_config_set[:user_2_name]
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Then /^I am not able to view their identity on the comment in their activity stream$/ do

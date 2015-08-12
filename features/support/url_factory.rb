@@ -9,7 +9,7 @@ module UrlFactory
   end
 
   def homepage
-    ENV['base_url'] + '/activity'
+    ENV['base_url'] + '/'
   end
 
   def welcomepage
@@ -17,7 +17,7 @@ module UrlFactory
   end
 
   def spacepage
-    ENV['base_url'] + "/community/#{/.*/}"
+    ENV['base_url'] + '/community/getting-started'
   end
 
   def inboxpage

@@ -27,11 +27,22 @@ When(/^I navigate to the feeds page as "([^"]*)"$/) do |user|
 end
 
 Then /^I am informed that "([^"]*)" has updated their profile$/ do |user|
-  user_profile = TestConfig.return_profile(user)
+  5.times do |i|
+    begin
+      user_profile = TestConfig.return_profile(user)
 
-  html_doc = Nokogiri::HTML(@response)
+      html_doc = Nokogiri::HTML(@response)
 
-  fail('User updated feed item missing') unless html_doc.css('.j-act-g-item').text.strip.include?(user_profile[:username] + ' updated profile information')
+      fail('User updated feed item missing') unless html_doc.css('.j-act-g-item').text.strip.include?(user_profile[:username] + ' updated profile information')
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Given /^I have navigated to the edit profile privacy page as "([^"]*)"$/ do |user|

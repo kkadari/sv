@@ -65,14 +65,23 @@ When /^I mention "([^"]*)" in a comment on a comment$/ do |user|
 end
 
 Then /^I will receive a notification that I have been mentioned in a comment$/ do
-  sleep(2) # Wait a couple of seconds for Jive to process the notification
+  5.times do |i|
+    begin
+      response = Inbox.get_inbox(@browser.cookies.to_a)
 
-  response = Inbox.get_inbox(@browser.cookies.to_a)
+      notification = Nokogiri::HTML.parse(response).css('.j-act-unread')[0].text
 
-  notification = Nokogiri::HTML.parse(response).css('.j-act-unread')[0].text
-
-  fail('Notification that you were mentioned was not found') unless notification.include? 'mentioned you in'
-  fail('Notification is a mention but doesn\t match the subject created for this test') unless notification.include? @subject
+      fail('Notification that you were mentioned was not found') unless notification.include? 'mentioned you in'
+      fail('Notification is a mention but doesn\t match the subject created for this test') unless notification.include? @subject
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Given /^I have mentioned "([^"]*)" on a uploaded document comment as "([^"]*)"$/ do |user1, user2|

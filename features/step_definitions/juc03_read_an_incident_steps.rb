@@ -19,13 +19,23 @@ Then /^I as an admin can view the anonymous incident report$/ do
 end
 
 Then /^I can search for the incident report by ID and view the incident report$/ do
-  sleep(4) # We wait 4 seconds to allow for the Jive search to catch up with the newly created IR
+  5.times do |i|
+    begin
+      search_response = Search.get_content_only_search(@incident_id, @browser.cookies.to_a)
 
-  search_response = Search.get_content_only_search(@incident_id, @browser.cookies.to_a)
+      fail('Incident report not found in search results') unless search_response.include? @incident_id
 
-  fail('Incident report not found in search results') unless search_response.include? @incident_id
+      Content.get_ir(@incident_id, @browser.cookies.to_a)
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
 
-  Content.get_ir(@incident_id, @browser.cookies.to_a)
+  end
 end
 
 Then /^I can not find the incident report in search if I am not in that group$/ do

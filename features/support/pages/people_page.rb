@@ -8,4 +8,6 @@ class PeoplePage
 
   text_area(:search, :name => 'query')
 
+  elements(:username, :link, :class => 'jive-username-link')
+
 end

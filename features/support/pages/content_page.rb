@@ -10,5 +10,6 @@ class ContentPage
   link(:polls, :text => 'Polls')
   link(:incident_reports, :text => 'Incident Reports')
   links(:content_items, :css => '#j-browse-item-grid a')
+  elements(:full_content, :div, :css => '.browse-detail-div-ihm-padded')
 
 end
