@@ -19,6 +19,7 @@ class ProfilePrivacyPayload
         'profile[5007].effectiveSecurityLevelID' => '1005',
         'profile[5002].effectiveSecurityLevelID' => '1001',
         'profile[5010].effectiveSecurityLevelID' => '1001',
+        'profile[5012].effectiveSecurityLevelID' => '1001',
         'imageSecurityLevelID' => '1005',
         'creationDateSecurityLevelID' => '1005',
         'lastLoginSecurityLevelID' => '1001',
@@ -30,5 +31,4 @@ class ProfilePrivacyPayload
         :multipart => true
     }
   end
-
 end
