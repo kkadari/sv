@@ -42,7 +42,6 @@ Then /^I am informed that "([^"]*)" has updated their profile$/ do |user|
         fail(e)
       end
     end
-
   end
 end
 

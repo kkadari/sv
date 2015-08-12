@@ -1,4 +1,5 @@
-Feature: Comments on an uploaded file
+@JUC38
+Feature: JUC38 - Comments on an uploaded file
 #JUC38.1: Participant comments on an Uploaded File
 #JUC38.2: Participant comments on a comment on an Uploaded File
 #JUC38.3: Author of the comment mentions another Participant
