@@ -34,11 +34,20 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
 end
 
 Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|
-  sleep(5) # We wait a few seconds to let Jive process the Inbox
-
-  if anonymously
-    response = Inbox.get_inbox(@browser.cookies.to_a)
-    fail 'Author visible' unless Nokogiri::HTML.parse(response).css('.j-js-act-content > div > div').text.include? 'Anonymous mentioned you in ' + @subject
+  5.times do |i|
+    begin
+      if anonymously
+        response = Inbox.get_inbox(@browser.cookies.to_a)
+        fail 'Author visible' unless Nokogiri::HTML.parse(response).css('.j-js-act-content > div > div').text.include? 'Anonymous mentioned you in ' + @subject
+      end
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
   end
 end
 
