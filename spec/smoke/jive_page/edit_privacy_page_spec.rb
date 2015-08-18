@@ -32,15 +32,15 @@ describe 'Edit privacy page' do
   end
 
   it 'should return a 200 when posting an update to privacy' do
-    response = Profile.get_edit_privacy_profile(@user_profile[:user_id], @authorisation)
+    response = Profile.get_edit_privacy_profile(@id, @authorisation)
     @token = Nokogiri::HTML(response).css('input[name*="edit.profile.security"]')[0]['value']
 
     @name_level = '100' + (2 * rand(3) + 1).to_s
 
-    payload = ProfilePrivacyPayload.new(@name_level, 'stephaniek%40surevine', @id, @token)
+    payload = ProfilePrivacyPayload.new(@name_level, 'stephaniek%40surevine', @id, @token).payload
 
     RestClient.post(ENV['base_url'] + '/edit-profile-security.jspa',payload,{:cookie => @authorisation,:content_type => 'application/x-www-form-urlencoded'}){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      fail('Failed with ' + response.code.to_s) if response.code != 302
     }
   end
 
