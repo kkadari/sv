@@ -32,13 +32,23 @@ Given /^I mention "([^"]*)" in a normal comment on an incident report$/ do |user
 end
 
 When /^I navigate to my inbox as "([^"]*)"$/ do |user|
-  switch_user(user)
-  sleep(2)
+  5.times do |i|
+    begin
+      switch_user(user)
 
-  response = Inbox.get_inbox(@browser.cookies.to_a)
+      response = Inbox.get_inbox(@browser.cookies.to_a)
 
-  @message_id = Nokogiri::HTML.parse(response).at('.j-act-unread')['data-objectid']
-  @comment_id = response.scan(/reports\/#{@message_id}#comment-[0-9]*/)[0].split('-')[1]
+      @message_id = Nokogiri::HTML.parse(response).at('.j-act-unread')['data-objectid']
+      @comment_id = response.scan(/reports\/#{@message_id}#comment-[0-9]*/)[0].split('-')[1]
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Then /^I will have received a notification that I was mentioned in an incident report$/ do
