@@ -77,10 +77,20 @@ When /^"([^"]*)" creates a new piece of content for the group$/ do |user|
 end
 
 Then /^I will see the recently created content in my connections stream as "([^"]*)"$/ do |user|
-  switch_user(user)
-  sleep(2) # We have to sleep a couple of seconds to allow Jive to catch up and update the users activity stream *sigh*
+  5.times do |i|
+    begin
+      switch_user(user)
 
-  response = Feeds.get_activity(@browser.cookies.to_a)
+      response = Feeds.get_activity(@browser.cookies.to_a)
 
-  fail('Newly created content not found in content stream') unless Nokogiri::HTML.parse(response).css('.j-act-content')[0].text.include? @subject
+      fail('Newly created content not found in content stream') unless Nokogiri::HTML.parse(response).css('.j-act-content')[0].text.include? @subject
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
