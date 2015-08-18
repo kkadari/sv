@@ -18,9 +18,20 @@ When /^I attempt to view a discussion that has recently been deleted$/ do
 end
 
 Then /^the system displays a 'Not Found' error message$/ do
-  switch_user('participant A')
+  5.times do |i|
+    begin
+      switch_user('participant A')
 
-  Content.get_message(@discussion_id, @browser.cookies.to_a, 404)
+      Content.get_message(@discussion_id, @browser.cookies.to_a, 404)
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 ######## SMOKE TEST STEPS ########
