@@ -1,7 +1,6 @@
 require 'rspec'
 require 'nokogiri'
 require 'page-object'
-require 'data_magic'
 require 'require_all'
 require 'rest-client'
 require 'faker'
