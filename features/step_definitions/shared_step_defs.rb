@@ -8,7 +8,7 @@ Given /^I have raised? (?:a|an) (red|amber|green|white) incident report( anonymo
   @location = location
 
   payload = IncidentReportPayload.new(@subject, false, 'Lorem ipsumy goodness', @marking, {:type => @location}, '', anonymous).payload
-  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
+  response = CreateContent.create_incident_report(payload, $authorisation)
   @incident_id = response['redirect'][/[0-9]+/,0]
   @incident_url = UrlFactory.incidentreportsummaryparampage + response['redirect']
 end
@@ -20,7 +20,7 @@ Then /^I? (?:can|have)? (?:comment|commented) on the incident report( anonymousl
     payload = CommentPayload.new('<body><p>A new comment</p></body>', true).payload
   end
 
-  Comment.post_ir_comment(@incident_id, payload, @browser.cookies.to_a)
+  Comment.post_ir_comment(@incident_id, payload, $authorisation)
 end
 
 Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?( anonymously)? in? (?:the|a) (community|private group|secret group|space)$/ do |marking, question, anonymous, location|
@@ -29,7 +29,7 @@ Given /^I have created? (?:a|an) (red|amber|green|white) discussion( question)?(
   @location = location
 
   payload = DiscussionPayload.new(@subject, question, 'Lorem ipsumy goodness', @marking, {:type => @location}, '', anonymous).payload
-  response = CreateContent.create_discussion(payload, @browser.cookies.to_a)
+  response = CreateContent.create_discussion(payload, $authorisation)
   @discussion_id = response['redirect'][/[0-9]+/,0]
 end
 
@@ -37,7 +37,7 @@ Then /^my inbox shows I have been mentioned( anonymously)?$/ do |anonymously|
   5.times do |i|
     begin
       if anonymously
-        response = Inbox.get_inbox(@browser.cookies.to_a)
+        response = Inbox.get_inbox($authorisation)
         fail 'Author visible' unless Nokogiri::HTML.parse(response).css('.j-js-act-content > div > div').text.include? 'Anonymous mentioned you in ' + @subject
       end
       break
@@ -55,14 +55,14 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   @subject = TitleCreator.create_title_for('poll')
   @marking = marking
 
-  response1 = CreateContent.get_create_poll(@browser.cookies.to_a)
+  response1 = CreateContent.get_create_poll($authorisation)
   poll_id = Nokogiri::HTML.parse(response1).css('input[name="pollID"]')[0]['value']
 
-  response2 = CreateContent.get_poll_choice(poll_id, @browser.cookies.to_a)
+  response2 = CreateContent.get_poll_choice(poll_id, $authorisation)
   choice = JSON.parse(response2)['id']
 
   payload = PollPayload
-                .new(@browser.cookies.to_a,
+                .new($authorisation,
                      poll_id,
                      choice,
                      @subject,
@@ -71,13 +71,13 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
                      'Auto choice ',
                      {:type => location}).payload
 
-  response = CreateContent.post_create_poll(payload, @browser.cookies.to_a)
+  response = CreateContent.post_create_poll(payload, $authorisation)
 
   @poll_id = JSON.parse(response)['redirect'].scan(/polls\/[0-9]*/)[0].gsub('polls/','')
 end
 
 Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|
-  response = Content.get_message(@discussion_id, @browser.cookies.to_a)
+  response = Content.get_message(@discussion_id, $authorisation)
 
   title = Nokogiri::HTML.parse(response).css('.js-original-header > h1').text
   fail 'Content not visible or created' unless title.include? @subject
@@ -89,7 +89,7 @@ Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|
 end
 
 Then /^I can verify the anonymous identifiers have been added to the discussion$/ do
-  response = Content.get_message(@discussion_id, @browser.cookies.to_a)
+  response = Content.get_message(@discussion_id, $authorisation)
 
   title = Nokogiri::HTML.parse(response).css('.js-original-header > h1').text
   fail 'Content not visible or created' unless title.include? @subject
@@ -108,19 +108,19 @@ Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private
                      @marking,
                      'test1, test2, test3').payload
 
-  response = CreateContent.post_blog(payload, @browser.cookies.to_a)
+  response = CreateContent.post_blog(payload, $authorisation)
   @blog_url = JSON.parse(response.body)['redirect']
 end
 
 Then /^I can edit the anonymous incident report$/ do
-  response = EditContent.get_edit_ir(@incident_id, @browser.cookies.to_a)
+  response = EditContent.get_edit_ir(@incident_id, $authorisation)
   token = Nokogiri::HTML.parse(response).css('input[name="jive.token.content.incidentReport.create"]')[0]['value']
 
   payload = EditIrPayload.new(token, @incident_id, '=edited= ' + @subject, 'Updated IR>', 'red', {:type => 'community'}).payload
 
-  EditContent.put_edit_ir(@incident_id, payload, @browser.cookies.to_a)
+  EditContent.put_edit_ir(@incident_id, payload, $authorisation)
 
-  ir = Content.get_ir(@incident_id, @browser.cookies.to_a)
+  ir = Content.get_ir(@incident_id, $authorisation)
   title = Nokogiri::HTML.parse(ir).css('.jive-content > header > h1').text
 
   fail 'Content not updated' unless title.include? '=edited= ' + @subject
@@ -137,10 +137,10 @@ Given /^I am viewing an uploaded document I have recently created$/ do
                      'red',
                      'test.jpg').payload
 
-  response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  response = CreateContent.post_document(payload, $authorisation)
   @doc_id = response.scan(/DOC-[0-9]*/)[0]
 
-  Content.get_document(@doc_id, @browser.cookies.to_a)
+  Content.get_document(@doc_id, $authorisation)
 end
 
 ######### SMOKE TEST #########

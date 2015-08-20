@@ -1,7 +1,7 @@
 Then /^as an admin I can view the anonymous discussion$/ do
   switch_user('admin')
 
-  response = Content.get_message(@discussion_id, @browser.cookies.to_a)
+  response = Content.get_message(@discussion_id, $authorisation)
 
   title = Nokogiri::HTML.parse(response).css('.js-original-header > h1').text
   fail 'Content not visible or created' unless title.include? @subject
@@ -11,10 +11,10 @@ When /^I attempt to view a discussion that has recently been deleted$/ do
   switch_user('admin')
 
   payload = DiscussionPayload.new('Discussion for deletion', false, 'Lorem ipsumy goodness', 'amber', {:type => 'community'}, '', false).payload
-  response = CreateContent.create_discussion(payload, @browser.cookies.to_a)
+  response = CreateContent.create_discussion(payload, $authorisation)
   @discussion_id = response['redirect'][/[0-9]+/,0]
 
-  DeleteContent.delete_discussion(@discussion_id, @browser.cookies.to_a)
+  DeleteContent.delete_discussion(@discussion_id, $authorisation)
 end
 
 Then /^the system displays a 'Not Found' error message$/ do
@@ -22,7 +22,7 @@ Then /^the system displays a 'Not Found' error message$/ do
     begin
       switch_user('participant A')
 
-      Content.get_message(@discussion_id, @browser.cookies.to_a, 404)
+      Content.get_message(@discussion_id, $authorisation, 404)
       break
     rescue => e
       if i < 5

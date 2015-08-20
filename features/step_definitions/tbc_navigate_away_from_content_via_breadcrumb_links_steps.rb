@@ -3,14 +3,14 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
 
   @subject = TitleCreator.create_title_for('poll')
 
-  response1 = CreateContent.get_create_poll(@browser.cookies.to_a)
+  response1 = CreateContent.get_create_poll($authorisation)
   poll_id = Nokogiri::HTML.parse(response1).css('input[name="pollID"]')[0]['value']
 
-  response2 = CreateContent.get_poll_choice(poll_id, @browser.cookies.to_a)
+  response2 = CreateContent.get_poll_choice(poll_id, $authorisation)
   choice = JSON.parse(response2)['id']
 
   payload = PollPayload
-                .new(@browser.cookies.to_a,
+                .new($authorisation,
                      poll_id,
                      choice,
                      @subject,
@@ -19,11 +19,11 @@ Given /^I have navigated away from a poll using the breadcrumb links$/ do
                      'Option ',
                      {:type => 'community'}).payload
 
-  response = CreateContent.post_create_poll(payload, @browser.cookies.to_a)
+  response = CreateContent.post_create_poll(payload, $authorisation)
 
   poll_id = JSON.parse(response)['redirect'].scan(/polls\/[0-9]*/)[0].gsub('polls/','')
 
-  @response = Content.get_poll(poll_id, @browser.cookies.to_a)
+  @response = Content.get_poll(poll_id, $authorisation)
 end
 
 Then /I am able to view more polls in a related container$/ do
@@ -35,10 +35,10 @@ Given /^I am viewing an incident report$/ do
   subject = TitleCreator.create_title_for('incident')
 
   payload = IncidentReportPayload.new(subject, false, 'Lorem ipsumy goodness', 'white', {:type => 'community'}, '', false).payload
-  response = CreateContent.create_incident_report(payload, @browser.cookies.to_a)
+  response = CreateContent.create_incident_report(payload, $authorisation)
   incident_id = response['redirect'][/[0-9]+/,0]
 
-  @response = Content.get_ir(incident_id, @browser.cookies.to_a)
+  @response = Content.get_ir(incident_id, $authorisation)
 end
 
 Then /^I am able to view more incident reports in a related container$/ do
@@ -50,10 +50,10 @@ Given /^I am viewing a discussion$/ do
   subject = TitleCreator.create_title_for('discussion')
 
   payload = DiscussionPayload.new(subject, false, 'Lorem ipsumy goodness', 'white', {:type => 'community'}, '', false).payload
-  response = CreateContent.create_discussion(payload, @browser.cookies.to_a)
+  response = CreateContent.create_discussion(payload, $authorisation)
   discussion_id = response['redirect'][/[0-9]+/,0]
 
-  @response = Content.get_message(discussion_id, @browser.cookies.to_a)
+  @response = Content.get_message(discussion_id, $authorisation)
 end
 
 Then /^I am able to view more discussion in a related container$/ do
