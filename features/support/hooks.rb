@@ -28,12 +28,15 @@ end
 
 Before('@sit, @ui') do
   using_ui = true
+  @test_config_set = config
 
   driver = BrowserFactory.create
   @browser = driver
-  @test_config_set = config
-
   @browser.goto(ENV['base_url'] + '/welcome')
+end
+
+Before('~@sit, ~@ui') do
+  @test_config_set = config
 end
 
 After('@sit, @ui') do |scenario|
