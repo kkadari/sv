@@ -15,8 +15,19 @@ When /^I create a "([^"]*)" group$/ do |group_type|
 end
 
 Then /^the group is created successfully$/ do
-  response = Places.get_places($authorisation)
-  fail('Group does not exist') unless response.include? @group_name
+  5.times do |i|
+    begin
+      response = Places.get_places($authorisation)
+      fail('Group does not exist') unless response.include? @group_name
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Then /^I am displayed the group overview page$/ do

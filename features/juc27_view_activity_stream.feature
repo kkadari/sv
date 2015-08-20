@@ -9,7 +9,7 @@ Feature: JUC27 - View an Activity Stream
     Then another user is not able to view it in my activity stream
 
   @JUC27.1 @CISP-258
-	Scenario: Activity stream doesn't leak an anonymously edited incident report
+  Scenario: Activity stream doesn't leak an anonymously edited incident report
 	Given I have logged in as "participant A"
 	And I have raised a green incident report anonymously in a private group
 	And I can edit the anonymous incident report

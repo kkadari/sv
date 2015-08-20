@@ -3,7 +3,18 @@ When /^I opt to delete the uploaded document$/ do
 end
 
 Then /^the document is confirmed as deleted$/ do
-  Content.get_document(@doc_id, $authorisation, 404)
+  5.times do |i|
+    begin
+      Content.get_document(@doc_id, $authorisation, 404)
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Then /^can no longer be searched for$/ do

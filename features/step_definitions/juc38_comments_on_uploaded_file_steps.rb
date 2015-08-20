@@ -6,9 +6,20 @@ When /^I submit a comment for the uploaded document$/ do
 end
 
 Then /^the comment is submitted successfully and displayed under the uploaded file$/ do
-  response = Comment.get_document_comments(@id, $authorisation)
+  5.times do |i|
+    begin
+      response = Comment.get_document_comments(@id, $authorisation)
 
-  fail('Comment not found in document') unless Nokogiri::HTML.parse(response).css('.jive-rendered-content').text.include? 'Auto comment for document'
+      fail('Comment not found in document') unless Nokogiri::HTML.parse(response).css('.jive-rendered-content').text.include? 'Auto comment for document'
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Given /^I am viewing an uploaded document that has a comment$/ do

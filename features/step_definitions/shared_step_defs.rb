@@ -113,17 +113,28 @@ Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private
 end
 
 Then /^I can edit the anonymous incident report$/ do
-  response = EditContent.get_edit_ir(@incident_id, $authorisation)
-  token = Nokogiri::HTML.parse(response).css('input[name="jive.token.content.incidentReport.create"]')[0]['value']
+  5.times do |i|
+    begin
+      response = EditContent.get_edit_ir(@incident_id, $authorisation)
+      token = Nokogiri::HTML.parse(response).css('input[name="jive.token.content.incidentReport.create"]')[0]['value']
 
-  payload = EditIrPayload.new(token, @incident_id, '=edited= ' + @subject, 'Updated IR>', 'red', {:type => 'community'}).payload
+      payload = EditIrPayload.new(token, @incident_id, '=edited= ' + @subject, 'Updated IR>', 'red', {:type => 'community'}).payload
 
-  EditContent.put_edit_ir(@incident_id, payload, $authorisation)
+      EditContent.put_edit_ir(@incident_id, payload, $authorisation)
 
-  ir = Content.get_ir(@incident_id, $authorisation)
-  title = Nokogiri::HTML.parse(ir).css('.jive-content > header > h1').text
+      ir = Content.get_ir(@incident_id, $authorisation)
+      title = Nokogiri::HTML.parse(ir).css('.jive-content > header > h1').text
 
-  fail 'Content not updated' unless title.include? '=edited= ' + @subject
+      fail 'Content not updated' unless title.include? '=edited= ' + @subject
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Given /^I am viewing an uploaded document I have recently created$/ do
