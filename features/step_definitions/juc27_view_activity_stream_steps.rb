@@ -36,8 +36,19 @@ Then /^I can verify the incident report is marked anonymous in my connection str
 end
 
 Then /^I am not able to view their identity on the comment in their activity stream$/ do
-  response = People.post_ir_activity_comments(@incident_id, $authorisation)
-  fail('Comment not anonymous') unless JSON.parse(response)['items'][0]['activityUser']['username'] == 'Anonymous'
+  5.times do |i|
+    begin
+      response = People.post_ir_activity_comments(@incident_id, $authorisation)
+      fail('Comment not anonymous') unless JSON.parse(response)['items'][0]['activityUser']['username'] == 'Anonymous'
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Then /^another user is not able to view it in my activity stream$/ do
