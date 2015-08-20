@@ -13,9 +13,9 @@ module PageFactoryOverride
   end
 
   def switch_user user
-    if @using_ui
+    if @browser
       @browser.cookies.delete 'jive.security.context'
-      @browser.cookies.add 'jive.security.context', $browsers[user]
+      @browser.cookies.add 'jive.security.context', $browsers[user].split('jive.security.context=')[1]
     else
       $authorisation = $browsers[user]
     end
