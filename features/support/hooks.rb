@@ -36,7 +36,7 @@ Before('@sit, @ui') do
   @browser.goto(ENV['base_url'] + '/welcome')
 end
 
-After do |scenario|
+After('@sit, @ui') do |scenario|
   if scenario.failed?
     embed_screenshot(scenario.name)
   end
