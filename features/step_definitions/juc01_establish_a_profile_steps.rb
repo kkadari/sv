@@ -63,11 +63,22 @@ When /^I make changes to my privacy details and save them$/ do
 end
 
 Then /^my privacy profile details are updated$/ do
-  response = Profile.get_edit_privacy_profile(@user_profile[:user_id], $authorisation)
+  5.times do |i|
+    begin
+      response = Profile.get_edit_privacy_profile(@user_profile[:user_id], $authorisation)
 
-  id =  Nokogiri::HTML(response).css('select[id="nameSecurityLevelID"] > option[selected="selected"]')[0]['value']
+      id =  Nokogiri::HTML(response).css('select[id="nameSecurityLevelID"] > option[selected="selected"]')[0]['value']
 
-  fail('Security level for name didn\'t update') unless id.include? @name_level
+      fail('Security level for name didn\'t update') unless id.include? @name_level
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Given /^I have navigated to the edit profile page as "([^"]*)"$/ do |user|

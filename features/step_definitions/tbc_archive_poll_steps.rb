@@ -1,10 +1,21 @@
 And /^I archive the poll$/ do
-  Archive.post_archive_poll(@poll_id, $authorisation)
+  5.times do |i|
+    begin
+      Archive.post_archive_poll(@poll_id, $authorisation)
 
-  poll = Content.get_poll(@poll_id, $authorisation)
-  archive = Nokogiri::HTML.parse(poll).css('#j-poll-ended').text
+      poll = Content.get_poll(@poll_id, $authorisation)
+      archive = Nokogiri::HTML.parse(poll).css('#j-poll-ended').text
 
-  fail 'Poll not archived' unless archive.include? 'This poll was archived on'
+      fail 'Poll not archived' unless archive.include? 'This poll was archived on'
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Then /^I can edit the poll and it remain archived$/ do

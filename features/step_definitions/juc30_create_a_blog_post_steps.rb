@@ -14,7 +14,18 @@ When /^I submit a comment for the blog post$/ do
 end
 
 Then /^the comment is posted to the blog post$/ do
-  response = Comment.get_blog_comments(@blog_id, $authorisation)
+  5.times do |i|
+    begin
+      response = Comment.get_blog_comments(@blog_id, $authorisation)
 
-  fail('Comment not added') unless response.include? 'Comment here'
+      fail('Comment not added') unless response.include? 'Comment here'
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
