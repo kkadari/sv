@@ -2,7 +2,7 @@ When /^I attempt to create an uploaded document with a word document attachment$
   @subject = TitleCreator.create_title_for('incident')
   payload = DocumentPayload.new(@subject, 'body content here', 'red', 'test.docx').payload
 
-  @response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  @response = CreateContent.post_document(payload, $authorisation)
 end
 
 Then /^the system validates the upload and creates the uploaded document$/ do
@@ -11,5 +11,5 @@ Then /^the system validates the upload and creates the uploaded document$/ do
 end
 
 Then /^I can then preview the uploaded document$/ do
-  Content.get_document(@doc_id, @browser.cookies.to_a)
+  Content.get_document(@doc_id, $authorisation)
 end

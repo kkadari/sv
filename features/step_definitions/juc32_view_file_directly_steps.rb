@@ -4,15 +4,15 @@ Given /^I am viewing an uploaded file as "([^"]*)"$/ do |user|
   @subject = TitleCreator.create_title_for('incident')
   payload = DocumentPayload.new(@subject, 'body content here', 'red', 'test.jpg').payload
 
-  response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  response = CreateContent.post_document(payload, $authorisation)
   @doc_id = response.scan(/DOC-[0-9]*/)[0]
 end
 
 When /^I select to download the attached file$/ do
-  response = Content.get_document(@doc_id, @browser.cookies.to_a)
+  response = Content.get_document(@doc_id, $authorisation)
   url = Nokogiri::HTML.parse(response).css('.jive-wiki-body-file-actions a')[1]['href']
 
-  RestClient.get(ENV['base_url'] + url,:cookie => Request.create_cookie(@browser.cookies.to_a)){|response|
+  RestClient.get(ENV['base_url'] + url,:cookie => Request.create_cookie($authorisation)){|response|
     fail('Failed with ' + response.code.to_s) if response.code != 200
 
     @response = response
@@ -29,12 +29,12 @@ Given /^there is an uploaded document that has been recently created$/ do
   @subject = TitleCreator.create_title_for('incident')
   payload = DocumentPayload.new(@subject, 'body content here', 'red', 'test.jpg').payload
 
-  response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  response = CreateContent.post_document(payload, $authorisation)
   @doc_id = response.scan(/DOC-[0-9]*/)[0]
 end
 
 When /^I navigate to the uploaded document directly$/ do
-  @response = Content.get_document(@doc_id, @browser.cookies.to_a)
+  @response = Content.get_document(@doc_id, $authorisation)
 end
 
 Then /^I am returned the uploaded document$/ do
@@ -49,14 +49,14 @@ Given /^there is an uploaded document that has been recently created for a secre
   @subject = TitleCreator.create_title_for('incident')
   payload = DocumentPayload.new(@subject, 'body content here', 'red', 'test.jpg', {:location => 'place'}).payload
 
-  response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  response = CreateContent.post_document(payload, $authorisation)
   @doc_id = response.scan(/DOC-[0-9]*/)[0]
 end
 
 When /^I attempt to view the uploaded document with a user that is not a member of the secret group$/ do
   switch_user('participant A')
 
-  @response = Content.get_document(@doc_id, @browser.cookies.to_a, 403)
+  @response = Content.get_document(@doc_id, $authorisation, 403)
 end
 
 Then /^I am returned a page informing me the document isn't available$/ do

@@ -2,13 +2,24 @@ When /^I submit a comment for the uploaded document$/ do
   @id = @doc_id.split('-')[1]
   payload = CommentPayload.new('Auto comment for document',true).payload
 
-  Comment.post_document_comment(@id, payload, @browser.cookies.to_a)
+  Comment.post_document_comment(@id, payload, $authorisation)
 end
 
 Then /^the comment is submitted successfully and displayed under the uploaded file$/ do
-  response = Comment.get_document_comments(@id, @browser.cookies.to_a)
+  5.times do |i|
+    begin
+      response = Comment.get_document_comments(@id, $authorisation)
 
-  fail('Comment not found in document') unless Nokogiri::HTML.parse(response).css('.jive-rendered-content').text.include? 'Auto comment for document'
+      fail('Comment not found in document') unless Nokogiri::HTML.parse(response).css('.jive-rendered-content').text.include? 'Auto comment for document'
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Given /^I am viewing an uploaded document that has a comment$/ do
@@ -17,15 +28,15 @@ Given /^I am viewing an uploaded document that has a comment$/ do
   @subject = TitleCreator.create_title_for('incident')
   payload = DocumentPayload.new(@subject, 'body content here', 'red', 'test.jpg').payload
 
-  response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  response = CreateContent.post_document(payload, $authorisation)
   @doc_id = response.scan(/DOC-[0-9]*/)[0]
   @id = @doc_id.split('-')[1]
 
   payload = CommentPayload.new('Initial comment for document',true).payload
-  Comment.post_document_comment(@id, payload, @browser.cookies.to_a)
+  Comment.post_document_comment(@id, payload, $authorisation)
 
-  Content.get_document(@doc_id, @browser.cookies.to_a)
-  @comment_response = Comment.get_document_comments(@id, @browser.cookies.to_a)
+  Content.get_document(@doc_id, $authorisation)
+  @comment_response = Comment.get_document_comments(@id, $authorisation)
 end
 
 When /^I submit a comment on the original comment$/ do
@@ -33,7 +44,7 @@ When /^I submit a comment on the original comment$/ do
 
   payload = CommentPayload.new('Auto comment for document',true, comment_id).payload
 
-  Comment.post_document_comment(@id, payload, @browser.cookies.to_a)
+  Comment.post_document_comment(@id, payload, $authorisation)
 end
 
 Given /^I am viewing an uploaded document that has multiple comments as "([^"]*)"$/ do |user|
@@ -42,15 +53,15 @@ Given /^I am viewing an uploaded document that has multiple comments as "([^"]*)
   @subject = TitleCreator.create_title_for('incident')
   payload = DocumentPayload.new(@subject, 'body content here', 'red', 'test.jpg').payload
 
-  response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  response = CreateContent.post_document(payload, $authorisation)
   @doc_id = response.scan(/DOC-[0-9]*/)[0]
   @id = @doc_id.split('-')[1]
 
   payload = CommentPayload.new('Initial comment for document',true).payload
-  Comment.post_document_comment(@id, payload, @browser.cookies.to_a)
+  Comment.post_document_comment(@id, payload, $authorisation)
 
-  Content.get_document(@doc_id, @browser.cookies.to_a)
-  @comment_response = Comment.get_document_comments(@id, @browser.cookies.to_a)
+  Content.get_document(@doc_id, $authorisation)
+  @comment_response = Comment.get_document_comments(@id, $authorisation)
 end
 
 When /^I mention "([^"]*)" in a comment on a comment$/ do |user|
@@ -61,13 +72,13 @@ When /^I mention "([^"]*)" in a comment on a comment$/ do |user|
 
   payload = CommentPayload.new('Auto mention comment for user2 ' + mention, true, comment_id).payload
 
-  Comment.post_document_comment(@id, payload, @browser.cookies.to_a)
+  Comment.post_document_comment(@id, payload, $authorisation)
 end
 
 Then /^I will receive a notification that I have been mentioned in a comment$/ do
   5.times do |i|
     begin
-      response = Inbox.get_inbox(@browser.cookies.to_a)
+      response = Inbox.get_inbox($authorisation)
 
       notification = Nokogiri::HTML.parse(response).css('.j-act-unread')[0].text
 
@@ -90,7 +101,7 @@ Given /^I have mentioned "([^"]*)" on a uploaded document comment as "([^"]*)"$/
   @subject = TitleCreator.create_title_for('incident')
   payload = DocumentPayload.new(@subject, 'body content here', 'red', 'test.jpg').payload
 
-  response = CreateContent.post_document(payload, @browser.cookies.to_a)
+  response = CreateContent.post_document(payload, $authorisation)
   @doc_id = response.scan(/DOC-[0-9]*/)[0]
   @id = @doc_id.split('-')[1]
 
@@ -98,10 +109,10 @@ Given /^I have mentioned "([^"]*)" on a uploaded document comment as "([^"]*)"$/
   mention = '<a class=\'jive_macro jive_macro_user\' href=\'javascript:;\' jivemacro=\'user\' ___default_attr=\'' + user[:user_id] + '\' data-objecttype=\'3\' data-orig-content=\'' + user[:username] + '\'>' + user[:username] + '</a>'
 
   payload = CommentPayload.new('Initial comment for document ' + mention,true).payload
-  Comment.post_document_comment(@id, payload, @browser.cookies.to_a)
+  Comment.post_document_comment(@id, payload, $authorisation)
 
-  Content.get_document(@doc_id, @browser.cookies.to_a)
-  @comment_response = Comment.get_document_comments(@id, @browser.cookies.to_a)
+  Content.get_document(@doc_id, $authorisation)
+  @comment_response = Comment.get_document_comments(@id, $authorisation)
 end
 
 When /^I additionally mention "([^"]*)" in the comment$/ do |user|
@@ -111,5 +122,5 @@ When /^I additionally mention "([^"]*)" in the comment$/ do |user|
   mention = '<a class=\'jive_macro jive_macro_user\' href=\'javascript:;\' jivemacro=\'user\' ___default_attr=\'' + user[:user_id] + '\' data-objecttype=\'3\' data-orig-content=\'' + user[:username] + '\'>' + user[:username] + '</a>'
   payload = UpdateCommentPayload.new('Edited comment to now mention ' + mention).payload
 
-  Comment.post_update_comment(comment_id, payload, @browser.cookies.to_a)
+  Comment.post_update_comment(comment_id, payload, $authorisation)
 end

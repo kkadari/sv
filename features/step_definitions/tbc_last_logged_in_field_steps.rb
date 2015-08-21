@@ -1,7 +1,7 @@
 When /^I navigate to the list view of people page$/ do
-  People.post_set_grid_view(@browser.cookies.to_a)
+  People.post_set_grid_view($authorisation)
 
-  @response = People.get_browse_people(@browser.cookies.to_a)
+  @response = People.get_browse_people($authorisation)
 end
 
 Then /^I will see the last logged in date for each person$/ do
@@ -11,7 +11,7 @@ end
 Then /^I can sort by last logged in date$/ do
   2.times do |i|
     begin
-      response = People.get_order_by_date(@browser.cookies.to_a)
+      response = People.get_order_by_date($authorisation)
 
       logged_in_dates = Nokogiri::HTML.parse(response).css('.j-td-lastloggedin')
 

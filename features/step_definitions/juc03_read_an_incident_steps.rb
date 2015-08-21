@@ -1,9 +1,9 @@
 Then /^I can not directly access the incident report if I am not in that group$/ do
-  Content.get_ir(@incident_id, @browser.cookies.to_a, 404)
+  Content.get_ir(@incident_id, $authorisation, 404)
 end
 
 Then /^I can view the anonymous incident report$/ do
-  response = Content.get_ir(@incident_id, @browser.cookies.to_a)
+  response = Content.get_ir(@incident_id, $authorisation)
 
   title = Nokogiri::HTML.parse(response).css('.jive-content > header > h1').text
 
@@ -11,7 +11,7 @@ Then /^I can view the anonymous incident report$/ do
 end
 
 Then /^I as an admin can view the anonymous incident report$/ do
-  response = Content.get_ir(@incident_id, @browser.cookies.to_a)
+  response = Content.get_ir(@incident_id, $authorisation)
 
   title = Nokogiri::HTML.parse(response).css('.anonymous-badge').to_s
 
@@ -21,11 +21,11 @@ end
 Then /^I can search for the incident report by ID and view the incident report$/ do
   5.times do |i|
     begin
-      search_response = Search.get_content_only_search(@incident_id, @browser.cookies.to_a)
+      search_response = Search.get_content_only_search(@incident_id, $authorisation)
 
       fail('Incident report not found in search results') unless search_response.include? @incident_id
 
-      Content.get_ir(@incident_id, @browser.cookies.to_a)
+      Content.get_ir(@incident_id, $authorisation)
       break
     rescue => e
       if i < 5
@@ -39,11 +39,11 @@ Then /^I can search for the incident report by ID and view the incident report$/
 end
 
 Then /^I can not find the incident report in search if I am not in that group$/ do
-  Content.get_ir(@incident_id, @browser.cookies.to_a, 404)
+  Content.get_ir(@incident_id, $authorisation, 404)
 end
 
 Then /^I will be able to view my recently created report$/ do
-  response = Content.get_ir(@incident_id, @browser.cookies.to_a)
+  response = Content.get_ir(@incident_id, $authorisation)
 
   tlp = Nokogiri::HTML.parse(response).css('.ihmbar').text
 

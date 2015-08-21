@@ -3,7 +3,7 @@ Given /^"([^"]*)" has updated their profile$/ do |user|
   user_profile = TestConfig.return_profile(user)
 
   # Before we post we grab the token from the edit profile page for our payload otherwise the post will fail
-  response = Profile.get_edit_profile(user_profile[:user_id], @browser.cookies.to_a)
+  response = Profile.get_edit_profile(user_profile[:user_id], $authorisation)
   @token = Nokogiri::HTML(response).css('input[name*="edit.profile."]')[0]['value']
 
   payload = ProfilePayload.new(
@@ -17,13 +17,13 @@ Given /^"([^"]*)" has updated their profile$/ do |user|
       @token
   ).payload
 
-  Profile.post_edit_profile(payload, @browser.cookies.to_a)
+  Profile.post_edit_profile(payload, $authorisation)
 end
 
 When(/^I navigate to the feeds page as "([^"]*)"$/) do |user|
   switch_user(user)
 
-  @response = Feeds.get_activity(@browser.cookies.to_a)
+  @response = Feeds.get_activity($authorisation)
 end
 
 Then /^I am informed that "([^"]*)" has updated their profile$/ do |user|
@@ -50,7 +50,7 @@ Given /^I have navigated to the edit profile privacy page as "([^"]*)"$/ do |use
 
   @user_profile = TestConfig.return_profile(user)
 
-  response = Profile.get_edit_privacy_profile(@user_profile[:user_id],@browser.cookies.to_a)
+  response = Profile.get_edit_privacy_profile(@user_profile[:user_id], $authorisation)
   @token = Nokogiri::HTML(response).css('input[name*="edit.profile.security"]')[0]['value']
 end
 
@@ -59,15 +59,26 @@ When /^I make changes to my privacy details and save them$/ do
 
   payload = ProfilePrivacyPayload.new(@name_level, @user_profile[:username], @user_profile[:user_id], @token).payload
 
-  Profile.post_edit_privacy_profile(payload,@browser.cookies.to_a)
+  Profile.post_edit_privacy_profile(payload, $authorisation)
 end
 
 Then /^my privacy profile details are updated$/ do
-  response = Profile.get_edit_privacy_profile(@user_profile[:user_id],@browser.cookies.to_a)
+  5.times do |i|
+    begin
+      response = Profile.get_edit_privacy_profile(@user_profile[:user_id], $authorisation)
 
-  id =  Nokogiri::HTML(response).css('select[id="nameSecurityLevelID"] > option[selected="selected"]')[0]['value']
+      id =  Nokogiri::HTML(response).css('select[id="nameSecurityLevelID"] > option[selected="selected"]')[0]['value']
 
-  fail('Security level for name didn\'t update') unless id.include? @name_level
+      fail('Security level for name didn\'t update') unless id.include? @name_level
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Given /^I have navigated to the edit profile page as "([^"]*)"$/ do |user|
@@ -76,7 +87,7 @@ Given /^I have navigated to the edit profile page as "([^"]*)"$/ do |user|
   @user_profile = TestConfig.return_profile(user)
 
   # Before we post we grab the token from the edit profile page for our payload otherwise the post will fail
-  response = Profile.get_edit_profile(@user_profile[:user_id], @browser.cookies.to_a)
+  response = Profile.get_edit_profile(@user_profile[:user_id], $authorisation)
   @token = Nokogiri::HTML(response).css('input[name*="edit.profile."]')[0]['value']
 end
 
@@ -98,16 +109,27 @@ When /^I make changes to my profiles details and save them$/ do
       @token
   ).payload
 
-  Profile.post_edit_profile(payload, @browser.cookies.to_a)
+  Profile.post_edit_profile(payload, $authorisation)
 end
 
 Then /^my profile details are updated$/ do
-  response = Profile.get_edit_profile(@user_profile[:user_id], @browser.cookies.to_a)
+  5.times do |i|
+    begin
+      response = Profile.get_edit_profile(@user_profile[:user_id], $authorisation)
 
-  html_doc = Nokogiri::HTML(response)
-  fail('Prefix not updated') unless html_doc.css('input[name="profile[5006].value"]').to_s.include?(@prefix)
-  fail('Phone 1 not updated') unless html_doc.css('input[name="profile[5009].phoneNumbers[0].phoneNumber"]').to_s.include?(@phone_1)
-  fail('Phone 2 not updated') unless html_doc.css('input[name="profile[5008].phoneNumbers[0].phoneNumber"]').to_s.include?(@phone_2)
-  fail('Email not updated') unless html_doc.css('input[name="profile[5007].emails[0].email"]').to_s.include?(@email)
-  fail('Sentence not updated') unless html_doc.css('textarea[name="profile[5002].value"]').to_s.include?(@sentence)
+      html_doc = Nokogiri::HTML(response)
+      fail('Prefix not updated') unless html_doc.css('input[name="profile[5006].value"]').to_s.include?(@prefix)
+      fail('Phone 1 not updated') unless html_doc.css('input[name="profile[5009].phoneNumbers[0].phoneNumber"]').to_s.include?(@phone_1)
+      fail('Phone 2 not updated') unless html_doc.css('input[name="profile[5008].phoneNumbers[0].phoneNumber"]').to_s.include?(@phone_2)
+      fail('Email not updated') unless html_doc.css('input[name="profile[5007].emails[0].email"]').to_s.include?(@email)
+      fail('Sentence not updated') unless html_doc.css('textarea[name="profile[5002].value"]').to_s.include?(@sentence)
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end

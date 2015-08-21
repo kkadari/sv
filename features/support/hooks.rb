@@ -3,7 +3,8 @@ require 'syntax'
 
 $browsers = {}
 
-driver = BrowserFactory.create
+driver = nil
+using_ui = false
 config = TestConfig.get_config_set
 
 ['participant A','participant B','admin'].each do |user|
@@ -25,28 +26,27 @@ config = TestConfig.get_config_set
   $browsers[user] = Login.do_login(@username,@password)
 end
 
-Before do
-  @browser = driver
+Before('@sit, @ui') do
+  using_ui = true
   @test_config_set = config
 
+  driver = BrowserFactory.create
+  @browser = driver
   @browser.goto(ENV['base_url'] + '/welcome')
 end
 
-AfterStep do
-  if ENV['browser'] != 'phantom'
-    load_secs = @browser.performance.summary[:response_time]/1000
-    puts "Step benchmark: #{load_secs} seconds."
-  end
+Before('~@sit, ~@ui') do
+  @test_config_set = config
 end
 
-After do |scenario|
+After('@sit, @ui') do |scenario|
   if scenario.failed?
     embed_screenshot(scenario.name)
   end
 end
 
 at_exit do
-  driver.close
+  driver.close if using_ui
 end
 
 private
@@ -61,7 +61,7 @@ def embed_screenshot(scenario_title)
   # the image file (from the wrong working DIR)
   # https://github.com/cucumber/cucumber/blob/v1.3.16/lib/cucumber/formatter/gherkin_formatter_adapter.rb#L86
   # Open fails and emits an error
-  # The workaround is to  create two images, one to satisfy the erroneous open and one
+  # The workaround is to create two images, one to satisfy the erroneous open and one
   # to embed in the HTML
   @browser.driver.save_screenshot("./screenshots/#{scenario_title}_screenshot.png")
 
