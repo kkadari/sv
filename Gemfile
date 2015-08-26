@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'rake'
 gem 'cucumber', '2.0.2'
 gem 'rspec'
 gem 'page-object', '1.0.3'
