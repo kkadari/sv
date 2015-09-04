@@ -55,6 +55,7 @@ end
 Then /^I can view the incident report$/ do
   on(IncidentReportSummaryPage).wait_until do
     on(IncidentReportSummaryPage).title?
+    on(IncidentReportSummaryPage).comment?
   end
 
   fail 'Title not visible' unless on(IncidentReportSummaryPage).title?
