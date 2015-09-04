@@ -83,6 +83,9 @@ Then /^I have received the group creation request in my inbox$/ do
       inbox.inbox_message?
     end
 
+    inbox.open_filter
+    inbox.filter_by_notificiation
+
     fail('Notification not received') unless inbox.inbox_message_element.text.include? 'stephaniek@surevine added you as a potential second owner for a group named \'Auto request for group\'.'
     fail('Notification description not correct') unless inbox.inbox_message_element.text.downcase.include? 'the group has the following description: description for the group'
 
