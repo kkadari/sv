@@ -80,7 +80,7 @@ Then /^I have received the group creation request in my inbox$/ do
     inbox.notifications
 
     inbox.wait_until do
-      inbox.inbox_message?
+      inbox.open_filter?
     end
 
     inbox.open_filter
