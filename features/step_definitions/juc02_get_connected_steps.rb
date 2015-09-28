@@ -47,10 +47,21 @@ When /^"([^"]*)" rejects the connection request$/ do |user|
 end
 
 Then /^"([^"]*)" will receive a notification that my request has not been accepted$/ do |user|
-  switch_user(user)
+  5.times do |i|
+    begin
+      switch_user(user)
 
-  response = Inbox.get_connections_inbox_message($authorisation)
-  fail('Follow rejection not received') unless JSON.parse(response.split(';',0)[1])['actionQueueList'][0]['templateData']['messageKey'].include? 'rejected_notification'
+      response = Inbox.get_connections_inbox_message($authorisation)
+      fail('Follow rejection not received') unless JSON.parse(response.split(';',0)[1])['actionQueueList'][0]['templateData']['messageKey'].include? 'rejected_notification'
+      break
+    rescue => e
+      if i < 5
+        sleep(1)
+      else
+        fail(e)
+      end
+    end
+  end
 end
 
 Then /^"([^"]*)" is not listed as a follower of "([^"]*)"$/ do |user1, user2|

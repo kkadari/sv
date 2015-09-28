@@ -9,7 +9,7 @@ module UrlFactory
   end
 
   def inboxpage
-    ENV['base_url'] + '/inbox'
+    ENV['base_url'] + '/inbox<%=params[:query]%>'
   end
 
   def activitypage

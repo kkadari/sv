@@ -20,5 +20,5 @@ class AdvancedSearchPage
 
   link(:top_result, :class => 'j-search-result-value')
   links(:all_result, :class => 'j-search-result')
-  elements(:result, :div, :class => 'j-result-content')
+  elements(:result, :div, :css => '.j-content-results .j-result-content')
 end
