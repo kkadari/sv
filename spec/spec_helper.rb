@@ -37,7 +37,6 @@ RSpec.configure do |config|
     }
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['group'] + ')',:cookie => @authorisation){|response|
-      puts ENV['group']
       @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
     }
   end
