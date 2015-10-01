@@ -8,7 +8,7 @@ describe 'Search page' do
                    '&directive=include_rtc&filter=search(lorem)'
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/search/contents' + query_string,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -16,7 +16,7 @@ describe 'Search page' do
     query_string = '?filter=search(stephanie)'
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/search/people' + query_string,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -24,7 +24,7 @@ describe 'Search page' do
     query_string = '?filter=search(test)'
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/search/places' + query_string,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 

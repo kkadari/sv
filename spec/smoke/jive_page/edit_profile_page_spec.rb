@@ -4,13 +4,13 @@ describe 'Edit profile page' do
 
   it 'should return a 200 when requesting the edit profile page' do
     RestClient.get(ENV['base_url'] + '/edit-profile!input.jspa?targetUser=' + @id,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
   it 'should return a 302 when sending a request to update the profile' do
     RestClient.get(ENV['base_url'] + '/edit-profile!input.jspa?targetUser=' + @id,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
 
       @token = response.body.scan(/edit.profile.[0-9]*" value=".*"/)[0].split('="')[1].gsub('"','')
     }
@@ -27,7 +27,7 @@ describe 'Edit profile page' do
     ).payload
 
     RestClient.post(ENV['base_url'] + '/edit-profile.jspa',payload,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 302
+      assert_code_and_body(response, 302)
     }
   end
 

@@ -17,7 +17,7 @@ describe 'Viewing content' do
     }
 
     RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -29,12 +29,12 @@ describe 'Viewing content' do
                        'test1, test2, test3').payload
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/blogPosts/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
       @payload = JSON.parse(response.body)
     }
 
     RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -53,7 +53,7 @@ describe 'Viewing content' do
     }
 
     RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -69,7 +69,7 @@ describe 'Viewing content' do
     }
 
     RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 

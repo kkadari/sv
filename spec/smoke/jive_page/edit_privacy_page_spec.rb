@@ -4,7 +4,7 @@ describe 'Edit privacy page' do
 
   it 'should return a 200 when the page is requested' do
     RestClient.get(ENV['base_url'] + '/edit-profile-security!input.jspa?targetUser=' + @id,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -27,7 +27,7 @@ describe 'Edit privacy page' do
               &edit.profile.security.' + @id + '=1434553331436-E86MJFLU04FXQ4BVVD5T4EBT2N9SOYM0'
 
     RestClient.post(ENV['base_url'] + '/preview-profile.jspa',payload,{:cookie => @authorisation,:content_type => 'application/x-www-form-urlencoded'}){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -40,7 +40,7 @@ describe 'Edit privacy page' do
     payload = ProfilePrivacyPayload.new(@name_level, 'stephaniek%40surevine', @id, @token).payload
 
     RestClient.post(ENV['base_url'] + '/edit-profile-security.jspa',payload,{:cookie => @authorisation,:content_type => 'application/x-www-form-urlencoded'}){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 302
+      assert_code_and_body(response, 302)
     }
   end
 

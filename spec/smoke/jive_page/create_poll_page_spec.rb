@@ -4,7 +4,7 @@ describe 'Create poll page' do
 
   it 'should return a 200 when requesting the create poll page' do
     RestClient.get(ENV['base_url'] + '/poll/create.jspa?sr=cmenu&containerType=14&containerID=1',:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -14,7 +14,7 @@ describe 'Create poll page' do
     }
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls/' + @poll_id + '/pollOptions','',:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -36,7 +36,7 @@ describe 'Create poll page' do
                       {:type => 'community'}).payload
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls',payload,{:cookie => @authorisation,:content_type => 'application/json; charset=UTF-8'}){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 end

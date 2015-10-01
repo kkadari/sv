@@ -19,13 +19,13 @@ describe 'Rating widget' do
 
   it 'should return a 200 when posting a document rating' do
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/rating/11111/' + @document_id,'4',{:cookie => @authorisation, :content_type => 'application/x-www-form-urlencoded'}){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
   it 'should return a 200 when requesting the current document rating' do
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/rating/11111/' + @document_id,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 

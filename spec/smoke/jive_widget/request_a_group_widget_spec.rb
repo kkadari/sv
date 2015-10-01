@@ -11,7 +11,7 @@ describe 'Request a group widget' do
     }
 
     RestClient.get('http:' + @path,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -21,7 +21,7 @@ describe 'Request a group widget' do
     payload = '[{"method":"gadgets.metadata","id":"gadgets.metadata","params":{"container":"default","ids":["http://localhost:8080/resources/grouprequestapp/app.xml"],"fields":["iframeUrls","modulePrefs.*","needsTokenRefresh","userPrefs.*","views.preferredHeight","views.preferredWidth","expireTimeMs","responseTimeMs","rpcServiceIds","tokenTTL"],"language":"en","country":"US","userId":"@viewer","groupId":"@self"}}]'
 
     RestClient.post(ENV['base_url'] + path,payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 

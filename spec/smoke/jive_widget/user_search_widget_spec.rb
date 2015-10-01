@@ -20,19 +20,19 @@ describe 'User search widget' do
            '&entitlement=VIEW'
 
     RestClient.get(ENV['base_url'] + path,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
   it 'should return a 200 when requesting the user search widget' do
     RestClient.get(ENV['base_url'] + '/user-autocomplete-modal.jspa?multiple=true&canInvitePartners=true',:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
   it 'should return a 200 when retrieving details about a specific user' do
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/users/' + @id + '?objectID=3611&objectType=2&entitlement=VIEW',:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -51,7 +51,7 @@ describe 'User search widget' do
            '&sortOrder=1'
 
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/users/' + @id + '/browse' + path,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 

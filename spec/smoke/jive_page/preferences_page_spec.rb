@@ -4,13 +4,13 @@ describe 'Preferences page' do
 
   it 'should return a 200 when requested' do
     RestClient.get(ENV['base_url'] + '/user-preferences!input.jspa',:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
   it 'should return a 200 when requesting the hidden activity rules' do
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/exclusion/list',:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -31,7 +31,7 @@ describe 'Preferences page' do
               '&save=Save'
 
     RestClient.post(ENV['base_url'] + '/user-preferences.jspa',payload,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
