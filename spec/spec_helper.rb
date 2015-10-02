@@ -48,4 +48,10 @@ RSpec.configure do |config|
   config.after(:each) do
     puts 'Test time: ' + (Time.now - @t1).to_s
   end
+
+  def assert_code_and_body(response, status_code)
+    fail('Error detected in response body') if response.body.include?('The item does not exist. It may have been deleted.') || response.body.include?(' An unexpected error has occurred')
+    fail('Failed with ' + response.code.to_s) if response.code != status_code
+  end
+
 end

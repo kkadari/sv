@@ -24,7 +24,7 @@ describe 'View poll page' do
     }
 
     RestClient.get(ENV['base_url'] + '/' + @payload['redirect'],:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 

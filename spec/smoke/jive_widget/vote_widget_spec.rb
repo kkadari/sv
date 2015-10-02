@@ -6,7 +6,7 @@ describe 'Vote comment widget' do
     payload = 'ratingType=like&voteValue=1'
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/acclaim/2/3611/addvote',payload,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
@@ -14,7 +14,7 @@ describe 'Vote comment widget' do
     payload = 'ratingType=like'
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/acclaim/2/3611/removevote',payload,:cookie => @authorisation){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
+      assert_code_and_body(response, 200)
     }
   end
 
