@@ -6,22 +6,22 @@ Feature: Email configuration
     When I set the system property "notifications.email.content.allowhtml" to "<value>"
     And I send a direct message to "participant A"
     Then "participant A" will receive a <type> email notification
-#
-#    Examples:
-#    | value | type       |
-#    | false | plain text |
-#    | true  | HTML       |
+
+  Examples:
+    | value | type       |
+    | false | plain text |
+    | true  | HTML       |
 
   Scenario: A user disables extended notifications globally
     Given I have logged in as "admin"
     When I set the system property "notifications.email.content.extended" to "<value>"
     And I send a direct message to "participant A"
     Then "participant A" will receive a plain text email notification
-#
-#    Examples:
-#    | value |
-#    | true  |
-#    | false |
+
+  Examples:
+    | value |
+    | true  |
+    | false |
 
   Scenario: A user alters the amount of text in the content settings
     Given I have logged in as "admin"

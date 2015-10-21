@@ -8,10 +8,10 @@ Feature: Email attribution
     Then the members of the private group will be informed by email notification that the content has been created
     And the author attribution in the email will be hidden
 
-    Examples:
-      | colour |
-      | red    |
-      | white  |
+  Examples:
+    | colour |
+    | red    |
+    | white  |
 
   Scenario Outline: Encrypted notifications show the author based on the TLP setting
     Given the TLP email extension setting is set to <colour>
@@ -20,7 +20,7 @@ Feature: Email attribution
     Then the members of the private group will be informed by email notification that the content has been created
     And the author attribution in the email will be <outcome>
 
-    Examples:
-      | colour | outcome |
-      | red    | hidden  |
-      | white  | shown   |
+  Examples:
+    | colour | outcome |
+    | red    | hidden  |
+    | white  | shown   |

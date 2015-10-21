@@ -8,10 +8,10 @@ Feature: Email container handling
     Then the members of the private group will be informed by email notification that the content has been created
     And the private group it was created for will be hidden
 
-    Examples:
-      | colour |
-      | red    |
-      | white  |
+  Examples:
+    | colour |
+    | red    |
+    | white  |
 
   Scenario Outline: Encrypted notifications show the container based on the TLP setting
     Given the tlp email extension setting is set to <colour>
@@ -20,10 +20,10 @@ Feature: Email container handling
     Then the members of the private group will be informed by email notification that the content has been created
     And the private group it was created for will be <outcome>
 
-    Examples:
-      | colour | outcome |
-      | red    | hidden  |
-      | white  | shown   |
+  Examples:
+    | colour | outcome |
+    | red    | hidden  |
+    | white  | shown   |
 
   Scenario Outline: Only notifications related to group containers show a group
     Given the tlp email extension setting is set to red
@@ -32,7 +32,7 @@ Feature: Email container handling
     Then a notification email will be sent
     And the container it was created for will be <outcome>
 
-    Examples:
+  Examples:
     | container          | outcome |
     | the CiSP community | hidden  |
     | a private group    | shown   |

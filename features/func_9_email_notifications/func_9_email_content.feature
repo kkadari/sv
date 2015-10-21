@@ -6,7 +6,7 @@ Feature: Sample content in email
     Then the members of the private group will be informed by email notification that the content has been created
     And the private group it was created for will be <outcome>
 
-    Examples:
-      | colour | outcome |
-      | red    | shown   |
-      | white  | hidden  |
+  Examples:
+    | colour | outcome |
+    | red    | shown   |
+    | white  | hidden  |

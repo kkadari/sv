@@ -7,10 +7,10 @@ Feature: Clickable links in email
     And I receive a direct message from "participant B"
     Then I will receive an email notification with clickable links
 
-    Examples:
-      | type       |
-      | HTML       |
-      | plain text |
+  Examples:
+    | type       |
+    | HTML       |
+    | plain text |
 
   Scenario Outline: User disables clickable links
     Given I have logged in as "particpant A"
@@ -18,7 +18,7 @@ Feature: Clickable links in email
     And I receive a direct message from "participant B"
     Then I will receive an email notification with links that are not clickable
 
-    Examples:
-      | type       |
-      | HTML       |
-      | plain text |
+  Examples:
+    | type       |
+    | HTML       |
+    | plain text |

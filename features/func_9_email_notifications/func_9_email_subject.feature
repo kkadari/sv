@@ -6,7 +6,7 @@ Feature: Email subject
     Then the members of the private group will be informed by email notification that the content has been created
     And they will be able to view the title of blog post
 
-    Examples:
-      | colour |
-      | red    |
-      | white  |
+  Examples:
+    | colour |
+    | red    |
+    | white  |

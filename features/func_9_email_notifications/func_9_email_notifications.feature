@@ -5,26 +5,26 @@ Feature: Email notifications
     Given I have created a new <content_type> for a private group
     Then the members of the private group will be informed by email notification that the content has been created
 
-    Examples:
-      | content_type    |
-      | blog post       |
-      | incident report |
-      | discussion      |
-      | poll            |
-      | uploaded file   |
+  Examples:
+    | content_type    |
+    | blog post       |
+    | incident report |
+    | discussion      |
+    | poll            |
+    | uploaded file   |
 
   Scenario Outline: Notification triggered when a user comments on a piece of content
     Given I have created a new <content_type> for a private group
     When I have leave a comment on the new content
     Then the members of the private group will be informed by email notification that a new comment has been created
 
-    Examples:
-      | content_type    |
-      | blog post       |
-      | incident report |
-      | discussion      |
-      | poll            |
-      | uploaded file   |
+  Examples:
+    | content_type    |
+    | blog post       |
+    | incident report |
+    | discussion      |
+    | poll            |
+    | uploaded file   |
 
   Scenario: Notification triggered when a user sends a direct message to another user
     Given I have created a message for "participant A"
@@ -36,13 +36,12 @@ Feature: Email notifications
     And I opt to announce this move on all feeds
     Then the members of the private group will be informed by email notification that the content has been moved to a new group
 
-    Examples:
-      | content_type    |
-      | blog post       |
-      | discussion      |
-      | poll            |
-      | uploaded file   |
-
+  Examples:
+    | content_type    |
+    | blog post       |
+    | discussion      |
+    | poll            |
+    | uploaded file   |
 
   Scenario: Notification triggered when a user requests approval of an uploaded document
     Given I have logged in as "participant A"
@@ -55,10 +54,10 @@ Feature: Email notifications
     When "participant B" <actions> the uploaded document
     Then I am informed by email notification that my uploaded document has been <outcome>
 
-    Examples:
-      | actions  | outcome  |
-      | approves | accepted |
-      | reject   | rejected |
+  Examples:
+    | actions  | outcome  |
+    | approves | accepted |
+    | reject   | rejected |
 
   Scenario: Notification triggered when a user requests to follow another user
     Given I have logged in as "participant A"
@@ -72,10 +71,10 @@ Feature: Email notifications
     When "participant B" <actions> the follow request
     Then I am informed by email notification the my uploaded document has been <outcome>
 
-    Examples:
-      | actions  | outcome  |
-      | approves | accepted |
-      | reject   | rejected |
+  Examples:
+    | actions  | outcome  |
+    | approves | accepted |
+    | reject   | rejected |
 
   Scenario: Notification triggered when a user mentions another user
     Given I have logged in as "participant A"
@@ -87,12 +86,12 @@ Feature: Email notifications
     When I mark the the document as <action>
     Then the members of the private group will be informed by email notification that the content has been marked as <action>
 
-    Examples:
-      | action            |
-      | final             |
-      | success           |
-      | outdated          |
-      | marked for action |
+  Examples:
+    | action            |
+    | final             |
+    | success           |
+    | outdated          |
+    | marked for action |
 
   Scenario: Notification triggered when a user invites another user to a group
     Given I have logged in as "admin"
@@ -110,10 +109,10 @@ Feature: Email notifications
     When I <action> the request to join the private group as "admin"
     Then "participant A" will be informed by email notification that their request to join the private group has been <outcome>
 
-    Examples:
-      | action   | outcome  |
-      | approves | accepted |
-      | reject   | rejected |
+  Examples:
+    | action   | outcome  |
+    | approves | accepted |
+    | reject   | rejected |
 
   Scenario: Notification triggered when a user endorses another user with a new skill
     Given I have logged in as "participant A"
