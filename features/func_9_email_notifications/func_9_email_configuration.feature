@@ -14,7 +14,7 @@ Feature: Email configuration
 
   Scenario: A user disables extended notifications globally
     Given I have logged in as "admin"
-    When I set the system property "notifications.email.content.extended" to "<value>"
+    When I set the system property "notifications.email.content.extended" to <value>
     And I send a direct message to "participant A"
     Then "participant A" will receive a plain text email notification
 
