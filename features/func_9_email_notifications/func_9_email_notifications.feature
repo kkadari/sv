@@ -48,7 +48,7 @@ Feature: Email notifications
     When I have created an uploaded document that requires approval from "participant B"
     Then "participant B" will be informed by email notification that a document requires approval
 
-  Scenario: Notification triggered when a user moderates approval of an uploaded document
+  Scenario Outline: Notification triggered when a user moderates approval of an uploaded document
     Given I have logged in as "participant A"
     And I have requested "participant B" approve an uploaded document I have created
     When "participant B" <actions> the uploaded document
