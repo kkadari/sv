@@ -11,5 +11,5 @@ class DiscussionSummaryPage
 
   div(:delete_container, :class => 'jive-modal')
   button(:confirm_delete, :id => 'deletebutton')
-      
+
 end

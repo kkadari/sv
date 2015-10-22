@@ -3,7 +3,7 @@ class AdvancedSearchPage
   extend UrlFactory
 
   page_url(advsearchpage)
-  
+
   text_field(:search_query, :id => 'j-search-input')
   button(:submit_search, :class => 'js-search-submit')
 

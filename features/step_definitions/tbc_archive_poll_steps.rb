@@ -23,6 +23,6 @@ Then /^I can edit the poll and it remain archived$/ do
   token = Nokogiri::HTML.parse(response1).css('input[name="jive.token.content.poll.edit"]')[0]['value']
 
   payload = EditPollPayload.new(token, @poll_id, '=edited= ' + @subject, 'Updated content', 'Updated choices').payload
-  
+
   EditContent.put_edit_poll(@poll_id, payload, $authorisation)
 end

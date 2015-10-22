@@ -29,4 +29,3 @@ describe 'Activity page' do
   end
 
 end
-

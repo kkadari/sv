@@ -3,7 +3,7 @@ class CreateGroupPage
   extend UrlFactory
 
   page_url(creategrouppage)
-  
+
   text_field(:name, :id => 'jive-socialgroup-name-input')
   text_area(:description, :id => 'jive-socialgroup-desc')
   text_field(:tags, :id => 'jive-tags')

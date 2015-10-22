@@ -15,7 +15,7 @@ module UrlFactory
   def activitypage
     ENV['base_url'] + '/activity'
   end
-  
+
   def contentpage
     ENV['base_url'] + '/content'
   end

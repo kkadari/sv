@@ -6,7 +6,7 @@ class ViewUploadedDocumentPage
   extend UrlFactory
 
   page_url(viewuploadeddocumentpage)
-  
+
   link(:comment, :text => 'Add a comment')
   div(:document, :class => 'jive-rendered-content')
 

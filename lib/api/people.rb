@@ -69,5 +69,3 @@ class People < Request
   end
 
 end
-
-

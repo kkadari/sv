@@ -9,7 +9,7 @@ class TitleCreator
         $subject = "My thoughts on #{system} #{attack} attacks"
       when 'poll'
         $subject = "What is more important to users of #{system} systems?"
-      when 'incident' 
+      when 'incident'
         $subject = "We just experienced a #{attack} attack on our #{system} system"
       when 'discussion'
         $subject = "Let's talk about #{attack} attacks on #{system} systems"

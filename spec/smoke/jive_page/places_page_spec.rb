@@ -15,4 +15,3 @@ describe 'Places view page' do
   end
 
 end
-

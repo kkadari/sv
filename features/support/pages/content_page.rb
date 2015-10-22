@@ -3,7 +3,7 @@ class ContentPage
   extend UrlFactory
 
   page_url(contentpage)
-  
+
   link(:blogs, :text => 'Blog Posts')
   link(:documents, :text => 'Documents')
   link(:discussions, :text => 'Discussions')
