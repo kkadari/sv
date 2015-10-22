@@ -1,7 +1,7 @@
 @JUC5
 Feature: JUC5 - Create a Sub-community
 
-  @JUC5.2 @CISP-380
+  @JUC5.2
   Scenario Outline: Facilitator creates a new group
     Given I have opted to create a new group as "admin"
     When I create a "<type>" group
@@ -13,7 +13,7 @@ Feature: JUC5 - Create a Sub-community
       | private |
       | secret  |
 
-  @JUC5.2 @CISP-380
+  @JUC5.2
   Scenario Outline: Participant deletes a group
     Given I have logged in as "admin"
     And I create a "<type>" group with content

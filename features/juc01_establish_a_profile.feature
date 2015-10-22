@@ -1,4 +1,3 @@
-@JUC1.1 @JUC1.1 @CISP-355
 Feature: JUC1 - Establish a Profile
 
   Scenario: Participant B observes that Participant B has updated their profile
