@@ -20,6 +20,7 @@ class ProfilePrivacyPayload
         'profile[5002].effectiveSecurityLevelID' => '1001',
         'profile[5010].effectiveSecurityLevelID' => '1001',
         'profile[5012].effectiveSecurityLevelID' => '1001',
+        'profile[5013].effectiveSecurityLevelID' => '1001',
         'imageSecurityLevelID' => '1005',
         'creationDateSecurityLevelID' => '1005',
         'lastLoginSecurityLevelID' => '1001',
