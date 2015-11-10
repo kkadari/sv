@@ -5,7 +5,7 @@ When /^I navigate to the list view of people page$/ do
 end
 
 Then /^I will see the last logged in date for each person$/ do
-  fail('Last logged in date not found') unless Nokogiri::HTML.parse(@response).css('.j-td-lastloggedin')[0].text.include? 'EST 2015'
+  fail('Last logged in date not found') unless Nokogiri::HTML.parse(@response).css('.j-td-lastloggedin')[0].text.include? 'GMT'
 end
 
 Then /^I can sort by last logged in date$/ do
