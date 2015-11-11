@@ -29,6 +29,7 @@ describe 'Viewing content' do
                        'test1, test2, test3').payload
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/blogPosts/',payload,{:cookie => @authorisation,:content_type => 'application/json'}){|response|
+      puts response
       assert_code_and_body(response, 200)
       @payload = JSON.parse(response.body)
     }
