@@ -33,11 +33,13 @@ RSpec.configure do |config|
     end
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['space'] + ')',:cookie => @authorisation){|response|
-      @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+      @space_id = 11907 #N2SPACE
+          # JSON.parse(response.body.split('\';')[1])['list'][0]['id']
     }
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['group'] + ')',:cookie => @authorisation){|response|
-      @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+      @group_id = 15710 #accept-test
+          # JSON.parse(response.body.split('\';')[1])['list'][0]['id']
     }
   end
 
@@ -51,6 +53,7 @@ RSpec.configure do |config|
 
   def assert_code_and_body(response, status_code)
     fail('Error detected in response body') if response.body.include?('The item does not exist. It may have been deleted.') || response.body.include?(' An unexpected error has occurred')
+    fail('Error deteched in response body') if response.body.include?('The request could not be validated as originating from within the SBS application')
     fail('Failed with ' + response.code.to_s) if response.code != status_code
   end
 

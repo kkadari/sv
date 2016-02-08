@@ -18,6 +18,7 @@ Given /^"([^"]*)" has updated their profile$/ do |user|
   ).payload
 
   Profile.post_edit_profile(payload, $authorisation)
+
 end
 
 When(/^I navigate to the feeds page as "([^"]*)"$/) do |user|

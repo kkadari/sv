@@ -41,6 +41,11 @@ namespace :features do
     t.profile = 'standard'
     t.cucumber_opts = 'browser=firefox -t @wip'
   end
+
+  Cucumber::Rake::Task.new(:timd) do |t|
+    t.profile = 'standard'
+    t.cucumber_opts = 'browser=firefox -t @timd'
+  end
 end
 
 task :integration => 'ci:setup:rspec' do
