@@ -15,6 +15,7 @@ RSpec.configure do |config|
 
     # Lets start building params
 
+    RestClient.log = 'stdout'
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username'],:cookie => @authorisation){ |response|
       @id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
@@ -23,7 +24,8 @@ RSpec.configure do |config|
       @user_2_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
 
-    20.times do |i|
+    for i in 17..18
+    #20.times do |i| #why? only need stream ID's 11 & 12.
       RestClient.get(ENV['base_url'] + '/api/core/v3/streams/' + i.to_s,:cookie => @authorisation){|response|
         if response.code == 200
           @stream_id = i.to_s
@@ -33,13 +35,11 @@ RSpec.configure do |config|
     end
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['space'] + ')',:cookie => @authorisation){|response|
-      @space_id = 11907 #N2SPACE
-          # JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+      @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id'] #2003 = Support Space on SV Ref V2
     }
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['group'] + ')',:cookie => @authorisation){|response|
-      @group_id = 15710 #accept-test
-          # JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+      @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id'] #15710 #accept-test
     }
   end
 
@@ -52,8 +52,7 @@ RSpec.configure do |config|
   end
 
   def assert_code_and_body(response, status_code)
-    fail('Error detected in response body') if response.body.include?('The item does not exist. It may have been deleted.') || response.body.include?(' An unexpected error has occurred')
-    fail('Error deteched in response body') if response.body.include?('The request could not be validated as originating from within the SBS application')
+    fail('Error detected in response body') if response.body.include?('The item does not exist. It may have been deleted.') || response.body.include?(' An unexpected error has occurred') || response.body.include?('The request could not be validated as originating from within the SBS application')
     fail('Failed with ' + response.code.to_s) if response.code != status_code
   end
 
