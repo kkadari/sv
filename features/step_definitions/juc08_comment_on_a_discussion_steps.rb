@@ -11,7 +11,7 @@ Then /^I can comment on the comment( anonymously)?$/ do |anonymous|
   response = Content.get_message(@discussion_id, $authorisation)
   thread_id = Nokogiri::HTML.parse(response).css('input[name="jive.token.name"]')[0]['value'].gsub('message.post.','')
   comment_id = Nokogiri::HTML.parse(response).css('.reply')[0]['data-object-id']
-
+  puts comment_id + ' - getting intermittent failures on this.'
   payload = MessageCommentPayload.new(thread_id, comment_id, @subject, 'Auto test comment for comment', anonymous).payload
 
   Comment.post_message_comment(thread_id, comment_id, payload, $authorisation)
