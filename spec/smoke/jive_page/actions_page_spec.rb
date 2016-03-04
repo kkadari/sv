@@ -4,7 +4,6 @@ describe 'Actions page' do
 
   it 'should return a 200 when requesting the actions view' do
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/action-queue/initializeView?tabID=jive-aq-marked',:cookie => @authorisation){|response|
-      puts respond.body.to_s
       assert_code_and_body(response, 200)
     }
   end

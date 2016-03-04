@@ -15,7 +15,7 @@ RSpec.configure do |config|
 
     # Lets start building params
 
-    RestClient.log = 'stdout'
+    #RestClient.log = 'stdout' - uncomment to debug
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username'],:cookie => @authorisation){ |response|
       @id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
@@ -24,7 +24,7 @@ RSpec.configure do |config|
       @user_2_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
 
-    for i in 17..18
+    for i in 11..12 #17-18 for SV Ref V3
     #20.times do |i| #why? only need stream ID's 11 & 12.
       RestClient.get(ENV['base_url'] + '/api/core/v3/streams/' + i.to_s,:cookie => @authorisation){|response|
         if response.code == 200
