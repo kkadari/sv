@@ -14,7 +14,7 @@ RSpec.configure do |config|
     @authorisation = Login.do_login(ENV['username'], ENV['password'])
 
     # Lets start building params
-    RestClient.log = 'stdout' #uncomment to debug
+    # RestClient.log = 'stdout' #uncomment to debug
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username'],:cookie => @authorisation){ |response|
       @id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }

@@ -9,17 +9,20 @@ describe 'Edit privacy page' do
   end
 
   it 'should return a 200 when requesting profile preview' do
-    payload = 'nameSecurityLevelID=1005
-              &emailSecurityLevelID=1005
-              &profile%5B5004%5D.effectiveSecurityLevelID=1001
-              &profile%5B5005%5D.effectiveSecurityLevelID=1005
-              &profile%5B5006%5D.effectiveSecurityLevelID=1005
-              &profile%5B5009%5D.effectiveSecurityLevelID=1005
-              &profile%5B5008%5D.effectiveSecurityLevelID=1005
-              &profile%5B5007%5D.effectiveSecurityLevelID=1005
-              &profile%5B5002%5D.effectiveSecurityLevelID=1001
-              &imageSecurityLevelID=1005
-              &creationDateSecurityLevelID=1005
+    payload = 'nameSecurityLevelID=1001
+              &emailSecurityLevelID=1001
+              &profile[5004].effectiveSecurityLevelID=1001
+              &profile[5005].effectiveSecurityLevelID=1005
+              &profile[5006].effectiveSecurityLevelID=1005
+              &profile[5007].effectiveSecurityLevelID=1005
+              &profile[5008].effectiveSecurityLevelID=1005
+              &profile[5009].effectiveSecurityLevelID=1005
+              &profile[5010].effectiveSecurityLevelID=1001
+              &profile[5011].effectiveSecurityLevelID=1001
+              &profile[5012].effectiveSecurityLevelID=1005
+              &profile[5013].effectiveSecurityLevelID=1001
+              &imageSecurityLevelID=1003
+              &creationDateSecurityLevelID=1001
               &lastLoginSecurityLevelID=1001
               &username=stephaniek%40surevine
               &targetUser=' + @id + '
