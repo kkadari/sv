@@ -15,6 +15,7 @@ class BlogPayload < Payload
       "publishBar": {
           "visibility": "all",
           "commentStatus": "2",
+          "personalBlogName": "' + ENV['username'] + '\'s Blog",
           "blogPublishOption": false,
           "publishDate": { }
       },
