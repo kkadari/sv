@@ -17,10 +17,10 @@ describe 'Get started page' do
       assert_code_and_body(response, 200)
     }
 
-    payload = '{"metricName":"AE_VC_MODAL_SELECT_VALUE_CASE","metricValues":{"valueCase":"ob"}}'
+    payload = '{"metricName":"AE_VC_MODAL","metricValues":{"selection":"continue"}}'
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/metric',payload,{:cookie => @authorisation, :content_type => 'application/json'}){|response|
-      assert_code_and_body(response, 200)
+      assert_code_and_body(response, 204)
     }
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/onboarding/valueCase/ob','',{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
