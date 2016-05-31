@@ -23,7 +23,8 @@ describe 'WYSIWYG editor' do
   end
 
   it 'should return a 200 when calling the details of a mention added in the editor' do
-    path = '/__services/v2/rest/emention/restrictedView?editingObjectID=1006&editingObjectType=2020&entitlement=VIEW_CONTENT&mentionedObjectType=3&mentionedObjectID=2024'
+    # 2020 = user container,
+    path = '/__services/v2/rest/emention/restrictedView?editingObjectID=1963&editingObjectType=11111&entitlement=VIEW_CONTENT&mentionedObjectType=3&mentionedObjectID=2004'
 
     RestClient.get(ENV['base_url'] + path,:cookie => @authorisation){|response|
       assert_code_and_body(response, 200)
