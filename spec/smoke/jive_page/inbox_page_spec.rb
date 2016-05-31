@@ -85,17 +85,19 @@ describe 'Inbox page' do
     }
   end
 
-  it 'should return a 200 when following a message in inbox' do
-    RestClient.post(ENV['base_url'] + '/__services/v2/rest/stream-config/11/objects','[{"objectType":102,"objectID":1221}]',{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
-      assert_code_and_body(response, 200)
-    }
-  end
+  # Commenting out as this (appears to be) deprecated in Jive 8
+  #it 'should return a 200 when following a message in inbox' do
+  #  RestClient.post(ENV['base_url'] + '/__services/v2/rest/stream-config/11/objects','[{"objectType":102,"objectID":1221}]',{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
+  #    assert_code_and_body(response, 200)
+  #  }
+  #end
 
-  it 'should return a 200 when stopping following a message in inbox' do
-    RestClient.post(ENV['base_url'] + '/__services/v2/rest/stream-config/11/objects/remove','[{"objectType":102,"objectID":1221}]',{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
-      assert_code_and_body(response, 200)
-    }
-  end
+  # Commenting out as this (appears to be) deprecated in Jive 8
+  #it 'should return a 200 when stopping following a message in inbox' do
+  #  RestClient.post(ENV['base_url'] + '/__services/v2/rest/stream-config/11/objects/remove','[{"objectType":102,"objectID":1221}]',{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
+  #    assert_code_and_body(response, 200)
+  #  }
+  #end
 
   it 'should return a 200 when getting fullcontent of a message' do
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/activity-stream/fullcontent/102/1221',:cookie => @authorisation){|response|
