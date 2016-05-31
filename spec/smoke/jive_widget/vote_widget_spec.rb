@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe 'Vote comment widget' do
 
-  it 'should return a 200 when voting on a comment' do
+  it 'should return a 200 when voting on a comment' do #which comment??
     payload = 'ratingType=like&voteValue=1'
 
-    RestClient.post(ENV['base_url'] + '/__services/v2/rest/acclaim/2/3611/addvote',payload,:cookie => @authorisation){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/acclaim/38/1043/addvote',payload,:cookie => @authorisation){|response|
       assert_code_and_body(response, 200)
     }
   end
@@ -13,7 +13,7 @@ describe 'Vote comment widget' do
   it 'should return a 200 when de-voting on a comment' do
     payload = 'ratingType=like'
 
-    RestClient.post(ENV['base_url'] + '/__services/v2/rest/acclaim/2/3611/removevote',payload,:cookie => @authorisation){|response|
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/acclaim/38/1043/removevote',payload,:cookie => @authorisation){|response|
       assert_code_and_body(response, 200)
     }
   end
