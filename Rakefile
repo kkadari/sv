@@ -9,12 +9,12 @@ File.open('run_log.txt', 'a') {|f| f.write("\n#{id}")}
 namespace :features do
   Cucumber::Rake::Task.new(:ui) do |t|
     t.profile = 'standard'
-    t.cucumber_opts = 'browser=firefox -t @ui -t ~@wip'
+    t.cucumber_opts = 'browser=firefox -t @ui -t ~@wip -t ~@manual'
   end
 
   Cucumber::Rake::Task.new(:non_ui) do |t|
     t.profile = 'standard'
-    t.cucumber_opts = 'browser=firefox -t ~@ui -t ~@sit -t ~@wip'
+    t.cucumber_opts = 'browser=firefox -t ~@ui -t ~@sit -t ~@wip -t ~@manual'
   end
 
   Cucumber::Rake::Task.new(:cert_ce_sv_ref_firefox) do |t|
@@ -40,11 +40,6 @@ namespace :features do
   Cucumber::Rake::Task.new(:wip) do |t|
     t.profile = 'standard'
     t.cucumber_opts = 'browser=firefox -t @wip'
-  end
-
-  Cucumber::Rake::Task.new(:timd) do |t|
-    t.profile = 'standard'
-    t.cucumber_opts = 'browser=firefox -t @timd'
   end
 end
 

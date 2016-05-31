@@ -3,6 +3,6 @@ class SearchPersonPicker
 
   div(:container, :id => 'user-autocomplete-modal-container')
   link(:alpha_link, :css => '#jive-people-resultbar-alphabetical > span:nth-child(21) > a')
-  checkbox(:simon_user, :id => 'userChk-2013')
+  checkbox(:simon_user, :id => 'userChk-2007') # @TODO: Remove hardcoded value!
 
 end
