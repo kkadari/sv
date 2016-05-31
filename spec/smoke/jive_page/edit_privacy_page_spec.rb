@@ -36,7 +36,9 @@ describe 'Edit privacy page' do
 
   it 'should return a 200 when posting an update to privacy' do
     response = Profile.get_edit_privacy_profile(@id, @authorisation)
+
     @token = Nokogiri::HTML(response).css('input[name*="edit.profile.security"]')[0]['value']
+    puts "TOKEN: " + @token
 
     @name_level = '100' + (2 * rand(3) + 1).to_s
 
