@@ -2,7 +2,8 @@ When /^I run a search for content in the Spotlight search$/ do
   visit_and_benchmark AdvancedSearchPage
 
   on HomePage do |home|
-    home.spotlight_search = 'Lorem'
+    home.spotlight_search_element.click
+    home.search_input = 'Lorem'
 
     home.wait_until do
       home.results_container?

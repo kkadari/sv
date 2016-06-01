@@ -4,8 +4,9 @@ class HomePage
 
   page_url(homepage)
 
-  text_field(:spotlight_search, :css => '#searchpopupanchor > input')
-  ordered_list(:results_container, :css => 'ol[role="listbox"]')
+  list_item(:spotlight_search, :id => 'j-nav-search-li')
+  text_field(:search_input, :id => 'j-visor-search-input')
+  unordered_list(:results_container, :css => 'ul[role="listbox"]')
   elements(:result, :li, :class => 'j-listitem  ')
   link(:content, :id => 'cispBrowseMenuAnchor')
   link(:members, :id => 'cispMembersMenuAnchor')
