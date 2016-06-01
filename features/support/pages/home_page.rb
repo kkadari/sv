@@ -29,5 +29,5 @@ class HomePage
   list_item(:following, :id => 'feed-following')
   div(:whats_happening, :id => 'whats-happening')
   list_item(:active_feed, :css => '.feeds .active')
-  elements(:entry, :li, :css => '.newpost')
+  elements(:entry, :div, :css => '#whats-happening > .event-content')
 end
