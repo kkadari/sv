@@ -12,8 +12,8 @@ module UrlFactory
     ENV['base_url'] + '/inbox<%=params[:query]%>'
   end
 
-  def activitypage
-    ENV['base_url'] + '/activity'
+  def feedspage
+    ENV['base_url'] + '/news?channel=recent'
   end
 
   def contentpage

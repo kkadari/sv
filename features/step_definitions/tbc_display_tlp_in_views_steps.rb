@@ -35,11 +35,11 @@ Then /^all the results will have TLP pills that match their incident level$/ do
 end
 
 When /^I view an activity stream for recent content$/ do
-  visit_and_benchmark ActivityPage
+  visit_and_benchmark FeedsPage
 end
 
 Then /^all the activity entries will have TLP pills that match their incident level$/ do
-  on(ActivityPage).activity_elements.each do |entry|
+  on(FeedsPage).activity_elements.each do |entry|
     fail('TLP is missing from activity') unless entry.html.include? '<span class="ihm-pill'
   end
 end
