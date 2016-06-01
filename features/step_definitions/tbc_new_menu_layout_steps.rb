@@ -48,7 +48,7 @@ Then /^clicking on view more takes me to the recently viewed places page$/ do
   fail('Recently viewed page not selected') unless on(PlacesPage).active_menu_element.text.include? 'Recently Viewed'
 end
 
-When /^I click on the menu item My Colleagues in the Members menu$/ do
+When /^I click on the menu item Colleagues in the Members menu$/ do
   switch_user('participant A')
 
   visit_and_benchmark HomePage do |home|
@@ -63,7 +63,7 @@ Then /^I am taken to a peoples list that is filtered by people in my organisatio
   organisation = user_profiles[:username].split('@')[1]
 
   on(PeoplePage).username_elements.each do |username|
-    fail('User from outside organisation found') unless username.text.downcase.include? organisation
+    fail('User from outside organisation found') unless username.attribute('data-username').downcase.include? organisation
   end
 end
 

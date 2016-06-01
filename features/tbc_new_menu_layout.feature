@@ -28,9 +28,9 @@ Feature: New menu layout
     Then I will see a list of groups and places I've recently visited
     And clicking on view more takes me to the recently viewed places page
 
-  Scenario: 'My colleagues' submenu option
+  Scenario: 'Colleagues' submenu option
     Given I have logged in as "participant A"
-    When I click on the menu item My Colleagues in the Members menu
+    When I click on the menu item Colleagues in the Members menu
     Then I am taken to a peoples list that is filtered by people in my organisation
 
   Scenario: Custom footer layout
