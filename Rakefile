@@ -48,5 +48,5 @@ task :integration => 'ci:setup:rspec' do
 end
 
 task :bridge_int => 'ci:setup:rspec' do
-  sh 'rspec spec/smoke/bridge/ --format documentation'
+  sh 'rspec "spec/smoke/bridge/*_spec.rb" --format documentation'
 end
