@@ -47,6 +47,8 @@ GEM
       domain_name (~> 0.5)
     i18n (0.7.0)
     json (1.8.3)
+    json-schema (2.5.0)
+      addressable (~> 2.3)
     mime-types (2.99.2)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
@@ -131,6 +133,7 @@ DEPENDENCIES
   cucumber (= 2.0.2)
   faker
   headless
+  json-schema
   nokogiri
   page-object (= 1.0.3)
   parallel_tests

@@ -5,7 +5,9 @@ require 'faker'
 require 'cgi/cookie'
 require 'json'
 require 'nokogiri'
-#require_all File.dirname(__FILE__) + '/../lib/'
+require 'json-schema'
+require 'securerandom'
+require_all File.dirname(__FILE__) + '/../lib/api/bridge'
 
 RSpec.configure do |config|
 
