@@ -7,6 +7,7 @@ require 'securerandom'
 require_all File.dirname(__FILE__) + '/../lib/api/bridge'
 
 RSpec.configure do |config|
+  config.formatter = :documentation
 
   config.before(:all) do
     @authorisation = "Basic #{Base64.strict_encode64(ENV['bridge_username']+':'+ENV['bridge_password'])}"
