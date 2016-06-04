@@ -2,6 +2,20 @@ require 'bridge_helper'
 
 describe 'Get all Incident Reports' do
 
+  schema = {
+      "type" => "array",
+      "items" => {
+          "type" => "object",
+          "properties" => {
+              "body" => {"type" => "string"},
+              "handlingLevel" => {"type" => "string"},
+              "id" => {"type" => "string"},
+              "incidentCategory" => {"type" => ["string", "null"] },
+              "title" => {"type" => "string"}
+          }
+      }
+  }
+
   before do
     @response = IncidentReports.get_irs(@authorisation)
   end
@@ -14,8 +28,8 @@ describe 'Get all Incident Reports' do
     fail 'No content found.' unless !@response.nil? # Improve check that IRs are actually returned.
   end
 
-  xit 'returns a schema compliant response' do
-    # TODO
+  it 'returns a schema compliant response' do
+    fail 'Schema failed validation.' unless JSON::Validator.validate(schema, @response, :strict => true)
   end
 
 end

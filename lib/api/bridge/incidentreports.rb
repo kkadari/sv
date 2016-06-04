@@ -12,7 +12,7 @@ class IncidentReports
     }
   end
 
-  def self.post_ir(payload, auth)
+  def self.create_ir(payload, auth)
     RestClient.post(ENV['bridge_url'] + '/incidentreports', payload, {:authorization => auth,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 201
       @response = response

@@ -4,12 +4,12 @@ describe 'Delete an Incident Report by ID' do
 
   before do
     payload = '{
-        "body": "BRIDGE Incident Report",
-        "handlingLevel": "This is an Incident Report created via the bridge API tests.",
-        "incidentCategory": "RED",
-        "title": "EXERCISE_NETWORK_DEFENSE_TESTING"
-      }'
-    @id = IncidentReports.post_ir(payload, @authorisation)['id']
+        "body": "This is an Incident Report created via the bridge API tests.",
+        "handlingLevel": "RED",
+        "incidentCategory": "EXERCISE_NETWORK_DEFENSE_TESTING",
+        "title": "BRIDGE Incident Report"
+    }'
+    @id = JSON.parse(IncidentReports.create_ir(payload, @authorisation))['id']
   end
 
   it 'returns a 200 HTTP status when deleting an incident report' do
