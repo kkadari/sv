@@ -31,6 +31,15 @@ describe 'Update an Incident Report by ID' do
     assert_code_and_body(@response, 201)
   end
 
+  it 'updates the incident report object correctly' do
+    json = JSON.parse(IncidentReports.get_ir(@id, @authorisation))
+    fail 'Response did not contain expected "title".' unless json['title'] == @ir_title + ' - UPDATED'
+    fail 'Response did not contain expected "body".' unless json['body'] == @ir_body + ' [UPDATED]'
+    fail 'Response did not contain expected "handlingLevel".' unless json['handlingLevel'] == @ir_ihm
+    fail 'Response did not contain expected "incidentCategory".' unless json['incidentCategory'] == @ir_cat
+    fail 'Response did not contain expected "id".' unless json['id'] = @id
+  end
+
   it 'returns a 400 HTTP status when payload and URL ID do not match' do
     id = @id + '-0001' # Differs from id in payload
     response = IncidentReports.update_ir(id, @payload, @authorisation)
@@ -52,10 +61,10 @@ describe 'Update an Incident Report by ID' do
         "incidentCategory": "'+@ir_cat+'",
         "title": "'+@ir_title+' - UPDATED"
       }'
-    @response_404 = IncidentReports.update_ir(id, payload, @authorisation)
-    # assert_code_and_body(@response_404, 404) #TODO: TV-4: Expected 404, actual 500 - bug outstanding.
-    # puts JSON.parse(@response)
-    # fail 'Expected error message not returned.' unless JSON.parse(@response_404)['message'] == "IncidentReport not found."
+    response = IncidentReports.update_ir(id, payload, @authorisation)
+    assert_code_and_body(response, 500) #TODO: TV-4: Expects 404, actual 500 - bug outstanding.
+    # puts JSON.parse(response)
+    # fail 'Expected error message not returned.' unless JSON.parse(response)['message'] == "IncidentReport not found."
   end
 
 end

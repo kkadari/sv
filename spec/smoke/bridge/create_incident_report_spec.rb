@@ -14,11 +14,15 @@ describe 'Create a new Incident Report' do
   }
 
   before do
+    @ir_title = 'BRIDGE Incident Report'
+    @ir_body = 'This is an Incident Report created via the bridge API tests.'
+    @ir_ihm = 'GREEN'
+    @ir_cat = 'EXERCISE_NETWORK_DEFENSE_TESTING'
     payload = '{
-        "body": "This is an Incident Report created via the bridge API tests.",
-        "handlingLevel": "GREEN",
-        "incidentCategory": "EXERCISE_NETWORK_DEFENSE_TESTING",
-        "title": "BRIDGE Incident Report"
+      "body": "' + @ir_body + '",
+      "handlingLevel": "' + @ir_ihm + '",
+      "incidentCategory": "' + @ir_cat + '",
+      "title": "' + @ir_title + '"
     }'
     @response = IncidentReports.create_ir(payload, @authorisation)
   end
@@ -28,8 +32,12 @@ describe 'Create a new Incident Report' do
   end
 
   it 'returns the newly created incident report object' do
-    # TODO - Improve checks.
-    @id = @response['id'] # re-use this ID
+    json = JSON.parse(@response)
+    fail 'Response did not contain expected "title".' unless json['title'] == @ir_title
+    fail 'Response did not contain expected "body".' unless json['body'] == @ir_body
+    fail 'Response did not contain expected "handlingLevel".' unless json['handlingLevel'] == @ir_ihm
+    fail 'Response did not contain expected "incidentCategory".' unless json['incidentCategory'] == @ir_cat
+    fail 'Response did not contain an ID.' unless !json['id'].nil?
   end
 
   it 'returns a schema compliant response' do
