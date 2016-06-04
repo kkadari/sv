@@ -2,8 +2,7 @@ class IncidentReports
 
   def self.get_irs(auth)
     RestClient.get(ENV['bridge_url'] + '/incidentreports', :authorization => auth){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 200
-      @response = JSON.parse(response)
+      @response = response
     }
   end
 
@@ -16,7 +15,7 @@ class IncidentReports
   def self.post_ir(payload, auth)
     RestClient.post(ENV['bridge_url'] + '/incidentreports', payload, {:authorization => auth,:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 201
-      @response = JSON.parse(response)
+      @response = response
     }
   end
 
