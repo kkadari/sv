@@ -13,13 +13,13 @@ Feature: JUC2 - Get Connected
 
   @JUC2.2
   Scenario: Participant requests to follow another Participant but this is rejected
-    Given I have logged in as "participant A"
-    And I select to follow "participant B"
-    When "participant B" rejects the connection request
-    Then "participant A" will receive a notification that my request has not been accepted
-    And "participant A" is not listed as a follower of "participant B"
+    Given I have logged in as "participant B"
+    And I select to follow "participant A"
+    When "participant A" rejects the connection request
+    Then "participant B" will receive a notification that my request has not been accepted
+    And "participant B" is not listed as a follower of "participant A"
 
-  @JUC2.3
+  @JUC2.3 @wip @CISP-2332
   Scenario: Participant severs a connection with another Participant
     Given I have logged in as "participant A"
     And I am following "participant B"

@@ -30,7 +30,6 @@ Then /^"([^"]*)" will get a confirmation that "([^"]*)" has accepted my request$
 
   user_profile = TestConfig.return_profile(user2)
   response = Inbox.get_connections_inbox_message($authorisation)
-
   fail('Follow request acceptance failed') if JSON.parse(response.split(';',0)[1])['actionQueueList'][0]['templateData']['relatedUser']['username'] != user_profile[:username]
 end
 
