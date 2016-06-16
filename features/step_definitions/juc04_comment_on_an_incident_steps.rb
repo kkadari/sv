@@ -9,7 +9,7 @@ end
 
 Given /^I have mentioned "([^\"]+)" in an anonymous comment$/ do |user|
   user_profile = TestConfig.return_profile(user)
-  mention = '<p>This is a comment mentioning <a class=\'jive_macro jive_macro_user\' href=\'javascript:;\' jivemacro=\'user\' ___default_attr=\'2013\' data-objecttype=\'3\' data-orig-content=\'' + user_profile[:username] + '\'>' + user_profile[:username] + '</a></p>'
+  mention = '<p>This is a comment mentioning <a class=\'jive_macro jive_macro_user\' href=\'javascript:;\' jivemacro=\'user\' ___default_attr=\'2007\' data-objecttype=\'3\' data-orig-content=\'' + user_profile[:username] + '\'>' + user_profile[:username] + '</a></p>'
 
   payload = CommentPayload.new(mention,false).payload
 
@@ -24,7 +24,7 @@ Given /^I mention "([^"]*)" in a normal comment on an incident report$/ do |user
   @incident_id = response['redirect'][/[0-9]+/,0]
 
   user_profile = TestConfig.return_profile(user)
-  mention = '<p>This is a comment mentioning <a class=\'jive_macro jive_macro_user\' href=\'javascript:;\' jivemacro=\'user\' ___default_attr=\'2013\' data-objecttype=\'3\' data-orig-content=\'' + user_profile[:username] + '\'>' + user_profile[:username] + '</a></p>'
+  mention = '<p>This is a comment mentioning <a class=\'jive_macro jive_macro_user\' href=\'javascript:;\' jivemacro=\'user\' ___default_attr=\'2007\' data-objecttype=\'3\' data-orig-content=\'' + user_profile[:username] + '\'>' + user_profile[:username] + '</a></p>'
 
   payload = CommentPayload.new(mention,true).payload
 
@@ -39,10 +39,7 @@ When /^I navigate to my inbox as "([^"]*)"$/ do |user|
       response = Inbox.get_inbox($authorisation)
 
       @message_id = Nokogiri::HTML.parse(response).at('.j-act-unread')['data-objectid']
-      #puts 'Message ID = ' + @message_id.to_s
-      #puts 'Response: ' + response.to_s
       @comment_id = response.scan(/reports\/#{@message_id}#comment-[0-9]*/)[0].split('-')[1]
-      #puts 'Comment ID = ' + @comment_id.to_s
       break
     rescue => e
       if i < 5
@@ -56,11 +53,7 @@ end
 
 Then /^I will have received a notification that I was mentioned in an incident report$/ do
   payload = '{"originalIDs":[' + @comment_id + ']}'
-
-  #puts 'payload: ' + payload.to_s
   response = Inbox.post_for_message(@message_id, payload, $authorisation)
-  #puts 'response: ' + response.to_s
-
   @comment_json = JSON.parse(response.body)
 end
 
