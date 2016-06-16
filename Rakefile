@@ -14,7 +14,7 @@ namespace :features do
 
   Cucumber::Rake::Task.new(:non_ui) do |t|
     t.profile = 'standard'
-    t.cucumber_opts = 'browser=firefox -t ~@ui -t ~@sit -t ~@wip -t ~@manual -t @JUC4.1'
+    t.cucumber_opts = 'browser=firefox -t ~@ui -t ~@sit -t ~@wip -t ~@manual -t @JUC4'
   end
 
   Cucumber::Rake::Task.new(:cert_ce_sv_ref_firefox) do |t|

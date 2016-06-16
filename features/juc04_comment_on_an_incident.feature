@@ -18,16 +18,6 @@ Feature: JUC4 - Comment on an incident
     Then my inbox shows I have been mentioned anonymously
 
   @JUC4.4
-  Scenario: Participant reviews an incident report anonymously
-    Given I have logged in as "participant A"
-    When I have raised a white incident report anonymously in a private group
-    Then I can review the incident report anonymously
-
-  Scenario: Participant reviews an incident report
-    Given I have logged in as "participant A"
-    When I have raised a white incident report in a private group
-    Then I can review the incident report
-
   Scenario: Participant comments on an incident report anonymously
     Given I have logged in as "participant A"
     When I have raised a white incident report anonymously in a private group
