@@ -11,17 +11,16 @@ Feature: JUC5 - Create a Sub-community
     Examples:
       | type    |
       | private |
-      | secret  |
+      #| secret  | #Pending CISP-2339
 
-  @JUC5.2
   Scenario Outline: Participant deletes a group
-    Given I have logged in as "admin"
-    And I create a "<type>" group with content
-    When I opt to delete the group
+    Given I have opted to create a new group as "admin"
+    When I create a "<type>" group with content
+    And I opt to delete the group
     Then the group is deleted
     And all content created within that group no longer exists
 
     Examples:
       | type    |
       | private |
-      | secret  |
+      #| secret  | #Pending CISP-2339

@@ -1,12 +1,13 @@
 class Places < Request
 
-  def self.post_v3_group(payload, cookies)
-    RestClient.post(ENV['base_url'] + '/api/core/v3/places', payload, {:cookie => Request.create_cookie(cookies), :content_type => 'application/json'}){|response|
-      fail('Failed with ' + response.code.to_s) if response.code != 201
-
-      return response
-    }
-  end
+  # ~TD: Looks deprecated in Jive 8.
+  # def self.post_v3_group(payload, cookies)
+  #   RestClient.post(ENV['base_url'] + '/api/core/v3/places', payload, {:cookie => Request.create_cookie(cookies), :content_type => 'application/json'}){|response|
+  #     fail('Failed with ' + response.code.to_s) if response.code != 201
+  #
+  #     return response
+  #   }
+  # end
 
   def self.put_v3_group(id, payload, cookies)
     RestClient.put(ENV['base_url'] + '/api/core/v3/places/' + id, payload, {:cookie => Request.create_cookie(cookies), :content_type => 'application/json'}){|response|

@@ -8,7 +8,7 @@ class GroupPayload < Payload
   def payload
     '{
         "enabledContentTypes":"incidentReports",
-        "socialGroup":"1065",
+        "socialGroup":"1138",
         "placeTypeName":"group",
         "name":"' + @group_name + '",
         "description":"Created during auto test - can be deleted",
@@ -17,7 +17,7 @@ class GroupPayload < Payload
         "placeTabVisibility.selection":"activity",
         "placeTabVisibility.landing":"activity",
         "type":"group",
-        "contentTypes":["blog","documents","discussions","polls","extStreamActivities","incidentReports"],
+        "contentTypes":["blog","discussions","documents","polls","incidentReports"],
         "visibleToExternalContributors":false,
         "displayName":"' + @group_name + '",
         "headerSettings":{

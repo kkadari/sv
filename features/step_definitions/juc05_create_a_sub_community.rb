@@ -7,9 +7,7 @@ end
 
 When /^I create a "([^"]*)" group$/ do |group_type|
   @group_name = group_type + '-' + Time.now.to_i.to_s
-
   payload = GroupPayload.new(@group_name, group_type.upcase).payload
-
   response = Places.put_v3_group(@draft_group_id, payload, $authorisation)
   @delete_id = JSON.parse(response)['id']
 end
@@ -38,10 +36,15 @@ Then /^I am displayed the group overview page$/ do
 end
 
 Given /^I create a "([^"]*)" group with content$/ do |group_type|
-  payload = V3GroupPayload.new('autogroup','Auto group to delete',group_type.upcase).payload
-
-  response = Places.post_v3_group(payload, $authorisation)
+  @group_name = group_type + '-' + Time.now.to_i.to_s
+  payload = GroupPayload.new(@group_name, group_type.upcase).payload
+  response = Places.put_v3_group(@draft_group_id, payload, $authorisation)
   @group_id = JSON.parse(response)['id']
+
+  #payload = V3GroupPayload.new('autogroup','Auto group to delete',group_type.upcase).payload
+  #response = Places.post_v3_group(payload, $authorisation)
+  #@group_id = JSON.parse(response)['id']
+  p "Created group ID: " + @group_id
 
   payload = IncidentReportPayload.new(TitleCreator.create_title_for('incident'),false,'Lorem ipsumy goodness','white',{:type => 'specific group', :id => @group_id},'',false).payload
   response2 = CreateContent.create_incident_report(payload, $authorisation)
