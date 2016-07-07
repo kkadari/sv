@@ -30,7 +30,7 @@ Then /^I can view the anonymous review of the incident report$/ do
 end
 
 Then /^the rating is displayed correctly$/ do
-  fail('Rating not set') unless JSON.parse(@rating_response)['ratingInfo']['availableRatingCount'] == 5
+  fail('Rating not set') unless JSON.parse(@rating_response.split(';',0)[1])['ratingInfo']['availableRatingCount'] == 5
 end
 
 Given /^I am viewing an incident report as "([^"]*)"$/ do |user|
