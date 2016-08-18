@@ -1,7 +1,7 @@
 @JUC21
 Feature: JUC21 - Read a discussion
 
-  @JUC21.1 @sit
+  @JUC21.1 @sit @wip @CISP-2440
   Scenario: Participant can read a discussion
     Given I have logged in as "participant A"
     When I find and click on a discussion I would like to read
