@@ -69,7 +69,7 @@ describe 'Get started page' do
     }
   end
 
-  it 'should return a 200 when requesting and then completing "Enter some profile details..."' do
+  pending 'should return a 200 when requesting and then completing "Enter some profile details..."' do
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/onboarding/ob.cert_enter_profile_details',{:cookie => @authorisation,:accept => 'application/json'}){|response|
       assert_code_and_body(response, 200)
     }
