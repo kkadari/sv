@@ -1,6 +1,7 @@
 Feature: Filter by organisation
 #JUC44.1: CE Participant filters People by organisation
 
+  @wip
   Scenario: CE Participant filters People by organisation
     Given I am on the People page
     When I opt to add a filter

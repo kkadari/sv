@@ -1,5 +1,6 @@
 Feature: Last logged in field
 
+  @wip
   Scenario: Viewing and sorting via the last logged in field
     Given I have logged in as "participant A"
     When I navigate to the list view of people page

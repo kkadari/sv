@@ -27,7 +27,7 @@ Feature: JUC3 - Read an incident
     When I have logged in as "admin"
     Then I as an admin can view the anonymous incident report
 
-  @JUC3.5
+  @JUC3.5 @wip
   Scenario: Participant attempts to view an Incident Report without required permissions
     Given I have logged in as "participant B"
     And I have raised an amber incident report in a secret group
@@ -40,7 +40,7 @@ Feature: JUC3 - Read an incident
     And I have raised a white incident report anonymously in a private group
     Then I can search for the incident report by ID and view the incident report
 
-  @JUC3.7
+  @JUC3.7 @wip
   Scenario: Participant searches for an Incident Report to which they have no access
     Given I have logged in as "participant B"
     And I have raised an amber incident report in a secret group

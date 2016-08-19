@@ -15,6 +15,7 @@ Feature: [CISP-636] Participant views and downloads an Uploaded File
     When I navigate to the uploaded document directly
     Then I am returned the uploaded document
 
+  @wip
   Scenario: Participant attempts to view an Uploaded File directly, that they don't have access to
     Given there is an uploaded document that has been recently created for a secret group
     When I attempt to view the uploaded document with a user that is not a member of the secret group
