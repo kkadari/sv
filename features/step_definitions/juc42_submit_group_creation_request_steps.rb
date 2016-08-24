@@ -28,8 +28,8 @@ Given /^I have requested a new group is created with participant B as an additio
   on(SearchPersonPicker) do |search_picker|
     search_picker.wait_until do
       search_picker.alpha_link?
+      sleep(1)
     end
-
     search_picker.alpha_link
 
     search_picker.wait_until do
