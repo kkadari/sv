@@ -59,7 +59,6 @@ RSpec.configure do |config|
   def assert_code_and_body(response, status_code)
     fail('Error detected in response body') if response.body.include?('The item does not exist. It may have been deleted.') || response.body.include?(' An unexpected error has occurred') || response.body.include?('The request could not be validated as originating from within the SBS application')
     fail('Failed with ' + response.code.to_s) if response.code != status_code
-    p 'testing'
   end
 
 end
