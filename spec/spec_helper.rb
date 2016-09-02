@@ -12,7 +12,6 @@ RSpec.configure do |config|
   config.formatter = :documentation
   config.color = true
   config.tty = true
-  config.backtrace = true
 
   config.before(:all) do
     puts 'Logging in as: ' + ENV['username']
