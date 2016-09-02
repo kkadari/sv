@@ -8,6 +8,11 @@ require 'nokogiri'
 require_all File.dirname(__FILE__) + '/../lib/'
 
 RSpec.configure do |config|
+
+  config.formatter = :documentation
+  config.color = true
+  config.tty = true
+
   config.before(:all) do
     puts 'Logging in as: ' + ENV['username']
 
