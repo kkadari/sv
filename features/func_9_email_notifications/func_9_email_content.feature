@@ -1,3 +1,4 @@
+@manual
 Feature: Sample content in email
 
   Scenario Outline: Notifications show sample content based on the TLP setting
