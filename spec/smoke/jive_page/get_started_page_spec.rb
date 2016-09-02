@@ -69,18 +69,19 @@ describe 'Get started page' do
     }
   end
 
-  pending 'should return a 200 when requesting and then completing "Enter some profile details..."' do
-    RestClient.get(ENV['base_url'] + '/__services/v2/rest/onboarding/ob.cert_enter_profile_details',{:cookie => @authorisation,:accept => 'application/json'}){|response|
-      assert_code_and_body(response, 200)
-    }
+  it 'should return a 200 when requesting and then completing "Enter some profile details..."' do
+    pending 'Until CISP-2443 fixed.'
+      RestClient.get(ENV['base_url'] + '/__services/v2/rest/onboarding/ob.cert_enter_profile_details',{:cookie => @authorisation,:accept => 'application/json'}){|response|
+        assert_code_and_body(response, 200)
+      }
 
-    RestClient.post(ENV['base_url'] + '/__services/v2/rest/onboarding/ob.cert_enter_profile_details/complete','',{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
-      assert_code_and_body(response, 200)
-    }
+      RestClient.post(ENV['base_url'] + '/__services/v2/rest/onboarding/ob.cert_enter_profile_details/complete','',{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
+        assert_code_and_body(response, 200)
+      }
 
-    RestClient.post(ENV['base_url'] + '/__services/v2/rest/onboarding/profile','',{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
-      assert_code_and_body(response, 204)
-    }
+      RestClient.post(ENV['base_url'] + '/__services/v2/rest/onboarding/profile','',{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
+        assert_code_and_body(response, 204)
+      }
   end
 
   it 'should return a 200 when requesting and then completing "Setup email notifications"' do
