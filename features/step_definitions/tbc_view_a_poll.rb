@@ -1,6 +1,6 @@
 Then /^I can view the poll$/ do
   on(PollSummaryPage).wait_until do
-    on(PollSummaryPage).title?
+    on(PollSummaryPage).comment? #comment link is one of the last things to load.
   end
 
   fail 'Title not visible' unless on(PollSummaryPage).title?
