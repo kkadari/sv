@@ -1,6 +1,6 @@
 Then /^I can view the blog post$/ do
   on(BlogPostSummaryPage).wait_until do
-    on(BlogPostSummaryPage).title?
+    on(BlogPostSummaryPage).comment? #comment link is one of the last things to load.
   end
 
   fail 'Title not visible' unless on(BlogPostSummaryPage).title?
