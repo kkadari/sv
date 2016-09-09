@@ -17,8 +17,7 @@ class AdvancedSearchPage
   link(:show_discussions, :title => 'Show Discussions')
   link(:show_polls, :title => 'Show Polls')
   link(:show_incident_reports, :title => 'Show Incident Reports')
-
-  list_item(:loading_bar, :css => '.j-loading-bar')
+  
   link(:top_result, :class => 'j-search-result-value')
   links(:all_result, :class => 'j-search-result')
   elements(:result, :div, :css => '.j-content-results .j-result-content')
