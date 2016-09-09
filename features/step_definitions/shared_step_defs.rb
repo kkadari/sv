@@ -179,6 +179,10 @@ When /^I find and click on (?:a|an) ([^\"]+) I would like to read$/ do |doctype|
       search.search_container?
     end
 
+    search.wait_until do
+      search.search_results
+    end
+    sleep(1)
     search.top_result
   end
 end

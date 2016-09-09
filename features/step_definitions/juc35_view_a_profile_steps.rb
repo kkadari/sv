@@ -50,6 +50,10 @@ When /^I attempt to view the profile of an existing user$/ do
       search.search_container?
     end
 
+    search.wait_until do
+      search.search_results
+    end
+
     search.top_result
   end
 end
