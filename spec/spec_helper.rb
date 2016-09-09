@@ -28,9 +28,9 @@ RSpec.configure do |config|
       @user_2_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
 
-    # Get stream IDs (used by Inbox and Feeds)
+    # Get connection stream ID (used by Inbox and Feeds)
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/' + @id + '/streams',:cookie => @authorisation){|response|
-      @stream_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
+      @stream_id = JSON.parse(response.body.split(';',0)[1])['list'][0]['id'].to_s
     }
 
     #20.times do |i|  # This list gets signficantly larger over time.
