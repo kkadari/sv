@@ -9,6 +9,9 @@ describe 'Edit privacy page' do
   end
 
   it 'should return a 200 when requesting profile preview' do
+
+    @username = CGI.escape(ENV['username'])
+
     payload = 'nameSecurityLevelID=1001
               &emailSecurityLevelID=1001
               &profile[5004].effectiveSecurityLevelID=1001
@@ -24,7 +27,7 @@ describe 'Edit privacy page' do
               &imageSecurityLevelID=1003
               &creationDateSecurityLevelID=1001
               &lastLoginSecurityLevelID=1001
-              &username=stephaniek%40surevine
+              &username=' + @username + '
               &targetUser=' + @id + '
               &jive.token.name=edit.profile.security.' + @id + '
               &edit.profile.security.' + @id + '=1434553331436-E86MJFLU04FXQ4BVVD5T4EBT2N9SOYM0'

@@ -28,15 +28,20 @@ RSpec.configure do |config|
       @user_2_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
 
-    #TODO: Only call this when needed (on first run? or does it need running per user?)
-    20.times do |i| #why? only need stream ID's 11 & 12.
-      RestClient.get(ENV['base_url'] + '/api/core/v3/streams/' + i.to_s,:cookie => @authorisation){|response|
-        if response.code == 200
-          @stream_id = i.to_s
-          break
-        end
-      }
-    end
+    # Get stream IDs (used by Inbox and Feeds)
+    RestClient.get(ENV['base_url'] + '/api/core/v3/people/' + @id + '/streams',:cookie => @authorisation){|response|
+      @stream_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
+    }
+
+    #20.times do |i|  # This list gets signficantly larger over time.
+      #RestClient.get(ENV['base_url'] + '/api/core/v3/streams/' + i.to_s,:cookie => @authorisation){|response|
+      #  if response.code == 200
+       #   @stream_id = i.to_s
+       #   puts 'storing stream ID: ' + @stream_id
+       #   break
+       # end
+      #}
+    #end
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['space'] + ')',:cookie => @authorisation){|response|
       @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id'] #2003 = Support Space on SV Ref V2
