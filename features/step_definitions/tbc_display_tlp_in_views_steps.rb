@@ -19,7 +19,7 @@ end
 
 When /^I run an advanced search for content in the Spotlight search$/ do
   visit_and_benchmark AdvancedSearchPage do |search|
-    search.search_query = 'Lorem'
+    search.search_query = 'Bookmark'
     search.submit_search
 
     search.wait_until do
