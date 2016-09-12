@@ -18,38 +18,38 @@ RSpec.configure do |config|
 
     @authorisation = Login.do_login(ENV['username'], ENV['password'])
 
-    # Lets start building params
     # RestClient.log = 'stdout' #uncomment to debug
+
+    # Get User 1 ID from the specified user
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username'],:cookie => @authorisation){ |response|
       @id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
 
-    RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username_2'],:cookie => @authorisation){ |response|
-      @user_2_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
-    }
+    # Get User 2 ID from the specified user
+    if !ENV['username_2'].nil?
+      RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username_2'],:cookie => @authorisation){ |response|
+        @user_2_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
+      }
+    end
 
     # Get connection stream ID (used by Inbox and Feeds)
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/' + @id + '/streams',:cookie => @authorisation){|response|
       @stream_id = JSON.parse(response.body.split(';',0)[1])['list'][0]['id'].to_s
     }
 
-    #20.times do |i|  # This list gets signficantly larger over time.
-      #RestClient.get(ENV['base_url'] + '/api/core/v3/streams/' + i.to_s,:cookie => @authorisation){|response|
-      #  if response.code == 200
-       #   @stream_id = i.to_s
-       #   puts 'storing stream ID: ' + @stream_id
-       #   break
-       # end
-      #}
-    #end
+    # Get Space ID from the specified space
+    if !ENV['space'].nil?
+      RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['space'] + ')',:cookie => @authorisation){|response|
+        @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+      }
+    end
 
-    RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['space'] + ')',:cookie => @authorisation){|response|
-      @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id'] #2003 = Support Space on SV Ref V2
-    }
-
-    RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['group'] + ')',:cookie => @authorisation){|response|
-      @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id'] #15710 #accept-test
-    }
+    # Get Group ID from the specified group
+    if !ENV['group'].nil?
+      RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['group'] + ')',:cookie => @authorisation){|response|
+        @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+      }
+    end
   end
 
   config.before(:each) do

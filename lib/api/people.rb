@@ -68,4 +68,34 @@ class People < Request
     }
   end
 
+  def self.create_new_user(username, password, email, first_name, last_name)
+    payload = '{
+        "emails" : [ {
+            "value" : "' + email + '",
+            "type" : "work",
+            "primary" : true,
+            "jive_label" : "Email"
+        } ],
+        "jive" : {
+            "password" : "' + password + '",
+            "username" : "' + username + '"
+        },
+        "name" : {
+            "familyName" : "' + last_name + '",
+            "givenName" : "' + first_name + '"
+        }
+    }'
+
+    RestClient.post(ENV['base_url'] + '/api/core/v3/people', payload, {:cookie => @authorisation, :content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 401
+      return response
+    }
+  end
+
+  def self.accept_terms(userid, cookies)
+    RestClient.post(ENV['base_url'] + '/people/' + userid + '/acceptTermsAndConditions',{:cookie => @authorisation, :content_type => 'application/json'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
+
 end

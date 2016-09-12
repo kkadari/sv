@@ -43,6 +43,10 @@ namespace :features do
   end
 end
 
+task :setup => 'ci:setup:rspec' do
+  sh 'rspec spec/setup/create_users_spec.rb'
+end
+
 task :integration => 'ci:setup:rspec' do
   sh 'rspec spec --exclude-pattern "spec/smoke/bridge/*_spec.rb"'
 end
