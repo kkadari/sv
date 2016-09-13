@@ -48,7 +48,7 @@ task :setup => 'ci:setup:rspec' do
 end
 
 task :integration => 'ci:setup:rspec' do
-  sh 'rspec spec --exclude-pattern "spec/smoke/bridge/*_spec.rb"'
+  sh 'rspec spec --exclude-pattern "spec/{setup,smoke/bridge}/*_spec.rb"'
 end
 
 task :bridge_int => 'ci:setup:rspec' do
