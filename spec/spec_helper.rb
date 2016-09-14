@@ -13,6 +13,9 @@ RSpec.configure do |config|
   config.color = true
   config.tty = true
 
+  # Log failures so we can re-run them.
+  config.example_status_persistence_file_path = '/reporting/failures.txt'
+
   config.before(:all) do
     puts 'Logging in as: ' + ENV['username']
 

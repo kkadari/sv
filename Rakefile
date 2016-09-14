@@ -44,13 +44,13 @@ namespace :features do
 end
 
 task :setup => 'ci:setup:rspec' do
-  sh 'rspec spec/setup/create_users_spec.rb'
+  sh 'rspec spec/setup/create_users_spec.rb && rspec spec --only-failures'
 end
 
 task :integration => 'ci:setup:rspec' do
-  sh 'rspec spec --exclude-pattern "spec/{setup,smoke/bridge}/*_spec.rb"'
+  sh 'rspec spec --exclude-pattern "spec/{setup,smoke/bridge}/*_spec.rb" && rspec spec --only-failures'
 end
 
 task :bridge_int => 'ci:setup:rspec' do
-  sh 'rspec spec/smoke/bridge/'
+  sh 'rspec spec/smoke/bridge/ && rspec spec --only-failures'
 end
