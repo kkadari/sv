@@ -9,7 +9,6 @@ end
 
 Given /^I select to follow "([^"]*)"$/ do |user|
   user_profile = TestConfig.return_profile(user)
-
   payload = FollowPayload.new(3, user_profile[:user_id]).payload
   Follow.post_follow_request(payload, $authorisation)
 end
@@ -18,6 +17,7 @@ When /^"([^"]*)" accepts the connection request$/ do |user|
   switch_user(user)
 
   response = Inbox.get_connections_inbox_message($authorisation)
+  fail('No inbox notification received.') if JSON.parse(response.split(';',0)[1])['actionQueueList'][0]['entryID'].nil?
   entry_id = JSON.parse(response.split(';',0)[1])['actionQueueList'][0]['entryID'].to_s
   user_profile = TestConfig.return_profile(user)
 
