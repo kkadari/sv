@@ -15,9 +15,9 @@ end
 
 When /^"([^"]*)" accepts the connection request$/ do |user|
   switch_user(user)
-
+  sleep(1)
   response = Inbox.get_connections_inbox_message($authorisation)
-  fail('No inbox notification received.') if JSON.parse(response.split(';',0)[1])['actionQueueList'][0]['entryID'].nil?
+  fail('No inbox notification received.') unless !JSON.parse(response.split(';',0)[1])['actionQueueList'][0]['entryID'].nil?
   entry_id = JSON.parse(response.split(';',0)[1])['actionQueueList'][0]['entryID'].to_s
   user_profile = TestConfig.return_profile(user)
 
