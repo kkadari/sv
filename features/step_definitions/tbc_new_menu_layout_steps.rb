@@ -71,7 +71,7 @@ Then /^I am presented with a customised footer with CISP specific links$/ do
   visit_and_benchmark HomePage do |home|
     fail('Footer could not be found') unless home.footer?
 
-    links = ['Get Involved', 'Share an incident on CiSP', 'Share tips and techniques', 'Join groups and start discussion', 'Getting the most out of CiSP', 'Follow the CERT-UK Blog', 'How we can Help', 'CERT-UK Publications', 'Alerts & Advisories', 'CiSP Services', 'Support', 'Getting Started', 'Frequently Asked Questions', 'Contact Us', 'Members', 'Member directory', 'My profile', 'Email preferences']
+    links = ['Get Involved', 'Share an incident on CiSP', 'Share tips and techniques', 'Join groups and start discussion', 'Getting the most out of CiSP', 'Follow the NCSC Blog', 'How we can Help', 'NCSC Publications', 'Alerts & Advisories', 'CiSP Services', 'Support', 'Getting Started', 'Frequently Asked Questions', 'Contact Us', 'Members', 'Member directory', 'My profile', 'My Inbox', 'Email preferences']
 
     links.each do |link|
       fail('Expected to find ' + link + ' in footer') unless home.text.include? link
