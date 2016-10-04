@@ -35,4 +35,4 @@ Feature: New menu layout
 
   Scenario: Custom footer layout
     Given I have logged in as "participant A"
-    Then I am presented with a customised footer with CISP specific links
+    Then I am presented with a customised footer with Threatvine specific links
