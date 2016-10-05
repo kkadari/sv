@@ -2,7 +2,8 @@ class SearchPersonPicker
   include PageObject
 
   div(:container, :id => 'user-autocomplete-modal-container')
-  link(:alpha_link, :css => '#jive-people-resultbar-alphabetical > span:nth-child(21) > a')
-  checkbox(:simon_user, :id => 'userChk-2007') # @TODO: Remove hardcoded value!
-
+  link(:search_link, :css => '#jive-search-tab a.userpicker-page-link')
+  text_field(:search_field, :name => 'query')
+  button(:submit, :value => 'Search')
+  checkbox(:user2_result, :css => 'td.jive-table-cell-checkbox > input:nth-child(1)')
 end

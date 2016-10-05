@@ -27,16 +27,22 @@ Given /^I have requested a new group is created with participant B as an additio
 
   on(SearchPersonPicker) do |search_picker|
     search_picker.wait_until do
-      search_picker.alpha_link?
+      search_picker.search_link?
       sleep(1)
     end
-    search_picker.alpha_link
+    search_picker.search_link
 
     search_picker.wait_until do
-      search_picker.simon_user?
+      search_picker.search_field?
     end
+    search_picker.search_field = @test_config_set[:user_2_name]
+    sleep(1)
+    search_picker.submit
 
-    search_picker.check_simon_user
+    search_picker.wait_until do
+      search_picker.user2_result?
+    end
+    search_picker.check_user2_result
   end
 
   on(RequestANewGroup) do |group|
@@ -49,17 +55,22 @@ Given /^I have requested a new group is created with participant B as an additio
 
   on(SearchPersonPicker) do |search_picker|
     search_picker.wait_until do
-      search_picker.alpha_link?
+      search_picker.search_link?
       sleep(1)
     end
-
-    search_picker.alpha_link
+    search_picker.search_link
 
     search_picker.wait_until do
-      search_picker.simon_user?
+      search_picker.search_field?
     end
+    search_picker.search_field = @test_config_set[:user_2_name]
+    sleep(1)
+    search_picker.submit
 
-    search_picker.check_simon_user
+    search_picker.wait_until do
+      search_picker.user2_result?
+    end
+    search_picker.check_user2_result
   end
 
   on(RequestANewGroup) do |group|
@@ -72,28 +83,15 @@ Given /^I have requested a new group is created with participant B as an additio
 end
 
 Then /^I have received the group creation request in my inbox$/ do
-  5.times do |i|
-    begin
-      visit_and_benchmark InboxPage, :using_params => {:query => '?filter=notifications&et=extendedcontent.expertise.moderation&%3FobjectType=-1805099612'} do |inbox|
-        inbox.notifications
+  visit_and_benchmark InboxPage, :using_params => {:query => '?filter=notifications&et=extendedcontent.expertise.moderation&%3FobjectType=-1805099612'} do |inbox|
+    sleep(3)
+    inbox.notifications
+    inbox.inbox_message
 
-        inbox.wait_until do
-          inbox.inbox_message?
-        end
+    fail('Notification not received') unless inbox.inbox_message_element.text.include? @test_config_set[:user_1_name] + ' added you as a potential second owner for a group named \'Auto request for group\'.'
+    fail('Notification description not correct') unless inbox.inbox_message_element.text.downcase.include? 'the group has the following description: description for the group'
 
-        fail('Notification not received') unless inbox.inbox_message_element.text.include? 'stephaniek@surevine added you as a potential second owner for a group named \'Auto request for group\'.'
-        fail('Notification description not correct') unless inbox.inbox_message_element.text.downcase.include? 'the group has the following description: description for the group'
-
-        inbox.confirm_notification
-      end
-      break
-    rescue => e
-      if i < 5
-        sleep(1)
-      else
-        fail(e)
-      end
-    end
+    inbox.confirm_notification
   end
 end
 
