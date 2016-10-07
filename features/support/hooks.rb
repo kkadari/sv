@@ -2,6 +2,7 @@ require 'watir-webdriver'
 require 'syntax'
 
 $browsers = {}
+$users = {}
 
 driver = nil
 using_ui = false
@@ -13,23 +14,20 @@ config = TestConfig.get_config_set
       @username = config[:user_1_name]
       @password = config[:user_1_password]
       $browsers[user] = Login.do_login(@username,@password)
-      ENV['user1_id'] = Login.get_user_id($browsers[user])
+      $user1_id = Login.get_user_id($browsers[user]).to_s
     when 'participant B'
       @username = config[:user_2_name]
       @password = config[:user_2_password]
       $browsers[user] = Login.do_login(@username,@password)
-      ENV['user2_id'] = Login.get_user_id($browsers[user])
+      $user2_id = Login.get_user_id($browsers[user]).to_s
     when 'admin'
       @username = config[:admin_name]
       @password = config[:admin_password]
       $browsers[user] = Login.do_login(@username,@password)
-      ENV['admin_id'] = Login.get_user_id($browsers[user])
+      $admin_id = Login.get_user_id($browsers[user]).to_s
     else
       fail 'Supplied user not recognised.'
   end
-
-  #$browsers[user] = Login.do_login(@username,@password)
-  #ENV['user1_id'] = get_user_id($authorisation)
 
 end
 
