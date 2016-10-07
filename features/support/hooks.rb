@@ -12,18 +12,25 @@ config = TestConfig.get_config_set
     when 'participant A'
       @username = config[:user_1_name]
       @password = config[:user_1_password]
+      $browsers[user] = Login.do_login(@username,@password)
+      ENV['user1_id'] = Login.get_user_id($browsers[user])
     when 'participant B'
       @username = config[:user_2_name]
       @password = config[:user_2_password]
+      $browsers[user] = Login.do_login(@username,@password)
+      ENV['user2_id'] = Login.get_user_id($browsers[user])
     when 'admin'
       @username = config[:admin_name]
       @password = config[:admin_password]
-
+      $browsers[user] = Login.do_login(@username,@password)
+      ENV['admin_id'] = Login.get_user_id($browsers[user])
     else
       fail 'Supplied user not recognised.'
   end
 
-  $browsers[user] = Login.do_login(@username,@password)
+  #$browsers[user] = Login.do_login(@username,@password)
+  #ENV['user1_id'] = get_user_id($authorisation)
+
 end
 
 Before('@sit, @ui') do
@@ -33,6 +40,7 @@ Before('@sit, @ui') do
   driver = BrowserFactory.create
   @browser = driver
   @browser.goto(ENV['base_url'] + '/welcome')
+
 end
 
 Before('~@sit, ~@ui') do

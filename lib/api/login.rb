@@ -16,7 +16,16 @@ module Login
           'jive.server.info=' + c['jive.server.info'][0] + '; ' +
           'jive.security.context' + @token
 
+      #get_user_id(authorisation)
+
       return authorisation
+    }
+  end
+
+  def self.get_user_id(cookies)
+    RestClient.get(ENV['base_url'] + '/api/core/v3/people/@me', :cookie => Request.create_cookie(cookies)){|response|
+      p 'User ID = ' + JSON.parse(response.split(';',0)[1])['id']
+      fail('User ID not found') unless JSON.parse(response.split(';',0)[1])['id'].present? || response.code != 200
     }
   end
 
