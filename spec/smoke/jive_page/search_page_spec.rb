@@ -13,7 +13,7 @@ describe 'Search page' do
   end
 
   it 'should return a 200 when searching for people' do
-    query_string = '?filter=search(stephanie)'
+    query_string = '?filter=search(' + ENV['username'] + ')'
 
     RestClient.get(ENV['base_url'] + '/api/core/v3/search/people' + query_string,:cookie => @authorisation){|response|
       assert_code_and_body(response, 200)
