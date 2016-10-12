@@ -41,11 +41,6 @@ Given /^I create a "([^"]*)" group with content$/ do |group_type|
   response = Places.put_v3_group(@draft_group_id, payload, $authorisation)
   @group_id = JSON.parse(response)['id']
 
-  #payload = V3GroupPayload.new('autogroup','Auto group to delete',group_type.upcase).payload
-  #response = Places.post_v3_group(payload, $authorisation)
-  #@group_id = JSON.parse(response)['id']
-  p "Created group ID: " + @group_id
-
   payload = IncidentReportPayload.new(TitleCreator.create_title_for('incident'),false,'Lorem ipsumy goodness','white',{:type => 'specific group', :id => @group_id},'',false).payload
   response2 = CreateContent.create_incident_report(payload, $authorisation)
   @incident_id = response2['redirect'][/[0-9]+/,0]
