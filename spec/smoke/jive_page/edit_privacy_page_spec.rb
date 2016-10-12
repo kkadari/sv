@@ -41,11 +41,10 @@ describe 'Edit privacy page' do
     response = Profile.get_edit_privacy_profile(@id, @authorisation)
 
     @token = Nokogiri::HTML(response).css('input[name*="edit.profile.security"]')[0]['value']
-    puts "TOKEN: " + @token
-
     @name_level = '100' + (2 * rand(3) + 1).to_s
+    @username = CGI.escape(ENV['username'])
 
-    payload = ProfilePrivacyPayload.new(@name_level, 'stephaniek%40surevine', @id, @token).payload
+    payload = ProfilePrivacyPayload.new(@name_level, @username, @id, @token).payload
 
     RestClient.post(ENV['base_url'] + '/edit-profile-security.jspa',payload,{:cookie => @authorisation,:content_type => 'application/x-www-form-urlencoded'}){|response|
       assert_code_and_body(response, 302)
