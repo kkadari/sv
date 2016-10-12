@@ -23,6 +23,9 @@ module Login
   def self.get_user_id(cookies)
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/@me', :cookie => Request.create_cookie(cookies)){|response|
       fail('User ID not found') unless JSON.parse(response.split(';',0)[1])['id'].present? || response.code != 200
+      user_id = JSON.parse(response.split(';',0)[1])['id']
+
+      return user_id
     }
   end
 

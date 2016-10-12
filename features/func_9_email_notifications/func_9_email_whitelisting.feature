@@ -9,7 +9,7 @@ Feature: Email whitelisting
   Scenario: A user enables and adds a user to the extended notifications user whitelist
     Given I have logged in as "admin"
     When I set the system property "notifications.email.content.whitelisted" to "true"
-    And I set the system property "notifications.email.content.whitelistusers" to "stephaniek@surevine"
+    And I set the system property "notifications.email.content.whitelistusers" to "participant A"
     Then "participant A" will have access to extended notification options in preferences
     And "participant B" will not have access to extended notification options in preferences
 

@@ -1,6 +1,6 @@
 class EditContent < Request
 
-  def self.post_edit_document(doc_id, payload, cookies)
+  def self. post_edit_document(doc_id, payload, cookies)
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/legacy_token/jive.token.content.document.editUpload', :cookie => Request.create_cookie(cookies)){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
 

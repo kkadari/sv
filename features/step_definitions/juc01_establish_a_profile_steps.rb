@@ -17,6 +17,7 @@ Given /^"([^"]*)" has updated their profile$/ do |user|
       @token
   ).payload
 
+  p 'PAYLOAD: ' + payload.to_s
   Profile.post_edit_profile(payload, $authorisation)
 
 end
