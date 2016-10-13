@@ -15,25 +15,17 @@ Feature: JUC12 - Raise an incident
 	  When I have logged in as "participant B"
 	  Then my inbox shows I have been mentioned anonymously
 
-  Scenario: A participant raises a red incident report in a private group
-	  Given I have logged in as "participant A"
-	  And I have raised a red incident report in a private group
-	  Then I am able to view the marking
-
-  Scenario: A participant raises an amber incident report in a private group
-	  Given I have logged in as "participant A"
-	  And I have raised an amber incident report in a private group
-  	Then I am able to view the marking
-
-  Scenario: A participant raises a green incident report in a private group
+  Scenario Outline: A participant raises incident reports in a private group
     Given I have logged in as "participant A"
-  	And I have raised a green incident report in a private group
-  	Then I am able to view the marking
+	And I have raised a <tlp> incident report in a private group
+    Then I am able to view the marking
 
-  Scenario: A participant raises a white incident report in a private group
-  	Given I have logged in as "participant A"
-  	And I have raised a white incident report in a private group
-  	Then I am able to view the marking
+    Examples:
+      | tlp |
+      | red |
+      | amber |
+      | green |
+      | white |
 
   Scenario: Participant raises an amber incident report anonymously in a private group
     Given I have logged in as "participant A"

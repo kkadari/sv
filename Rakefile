@@ -49,7 +49,7 @@ namespace :features do
 end
 
 task :setup => 'ci:setup:rspec' do
-  sh 'rspec spec/setup/create_users_spec.rb && rspec spec --only-failures'
+  sh 'rspec spec/setup/'
 end
 
 task :integration => 'ci:setup:rspec' do
@@ -57,5 +57,5 @@ task :integration => 'ci:setup:rspec' do
 end
 
 task :bridge_int => 'ci:setup:rspec' do
-  sh 'rspec spec/smoke/bridge/ && rspec spec --only-failures'
+  sh 'rspec spec/smoke/bridge/'
 end
