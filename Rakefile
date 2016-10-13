@@ -49,7 +49,7 @@ namespace :features do
 end
 
 task :setup => 'ci:setup:rspec' do
-  sh 'rspec spec/setup/'
+  sh 'rspec spec/smoke/jive_page/{content_create,create_poll}_page_spec.rb'
 end
 
 task :integration => 'ci:setup:rspec' do
