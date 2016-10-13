@@ -25,12 +25,16 @@ describe 'Create poll page' do
     response2 = CreateContent.get_poll_choice(poll_id, @authorisation)
     choice = JSON.parse(response2)['id']
 
+    system = Faker::Company.catch_phrase.downcase
+    content =  Faker::Lorem.paragraph(50,false,50)
+    subject = "What is more important to users of #{system} systems?"
+
     payload = PollPayload
                   .new(@authorisation,
                        poll_id,
                        choice,
-                       'Testing poll 2',
-                       'body content goes here',
+                       subject,
+                       content,
                        'green',
                        'Information text ',
                       {:type => 'community'}).payload

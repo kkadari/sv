@@ -3,10 +3,16 @@ require 'spec_helper'
 describe 'Creating content' do
 
   it 'should return a 200 when creating a discussion' do
+
+    attack = %w(DDoS phishing logic-bomb trojan).sample
+    system = Faker::Company.catch_phrase.downcase
+    content =  Faker::Lorem.paragraph(50,false,50)
+    subject = "Let's talk about #{attack} attacks on #{system} systems"
+
     payload = DiscussionPayload
-                  .new('Testing builder 2',
+                  .new(subject,
                        false,
-                       'body content goes here',
+                       content,
                        'red',
                        Hash[:type => 'community'],
                        'test, test1',
@@ -18,9 +24,15 @@ describe 'Creating content' do
   end
 
   it 'should return a 200 when creating a blog post' do
+
+    attack = %w(DDoS phishing logic-bomb trojan).sample
+    system = Faker::Company.catch_phrase.downcase
+    content =  Faker::Lorem.paragraph(50,false,50)
+    subject = "My thoughts on #{system} #{attack} attacks"
+
     payload = BlogPayload
-                  .new('Testing blog 1',
-                       'Content goes here',
+                  .new(subject,
+                       content,
                        'amber',
                        'test1, test2, test3').payload
 
@@ -30,10 +42,16 @@ describe 'Creating content' do
   end
 
   it 'should return a 200 when creating an incident report' do
+
+    attack = %w(DDoS phishing logic-bomb trojan).sample
+    system = Faker::Company.catch_phrase.downcase
+    content =  Faker::Lorem.paragraph(50,false,50)
+    subject = "We just experienced a #{attack} attack on our #{system} system"
+
     payload = IncidentReportPayload
-                  .new('Testing builder 2',
+                  .new(subject,
                        false,
-                       'body content goes here',
+                       content,
                        'red',
                        Hash[:type => 'community'],
                        'test, test2',
@@ -47,7 +65,7 @@ describe 'Creating content' do
   it 'should return a 200 when creating a document' do
     payload = DocumentPayload
                   .new(Faker::Lorem.words(10).join(','),
-                       'body content here',
+                       Faker::Lorem.paragraph(50,false,50),
                        'red',
                        'test.jpg').payload
 
