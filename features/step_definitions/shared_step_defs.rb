@@ -1,4 +1,4 @@
-Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
+rGiven /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
   switch_user(login)
 end
 

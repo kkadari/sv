@@ -7,11 +7,11 @@ class CommentPayload
   end
 
   def payload
-    payload = '{"body":"<body><p>' + @body + '</p></body>","mobileEditor":false,'
+    payload = '{"body": "<body><p>' + @body + '</p></body>", "mobileEditor": false, '
 
-    payload += '"parentCommentID":"' + @comment_id + '",' if @comment_id != '0'
+    payload += '"parentCommentID": "' + @comment_id + '",' if @comment_id != '0'
 
-    payload += '"commentMode":"comments","attributed":' + @attributed + '}'
+    payload += '"commentMode": "comments", "attributed": "' + @attributed + '"}'
 
     return payload
   end
