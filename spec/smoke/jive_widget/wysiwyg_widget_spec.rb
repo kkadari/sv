@@ -22,15 +22,6 @@ describe 'WYSIWYG editor' do
     }
   end
 
-  it 'should return a 200 when calling the details of a mention added in the editor' do
-    # 2020 = user container,
-    path = '/__services/v2/rest/emention/restrictedView?editingObjectID=1963&editingObjectType=11111&entitlement=VIEW_CONTENT&mentionedObjectType=3&mentionedObjectID=2004'
-
-    RestClient.get(ENV['base_url'] + path,:cookie => @authorisation){|response|
-      assert_code_and_body(response, 200)
-    }
-  end
-
   it 'should return a 200 when uploading an image to embed in the content' do
     upload_file = File.new(File.dirname(__FILE__) + '/../../../bin/test.jpg')
     payload = {
