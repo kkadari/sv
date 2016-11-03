@@ -1,4 +1,4 @@
-rGiven /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
+Given /^I? (?:am|have) logged in as "([^\"]+)"$/ do |login|
   switch_user(login)
 end
 
@@ -101,12 +101,13 @@ end
 Given /^I have created? (?:a|an) (red|amber|green|white) blog post in (a private group|my personal blog)$/ do |marking, publication|
   @subject = TitleCreator.create_title_for('blog')
   @marking = marking
-
+  current_user = TestConfig.return_profile('participant A')
   payload = BlogPayload
                 .new(@subject,
                      'Content goes here',
                      @marking,
-                     'test1, test2, test3').payload
+                     'test1, test2, test3',
+                     current_user[:username]).payload
 
   response = CreateContent.post_blog(payload, $authorisation)
   @blog_url = JSON.parse(response.body)['redirect']

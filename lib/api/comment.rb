@@ -17,8 +17,8 @@ class Comment < Request
   def self.post_blog_comment(blog_id, payload, cookies)
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/comments/38/' + blog_id,payload,{:cookie => Request.create_cookie(cookies),:content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
-
       @blog_url = JSON.parse(response)['redirect']
+      return response
     }
   end
 
@@ -68,4 +68,15 @@ class Comment < Request
     }
   end
 
+  def self.post_like(type_id, comment_id, payload, cookies)
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/acclaim/' + type_id + '/' + comment_id + '/addvote',payload,{:cookie => Request.create_cookie(cookies),:x_requested_with => 'XMLHttpRequest'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
+
+  def self.post_unlike(type_id, comment_id, payload, cookies)
+    RestClient.post(ENV['base_url'] + '/__services/v2/rest/acclaim/' + type_id + '/' + comment_id + '/removevote',payload,{:cookie => Request.create_cookie(cookies),:x_requested_with => 'XMLHttpRequest'}){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != 200
+    }
+  end
 end

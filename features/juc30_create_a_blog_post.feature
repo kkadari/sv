@@ -30,3 +30,11 @@ Feature: JUC30 - Create a blog post
     And I have created an amber blog post in a private group
     When I submit a comment for the blog post
     Then the comment is posted to the blog post
+
+  Scenario: Participant likes and unlikes a blog post comment
+    Given I have logged in as "participant A"
+    And I have created an amber blog post in a private group
+    And I submit a comment for the blog post
+    When I have logged in as "participant B"
+    Then I can like the comment
+    And I can unlike the comment
