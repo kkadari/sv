@@ -42,14 +42,14 @@ RSpec.configure do |config|
 
     # Get Space ID from the specified space
     if !ENV['space'].nil?
-      RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['space'] + ')',:cookie => @authorisation){|response|
+      RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['space'] + ')&filter=type(space)',:cookie => @authorisation){|response|
         @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
       }
     end
 
     # Get Group ID from the specified group
     if !ENV['group'].nil?
-      RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['group'] + ')',:cookie => @authorisation){|response|
+      RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['group'] + ')&filter=type(group)',:cookie => @authorisation){|response|
         @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
       }
     end

@@ -8,7 +8,7 @@ describe 'Group membership widget' do
     }
   end
 
-  it 'should return a 200 when requesting to leave a group' do
+  it 'should return a 200 when requesting current member info before leaving a group' do
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/socialgroups/' + @group_id + '/memberInfo',{:cookie => @authorisation, :content_type => 'application/json'}){|response|
       assert_code_and_body(response, 200)
     }
@@ -22,7 +22,7 @@ describe 'Group membership widget' do
   #   }
   # end
 
-  it 'should return a 200 when returning a members list of a group' do
+  it 'should return a 200 when returning a list of members in a group' do
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/activity/users/membership/700/' + @group_id,{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
       assert_code_and_body(response, 200)
     }
