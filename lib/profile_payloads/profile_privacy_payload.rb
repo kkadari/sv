@@ -1,6 +1,6 @@
 class ProfilePrivacyPayload
 
-  def initialize(name_level, username, user_id, token, profile_fields = '')
+  def initialize(name_level, username, user_id, token, profile_fields)
     @name_level       = name_level
     @username         = username
     @user_id          = user_id
@@ -22,25 +22,7 @@ class ProfilePrivacyPayload
         'edit.profile.security.' + @user_id => @token,
         :multipart => true
     }
-    if @profile_fields != ''
-      payload = payload.merge(@profile_fields)
-    else
-      payload += {
-          'profile[5001].effectiveSecurityLevelID' => '1001', # These should be phased out.
-          'profile[5004].effectiveSecurityLevelID' => '1001',
-          #'profile[5005].effectiveSecurityLevelID' => '1005',
-          'profile[5006].effectiveSecurityLevelID' => '1005',
-          'profile[5007].effectiveSecurityLevelID' => '1005',
-          'profile[5008].effectiveSecurityLevelID' => '1005',
-          'profile[5009].effectiveSecurityLevelID' => '1005',
-          #'profile[5010].effectiveSecurityLevelID' => '1001',
-          'profile[5011].effectiveSecurityLevelID' => '1001',
-          'profile[5012].effectiveSecurityLevelID' => '1005',
-          'profile[5013].effectiveSecurityLevelID' => '1001',
-          'profile[5015].effectiveSecurityLevelID' => '1001',
-      }
-      puts 'DEFAULT VALUES ... '
-    end
+    payload = payload.merge(@profile_fields)
 
     return payload
   end

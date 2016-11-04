@@ -49,15 +49,24 @@ Given /^I have navigated to the edit profile privacy page as "([^"]*)"$/ do |use
   switch_user(user)
 
   @user_profile = TestConfig.return_profile(user)
-
   response = Profile.get_edit_privacy_profile(@user_profile[:user_id], $authorisation)
+
+  # Extract profile fields and current values (for building a payload)
+  @fields = Hash.new()
+  Nokogiri::HTML(response).xpath('//select[starts-with(@name, "profile[")]').each do |items|
+    field_name = items.attributes['name'].value
+    s = '#' + items.attributes['id'].value + ' option[@selected="selected"]'
+    selected_value =  Nokogiri::HTML(response).css(s).attr('value').to_s
+    @fields[field_name] = selected_value
+  end
+
   @token = Nokogiri::HTML(response).css('input[name*="edit.profile.security"]')[0]['value']
 end
 
 When /^I make changes to my privacy details and save them$/ do
   @name_level = '100' + (2 * rand(3) + 1).to_s
 
-  payload = ProfilePrivacyPayload.new(@name_level, @user_profile[:username], @user_profile[:user_id], @token).payload
+  payload = ProfilePrivacyPayload.new(@name_level, @user_profile[:username], @user_profile[:user_id], @token, @fields).payload
 
   Profile.post_edit_privacy_profile(payload, $authorisation)
 end
