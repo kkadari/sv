@@ -38,17 +38,35 @@ describe 'Edit privacy page' do
   end
 
   it 'should return a 200 when posting an update to privacy' do
+
+    # Get User ID
+    RestClient.get(ENV['base_url'] + '/api/core/v3/people/@me', :cookie => @authorisation){|response|
+      assert_code_and_body(response, 200)
+      @user_id = JSON.parse(response.split(';',0)[1])['id']
+    }
+
+    # Get Privacy Profile for User (HTML response)
     response = Profile.get_edit_privacy_profile(@id, @authorisation)
 
-    @token = Nokogiri::HTML(response).css('input[name*="edit.profile.security"]')[0]['value']
-    @name_level = '100' + (2 * rand(3) + 1).to_s
-    @username = CGI.escape(ENV['username'])
+    # Extract profile fields and current values (so we can build our payload)
+    fields = Hash.new()
+      Nokogiri::HTML(response).xpath('//select[starts-with(@name, "profile[")]').each do |items|
+        field_name = items.attributes['name'].value
+        s = '#' + items.attributes['id'].value + ' option[@selected="selected"]'
+        selected_value =  Nokogiri::HTML(response).css(s).attr('value').to_s
+        fields[field_name] = selected_value
+      end
+    token = Nokogiri::HTML(response).css('input[name*="edit.profile.security"]')[0]['value']
+    name_level = '100' + (2 * rand(3) + 1).to_s
+    username = CGI.escape(ENV['username'])
 
-    payload = ProfilePrivacyPayload.new(@name_level, @username, @id, @token).payload
+    payload = ProfilePrivacyPayload.new(name_level, username, @user_id, token, fields).payload
 
+    # Post privacy update
     RestClient.post(ENV['base_url'] + '/edit-profile-security.jspa',payload,{:cookie => @authorisation,:content_type => 'application/x-www-form-urlencoded'}){|response|
       assert_code_and_body(response, 302)
     }
+
   end
 
 end
