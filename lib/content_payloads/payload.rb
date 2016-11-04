@@ -24,11 +24,11 @@ class Payload
       when 'community'
         return '{"visibility":"all"}'
       when 'space'
-        return '{"visibility":"place","container":{"objectType":"14","objectID":"2004"}}' #TODO: Parameterise objectID!
+        return '{"visibility":"place","container":{"objectType":"14","objectID":"' + $custom_space_id + '"}}'
       when 'private group'
-        return '{"visibility":"place","container":{"objectType":"700","objectID":"1008"}}' #TODO: Parameterise objectID!
+        return '{"visibility":"place","container":{"objectType":"700","objectID":"' + $private_group_id + '"}}'
       when 'secret group'
-        return '{"visibility":"place","container":{"objectType":"700","objectID":"1009"}}' #TODO: Parameterise objectID!
+        return '{"visibility":"place","container":{"objectType":"700","objectID":"' + $secret_group_id + '"}}'
       when 'specific group'
         return '{"visibility":"place","container":{"objectType":"700","objectID":"' + publication[:id] + '"}}'
       when 'specific space'

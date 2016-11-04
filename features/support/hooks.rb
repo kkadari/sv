@@ -15,16 +15,24 @@ config = TestConfig.get_config_set
       @password = config[:user_1_password]
       $browsers[user] = Login.do_login(@username,@password)
       $user1_id = Login.get_user_id($browsers[user]).to_s
+      $custom_space_id = Places.get_space_id(ENV['custom_space'],$browsers[user]).to_s
+      $private_group_id = Places.get_group_id(ENV['private_group'],'private-group',$browsers[user]).to_s
     when 'participant B'
       @username = config[:user_2_name]
       @password = config[:user_2_password]
       $browsers[user] = Login.do_login(@username,@password)
       $user2_id = Login.get_user_id($browsers[user]).to_s
+      $custom_space_id = Places.get_space_id(ENV['custom_space'],$browsers[user]).to_s
+      $private_group_id = Places.get_group_id(ENV['private_group'],'private-group',$browsers[user]).to_s
+      $secret_group_id = Places.get_group_id(ENV['secret_group'],'secret-group',$browsers[user]).to_s
     when 'admin'
       @username = config[:admin_name]
       @password = config[:admin_password]
       $browsers[user] = Login.do_login(@username,@password)
       $admin_id = Login.get_user_id($browsers[user]).to_s
+      $custom_space_id = Places.get_space_id(ENV['custom_space'],$browsers[user]).to_s
+      $private_group_id = Places.get_group_id(ENV['private_group'],'private-group',$browsers[user]).to_s
+      $secret_group_id = Places.get_group_id(ENV['secret_group'],'secret-group',$browsers[user]).to_s
     else
       fail 'Supplied user not recognised.'
   end

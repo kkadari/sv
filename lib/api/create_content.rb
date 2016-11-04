@@ -2,6 +2,7 @@ class CreateContent < Request
 
   def self.create_incident_report(payload, cookies)
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/incidentReports/',payload,{:cookie => create_cookie(cookies),:content_type => 'application/json'}){|response|
+      puts response
       raise 'Could not create incident report' if response.body.include? 'You are not allowed to create or update this content' || response.code != 200
 
       JSON.parse(response.body)
