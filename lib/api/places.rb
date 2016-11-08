@@ -1,14 +1,5 @@
 class Places < Request
 
-  # ~TD: Looks deprecated in Jive 8.
-  # def self.post_v3_group(payload, cookies)
-  #   RestClient.post(ENV['base_url'] + '/api/core/v3/places', payload, {:cookie => Request.create_cookie(cookies), :content_type => 'application/json'}){|response|
-  #     fail('Failed with ' + response.code.to_s) if response.code != 201
-  #
-  #     return response
-  #   }
-  # end
-
   def self.put_v3_group(id, payload, cookies)
     RestClient.put(ENV['base_url'] + '/api/core/v3/places/' + id, payload, {:cookie => Request.create_cookie(cookies), :content_type => 'application/json'}){|response|
       fail('Failed with ' + response.code.to_s) if response.code != 200
@@ -65,6 +56,7 @@ class Places < Request
 
   def self.get_group_id(group_name, group_tag, cookies)
     RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + group_name + ')&filter=tag(' + group_tag + ')',:cookie => Request.create_cookie(cookies)){|response|
+
       fail('Failed with ' + response.code.to_s) if response.code != 200
 
       return JSON.parse(response.body.split('\';')[1])['list'][0]['id']

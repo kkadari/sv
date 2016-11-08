@@ -10,7 +10,7 @@ class Search < Request
 
   def self.get_spotlight_content(keyword, cookies)
     RestClient.get(ENV['base_url'] + '/api/core/v3/search/contents?sort=relevanceDesc&origin=spotlight&highlight=false&count=10&filter=search(' + keyword + '*)&fields=type%2Cid%2Cauthor%2Csubject%2CvisibleToExternalContributors%2Cpublished%2Cupdated%2Cquestion%2Canswer%2Chelpful&collapse=true&directive=include_rtc', {:cookie => Request.create_cookie(cookies),:content_type => 'application/json'}){|response|
-      raise 'Could not create discussion' if response.code != 200
+      raise 'No search result found.' if response.code != 200
 
       return response
     }
@@ -18,7 +18,7 @@ class Search < Request
 
   def self.get_spotlight_people(keyword, cookies)
     RestClient.get(ENV['base_url'] + '/api/core/v3/search/people?sort=relevanceDesc&origin=spotlight&highlight=false&count=10&filter=search(' + keyword + '*)&fields=type%2Cid%2Cname%2CdisplayName%2CthumbnailId%2Cjive', {:cookie => Request.create_cookie(cookies),:content_type => 'application/json'}){|response|
-      raise 'Could not create discussion' if response.code != 200
+      raise 'No search result found.' if response.code != 200
 
       return response
     }

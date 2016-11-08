@@ -1,7 +1,7 @@
 Given /^a participant has raised an anonymous incident report in a group I follow in my connections stream$/ do
   switch_user('participant A')
 
-  Follow.post_follow_group('2009', $authorisation)
+  Follow.post_follow_group($custom_space_id, $authorisation)
 
   switch_user('participant B')
 
