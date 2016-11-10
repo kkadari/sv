@@ -74,6 +74,8 @@ Given /^I have created? (?:a|an) (red|amber|green|white) poll in? (?:the|a) (com
   response = CreateContent.post_create_poll(payload, $authorisation)
 
   @poll_id = JSON.parse(response)['redirect'].scan(/polls\/[0-9]*/)[0].gsub('polls/','')
+  @poll_choice = choice.to_s # Not returning the correct Poll Choice IDs
+  # TODO: Check if poll options are displayed on the returned poll.
 end
 
 Then /^I can locate and view the( anonymous)? discussion$/ do |anonymous|

@@ -36,7 +36,7 @@ describe 'Create poll page' do
                        subject,
                        content,
                        'green',
-                       'Information text ',
+                       'Information text - created by the integration test suite',
                       {:type => 'community'}).payload
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/polls',payload,{:cookie => @authorisation,:content_type => 'application/json; charset=UTF-8'}){|response|

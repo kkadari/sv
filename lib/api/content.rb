@@ -40,4 +40,12 @@ class Content < Request
     }
   end
 
+  def self.get_poll_options(poll_id, cookies, status_code = 200)   # Not sure if this is needed or even works as expected!
+    RestClient.get(ENV['base_url'] + '/polls/' + poll_id,:cookie => Request.create_cookie(cookies)){|response|
+      fail('Failed with ' + response.code.to_s) if response.code != status_code
+
+      return response
+    }
+  end
+
 end
