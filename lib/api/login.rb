@@ -1,5 +1,19 @@
 module Login
 
+  def self.do_totp_login(username, password, totp_secret)
+    #payload = 'username=' + CGI.escape(username) + '&password=' + CGI.escape(password)
+
+    # Change login to use 2FA screens here.
+
+    # Get TOTP key for user
+    totp = ROTP::TOTP.new(totp_secret)
+    totp.now
+
+    puts 'totp: username: ' + username + ', password: ' + password + '(token: ' + totp.new + ')'
+
+    # Do login here...
+  end
+
   def self.do_login(username, password)
     payload = 'username=' + CGI.escape(username) + '&password=' + CGI.escape(password)
 

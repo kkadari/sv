@@ -13,7 +13,7 @@ class HomePage
   link(:places, :id => 'navCommunitiesAndNodes')
   elements(:menu_item, :li, :css => '.js-pop #myPlaces-list li')
   link(:colleagues, :text => 'Colleagues')
-  link(:view_more, :text => 'view more...')
+  link(:view_more, :text => 'view more')
   div(:footer, :class => 'footer-main')
 
   in_iframe(:class => 'htmlWidgetIframe') do |frame|
@@ -22,7 +22,7 @@ class HomePage
     link(:banner_link, :class => 'cs-coin_articles', :frame => frame)
   end
 
-  elements(:call_to_action, :div, :css => '.jive-html-text-widget .cta')
+  elements(:call_to_action, :div, :css => '.calls-to-action.horizontal .cta')
   div(:get_involved, :css => '.calls-to-action.vertical')
 
   list_item(:popular, :id => 'feed-popular')

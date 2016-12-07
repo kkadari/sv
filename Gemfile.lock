@@ -84,6 +84,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rotp (3.3.0)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -142,6 +143,7 @@ DEPENDENCIES
   rake
   require_all
   rest-client
+  rotp
   rspec
   sinatra
   syntax
@@ -149,4 +151,4 @@ DEPENDENCIES
   watir-webdriver-performance
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

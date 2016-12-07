@@ -14,7 +14,6 @@ Feature: New menu layout
       | Recently Viewed |
       | Following       |
       | Followers       |
-      | Colleagues      |
     And I will see a menu option name "Places" with the following submenu options
       | All             |
       | Following       |
@@ -28,6 +27,7 @@ Feature: New menu layout
     Then I will see a list of groups and places I've recently visited
     And clicking on view more takes me to the recently viewed places page
 
+  @wip
   Scenario: 'Colleagues' submenu option
     Given I have logged in as "participant A"
     When I click on the menu item Colleagues in the Members menu
