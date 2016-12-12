@@ -13,7 +13,7 @@ class HomePage
   link(:places, :id => 'navCommunitiesAndNodes')
   elements(:menu_item, :li, :css => '.js-pop #myPlaces-list li')
   link(:colleagues, :text => 'Colleagues')
-  link(:view_more, :text => 'view more')
+  link(:view_more, :class => 'show-more')
   div(:footer, :class => 'footer-main')
 
   in_iframe(:class => 'htmlWidgetIframe') do |frame|
