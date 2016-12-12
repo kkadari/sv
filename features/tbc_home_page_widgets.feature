@@ -13,7 +13,7 @@ Feature: Home page widgets
     And I navigate back to the homepage
     Then I will see my new entry in the banner
 
-  @ui
+  @ui @tv
   Scenario: Static call to action widgets
     Given I have logged in as "participant A"
     Then I will see three call to action widgets
