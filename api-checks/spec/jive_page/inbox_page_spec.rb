@@ -11,7 +11,7 @@ describe 'Inbox page' do
   end
 
   it 'should return a 200 when initialising the inbox view in activity' do
-    payload = '{"objectType":3,"objectID":"' + @id + '","streamSource":"communications","streamID":' + @stream_id + ',"filterType":[],"timestamp":0}'
+    payload = '{"objectType":3,"objectID":"1","streamSource":"communications","streamID":0,"streamChannel":"recent","filterType":[],"timestamp":0}'
 
     RestClient.post(ENV['base_url'] + '/__services/v2/rest/activity-stream/initializeView',payload,{:cookie => @authorisation, :content_type => 'application/json', :accept => 'application/json'}){|response|
       assert_code_and_body(response, 200)

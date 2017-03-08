@@ -13,6 +13,12 @@ class ProfilePayload
 
   def payload
     {
+        'firstname' => 'Admin',
+        'lastname' => 'Admin',
+        'email' => 'test+admin@surevine.com',
+        'profile[5002].typeID'  => '16',    # Professional Profile (optional)
+        'profile[5002].fieldID'  => '5002',
+        'profile[5002].value'  => 'Analyst 123', #Note: ROCU field ID is 2013.
         'profile[5004].typeID'  => '16',    # Organisation (required)
         'profile[5004].fieldID'  => '5004',
         'profile[5004].value'  => 'Energy',
@@ -37,9 +43,6 @@ class ProfilePayload
         'profile[5010].typeID'  => '6',     # Organisation Sector (optional)
         'profile[5010].fieldID'  => '5010',
         'profile[5010].value'  => @sentence,
-        'profile[5002].typeID'  => '16',    # Professional Profile (optional)
-        'profile[5002].fieldID'  => '5002',
-        'profile[5002].value'  => 'Analyst 123', #Note: ROCU field ID is 2013.
         'save'  => 'Save',
         'username'  => @username,
         'targetUser'  => @user_id,

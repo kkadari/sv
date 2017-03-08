@@ -25,7 +25,7 @@ describe 'The profile activity page' do
   end
 
   it 'should return a 200 when requesting the profile activity' do
-    RestClient.get(ENV['base_url'] + '/people/' + ENV['username'] + '/activity',:cookie => @authorisation){|response|
+    RestClient.get(ENV['base_url'] + '/people/admin/activity',:cookie => @authorisation){|response|
       assert_code_and_body(response, 200)
     }
   end

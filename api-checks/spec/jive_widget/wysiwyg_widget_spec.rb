@@ -23,7 +23,7 @@ describe 'WYSIWYG editor' do
   end
 
   it 'should return a 200 when uploading an image to embed in the content' do
-    upload_file = File.new(File.dirname(__FILE__) + '/../../../bin/test.jpg')
+    upload_file = File.new(File.dirname(__FILE__) + '/../../bin/test.jpg')
     payload = {
         :dummyValue => 'dummy',
         'jive.token.name' => 'rte.image.token',

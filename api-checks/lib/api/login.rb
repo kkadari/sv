@@ -28,7 +28,11 @@ module Login
           'jive.login.type=' + c['jive.login.type'][0] + '; ' +
           'jive.user.loggedIn=' + c['jive.user.loggedIn'][0] + '; ' +
           'jive.server.info=' + c['jive.server.info'][0] + '; ' +
-          'jive.security.context' + @token
+          'jive.security.context' + @token + '; '
+
+      RestClient.get(ENV['base_url'] + '/api/core/v3/people/@me',:cookie => @authorisation){ |response|
+        authorisation += 'X-JCAPI-Token' + response.headers[:set_cookie][1].scan(/=.*;\s/)[0].gsub(';','');
+      }
 
       return authorisation
     }

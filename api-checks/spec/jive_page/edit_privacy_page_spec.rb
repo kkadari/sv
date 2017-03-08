@@ -10,7 +10,7 @@ describe 'Edit privacy page' do
 
   it 'should return a 200 when requesting profile preview' do
 
-    @username = CGI.escape(ENV['username'])
+    @username = CGI.escape('admin')
 
     payload = 'nameSecurityLevelID=1001
               &emailSecurityLevelID=1001
@@ -58,12 +58,12 @@ describe 'Edit privacy page' do
       end
     token = Nokogiri::HTML(response).css('input[name*="edit.profile.security"]')[0]['value']
     name_level = '100' + (2 * rand(3) + 1).to_s
-    username = CGI.escape(ENV['username'])
+    username = CGI.escape('admin')
 
     payload = ProfilePrivacyPayload.new(name_level, username, @user_id, token, fields).payload
 
     # Post privacy update
-    RestClient.post(ENV['base_url'] + '/edit-profile-security.jspa',payload,{:cookie => @authorisation,:content_type => 'application/x-www-form-urlencoded'}){|response|
+    RestClient.post(ENV['base_url'] + '/edit-profile-security.jspa', payload, {:cookie => @authorisation}){|response|
       assert_code_and_body(response, 302)
     }
 

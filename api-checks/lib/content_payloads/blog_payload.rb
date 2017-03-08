@@ -10,7 +10,7 @@ class BlogPayload < Payload
 
   def payload
 
-    blog_name = ENV['username'] || @blog_name # used to set Blog Name
+    blog_name = 'admin' || @blog_name # used to set Blog Name
 
     payload = '{
       "subject":"' + @subject + '",

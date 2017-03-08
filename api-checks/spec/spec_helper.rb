@@ -13,27 +13,18 @@ RSpec.configure do |config|
   config.color = true
   config.tty = true
 
-  # Log failures so we can re-run them.
-  config.example_status_persistence_file_path = File.dirname(__FILE__) + '/../reports//failures.txt'
-
   config.before(:all) do
-    puts 'Logging in as: ' + ENV['username']
-
-    @authorisation = Login.do_login(ENV['username'], ENV['password'])
-
-    # RestClient.log = 'stdout' #uncomment to debug
+    @authorisation = Login.do_login('admin', 'admin')
 
     # Get User 1 ID from the specified user
-    RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username'],:cookie => @authorisation){ |response|
+    RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/admin',:cookie => @authorisation){ |response|
       @id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
     }
 
     # Get User 2 ID from the specified user
-    if !ENV['username_2'].nil?
-      RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/' + ENV['username_2'],:cookie => @authorisation){ |response|
-        @user_2_id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
-      }
-    end
+    RestClient.get(ENV['base_url'] + '/api/core/v3/search/people?origin=searchpage&filter=search(*)',:cookie => @authorisation){ |response|
+      @user_2_id = JSON.parse(response.body.split(';',0)[1])['list'][0]['id']
+    }
 
     # Get connection stream ID (used by Inbox and Feeds)
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/' + @id + '/streams',:cookie => @authorisation){|response|
@@ -41,18 +32,14 @@ RSpec.configure do |config|
     }
 
     # Get Space ID from the specified space
-    if !ENV['space'].nil?
-      RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['space'] + ')&filter=type(space)',:cookie => @authorisation){|response|
-        @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
-      }
-    end
+    RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(support)&filter=type(space)',:cookie => @authorisation){|response|
+      @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+    }
 
     # Get Group ID from the specified group
-    if !ENV['group'].nil?
-      RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(' + ENV['group'] + ')&filter=type(group)',:cookie => @authorisation){|response|
-        @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
-      }
-    end
+    RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(alerts-and-advisories)&filter=type(group)',:cookie => @authorisation){|response|
+      @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+    }
   end
 
   config.before(:each) do
