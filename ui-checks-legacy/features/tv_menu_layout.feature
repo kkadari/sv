@@ -1,4 +1,4 @@
-@ui @tv
+@tv
 Feature: New menu layout
 
   Scenario: New menu and submenu options
