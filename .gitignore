@@ -5,3 +5,4 @@ screenshots/
 .DS_Store
 spec/reports/
 run_log.txt
+*/target

@@ -110,4 +110,5 @@ public class WelcomePage extends PageObject {
 
         return divCommunityMenu.getAttribute("outerHTML");
     }
+
 }
