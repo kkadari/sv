@@ -51,7 +51,7 @@ describe 'Bookmark widget' do
 
   it 'should return a 200 when deleting a specific bookmark' do
     RestClient.get(ENV['base_url'] + '/__services/v2/rest/bookmarks',:cookie => @authorisation){|response|
-      @id = JSON.parse(response.body.split(';',0)[1])['items'][0]['prop']['bookmarkInfo']['bookmarkID'].to_s
+      @id = JSON.parse(response)['items'][0]['prop']['bookmarkInfo']['bookmarkID'].to_s
     }
   end
 

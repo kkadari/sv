@@ -18,7 +18,7 @@ describe 'View discussion page' do
     }
 
     RestClient.get(ENV['base_url'] + @redirect,:cookie => @authorisation){|response|
-      @msg_id = response.body().scan(/canonical" href="[\/a-z0-9]*/)[0].split('thread/')[1]
+      @msg_id = response.body().scan(/canonical" href="[\/a-z0-9:.]*/)[0].split('thread/')[1]
     }
   end
 

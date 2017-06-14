@@ -18,27 +18,29 @@ RSpec.configure do |config|
 
     # Get User 1 ID from the specified user
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/username/admin',:cookie => @authorisation){ |response|
-      @id = JSON.parse(response.body.split(';',0)[1])['id'].to_s
+      @id = JSON.parse(response)['id'].to_s
     }
 
     # Get User 2 ID from the specified user
     RestClient.get(ENV['base_url'] + '/api/core/v3/search/people?origin=searchpage&filter=search(*)',:cookie => @authorisation){ |response|
-      @user_2_id = JSON.parse(response.body.split(';',0)[1])['list'][0]['id']
+      @user_2_id = JSON.parse(response)['list'][0]['id']
     }
 
     # Get connection stream ID (used by Inbox and Feeds)
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/' + @id + '/streams',:cookie => @authorisation){|response|
-      @stream_id = JSON.parse(response.body.split(';',0)[1])['list'][0]['id'].to_s
+      @stream_id = JSON.parse(response)['list'][0]['id'].to_s
     }
 
     # Get Space ID from the specified space
     RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(support)&filter=type(space)',:cookie => @authorisation){|response|
-      @space_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+      @space_id = JSON.parse(response)['list'][0]['id']
     }
 
     # Get Group ID from the specified group
-    RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=search(alerts-and-advisories)&filter=type(group)',:cookie => @authorisation){|response|
-      @group_id = JSON.parse(response.body.split('\';')[1])['list'][0]['id']
+    RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=type(group)',:cookie => @authorisation){|response|
+      @group_id = JSON.parse(response)['list'][0]['id']
+
+      @group_name = JSON.parse(response)['list'][0]['name']
     }
   end
 

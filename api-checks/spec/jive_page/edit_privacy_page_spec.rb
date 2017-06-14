@@ -42,7 +42,7 @@ describe 'Edit privacy page' do
     # Get User ID
     RestClient.get(ENV['base_url'] + '/api/core/v3/people/@me', :cookie => @authorisation){|response|
       assert_code_and_body(response, 200)
-      @user_id = JSON.parse(response.split(';',0)[1])['id']
+      @user_id = JSON.parse(response)['id']
     }
 
     # Get Privacy Profile for User (HTML response)
