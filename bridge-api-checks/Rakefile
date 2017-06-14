@@ -1,0 +1,6 @@
+require 'rubygems'
+require 'ci/reporter/rake/rspec'
+
+task :bridge_int => 'ci:setup:rspec' do
+  sh 'rspec spec --color'
+end

@@ -1,0 +1,22 @@
+require 'rspec'
+require 'nokogiri'
+require 'page-object'
+require 'require_all'
+require 'rest-client'
+require 'faker'
+require 'active_support/time'
+require 'pdf-reader'
+require 'open-uri'
+require 'net/http'
+require 'json'
+require 'cgi'
+require 'watir-webdriver-performance'
+require 'rotp'
+require File.dirname(__FILE__) + '/test_config'
+require File.dirname(__FILE__) + '/url_factory.rb'
+require File.dirname(__FILE__) + '/page_factory_override.rb'
+require_all File.dirname(__FILE__) + '/pages'
+require_all File.dirname(__FILE__) + '/../../lib/'
+
+World(PageObject::PageFactory)
+World(PageFactoryOverride)

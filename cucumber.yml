@@ -1,1 +1,0 @@
-standard: -c --format pretty --format html --out reporting/latest_run.html -f json --out reporting/latest_run.json -f junit --out reporting/junit -t ~@quarantine -t ~@manual
