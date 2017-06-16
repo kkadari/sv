@@ -24,6 +24,14 @@ RSpec.configure do |config|
     # Get User 2 ID from the specified user
     RestClient.get(ENV['base_url'] + '/api/core/v3/search/people?origin=searchpage&filter=search(*)',:cookie => @authorisation){ |response|
       @user_2_id = JSON.parse(response)['list'][0]['id']
+
+      if(@user_2_id == '1')
+        payload = PeoplePayload.new("testuser", "password123").payload
+
+        RestClient.post(ENV['base_url'] + '/api/core/v3/people', payload, {:cookie => @authorisation, :content_type => 'application/json'}){|response|
+          @user_2_id = JSON.parse(response)['id']
+        }
+      end
     }
 
     # Get connection stream ID (used by Inbox and Feeds)
@@ -40,7 +48,7 @@ RSpec.configure do |config|
     RestClient.get(ENV['base_url'] + '/api/core/v3/places?filter=type(group)',:cookie => @authorisation){|response|
       @group_id = JSON.parse(response)['list'][0]['id']
 
-      @group_name = JSON.parse(response)['list'][0]['name']
+      @group_name = JSON.parse(response)['list'][0]['displayName']
     }
   end
 
