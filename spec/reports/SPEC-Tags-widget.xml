@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Tags widget" tests="2" time="0.768606" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:23:08+01:00">
+  <testcase name="Tags widget should return a 200 when requesting a group of tags" time="0.061001">
+  </testcase>
+  <testcase name="Tags widget should return a 200 when searching for a specific tag" time="0.065943">
+  </testcase>
+  <system-out>
+Test time: 0.060656
+Test time: 0.065668
+  </system-out>
+</testsuite>

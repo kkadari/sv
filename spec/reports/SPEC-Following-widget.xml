@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Following widget" tests="2" time="0.712508" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:54+01:00">
+  <testcase name="Following widget should return a 200 when requesting the following widget" time="0.063689">
+  </testcase>
+  <testcase name="Following widget should return a 200 when requesting to unfollow a user in all feeds" time="0.059077">
+  </testcase>
+  <system-out>
+Test time: 0.06344
+Test time: 0.058783
+  </system-out>
+</testsuite>

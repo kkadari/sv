@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Bookmark page" tests="1" time="2.944301" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:20:09+01:00">
+  <testcase name="Bookmark page should return a 200 when requesting bookmark page" time="2.321861">
+  </testcase>
+  <system-out>
+Test time: 2.321675
+  </system-out>
+</testsuite>

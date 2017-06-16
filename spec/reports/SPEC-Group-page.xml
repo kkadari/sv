@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Group page" tests="1" time="3.176177" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:21:07+01:00">
+  <testcase name="Group page should return a 200 when requested" time="2.565585">
+  </testcase>
+  <system-out>
+Test time: 2.56541
+  </system-out>
+</testsuite>

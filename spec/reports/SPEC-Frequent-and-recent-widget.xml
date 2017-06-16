@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Frequent and recent widget" tests="3" time="2.471979" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:55+01:00">
+  <testcase name="Frequent and recent widget should return a 200 when requesting frequently viewed search details" time="0.287738">
+  </testcase>
+  <testcase name="Frequent and recent widget should return a 200 when requesting recently viewed search details" time="1.436625">
+  </testcase>
+  <testcase name="Frequent and recent widget should return a 200 when requesting details on all people" time="0.071823">
+  </testcase>
+  <system-out>
+Test time: 0.287551
+Test time: 1.436375
+Test time: 0.071479
+  </system-out>
+</testsuite>

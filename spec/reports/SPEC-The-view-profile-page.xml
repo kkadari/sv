@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="The view profile page" tests="4" time="4.514747" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:35+01:00">
+  <testcase name="The view profile page should return a 200 when the profile page is requested" time="1.758483">
+  </testcase>
+  <testcase name="The view profile page should return a 200 when the activity stream for a user is requested" time="0.15904">
+  </testcase>
+  <testcase name="The view profile page should return a 200 when requesting the users connections and its count" time="0.111489">
+  </testcase>
+  <testcase name="The view profile page should return a 200 when requesting the .vcf card for a profile" time="1.645083">
+  </testcase>
+  <system-out>
+Test time: 1.758157
+Test time: 0.158749
+Test time: 0.111245
+Test time: 1.64481
+  </system-out>
+</testsuite>

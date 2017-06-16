@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Item view toggle widget" tests="2" time="1.590072" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:58+01:00">
+  <testcase name="Item view toggle widget should return a 200 when a view toggle is requested" time="0.061599">
+  </testcase>
+  <testcase name="Item view toggle widget should return a 200 when requesting one of the filtered views of places" time="0.916132">
+  </testcase>
+  <system-out>
+Test time: 0.061198
+Test time: 0.915744
+  </system-out>
+</testsuite>

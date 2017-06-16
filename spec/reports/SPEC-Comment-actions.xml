@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Comment actions" tests="1" time="1.049945" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:48+01:00">
+  <testcase name="Comment actions should return a 200 when requesting all the comments for a piece of content" time="0.413358">
+  </testcase>
+  <system-out>
+Test time: 0.413116
+  </system-out>
+</testsuite>

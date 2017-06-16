@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="View discussion page" tests="9" time="13.930144" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:05+01:00">
+  <testcase name="View discussion page should return a 200 when requested" time="2.807007">
+  </testcase>
+  <testcase name="View discussion page should return a 200 when requesting the PDF of the discussion" time="0.584434">
+  </testcase>
+  <testcase name="View discussion page should return a 200 when requesting a specific message in the discussion" time="2.683977">
+  </testcase>
+  <testcase name="View discussion page should return a 200 when requesting inline comments for a discussion" time="0.388848">
+  </testcase>
+  <testcase name="View discussion page should return a 200 when requesting the report abuse popup" time="0.170173">
+  </testcase>
+  <testcase name="View discussion page should return a 200 when reporting abuse" time="0.173818">
+  </testcase>
+  <testcase name="View discussion page should return a 200 when requesting the lock popup" time="0.156592">
+  </testcase>
+  <testcase name="View discussion page should return a 302 when locking the discussion" time="0.41725">
+  </testcase>
+  <testcase name="View discussion page should return a 302 when unlocking the discussion" time="2.457126">
+  </testcase>
+  <system-out>
+Test time: 2.806411
+Test time: 0.583932
+Test time: 2.683474
+Test time: 0.388167
+Test time: 0.169786
+Test time: 0.173534
+Test time: 0.156152
+Test time: 0.416938
+Test time: 2.456477
+  </system-out>
+</testsuite>

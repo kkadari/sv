@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Add ons page" tests="1" time="3.728169" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:20:06+01:00">
+  <testcase name="Add ons page should return a 200 when requested" time="2.625668">
+  </testcase>
+  <system-out>
+Test time: 2.625508
+  </system-out>
+</testsuite>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Document page" tests="3" time="8.934329" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:19+01:00">
+  <testcase name="Document page should return a 200 when requesting the page" time="3.330252">
+  </testcase>
+  <testcase name="Document page should return a 200 when requesting the version page" time="1.860886">
+  </testcase>
+  <testcase name="Document page should return a 200 when requesting a specific version of the document" time="2.79331">
+  </testcase>
+  <system-out>
+Test time: 3.329712
+Test time: 1.860407
+Test time: 2.792952
+  </system-out>
+  <system-err>
+warning: Overriding "Content-Type" header "application/json" with "multipart/form-data; boundary=----RubyFormBoundary1G41DpjpQNtDO7qo" due to payload
+  </system-err>
+</testsuite>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Sub Space content" tests="1" time="2.392353" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:21:47+01:00">
+  <testcase name="Sub Space content should return a 200 when requested" time="1.794007">
+  </testcase>
+  <system-out>
+Test time: 1.793836
+  </system-out>
+</testsuite>

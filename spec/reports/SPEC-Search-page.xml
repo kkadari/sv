@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Search page" tests="3" time="1.278619" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:21:36+01:00">
+  <testcase name="Search page should return a 200 when searching for content" time="0.494908">
+  </testcase>
+  <testcase name="Search page should return a 200 when searching for people" time="0.109257">
+  </testcase>
+  <testcase name="Search page should return a 200 when searching for places" time="0.07014">
+  </testcase>
+  <system-out>
+Test time: 0.494718
+Test time: 0.109002
+Test time: 0.069829
+  </system-out>
+</testsuite>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Like widget" tests="1" time="0.896361" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:59+01:00">
+  <testcase name="Like widget should return a 200 when requesting the like list of a piece of content" time="0.058576">
+  </testcase>
+  <system-out>
+Test time: 0.058217
+  </system-out>
+</testsuite>

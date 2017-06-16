@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Edit privacy page" tests="3" time="8.361163" failures="0" errors="1" skipped="0" timestamp="2017-06-16T13:20:49+01:00">
+  <testcase name="Edit privacy page should return a 200 when the page is requested" time="1.952388">
+  </testcase>
+  <testcase name="Edit privacy page should return a 200 when requesting profile preview" time="1.817028">
+  </testcase>
+  <testcase name="Edit privacy page should return a 200 when posting an update to privacy" time="3.92302">
+    <error type="RuntimeError" message="Failed with 500">
+Failed with 500 (RuntimeError)
+RuntimeError:
+Failed with 500
+./spec/spec_helper.rb:57:in `assert_code_and_body'
+./spec/jive_page/edit_privacy_page_spec.rb:67:in `block (3 levels) in &lt;top (required)&gt;'
+/Users/markw/.rvm/gems/ruby-2.3.3/gems/rest-client-2.0.1/lib/restclient/request.rb:807:in `process_result'
+/Users/markw/.rvm/gems/ruby-2.3.3/gems/rest-client-2.0.1/lib/restclient/request.rb:725:in `block in transmit'
+/Users/markw/.rvm/gems/ruby-2.3.3/gems/rest-client-2.0.1/lib/restclient/request.rb:715:in `transmit'
+/Users/markw/.rvm/gems/ruby-2.3.3/gems/rest-client-2.0.1/lib/restclient/request.rb:145:in `execute'
+/Users/markw/.rvm/gems/ruby-2.3.3/gems/rest-client-2.0.1/lib/restclient/request.rb:52:in `execute'
+/Users/markw/.rvm/gems/ruby-2.3.3/gems/rest-client-2.0.1/lib/restclient.rb:71:in `post'
+./spec/jive_page/edit_privacy_page_spec.rb:66:in `block (2 levels) in &lt;top (required)&gt;'    </error>
+  </testcase>
+  <system-out>
+Test time: 1.952213
+Test time: 1.816871
+Test time: 3.922787
+  </system-out>
+</testsuite>

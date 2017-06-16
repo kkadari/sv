@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="User search widget" tests="4" time="1.290505" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:23:11+01:00">
+  <testcase name="User search widget should return a 200 when searching for users" time="0.070696">
+  </testcase>
+  <testcase name="User search widget should return a 200 when requesting the user search widget" time="0.464892">
+  </testcase>
+  <testcase name="User search widget should return a 200 when retrieving details about a specific user" time="0.051865">
+  </testcase>
+  <testcase name="User search widget should return a 200 when searching for specific users for person" time="0.057802">
+  </testcase>
+  <system-out>
+Test time: 0.070268
+Test time: 0.464544
+Test time: 0.051545
+Test time: 0.057451
+  </system-out>
+</testsuite>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Activity page" tests="4" time="5.881736" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:20:00+01:00">
+  <testcase name="Activity page should return a 200 when requesting the activity page" time="2.591632">
+  </testcase>
+  <testcase name="Activity page should return a 200 when requesting the recommendations enable" time="0.047263">
+  </testcase>
+  <testcase name="Activity page should return a 200 when switching to a new feed" time="2.167081">
+  </testcase>
+  <testcase name="Activity page should return a 200 when requesting the main feed" time="0.392064">
+  </testcase>
+  <system-out>
+Test time: 2.591445
+Test time: 0.047038
+Test time: 2.166438
+Test time: 0.391626
+  </system-out>
+</testsuite>

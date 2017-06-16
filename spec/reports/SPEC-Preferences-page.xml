@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Preferences page" tests="3" time="5.163102" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:21:23+01:00">
+  <testcase name="Preferences page should return a 200 when requested" time="2.735872">
+  </testcase>
+  <testcase name="Preferences page should return a 200 when requesting the hidden activity rules" time="0.052531">
+  </testcase>
+  <testcase name="Preferences page should return a 304 when posting changes to your preferences" time="1.785783">
+  </testcase>
+  <system-out>
+Test time: 2.735718
+Test time: 0.052356
+Test time: 1.785594
+  </system-out>
+</testsuite>

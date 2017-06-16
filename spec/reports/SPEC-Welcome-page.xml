@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Welcome page" tests="6" time="5.430314" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:40+01:00">
+  <testcase name="Welcome page should return a 200 status code when requested" time="2.710154">
+  </testcase>
+  <testcase name="Welcome page should return a 200 when getting the count for the activity stream" time="0.057563">
+  </testcase>
+  <testcase name="Welcome page should return a 200 when calling the container security token" time="0.067586">
+  </testcase>
+  <testcase name="Welcome page should return a 200 when getting additional browser events" time="0.072776">
+  </testcase>
+  <testcase name="Welcome page should return a 200 when requesting the different options for the whats happening service" time="1.87334">
+  </testcase>
+  <testcase name="Welcome page should return a 200 when calling the create menu widget" time="0.055784">
+  </testcase>
+  <system-out>
+Test time: 2.709941
+Test time: 0.057255
+Test time: 0.067221
+Test time: 0.072482
+Test time: 1.873098
+Test time: 0.055573
+  </system-out>
+</testsuite>

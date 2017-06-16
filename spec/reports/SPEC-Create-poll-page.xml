@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Create poll page" tests="3" time="5.920926" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:20:43+01:00">
+  <testcase name="Create poll page should return a 200 when requesting the create poll page" time="1.765524">
+  </testcase>
+  <testcase name="Create poll page should return a 200 when requesting a new poll choice" time="1.727552">
+  </testcase>
+  <testcase name="Create poll page should return a 200 when creating a poll" time="1.795782">
+  </testcase>
+  <system-out>
+Test time: 1.765335
+Test time: 1.727307
+Test time: 1.795596
+  </system-out>
+</testsuite>

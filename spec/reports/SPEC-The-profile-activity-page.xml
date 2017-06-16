@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="The profile activity page" tests="4" time="5.228285" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:21:28+01:00">
+  <testcase name="The profile activity page should return a 200 when requesting the profile activity" time="2.171302">
+  </testcase>
+  <testcase name="The profile activity page should return a 200 when requesting similar users" time="0.270923">
+  </testcase>
+  <testcase name="The profile activity page should return a 200 when requesting most liked" time="0.245586">
+  </testcase>
+  <testcase name="The profile activity page should return a 200 when requesting details on a poll" time="0.085372">
+  </testcase>
+  <system-out>
+Test time: 2.171152
+Test time: 0.270757
+Test time: 0.245426
+Test time: 0.085112
+  </system-out>
+</testsuite>

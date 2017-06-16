@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Draft widget" tests="4" time="1.13201" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:52+01:00">
+  <testcase name="Draft widget should return a 200 when saving a draft on an item" time="0.157639">
+  </testcase>
+  <testcase name="Draft widget should return a 200 when requesting drafts" time="0.067509">
+  </testcase>
+  <testcase name="Draft widget should return a 204 when requesting all draft instances" time="0.097754">
+  </testcase>
+  <testcase name="Draft widget should return a 204 when requesting a draft to delete" time="0.207871">
+  </testcase>
+  <system-out>
+Test time: 0.15708
+Test time: 0.0673
+Test time: 0.097456
+Test time: 0.20759
+  </system-out>
+</testsuite>

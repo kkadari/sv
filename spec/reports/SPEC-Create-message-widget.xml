@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Create message widget" tests="2" time="0.928583" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:23:00+01:00">
+  <testcase name="Create message widget should return 200 when requesting the create message widget" time="0.050341">
+  </testcase>
+  <testcase name="Create message widget should return 200 when posting a new message to a user" time="0.213243">
+  </testcase>
+  <system-out>
+Test time: 0.049854
+Test time: 0.212899
+  </system-out>
+</testsuite>

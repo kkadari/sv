@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Creating content" tests="8" time="9.82757" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:20:12+01:00">
+  <testcase name="Creating content should return a 200 when creating a discussion" time="1.520176">
+  </testcase>
+  <testcase name="Creating content should return a 200 when creating a blog post" time="0.159254">
+  </testcase>
+  <testcase name="Creating content should return a 200 when creating an incident report" time="0.189126">
+  </testcase>
+  <testcase name="Creating content should return a 200 when creating a document" time="0.316675">
+  </testcase>
+  <testcase name="Creating content should return a 200 when requesting the create discussion page" time="1.917841">
+  </testcase>
+  <testcase name="Creating content should return a 200 when requesting the create blog post page" time="1.733898">
+  </testcase>
+  <testcase name="Creating content should return a 200 when requesting the create incident report page" time="1.961118">
+  </testcase>
+  <testcase name="Creating content should return a 200 when requesting the create document page" time="1.416905">
+  </testcase>
+  <system-out>
+Test time: 1.520027
+Test time: 0.159114
+Test time: 0.188947
+Test time: 0.316501
+Test time: 1.917676
+Test time: 1.733705
+Test time: 1.960885
+Test time: 1.416731
+  </system-out>
+  <system-err>
+warning: Overriding "Content-Type" header "application/json" with "multipart/form-data; boundary=----RubyFormBoundaryJNnnldY9CLrP93bE" due to payload
+  </system-err>
+</testsuite>

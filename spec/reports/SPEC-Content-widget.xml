@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Content widget" tests="1" time="2.899333" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:49+01:00">
+  <testcase name="Content widget should return a 200 when requesting one of the filtered views of content" time="2.219103">
+  </testcase>
+  <system-out>
+Test time: 2.218641
+  </system-out>
+</testsuite>

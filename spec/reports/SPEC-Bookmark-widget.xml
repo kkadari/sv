@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Bookmark widget" tests="6" time="1.900197" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:46+01:00">
+  <testcase name="Bookmark widget should return a 200 when bookmarking a piece of content" time="0.150934">
+  </testcase>
+  <testcase name="Bookmark widget should return a 200 when requesting the edit bookmark popup" time="0.248694">
+  </testcase>
+  <testcase name="Bookmark widget should return a 200 when posting an edit to a bookmark" time="0.275326">
+  </testcase>
+  <testcase name="Bookmark widget should return a 200 when requesting all bookmarks" time="0.233608">
+  </testcase>
+  <testcase name="Bookmark widget should return a 200 when requesting a specific bookmark" time="0.071416">
+  </testcase>
+  <testcase name="Bookmark widget should return a 200 when deleting a specific bookmark" time="0.159735">
+  </testcase>
+  <system-out>
+Test time: 0.150586
+Test time: 0.248273
+Test time: 0.274801
+Test time: 0.233408
+Test time: 0.071045
+Test time: 0.159496
+  </system-out>
+</testsuite>

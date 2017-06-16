@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="User connections widget" tests="1" time="0.660366" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:53+01:00">
+  <testcase name="User connections widget should return a 200 when requesting a list of followers for a user" time="0.067627">
+  </testcase>
+  <system-out>
+Test time: 0.067376
+  </system-out>
+</testsuite>
