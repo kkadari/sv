@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Incident report" tests="1" time="2.57172" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:28+01:00">
-  <testcase name="Incident report should return a 200 when requesting an incident report" time="1.781171">
-  </testcase>
-  <system-out>
-Test time: 1.780839
-  </system-out>
-</testsuite>

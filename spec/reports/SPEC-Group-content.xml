@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Group content" tests="1" time="3.174235" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:21:04+01:00">
-  <testcase name="Group content should return a 200 when requested" time="2.568234">
-  </testcase>
-  <system-out>
-Test time: 2.567969
-  </system-out>
-</testsuite>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Space content" tests="1" time="2.405205" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:21:38+01:00">
-  <testcase name="Space content should return a 200 when requested" time="1.816927">
-  </testcase>
-  <system-out>
-Test time: 1.816602
-  </system-out>
-</testsuite>

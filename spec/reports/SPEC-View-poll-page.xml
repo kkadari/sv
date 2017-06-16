@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="View poll page" tests="1" time="4.652607" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:31+01:00">
-  <testcase name="View poll page should return a 200 when viewing a poll" time="3.99662">
-  </testcase>
-  <system-out>
-Test time: 3.996196
-  </system-out>
-</testsuite>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="More like this widget" tests="1" time="0.872807" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:23:01+01:00">
-  <testcase name="More like this widget should return a 200 when requesting the more like this details" time="0.055532">
-  </testcase>
-  <system-out>
-Test time: 0.055133
-  </system-out>
-</testsuite>

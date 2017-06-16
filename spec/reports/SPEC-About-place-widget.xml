@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="About place widget" tests="1" time="0.900641" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:45+01:00">
-  <testcase name="About place widget should return a 200 when details about the place are requested" time="0.286847">
-  </testcase>
-  <system-out>
-Test time: 0.286664
-  </system-out>
-</testsuite>

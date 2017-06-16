@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="View blog page" tests="1" time="4.795014" failures="0" errors="0" skipped="0" timestamp="2017-06-16T13:22:01+01:00">
-  <testcase name="View blog page should return a 200 when requesting to view a blog" time="4.146173">
-  </testcase>
-  <system-out>
-Test time: 4.145984
-  </system-out>
-</testsuite>
