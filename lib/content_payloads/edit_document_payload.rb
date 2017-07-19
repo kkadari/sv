@@ -11,6 +11,7 @@ class EditDocumentPayload < Payload
       :mobileEditor => false,
       :cancelURL => '/docs/DOC-' + @doc_id,
       'jive.token.name' => 'jive.token.content.document.editUpload',
+      'jive.token.content.document.editUpload.69e9e414-c795-4c37-9249-f9191f76e014' => '1500460178179-11YSY0ZRN5SCH1CD5XIP4QRGH1ZYKF4Y',
       :documentID => @doc_id.gsub('DOC-',''),
       :subject => @subject,
       :body => '<body><p>body content here</p></body>',

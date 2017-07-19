@@ -9,6 +9,11 @@ require_all File.dirname(__FILE__) + '/../lib/'
 
 RSpec.configure do |config|
 
+  if ENV['security'] == 'true'
+    puts 'USING PROXY'
+    RestClient.proxy = 'http://localhost:8081/'
+  end
+
   config.formatter = :documentation
   config.color = true
   config.tty = true
@@ -61,8 +66,16 @@ RSpec.configure do |config|
   end
 
   def assert_code_and_body(response, status_code)
-    fail('Error detected in response body') if response.body.include?('The item does not exist. It may have been deleted.') || response.body.include?(' An unexpected error has occurred') || response.body.include?('The request could not be validated as originating from within the SBS application')
-    fail('Failed with ' + response.code.to_s) if response.code != status_code
+    if response.body.include?('The item does not exist. It may have been deleted.') || response.body.include?(' An unexpected error has occurred') || response.body.include?('The request could not be validated as originating from within the SBS application')
+      puts response.body
+
+      fail('Error detected in response body')
+    end
+
+    # fail('Error detected in response body') if response.body.include?('The item does not exist. It may have been deleted.') || response.body.include?(' An unexpected error has occurred') || response.body.include?('The request could not be validated as originating from within the SBS application')
+    if response.code != status_code
+      fail('Failed with ' + response.code.to_s)
+    end
   end
 
 end

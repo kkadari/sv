@@ -23,18 +23,34 @@ class PollPayload < Payload
     end
 
     '{
-      "pollID": "' + @poll_id + '",
-      "voteCount": "0",
-      "subject": "' + @subject + '",
-      "body": "<body><p>' + @body + '</p></body>",
-      "options": [' + @options[0...-1] + '
-      ],
-      "handlingLevel": "' + set_ihm_level(@handling_level) + '",
-      "publishBar":' + set_publish_bar(@publication) + ',
-      "activeMode": "activenow",
-      "endsMode": "endsnever",
-      "endsDays": "14",
-      "jiveTokenName": "jive.token.content.poll.create"
+    	"mobileEditor": "false",
+    	"cancelURL": "/welcome",
+    	"jive": {
+    		"token": {
+    			"name": "jive.token.content.poll.create.03a39720-4a9f-48ac-be1a-e8881e110469",
+    			"content": {
+    				"poll": {
+    					"create": {
+    						"03a39720-4a9f-48ac-be1a-e8881e110469": "1500459139825-BBI2MJLCNRSQYVLVM7BTNJNX925WTY2S"
+    					}
+    				}
+    			}
+    		}
+    	},
+    	"pollID": "' + @poll_id + '",
+    	"voteCount": "0",
+    	"subject": "' + @subject + '",
+    	"body": "<body><p>' + @body + '</p></body>",
+    	"options": [' + @options[0...-1] + '],
+    	"handlingLevel": "' + set_ihm_level(@handling_level) + '",
+    	"publishBar": ' + set_publish_bar(@publication) + ',
+    	"moveNotifyStreams": false,
+    	"activeMode": "activenow",
+    	"endsMode": "endsnever",
+    	"endsDays": "14",
+    	"draft": "false",
+    	"draftID": "1013",
+    	"jiveTokenName": "jive.token.content.poll.create.03a39720-4a9f-48ac-be1a-e8881e110469"
     }'
   end
 

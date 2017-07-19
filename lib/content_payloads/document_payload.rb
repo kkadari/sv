@@ -10,13 +10,20 @@ class DocumentPayload < Payload
 
   def payload
     payload = {
-        :subject => @subject,
-        :body => '<body><p>' + @body + '</p></body>',
-        :handlingLevel => @handling_level,
-        'publishBar.defaultAuthorshipPolicy' => '2',
-        'publishBar.commentStatus' => '2',
-        :uploadFile => @upload_file,
-        :multipart  => true
+      :mobileEditor => false,
+      :cancelURL => '/welcome',
+      'jive.token.name' => 'jive.token.content.document.upload.2abd1459-28bf-4c59-a369-6706c71bb1ea',
+      'jive.token.content.document.upload.2abd1459-28bf-4c59-a369-6706c71bb1ea' => '1500459677005-Q1E78QP4X01TLEHFHWQF7VGHVN3IJ0YS',
+      :subject => @subject,
+      :body => '<body><p>' + @body + '</p></body>',
+      'publishBar.defaultAuthorshipPolicy' => '2',
+      :draft => false,
+      :jiveTokenName => 'jive.token.content.document.upload.2abd1459-28bf-4c59-a369-6706c71bb1ea',
+      :handlingLevel => @handling_level,
+      'publishBar.authorPolicy' => '2',
+      'publishBar.commentStatus' => '2',
+      :uploadFile => @upload_file,
+      :multipart  => true
     }
 
     case @visibility[:location]
