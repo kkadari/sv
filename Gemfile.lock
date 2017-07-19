@@ -113,6 +113,3 @@ DEPENDENCIES
   sinatra
   syntax
   tzinfo
-
-BUNDLED WITH
-   1.14.6
