@@ -37,6 +37,7 @@ describe 'Edit privacy page' do
     }
   end
 
+=begin
   it 'should return a 200 when posting an update to privacy' do
 
     # Get User ID
@@ -68,5 +69,6 @@ describe 'Edit privacy page' do
     }
 
   end
+=end
 
 end
