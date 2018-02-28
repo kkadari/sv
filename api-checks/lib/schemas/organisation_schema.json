@@ -1,0 +1,79 @@
+{
+  "$id": "http://localhost:8080",
+  "type": "object",
+  "properties": {
+    "id": {
+      "$id": "/properties/id",
+      "type": "string",
+      "title": "The Id Schema ",
+      "default": "",
+      "examples": [
+        "1"
+      ]
+    },
+    "resources": {
+      "$id": "/properties/resources",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "$id": "/properties/resources/properties/avatar",
+          "type": "object",
+          "properties": {
+            "allowed": {
+              "$id": "/properties/resources/properties/avatar/properties/allowed",
+              "type": "array",
+              "items": {
+                "$id": "/properties/resources/properties/avatar/properties/allowed/items",
+                "type": "string",
+                "title": "The 0th Schema ",
+                "default": "",
+                "examples": [
+                  "DELETE",
+                  "GET",
+                  "PUT"
+                ]
+              }
+            },
+            "ref": {
+              "$id": "/properties/resources/properties/avatar/properties/ref",
+              "type": "string",
+              "title": "The Ref Schema ",
+              "default": "",
+              "examples": [
+                "http://localhost:8080/api/core/v3/organisations/1/logo?a=1001"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "bio": {
+      "$id": "/properties/bio",
+      "type": "string",
+      "title": "The Bio Schema ",
+      "default": "",
+      "examples": [
+        "Sure Vine"
+      ]
+    },
+    "size": {
+      "$id": "/properties/size",
+      "type": "integer",
+      "title": "The Size Schema ",
+      "default": 0,
+      "examples": [
+        10
+      ]
+    },
+    "type": {
+      "$id": "/properties/type",
+      "type": "string",
+      "title": "The Type Schema ",
+      "default": "",
+      "examples": [
+        "organisation"
+      ]
+    }
+  },
+  "additionalProperties": false
+}
