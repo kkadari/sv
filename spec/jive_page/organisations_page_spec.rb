@@ -16,7 +16,7 @@ describe 'Organisations end point' do
     }
   end
  
-  it 'should return a id, bio, size, type and avatar(logo) when requesting the organisations end point' do
+  it 'should return a id, name, bio, size, type, telephone, email, name, website and avatar(logo) when requesting the organisations end point' do
     RestClient.get(ENV['base_url'] + '/api/core/v3/organisations/1',:cookie => @authorisation){|response|
       @data_hash = JSON.parse(response)
       #puts @data_hash
@@ -25,6 +25,10 @@ describe 'Organisations end point' do
       fail('response does not have bio') if (!@data_hash.has_key?('bio'))
       fail('response does not have size') if (!@data_hash.has_key?('size'))
       fail('response does not have type') if (!@data_hash.has_key?('type'))
+      fail('response does not have telephone') if (!@data_hash.has_key?('telephone'))
+      fail('response does not have email') if (!@data_hash.has_key?('email'))
+      fail('response does not have website') if (!@data_hash.has_key?('website'))
+      fail('response does not have name') if (!@data_hash.has_key?('name'))
       fail('response does not have resources') if (!@data_hash.has_key?('resources'))
       fail('response does not have avatar') if (!@data_hash['resources'].has_key?('avatar'))
       

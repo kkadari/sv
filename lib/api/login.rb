@@ -23,7 +23,7 @@ module Login
     # Do login here...
   end
 
-  ENV['base_url'] = 'http://localhost:8080'
+  ENV['base_url'] = 'http://dev188.sure.vine/'
 
   puts 'Environment:' + ENV['base_url']
 
